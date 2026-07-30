@@ -1,16 +1,24 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{2}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
 
-\bibitem[Nelder and Wedderburn(1972)]{Nelder_Wedderburn_1972}
-J.~A. Nelder and R.~W.~M. Wedderburn.
-\newblock Generalized linear models.
-\newblock \emph{Journal of the Royal Statistical Society. Series A (General)},
-  135\penalty0 (3):\penalty0 370--384, 1972.
-\newblock ISSN 00359238, 23972327.
-\newblock URL \url{http://www.jstor.org/stable/2344614}.
+\bibitem[Lee(2013)]{Lee_2013}
+John~M. Lee.
+\newblock \emph{Introduction to Smooth Manifolds}, volume 218 of \emph{Graduate
+  Texts in Mathematics}.
+\newblock Springer New York, second edition, 2013.
+\newblock ISBN 978-1-4419-9981-8.
+\newblock \doi{10.1007/978-1-4419-9982-5}.
+
+\bibitem[Lee(2018)]{Lee_2018}
+John~M. Lee.
+\newblock \emph{Introduction to Riemannian Manifolds}, volume 176 of
+  \emph{Graduate Texts in Mathematics}.
+\newblock Springer International Publishing, second edition, 2018.
+\newblock ISBN 978-3-319-91754-2.
+\newblock \doi{10.1007/978-3-319-91755-9}.
 
 \end{thebibliography}

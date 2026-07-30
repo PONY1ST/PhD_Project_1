@@ -119,14 +119,15 @@ Wen, Zehai}
 \newtheorem{theorem}{Théorème}
 
 \theoremstyle{definition}
-\newtheorem{definition}[theorem]{Définition} 
-\newtheorem{definitions}[theorem]{Définitions} 
-\newtheorem{example}[theorem]{Exemple}
-\newtheorem{examples}[theorem]{Exemples}
-\newtheorem{remark}[theorem]{Remarque}
-\newtheorem{remarks}[theorem]{Remarques}
-\newtheorem{lemma}[theorem]{Lemme}
-\newtheorem{corollary}[theorem]{Corollaire}
+\newtheorem{definition}[theorem]{Definition} 
+\newtheorem{definitions}[theorem]{Definitions} 
+\newtheorem{example}[theorem]{Example}
+\newtheorem{examples}[theorem]{Examples}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{remarks}[theorem]{Remarks}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -166,7 +167,12 @@ and $\sigma^2 \in (0, \infty)$.
 Given that the collection of all real $p \times q$ matrix with rank $q$
 is an open subset of the Euclidean space $\mathbb{R}^{pq}$,
 we consider $\Theta$ as an open subset of the Euclidean space $\mathbb{R}^{pq+1}$,
-hence a Riemannian manifold with the standard Euclidean metric.
+hence a Riemannian manifold with the standard Euclidean metric
+
+\begin{equation}\label{eq:euclidean_metric}
+  g_{(\bm{A},s)}^{\Theta}\bracket{(\bm{V},c), (\bm{U},b)} = \tr(\bm{V}\bm{U}^T) + cb,
+\end{equation}
+whenever $(\bm{A},s) \in \Theta$, $(\bm{V},c)$, $(\bm{U},b) \in T_{(\bm{A},s)}\Theta \cong \mathbb{R}^{p \times q} \times \mathbb{R}$.
 Next, we define $(\bm{A},s)$ and $(\bm{B}, t) \in \Theta$ 
 to be equivalent when they give the same density, namely when
 $\bm{A}\bm{A}^T + s\bm{I}_p = \bm{B}\bm{B}^T + t\bm{I}_p$,
@@ -177,17 +183,132 @@ Let us denote by $O(q)$ the collection of all $q \times q$ real orthogonal matri
 It is shown in Datta's thesis that 
 $[\bm{A},s] = \{(\bm{A}\bm{Q},s) \mid \bm{Q} \in O(q)\}$.
 Therefore, $M := \Theta / \sim$ can be identified as the orbits 
-of the right action of $O(q)$ on $\Theta$.
-Being a smooth, proper, and free action of Lie group on a Riemannian manifold,
-$M$ is naturally a Riemannian manifold 
+of the right action of $O(q)$ on $\Theta$
+and, given that this Lie group action is smooth, proper, and free,
+the quotient manifold theorem (see \cite{Lee_2013}, Theorem 21.10) shows that there is a unique smooth 
+structure making $M$ a manifold of dimension $pq+1-\frac{q(q-1)}{2}$ and $\pi: \Theta \to M$ 
+with $\pi((\bm{A},s)) = [\bm{A},s]$ is a smooth submersion.
+Moreover, this action is verticle, transitive on fibers 
+and is isomrtic with respect to \eqref{eq:euclidean_metric}.
+Thus, there exists a unique metric $g$ on $M$ making
+$(M,g)$ a Riemannian manifold and $\pi$ a Riemannian submersion
+(see \cite{Lee_2018}, Theorem 2.28), meaning that
 
-
-
-
-
+\begin{equation}\label{eq:g_def}
+  g_{(\bm{A},s)}^{\Theta}\bracket{(\bm{V},c), (\bm{U},b)}
+  = g_{[\bm{A},s]} \bracket{d\pi_{(A,s)}((\bm{V},c)), d\pi_{(A,s)}((\bm{U},b))},
+\end{equation}
+whenever $(\bm{A},s) \in \Theta$, $(\bm{V},c)$, $(\bm{U},b) \in T_{(\bm{A},s)}\Theta \cong \mathbb{R}^{p \times q} \times \mathbb{R}$.
 \section{Exponential Map and Logarithmic Map Computation}
-xxx
-\cite{Nelder_Wedderburn_1972}
+
+In this section, we carry out some basic computations on $(M,g)$.
+Working with Riemannian submersion, 
+we shall as usual start with computations regarding the horizontal and verticle 
+tangent spaces.
+We begin with a few technical details in the computation.
+
+\begin{proposition}
+Fix $(\bm{A},s) \in \Theta$. The verticle 
+tangent space
+$V_{(\bm{A},s)} := \ker(d\pi_{(\bm{A},s)})$
+equals to the collection of all tangent vectors 
+of the form $(\bm{A} \bm{\Omega}, 0) \in T_{(\bm{A},s)}\Theta$,
+with $\bm{\Omega}$ ranged over all $q \times q$ skew symmetric matrices.
+The horizontal tangent space $H_{(\bm{A},s)} := V_{(\bm{A},s)}^{\perp}$
+equals to the collection of all tangent vectors 
+of the form $(\bm{V}, c) \in T_{(\bm{A},s)}\Theta$
+ranged over all $c \in \mathbb{R}$ and all $q \times q$ matrices $\bm{V}$
+satisfying $\bm{V}^T \bm{A} = \bm{A}^T \bm{V}$.
+\end{proposition}
+
+\begin{proof}
+We start with computing the verticle tangent space.
+Define function $\Phi: \Theta \to \mathbb{R}^{p \times p}$ by 
+setting, for every $(\bm{A},s) \in \Theta$:
+
+\begin{equation}
+  \Phi((\bm{A},s)) = \bm{A}\bm{A}^T + s\bm{I}_p.
+\end{equation}
+
+We claim that 
+
+\begin{equation*}
+  \ker(d\pi_{(\bm{A},s)}) = \ker(d\Phi_{(\bm{A},s)}).
+\end{equation*}
+
+Before proving the claim, let us first study 
+$\ker(d\Phi_{(\bm{A},s)})$.
+For $(\bm{V}, c) \in T_{(\bm{A},s)}\Theta$, 
+define a curve $\gamma : (-\epsilon, \epsilon) \to \Theta$
+by setting $\gamma(t) = (\bm{A}+t\bm{V}, s + tc)$.
+Then:
+
+\begin{equation*}
+  d \Phi_{(\bm{A},s)} ((\bm{V}, c)) = \frac{d}{dt} \mid_{t = 0} \Phi(\gamma(t)) = \bm{A}\bm{V}^T + \bm{V} \bm{A}^T + 2sc\bm{I}_p.
+\end{equation*}
+If $(\bm{V}, c) \in \ker(d\Phi_{(\bm{A},s)})$, 
+then 
+
+\begin{equation}\label{eq:ker_Phi_equation}
+  \bm{A}\bm{V}^T + \bm{V} \bm{A}^T + 2sc\bm{I}_p = \bm{0}. 
+\end{equation}
+If $\bm{u} \in \mathbb{R}^p$ is any nonzero vector orthogonal to 
+all column vectors of $\bm{A}$, then $\bm{A}^T \bm{u} = \bm{0}$ and
+
+\begin{equation*}
+  0 = \bm{u}^T (\bm{A}\bm{V}^T + \bm{V} \bm{A}^T + 2sc\bm{I}_p) \bm{u}
+  = 2sc \bm{u}^T \bm{u}.
+\end{equation*}
+Given that $s > 0$, we must have $c = 0$
+and \eqref{eq:ker_Phi_equation} reduces to 
+
+\begin{equation*}
+  \bm{A}\bm{V}^T + \bm{V} \bm{A}^T = \bm{0}.
+\end{equation*}
+Apply $\bm{u}$ to the right to get:
+
+\begin{equation*}
+  \bm{A}\bm{V}^T\bm{u} = \bm{0}.
+\end{equation*}
+Given that $\bm{A}$ has full rank, 
+rank nullity theorem forces 
+\begin{equation*}
+  \bm{V}^T\bm{u} = \bm{0}.
+\end{equation*}
+
+
+
+
+
+
+
+
+
+
+
+To prove the claim,
+let us define 
+function $F: M \to \mathbb{R}^{p \times p}$
+by setting $F([\bm{A},s]) = \Phi((\bm{A},s))$,
+where $(\bm{A},s)$ is any representative in $[\bm{A},s]$.
+Clearly, $F$ satisfies
+$F \circ \pi = \Phi$ 
+and is hence a smooth injective function (here the smoothness of $F$ 
+is implied by 
+for example \cite{Lee_2013} Theorem 4.29).
+By the chain rule, we have 
+
+\begin{equation*}
+  d \Phi_{(\bm{A},s)} = d F_{[\bm{A},s]} \circ d \pi_{(\bm{A},s)}.
+\end{equation*}
+It follows immediately that 
+$\ker(d\Phi_{(\bm{A},s)}) \subseteq \ker(d\pi_{(\bm{A},s)})$.
+The other direction will follow if we can prove that 
+$d F_{[\bm{A},s]}$ is injective.
+To do so, suppose that $v \in T_{[\bm{A},s]}M$ is 
+such that $d F_{[\bm{A},s]} (v) = 0$.
+\end{proof}
+
 
 \bibliographystyle{plainnat}
 \def\bibname{References} % Nom obligatoire de la section des références.
