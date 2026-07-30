@@ -262,9 +262,9 @@ all column vectors of $\bm{A}$, then $\bm{A}^T \bm{u} = \bm{0}$ and
 Given that $s > 0$, we must have $c = 0$
 and \eqref{eq:ker_Phi_equation} reduces to 
 
-\begin{equation*}
+\begin{equation}\label{eq:ker_Phi_equation_reduced}
   \bm{A}\bm{V}^T + \bm{V} \bm{A}^T = \bm{0}.
-\end{equation*}
+\end{equation}
 Apply $\bm{u}$ to the right to get:
 
 \begin{equation*}
@@ -275,19 +275,31 @@ rank nullity theorem forces
 \begin{equation*}
   \bm{V}^T\bm{u} = \bm{0}.
 \end{equation*}
+Therefore, we have proven that every vector $\bm{u}$
+orthgonal to columns vectors of $\bm{A}$
+will also be orthgonal to column vectors of $\bm{V}$.
+This means $\bm{V}=\bm{A} \bm{\Omega}$ for some 
+$q \times q$ matrix $\bm{\Omega}$.
+Substitute this back to \eqref{eq:ker_Phi_equation_reduced}
+gives 
 
+\begin{equation*}
+  \bm{A}(\bm{\Omega}^T + \bm{\Omega})\bm{A}^T = \bm{0}.
+\end{equation*}
+Applying $(\bm{A}^T \bm{A})^{-1} \bm{A}^T$ 
+to the left and $\bm{A}(\bm{A}^T \bm{A})^{-1}$ to the right 
+yields $\bm{\Omega}^T + \bm{\Omega} = \bm{0}$.
+Therefore, $\bm{\Omega}$ is skew-symmetric.
+Conversely, \eqref{eq:ker_Phi_equation_reduced} 
+is satisfied by $\bm{V}=\bm{A} \bm{\Omega}$
+with any skew-symmetric matrix $\bm{\Omega}$.
+We have proven that $\ker(d\Phi_{(\bm{A},s)})$
+equals to the collection of all tangent vectors 
+of the form $(\bm{A} \bm{\Omega}, 0) \in T_{(\bm{A},s)}\Theta$,
+with $\bm{\Omega}$ ranged over all $q \times q$ skew symmetric matrices.
 
-
-
-
-
-
-
-
-
-
-To prove the claim,
-let us define 
+We now move back to prove the claim.
+Let us define 
 function $F: M \to \mathbb{R}^{p \times p}$
 by setting $F([\bm{A},s]) = \Phi((\bm{A},s))$,
 where $(\bm{A},s)$ is any representative in $[\bm{A},s]$.
@@ -298,16 +310,64 @@ is implied by
 for example \cite{Lee_2013} Theorem 4.29).
 By the chain rule, we have 
 
-\begin{equation*}
+\begin{equation} \label{eq:differential_Phi}
   d \Phi_{(\bm{A},s)} = d F_{[\bm{A},s]} \circ d \pi_{(\bm{A},s)}.
-\end{equation*}
+\end{equation}
 It follows immediately that 
 $\ker(d\Phi_{(\bm{A},s)}) \subseteq \ker(d\pi_{(\bm{A},s)})$.
 The other direction will follow if we can prove that 
 $d F_{[\bm{A},s]}$ is injective.
 To do so, suppose that $v \in T_{[\bm{A},s]}M$ is 
 such that $d F_{[\bm{A},s]} (v) = 0$.
+Let $(\bm{V},c) \in T_{(\bm{A},s)}\Theta$ be the horizontal lift of $v$,
+meaning that $v = d \pi_{(\bm{A},s)}((\bm{V},c))$.
+\eqref{eq:differential_Phi} then implies that 
+$(\bm{V},c) \in \ker(d \Phi_{(\bm{A},s)})$
+and the proceeding discussion shows that 
+$c = 0$ and $\bm{V} = \bm{A} \bm{\Omega}$ 
+for some skew-symmetric $\bm{\Omega}$.
+To proceed, 
+we look at the 
+curve $\gamma: (-\epsilon, \epsilon) \to \Theta$
+defined by $\gamma(t) = (\bm{A}e^{t \bm{\Omega}}, s)$.
+Clearly $\gamma(0)=(\bm{A}, s)$ and $\gamma'(0) = (\bm{A} \bm{\Omega}, 0)$.
+Moreover, the matrix $e^{t \bm{\Omega}}$ is always orthogonal 
+for any $t$ and any skew-symmetric $\bm{\Omega}$ 
+so that $\pi(\gamma(t)) = [\bm{A},s]$ for all $t$.
+We have 
+
+\begin{equation*}
+  v =
+  d \pi_{(\bm{A},s)}((\bm{A} \bm{\Omega}, 0)) = 
+  d \pi_{(\bm{A},s)} (\gamma'(0)) = \frac{d}{dt} \mid_{t=0} \pi(\gamma(t)) = \bm{0} \in T_{[\bm{A},s]}M.
+\end{equation*}
+Therefore, $d F_{[\bm{A},s]}$ is injective and the claim is proved.
+The verticle tangent space is therefore the same as $\ker(d\Phi_{(\bm{A},s)})$.
+
+To compute the horizontal tangent space, any $(\bm{V}, c) \in V_{(\bm{A},s)}^{\perp}$ 
+will satisfy 
+
+\begin{equation}\label{eq:orthogonal_horizontal}
+  0 = g_{(\bm{A},s)} \bracket{(\bm{V}, c), (\bm{A} \bm{\Omega}, 0)} = \tr(\bm{A}^T \bm{V} \bm{\Omega})
+\end{equation}
+for all skew-symmetric $\bm{\Omega}$.
+Decomposing $\bm{A}^T \bm{V} = \bm{S} + \bm{K}$, 
+where $\bm{S}$ is the symmetric part and $\bm{K}$ is the skew-symmetric part,
+we find out that 
+
+\begin{equation*}
+  0 = \tr(\bm{S} \bm{\Omega}) + \tr(\bm{K} \bm{\Omega}) = 0 + \tr(\bm{K} \bm{\Omega}) = \tr(\bm{K} \bm{\Omega}).
+\end{equation*}
+Setting $\bm{\Omega} = \bm{K}^T$ will yield that $\bm{K} = \bm{0}$.
+Therefore, $\bm{A}^T \bm{V}$ is a symmetric matrix.
+Conversely, any $\bm{V}$ such that $\bm{A}^T \bm{V}$ is symmetric will satisfy 
+\eqref{eq:orthogonal_horizontal}. 
+The proof is complete.
 \end{proof}
+
+\begin{proposition}
+For every $[\bm{A},s] \in M$ and every $v \in T_{[\bm{A},s]}M$
+\end{proposition}
 
 
 \bibliographystyle{plainnat}
