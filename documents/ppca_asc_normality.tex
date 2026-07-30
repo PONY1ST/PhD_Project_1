@@ -11,7 +11,7 @@
 \usepackage{hyperref} %necessay for maketitle to work
 \usepackage{datetime2} %for the dtmnow command
 
-\title{Asymptotic Statistics}
+\title{Casual Document for Probabilistic Principal Component Analysis MLE Asymptotic Normality}
 \author{Wen, Zehai}
 \date{\DTMnow}
 
@@ -21,8 +21,7 @@
 \pagestyle{fancy}
 \fancyhf{}
 \lhead{
-Wen, Zehai $\tab[0.3cm]$ 260956530 $\tab[0.3cm]$
-MATH 782 Asymptotic Statistics}
+Wen, Zehai}
 \rhead{\today}
 
 \rfoot{}
@@ -105,6 +104,7 @@ MATH 782 Asymptotic Statistics}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{physics} %for vector symbol
+\usepackage{bm} %for bm
 
 %Commands :
 \DeclareMathOperator*{\argmax}{arg\,max}
@@ -137,9 +137,55 @@ MATH 782 Asymptotic Statistics}
 \setcounter{tocdepth}{0}
 %\tableofcontents
 
-\chapter{Probabilistic Principal Component Analysis Asymptotic Normality }
+\chapter{Basic Setup}
 
-\section{some section}
+Given a "high dimensional" data set $\{\bm{x}_i\}_{i=1}^n$
+where $\bm{x}_i \in \mathbb{R}^p$ for all $i = 1, \ldots, n$,
+the statistician fixes a positive integer $q < p$ 
+and wishes to find the $q$ principal components.
+Assuming that the data is centred (that is, with mean $\bm{0}$),
+the probabilistic principal component analysis model
+is a statistical model that
+treats $\bm{x}_i$'s as realizations 
+of independent random variables $\bm{X}_i = \bm{W}\bm{Z}_i + \bm{\epsilon_i}$,
+where $\bm{W}$ is an unknown $p \times q$ loading matrix, 
+$\bm{Z}_i \sim N_q\bracket{\bm{0}, \bm{I}_q}$ is the latent normal variable,
+and $\bm{\epsilon_i} \sim N_p\bracket{\bm{0}, \sigma^2\bm{I}_q}$
+is the Gaussian noise with unknown standard deviation $\sigma > 0$,
+and $(\bm{Z}_1, \ldots, \bm{Z}_n, \bm{\epsilon}_1, \ldots, \bm{\epsilon}_n)$
+are all independent (for now). 
+Put $\theta = (\bm{W}_{\theta}, \sigma_{\theta}^2)$ for the unknown 
+parameter to estimate and $p(\bm{x}; \theta)$ 
+for the density of $\bm{X}_1$, namely the density of 
+$N_p\bracket{\bm{0}, \bm{W}_{\theta}\bm{W}_{\theta}^T + \sigma_{\theta}^2\bm{I}_q}$.
+
+We now setup the quotient space structure.
+Write $\Theta$ for the collection of all tuples $(\bm{W}, \sigma^2)$
+such that $\bm{W}$ is a real $p \times q$ matrix with $\text{rank}(\bm{W}) = q$
+and $\sigma^2 \in (0, \infty)$.
+Given that the collection of all real $p \times q$ matrix with rank $q$
+is an open subset of the Euclidean space $\mathbb{R}^{pq}$,
+we consider $\Theta$ as an open subset of the Euclidean space $\mathbb{R}^{pq+1}$,
+hence a Riemannian manifold with the standard Euclidean metric.
+Next, we define $(\bm{A},s)$ and $(\bm{B}, t) \in \Theta$ 
+to be equivalent when they give the same density, namely when
+$\bm{A}\bm{A}^T + s\bm{I}_p = \bm{B}\bm{B}^T + t\bm{I}_p$,
+and write $(\bm{A},s) \sim (\bm{B}, t)$.
+The equivalence classes are denoted by $[(\bm{A},s)]$
+or more briefly $[\bm{A},s]$. 
+Let us denote by $O(q)$ the collection of all $q \times q$ real orthogonal matrices.
+It is shown in Datta's thesis that 
+$[\bm{A},s] = \{(\bm{A}\bm{Q},s) \mid \bm{Q} \in O(q)\}$.
+Therefore, $M := \Theta / \sim$ can be identified as the orbits 
+of the right action of $O(q)$ on $\Theta$.
+Being a smooth, proper, and free action of Lie group on a Riemannian manifold,
+$M$ is naturally a Riemannian manifold 
+
+
+
+
+
+\section{Exponential Map and Logarithmic Map Computation}
 xxx
 \cite{Nelder_Wedderburn_1972}
 
