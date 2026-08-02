@@ -1,4 +1,4 @@
-\begin{thebibliography}{2}
+\begin{thebibliography}{4}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -20,5 +20,16 @@ John~M. Lee.
 \newblock Springer International Publishing, second edition, 2018.
 \newblock ISBN 978-3-319-91754-2.
 \newblock \doi{10.1007/978-3-319-91755-9}.
+
+\bibitem[O'Neill(1967)]{O_neill_1967}
+Barrett O'Neill.
+\newblock Submersions and geodesics.
+\newblock \emph{Duke Math. J.}, 34:\penalty0 363--373, 1967.
+
+\bibitem[Valencia(2021)]{Valencia_2021}
+Fabricio Valencia.
+\newblock Riemannian submersions.
+\newblock Unpublished notes, Instituto de Matem{\'a}tica e Estat{\'i}stica,
+  Universidade de S{\~a}o Paulo, July 2021.
 
 \end{thebibliography}

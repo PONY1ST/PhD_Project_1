@@ -138,7 +138,9 @@ Wen, Zehai}
 \setcounter{tocdepth}{0}
 %\tableofcontents
 
-\chapter{Basic Setup}
+\chapter{Low Dimensional Asymptotic Normality}
+
+\section{Basic Setup}
 
 Given a "high dimensional" data set $\{\bm{x}_i\}_{i=1}^n$
 where $\bm{x}_i \in \mathbb{R}^p$ for all $i = 1, \ldots, n$,
@@ -182,6 +184,8 @@ or more briefly $[\bm{A},s]$.
 Let us denote by $O(q)$ the collection of all $q \times q$ real orthogonal matrices.
 It is shown in Datta's thesis that 
 $[\bm{A},s] = \{(\bm{A}\bm{Q},s) \mid \bm{Q} \in O(q)\}$.
+Unless otherwise mentioned, $(\bm{A},s) \in \Theta$ is the default representative 
+we pick when we write an equivalence class as $[\bm{A},s]$.
 Therefore, $M := \Theta / \sim$ can be identified as the orbits 
 of the right action of $O(q)$ on $\Theta$
 and, given that this Lie group action is smooth, proper, and free,
@@ -207,7 +211,7 @@ we shall as usual start with computations regarding the horizontal and verticle
 tangent spaces.
 We begin with a few technical details in the computation.
 
-\begin{proposition}
+\begin{proposition}\label{thm:horizontal_verticle}
 Fix $(\bm{A},s) \in \Theta$. The verticle 
 tangent space
 $V_{(\bm{A},s)} := \ker(d\pi_{(\bm{A},s)})$
@@ -301,8 +305,7 @@ with $\bm{\Omega}$ ranged over all $q \times q$ skew symmetric matrices.
 We now move back to prove the claim.
 Let us define 
 function $F: M \to \mathbb{R}^{p \times p}$
-by setting $F([\bm{A},s]) = \Phi((\bm{A},s))$,
-where $(\bm{A},s)$ is any representative in $[\bm{A},s]$.
+by setting $F([\bm{A},s]) = \Phi((\bm{A},s))$.
 Clearly, $F$ satisfies
 $F \circ \pi = \Phi$ 
 and is hence a smooth injective function (here the smoothness of $F$ 
@@ -319,8 +322,10 @@ The other direction will follow if we can prove that
 $d F_{[\bm{A},s]}$ is injective.
 To do so, suppose that $v \in T_{[\bm{A},s]}M$ is 
 such that $d F_{[\bm{A},s]} (v) = 0$.
-Let $(\bm{V},c) \in T_{(\bm{A},s)}\Theta$ be the horizontal lift of $v$,
-meaning that $v = d \pi_{(\bm{A},s)}((\bm{V},c))$.
+Let $(\bm{V},c) \in T_{(\bm{A},s)}\Theta$ be the (unique) horizontal lift of $v$ at $(\bm{A},s)$,
+meaning that $(\bm{V},c)$ is the unique horizontal tangent vector at $(\bm{A},s)$
+such that
+ $v = d \pi_{(\bm{A},s)}((\bm{V},c))$.
 \eqref{eq:differential_Phi} then implies that 
 $(\bm{V},c) \in \ker(d \Phi_{(\bm{A},s)})$
 and the proceeding discussion shows that 
@@ -365,11 +370,354 @@ Conversely, any $\bm{V}$ such that $\bm{A}^T \bm{V}$ is symmetric will satisfy
 The proof is complete.
 \end{proof}
 
-\begin{proposition}
-For every $[\bm{A},s] \in M$ and every $v \in T_{[\bm{A},s]}M$
+\begin{proposition}\label{thm:exponential_map}
+Given $[\bm{A},s] \in M$ and $v \in T_{[\bm{A},s]}M$, 
+geodesics in $M$ starting at $[\bm{A},s]$ with initial velocity 
+$v$ takes the format of curves 
+$\gamma: I \to M$, where $I$ is an open interval containing $0$,
+defined by $\gamma(t) = [\bm{A} + t\bm{V}, s + tc]$,
+where $(\bm{V},c) \in H_{(\bm{A},s)}$ is the horizontal lift 
+of $v$ at $ (\bm{A},s)$.
+Consequently, the exponential map 
+is computed as $\text{Exp}_{[\bm{A},s]}(v) = [\bm{A} + \bm{V}, s + c]$,
+well-defined over all $v$ with small norm.
 \end{proposition}
 
+\begin{proof}
+First of all, let us quickly check that the curve $\gamma$ is well defined.
+Indeed, if $(\bm{A}\bm{Q},s)$, where $\bm{Q} \in O(q)$, is another representative of $[\bm{A},s]$,
+let $(\bm{V}',c')$ be the horizontal lift of $v$ to $(\bm{A}\bm{Q},s)$.
+With the function $R_{\bm{Q}}: \Theta \to \Theta$ defined by $R_{\bm{Q}}((\bm{A},s)) = (\bm{A}\bm{Q},s)$,
+we have 
 
+\begin{equation*}
+  v = d\pi_{(\bm{A},s)} (\bm{V},c) = d(\pi \circ R_{\bm{Q}})_{(\bm{A},s)} (\bm{V},c)
+  = d \pi_{(\bm{A}\bm{Q},s)} (dR_{\bm{Q}})_{(\bm{A},s)}(\bm{V},c)
+  = d \pi_{(\bm{A}\bm{Q},s)} (\bm{V}\bm{Q},c).
+\end{equation*}
+Thus, $\bm{V}' = \bm{V}\bm{Q}$ and $c'=c$.
+Substitute this into the definition of $\gamma$ 
+will yield the exact same curve.
+
+The fact that $\gamma$ is a geodesic follows from a well-known property of 
+geodesics in case of Riemannian submersion (see for example 
+\cite{O_neill_1967} Section 2 Corollary 2 or \cite{Valencia_2021} Theorem 3.6).
+Any geodesic in $\Theta$ with initial velocity being horizontal 
+will always have horizontal velocities and will remain a geodesic in $M$ after 
+applying a Riemannian submersion. 
+\end{proof}
+
+To compute the logarithmic map, we need first preparatory lemmas that 
+work out an orthogonal matrix based on given points in the space.
+
+\begin{lemma}\label{thm:q_classification}
+If $\bm{L}$ is an invertible $q \times q$ matrix
+and $\bm{Q} \in O(q)$ are such that $\bm{L}\bm{Q}$ is symmetric,
+then there exists matrices $\bm{R}\in O(q)$, $\bm{P} \in O(q)$, 
+a $q \times q$ diagonal matrix $\bm{D}$ whose diagonal entries are $1$ or $-1$,
+and a $q \times q$ diagonal matrix $\bm{S}$ containing the singular values 
+of $\bm{L}$ in increasing order 
+such that $\bm{L} = \bm{R}\bm{S}\bm{P}^T$
+and $\bm{Q} = \bm{P}\bm{D}\bm{R}^T$.
+\end{lemma}
+
+\begin{proof}
+Let us start by applying the singular value decomposition 
+of $\bm{L}$ to get matrices $\bm{R}'\in O(q)$, $\bm{P}' \in O(q)$
+and $\bm{S}$ such that $\bm{L} = \bm{R}'\bm{S}(\bm{P}')^T$.
+Substituting the given condition that $\bm{L}\bm{Q}$ is symmetric will yield that
+$\bm{S}\bm{J} = \bm{J}^T\bm{S}$, where $\bm{J} := (\bm{P}')^T \bm{Q} \bm{R}'$.
+
+Clearly $\bm{J} \in O(q)$.
+The equation 
+
+\begin{equation*}
+  \bm{S}^2 = \bm{S}\bm{J}\bm{J}^T\bm{S} = (\bm{S}\bm{J})(\bm{S}\bm{J})^T 
+  = (\bm{J}^T\bm{S})(\bm{J}^T\bm{S})^T = \bm{J}^T\bm{S}^2\bm{J}
+\end{equation*}
+shows that 
+\begin{equation*}
+  \bm{J}\bm{S}^2=\bm{S}^2\bm{J}.
+\end{equation*}
+Looking at each entry of both size,
+we end up with 
+\begin{equation*}
+  \bm{J}_{ij}(\bm{S}_{jj}^2-\bm{S}_{ii}^2) = 0
+\end{equation*}
+for $i,j = 1, \ldots q$.
+Given that $\bm{L}$ is invertible, its singular values are all strictly positive.
+Therefore, in fact we have 
+\begin{equation}\label{eq:j_s_equation}
+  \bm{J}_{ij}(\bm{S}_{jj}-\bm{S}_{ii}) = 0
+\end{equation}
+for all $i$ and all $j$ so that $\bm{J}\bm{S}=\bm{S}\bm{J}=\bm{J}^T\bm{S}$.
+Invert $\bm{S}$ yields that $\bm{J}$ is actually symmetric.
+Being a symmetric orthogonal matrix, $\bm{J}^2 = \bm{I}_q$ and the eigenvalues of $\bm{J}$ 
+must be $1$ or $-1$.
+Another look at \eqref{eq:j_s_equation} shows that $\bm{J}$ is 
+a block-diagonal matrix, diagonal if and only if
+all diagonal entries of $\bm{S}$ are distinct.
+Furthermore, each block of $\bm{J}$ must still be orthogonal and symmetric.
+
+We now diagonalize $\bm{J}$ based on the above information.
+Suppose that $\bm{S} = \oplus_{i=1}^k \bm{s}_i\bm{I}_{m_i}$,
+where $\bm{s}_1 > \ldots > \bm{s}_k$ are the unique diagonal entries of 
+$\bm{S}$ and each repeats for $m_i$ times.
+Thus, $\bm{J}$ has $k$ blocks.
+Write the $i$th block by $\bm{J}_i$ so that
+$\bm{J} = \oplus_{i=1}^k \bm{J}_i$.
+The spectral theorem then allows us to orthogonally diagonalize 
+$\bm{J}_i = \bm{K}_i\bm{D}_i\bm{K}_i^T$,
+where 
+$\bm{K}_i \in O(m_i)$ and
+$\bm{D}_i$ is an $m_i \times m_i$ diagonal matrix with $1$ or $-1$ diagonal 
+entry. Put $\bm{K} = \oplus_{i=1}^k \bm{K}_i$
+and $\bm{D} = \oplus_{i=1}^k \bm{D}_i$.
+Then $\bm{K} \in O(q)$, $\bm{D}$ is a $q \times q$ diagonal matrix 
+with $1$ or $-1$ diagonal entry, and $\bm{J} = \bm{K}\bm{D}\bm{K}^T$.
+This involved construction leads us to the outcome that 
+$\bm{K}$ in fact commutes with $\bm{S}$:
+
+\begin{equation*}
+  \bm{K}\bm{S} = \bigoplus_{i=1}^k \bm{s}_i\bm{K}_i = \bm{S}\bm{K}.
+\end{equation*}
+Put $\bm{P} = \bm{P}'\bm{K}$,
+$\bm{R} = \bm{R}'\bm{K}$.
+We have 
+\begin{equation*}
+  \bm{Q} = \bm{P}' \bm{J} (\bm{R}')^T = \bm{P}' \bm{K}\bm{D}\bm{K}^T (\bm{R}')^T
+  = \bm{P} \bm{D} \bm{R}^T
+\end{equation*}
+and
+\begin{equation*}
+  \bm{R}\bm{S}\bm{P}^T = 
+  \bm{R}'\bm{K} \bm{S}\bm{K}^T(\bm{P}')^T
+  = \bm{R}'\bm{S} \bm{K}\bm{K}^T(\bm{P}')^T
+  = \bm{R}'\bm{S} (\bm{P}')^T =\bm{L}.
+\end{equation*}
+This completes the proof.
+\end{proof}
+
+\begin{lemma}\label{thm:singular_PR}
+If $\bm{L}$ is an invertible $q \times q$ matrix
+with singular value decomposition $\bm{L} = \bm{R}\bm{S}\bm{P}^T$,
+then 
+
+\begin{equation*}
+  \bm{P}\bm{R}^T = (\bm{L}^T \bm{L})^{-\frac{1}{2}}\bm{L}^T.
+\end{equation*}
+This means, although neither $\bm{P}$ nor $\bm{R}$ is uniquely determined,
+$\bm{P}\bm{R}^T$ is uniquely determined.
+\end{lemma}
+\begin{proof}
+Given that
+
+\begin{equation*}
+  \bm{L}^T\bm{L} = \bm{P}\bm{S}^2\bm{P}^T,
+\end{equation*}
+we have
+\begin{equation*}
+  (\bm{L}^T \bm{L})^{\frac{1}{2}} = \bm{P}\bm{S}\bm{P}^T.
+\end{equation*}
+Therefore:
+\begin{equation*}
+  \bm{L} = \bm{R}\bm{P}^T\bm{P}\bm{S}\bm{P}^T = \bm{R}\bm{P}^T (\bm{L}^T \bm{L})^{\frac{1}{2}}.
+\end{equation*}
+The result follows from inverting $(\bm{L}^T \bm{L})^{\frac{1}{2}}$ and take transpose.
+\end{proof}
+
+\begin{proposition}\label{thm:logarithmic_map}
+For every $[\bm{A},s] \in M$ there exists an open
+neighborhood $U \subset M$ containing $[\bm{A},s]$ such that
+
+\begin{enumerate}
+  \item For every $[\bm{B},t] \in U$, $\bm{A}^T\bm{B}$ is invertible.
+  \item The logarithmic map $\text{Exp}^{-1}_{[\bm{A},s]}:U \to T_{[\bm{A},s]}M$ 
+  is well-defined and is smooth in $U$. In fact:
+
+  \begin{equation*}
+    \text{Exp}^{-1}_{[\bm{A},s]}([\bm{B},t]) 
+    = d \pi_{(\bm{A},s)}((\bm{B}\bm{Q}(\bm{A},\bm{B})-\bm{A}, t-s)),
+  \end{equation*}
+  where 
+
+  \begin{equation*}
+    \bm{Q}(\bm{A},\bm{B}) 
+    = (\bm{B}^T \bm{A} \bm{A}^T \bm{B})^{- \frac{1}{2}} \bm{B}^T \bm{A} \in O(q).
+  \end{equation*}
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+First of all, 
+if $\bm{R} \in O(q)$ and $\bm{P} \in O(q)$,
+then $\bm{Q}(\bm{A}\bm{P},\bm{B}\bm{R}) = \bm{R}^T\bm{Q}(\bm{A},\bm{B})\bm{P}$
+and the same computation as in the proof of 
+Proposition~\ref{thm:exponential_map}
+shows that the formula of logarithmic map is indeed well-defined.
+
+Given that the determinant is a continuous function
+and $\det(\bm{A}^T\bm{A}) > 0$,
+there exists a neighborhood $U_{\Theta} \subset \Theta$ 
+containing $(\bm{A},s)$ 
+such that $\det(\bm{A}^T\bm{B}) > 0$ 
+whenever $(\bm{B},t) \in U_{\Theta}$.
+Thus,
+for any $[\bm{B},t] \in U_1 := \pi(U_{\Theta}) \subset M$,
+$\bm{A}^T\bm{B}$ is invertible.
+
+Next, 
+it is a well-known fact that $\text{Exp}_{[\bm{A},s]}$ 
+is a local diffeomorphism 
+and thus there exists an open neighborhood $U_2 \subset M$ containing $[\bm{A},s]$
+such that the logarithmic map $\text{Exp}^{-1}_{[\bm{A},s]}$
+is well-defined and is smooth in $U_2$.
+
+We now compute $\text{Exp}^{-1}_{[\bm{A},s]}$
+for $[\bm{B},t] \in U := U_1 \cap U_2$.
+Suppose that $v \in T_{[\bm{A},s]}M$ 
+satisfies $v = \text{Exp}^{-1}_{[\bm{A},s]}([\bm{B},t])$.
+By Proposition~\ref{thm:exponential_map},
+$[\bm{B},t] = [\bm{A} + \bm{V},s+c]$,
+where $(\bm{V}, c)$ is the horizontal lift of $v$ to $(\bm{A}, s)$.
+It follows that $c = t-s$ and that
+there exists a $\bm{Q} \in O(q)$
+such that $\bm{V} = \bm{B}\bm{Q}-A$.
+Or equivalently:
+
+\begin{equation}\label{eq:logarithmic_general_in_proof}
+  \text{Exp}^{-1}_{[\bm{A},s]}([\bm{B},t]) 
+    = d \pi_{(\bm{A},s)}((\bm{B}\bm{Q}-\bm{A}, t-s)).
+\end{equation}
+Given that $(\bm{V}, c)$ is a horizontal tangent vector, 
+Proposition~\ref{thm:horizontal_verticle} shows that 
+
+\begin{equation*}
+  \bm{A}^T(\bm{B}\bm{Q}-\bm{A}) = (\bm{B}\bm{Q}-\bm{A})^T \bm{A}
+\end{equation*}
+and consequently $\bm{A}^T \bm{B}\bm{Q}$ is symmetric.
+Lemma~\ref{thm:q_classification} with $\bm{L} = \bm{A}^T \bm{B}$
+shows the existence of $\bm{R}$, $\bm{P} \in O(q)$,
+a diagonal matrix $\bm{S}$ with the singular values of $\bm{A}^T \bm{B}$
+in increasing order, and a $q \times q$ diagonal matrix $\bm{D}$
+with diagonal entries $1$ or $-1$
+such that $\bm{A}^T \bm{B} = \bm{R}\bm{S}\bm{P}^T$
+and $\bm{Q} = \bm{P}\bm{D}\bm{R}^T$.
+\eqref{eq:logarithmic_general_in_proof} now becomes
+\begin{equation}\label{eq:logarithmic_PR_in_proof}
+  \text{Exp}^{-1}_{[\bm{A},s]}([\bm{B},t]) 
+    = d \pi_{(\bm{A},s)}((\bm{B}\bm{P}\bm{D}\bm{R}^T-\bm{A}, t-s)).
+\end{equation}
+Now let $\bm{B} \to \bm{A}$ and $t \to s$.
+The left hand size of \eqref{eq:logarithmic_PR_in_proof}
+now becomes $\text{Exp}^{-1}_{[\bm{A},s]}([\bm{A},s]) = \bm{0} \in T_{[\bm{A},s]}M$.
+The singular value decomposition converges to 
+the orthogonal diagonalization because $\bm{A}^T \bm{A}$
+is symmetric, meaning that $\bm{P} =  \bm{R}$. Thus
+
+\begin{equation*}
+  \bm{A}\bm{P}\bm{D}\bm{P}^T-\bm{A} = \bm{0}.
+\end{equation*}
+Therefore, $\bm{P}\bm{D}\bm{P}^T = \bm{I}_q$
+and $\bm{D} = \bm{I}_q$.
+Lemma~\ref{thm:singular_PR} then shows 
+that 
+\begin{equation*}
+  \bm{Q} = \bm{P}\bm{R}^T = (\bm{B}^T \bm{A} \bm{A}^T \bm{B})^{- \frac{1}{2}} \bm{B}^T \bm{A}.
+\end{equation*}
+This completes the proof.
+\end{proof}
+
+\begin{remark}
+Unfortunately, the logarithmic map is not globally defined
+in the standard way
+even over all $[\bm{B},t]$ such that $\bm{A}^T\bm{B}$ is invertible.
+For a counterexample, take $p = 2$, $q = 1$,
+$\bm{A} = [1,0]^T$, $\bm{B} = [1,1]^T$ and $s = t = 1$.
+In this case, $O(1) = \{1,-1\}$. Then, 
+although $\bm{A}^T\bm{B} = 1$ is invertible,
+we still have 
+
+\begin{equation*}
+  \text{Exp}_{[\bm{A},s]}\bracket{d\pi_{(\bm{A},s)}((\bm{B}-\bm{A},0))}
+  = [\bm{B},1] = [-\bm{B},1]
+  = \text{Exp}_{[\bm{A},s]}\bracket{d\pi_{(\bm{A},s)}((-\bm{B}-\bm{A},0))}.
+\end{equation*}
+The reason is that,
+even when we assume $\bm{A}^T \bm{B}$ is invertible, 
+deducing $\bm{D} = \bm{I}_q$ 
+relies on letting $[\bm{B},t] \to [\bm{A},s]$.
+If $[\bm{B},t]$ is far away from $[\bm{A},s]$,
+then $\bm{Q} = \bm{P}\bm{D}\bm{R}^T$ with some $\bm{D} \neq \bm{I}_q$
+can still produce a valid horizontal vector whose image under
+$\text{Exp}_{[\bm{A},s]}$ is $[\bm{B},t]$,
+so that $\text{Exp}_{[\bm{A},s]}$ fails to be injective
+and admits no globally defined inverse.
+
+Nevertheless, the choice $\bm{D} = \bm{I}_q$ has an interesting 
+property of selecting the geodesic of minimal speed
+and length when $[\bm{B},t]$ is any point 
+such that $\bm{A}^T \bm{B}$ is invertible.
+To see this, 
+consider a general candidate $\bm{Q}' = \bm{P}\bm{D}\bm{R}^T$ and
+write $v' = d\pi_{(\bm{A},s)}((\bm{B}\bm{Q}'-\bm{A}, t-s))$,
+so that $(\bm{B}\bm{Q}'-\bm{A}, t-s)$ is the horizontal lift of $v'$
+at $(\bm{A},s)$ and $\text{Exp}_{[\bm{A},s]}(v') = [\bm{B},t]$.
+Let us compute the norm of $v'$:
+
+\begin{align*}
+  & \tab[0.4cm] g_{[\bm{A},s]}(v', v')
+  = g_{(\bm{A},s)}^{\Theta}\bracket{(\bm{B}\bm{Q}'-\bm{A}, t-s), (\bm{B}\bm{Q}'-\bm{A}, t-s)} \\
+  &= \tr\bracket{(\bm{B}\bm{Q}'-\bm{A})(\bm{B}\bm{Q}'-\bm{A})^T} + (t-s)^2 
+  = \tr(\bm{B}\bm{B}^T) + \tr(\bm{A}\bm{A}^T) - 2\tr(\bm{S}\bm{D}) + (t-s)^2,
+\end{align*}
+where the last equality substituted
+$\bm{A}^T\bm{B}\bm{Q}' = \bm{R}\bm{S}\bm{P}^T\bm{P}\bm{D}\bm{R}^T = \bm{R}\bm{S}\bm{D}\bm{R}^T$
+and used the cyclic property of the trace.
+The fact that
+the diagonal entries of $\bm{S}$ are strictly positive
+show that
+$g_{[\bm{A},s]}(v', v')$ is minimized precisely when $\bm{D} = \bm{I}_q$.
+Given that the geodesic starting at $[\bm{A},s]$
+with initial velocity $v'$ reaches $[\bm{B},t]$ at time $1$ with constant speed
+$\sqrt{g_{[\bm{A},s]}(v', v')}$, its length is $\sqrt{g_{[\bm{A},s]}(v', v')}$
+so that $\bm{D} = \bm{I}_q$ gives the slowest and hence shortest geodesic.
+To illustrate,
+let us go back to the counterexample in the previous paragraph.
+Put $v_{\pm} := d\pi_{(\bm{A},s)}((\pm\bm{B}-\bm{A},0))$.
+Direct computation shows $g_{[\bm{A},s]}(v_+,v_+) = 1$ and $g_{[\bm{A},s]}(v_-,v_-) = 5$
+so that the option corresponding to $\bm{D} = \bm{I}_1=1$
+gives the slowest speed.
+Therefore, it is actually possible to define 
+$\text{Exp}^{-1}_{[\bm{A},s]}$
+over all $[\bm{B},t]$ such that $\bm{A}^T \bm{B}$ is invertible
+by manually asking it to output the minimal speed candidate 
+and this definition will yield the same $\bm{Q}(\bm{A},\bm{B})$
+formula. 
+
+However, the situation totally breaks down 
+in case $\bm{A}^T \bm{B}$ is not invertible.
+Consider again $p =2$, $q=1$, $\bm{A} = [1,0]^T$, $s = t = 1$,
+but this time $\bm{B} = [0,1]^T$.
+Then $g_{[\bm{A},s]}(v_+,v_+) = g_{[\bm{A},s]}(v_-,v_-) = 2$
+and there are two distinct geodesics of the same speed 
+so $\text{Exp}^{-1}_{[\bm{A},s]}([\bm{B},t])$
+cannot be well-defined.
+
+(Picture: there is a hole at $[0,0]^T$. 
+Starting $\bm{A}= [1,0]^T$, as $\bm{B}= [0,1]^T$ is glued to $[0,-1]^2$,
+$v_+$ points from $[1,0]^T$ to $[0,1]^T$,
+$v_-$ points from $[1,0]^T$ to $[0,-1]^T$)
+
+Given that our work should not require a global definition,
+we stick to the standard definition of logarithmic map
+only defined locally around $[\bm{A},s]$.
+\end{remark}
+
+\section{Properties of the Probabilistic Principal Component Analysis Model}
+
+We now investigate some properties of the model 
+when the parameter space is now $M$.
 \bibliographystyle{plainnat}
 \def\bibname{References} % Nom obligatoire de la section des références.
                                               % On utilise \'e car le é cause des problèmes
