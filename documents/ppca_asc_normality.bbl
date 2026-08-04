@@ -1,9 +1,16 @@
-\begin{thebibliography}{4}
+\begin{thebibliography}{7}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Gupta and Nagar(2000)]{Gupta_Nagar_2000}
+A.~K. Gupta and D.~K. Nagar.
+\newblock \emph{Matrix Variate Distributions}, volume 104 of \emph{Chapman \&
+  Hall/CRC Monographs and Surveys in Pure and Applied Mathematics}.
+\newblock Chapman \& Hall/CRC, Boca Raton, 2000.
+\newblock ISBN 1-58488-046-5.
 
 \bibitem[Lee(2013)]{Lee_2013}
 John~M. Lee.
@@ -26,10 +33,26 @@ Barrett O'Neill.
 \newblock Submersions and geodesics.
 \newblock \emph{Duke Math. J.}, 34:\penalty0 363--373, 1967.
 
+\bibitem[Sun et~al.(2026)Sun, Lin, and Liu]{Sun_Lin_Liu_2026}
+Lvfang Sun, Zhenhua Lin, and Lin Liu.
+\newblock Towards an asymptotic efficiency theory on regular parameter
+  manifolds.
+\newblock arXiv:2510.13703v2 [math.ST], July 2026.
+\newblock Version 2, 12 July 2026.
+
 \bibitem[Valencia(2021)]{Valencia_2021}
 Fabricio Valencia.
 \newblock Riemannian submersions.
 \newblock Unpublished notes, Instituto de Matem{\'a}tica e Estat{\'i}stica,
   Universidade de S{\~a}o Paulo, July 2021.
+
+\bibitem[van~der Vaart(1998)]{van_der_Vaart_1998}
+A.~W. van~der Vaart.
+\newblock \emph{Asymptotic Statistics}.
+\newblock Cambridge Series in Statistical and Probabilistic Mathematics.
+  Cambridge University Press, Cambridge, 1998.
+\newblock ISBN 0-521-49603-9.
+\newblock First published 1998; first paperback edition 2000, ISBN
+  0-521-78450-6.
 
 \end{thebibliography}
