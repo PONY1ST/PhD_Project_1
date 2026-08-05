@@ -1,4 +1,4 @@
-\begin{thebibliography}{7}
+\begin{thebibliography}{8}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -11,6 +11,12 @@ A.~K. Gupta and D.~K. Nagar.
   Hall/CRC Monographs and Surveys in Pure and Applied Mathematics}.
 \newblock Chapman \& Hall/CRC, Boca Raton, 2000.
 \newblock ISBN 1-58488-046-5.
+
+\bibitem[Horn and Johnson(2013)]{Horn_Johnson_2013}
+Roger~A. Horn and Charles~R. Johnson.
+\newblock \emph{Matrix Analysis}.
+\newblock Cambridge University Press, Cambridge, second edition, 2013.
+\newblock ISBN 978-0-521-83940-2.
 
 \bibitem[Lee(2013)]{Lee_2013}
 John~M. Lee.

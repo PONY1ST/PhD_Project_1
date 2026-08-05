@@ -151,49 +151,54 @@ the probabilistic principal component analysis model
 is a statistical model that
 treats $\bm{x}_i$'s as realizations 
 of independent random variables $\bm{X}_i = \bm{W}\bm{Z}_i + \bm{\epsilon_i}$,
-where $\bm{W}$ is an unknown $p \times q$ loading matrix, 
+where $\bm{W}$ is an unknown $p \times q$ loading matrix of full rank, 
 $\bm{Z}_i \sim N_q\bracket{\bm{0}, \bm{I}_q}$ is the latent normal variable,
 and $\bm{\epsilon_i} \sim N_p\bracket{\bm{0}, \sigma^2\bm{I}_p}$
 is the Gaussian noise with unknown standard deviation $\sigma > 0$,
 and $(\bm{Z}_1, \ldots, \bm{Z}_n, \bm{\epsilon}_1, \ldots, \bm{\epsilon}_n)$
 are all independent (for now). 
 Put $\theta = (\bm{W}_{\theta}, \sigma_{\theta}^2)$ for the unknown 
-parameter to estimate and $p(\bm{x}; \theta)$ 
-for the density of $\bm{X}_1$, namely the density of 
-$N_p\bracket{\bm{0}, \bm{W}_{\theta}\bm{W}_{\theta}^T + \sigma_{\theta}^2\bm{I}_p}$.
-
-We now setup the quotient space structure.
-Write $\Theta$ for the collection of all tuples $(\bm{W}, \sigma^2)$
+parameter to estimate
+and $\Theta$ for all possible choices of $\theta$.
+$\Theta$ is thus the collection of all tuples $(\bm{W}, \sigma^2)$
 such that $\bm{W}$ is a real $p \times q$ matrix with $\text{rank}(\bm{W}) = q$
 and $\sigma^2 \in (0, \infty)$.
 Given that the collection of all real $p \times q$ matrix with rank $q$
 is an open subset of the Euclidean space $\mathbb{R}^{pq}$,
-we consider $\Theta$ as an open subset of the Euclidean space $\mathbb{R}^{pq+1}$,
-hence a Riemannian manifold with the standard Euclidean metric
+we consider $\Theta$ as an open subset of the Euclidean space $\mathbb{R}^{pq+1}$
+and our statistical model is 
 
-\begin{equation}\label{eq:euclidean_metric}
-  g_{(\bm{A},s)}^{\Theta}\bracket{(\bm{V},c), (\bm{U},b)} = \tr(\bm{V}\bm{U}^T) + cb,
+\begin{equation}\label{eq:original_model}
+  \mathcal{P} = \curly{N_p\bracket{\bm{0}, \bm{W}_{\theta}\bm{W}_{\theta}^T + \sigma_{\theta}^2\bm{I}_p}}_{\theta \in \Theta}.
 \end{equation}
-whenever $(\bm{A},s) \in \Theta$, $(\bm{V},c)$, $(\bm{U},b) \in T_{(\bm{A},s)}\Theta \cong \mathbb{R}^{p \times q} \times \mathbb{R}$.
-Next, we define $(\bm{A},s)$ and $(\bm{B}, t) \in \Theta$ 
-to be equivalent when they give the same density, namely when
-$\bm{A}\bm{A}^T + s\bm{I}_p = \bm{B}\bm{B}^T + t\bm{I}_p$,
-and write $(\bm{A},s) \sim (\bm{B}, t)$.
+
+To resolve the non-identifiability of $\mathcal{P}$,
+we introduce the quotient manifold structure.
+For $(\bm{A},s) \in \Theta$ and $(\bm{B}, t) \in \Theta$,
+we define $(\bm{A},s) \sim (\bm{B}, t)$
+to mean that they give rise to the same covariance matrix,namely when
+$\bm{A}\bm{A}^T + s\bm{I}_p = \bm{B}\bm{B}^T + t\bm{I}_p$.
 The equivalence classes are denoted by $[(\bm{A},s)]$
 or more briefly $[\bm{A},s]$. 
-Let us denote by $O(q)$ the collection of all $q \times q$ real orthogonal matrices.
-It is shown in Datta's thesis that 
-$[\bm{A},s] = \{(\bm{A}\bm{Q},s) \mid \bm{Q} \in O(q)\}$.
 Unless otherwise mentioned, $(\bm{A},s) \in \Theta$ is the default representative 
 we pick when we write an equivalence class as $[\bm{A},s]$.
+Writing $O(q)$ for the collection of all $q \times q$ real orthogonal matrices,
+it was shown in Datta's thesis that 
+$[\bm{A},s] = \{(\bm{A}\bm{Q},s) \mid \bm{Q} \in O(q)\}$.
 Therefore, $M := \Theta / \sim$ can be identified as the orbits 
 of the right action of $O(q)$ on $\Theta$
 and, given that this Lie group action is smooth, proper, and free,
 the quotient manifold theorem (see \cite{Lee_2013}, Theorem 21.10) shows that there is a unique smooth 
-structure making $M$ a manifold of dimension $pq+1-\frac{q(q-1)}{2}$ and $\pi: \Theta \to M$ 
-with $\pi((\bm{A},s)) = [\bm{A},s]$ is a smooth submersion.
+structure making $M$ a manifold of dimension $pq+1-\frac{q(q-1)}{2}$ and 
+the map $\pi: \Theta \to M$ 
+defined by
+
+\begin{equation}\label{eq:pi_def}
+  \pi((\bm{A},s)) = [\bm{A},s]
+\end{equation}
+is a smooth submersion.
 Moreover, this action is verticle, transitive on fibers 
-and is isomrtic with respect to \eqref{eq:euclidean_metric}.
+and is isomertic with respect to the Euclidean metric.
 Thus, there exists a unique metric $g$ on $M$ making
 $(M,g)$ a Riemannian manifold and $\pi$ a Riemannian submersion
 (see \cite{Lee_2018}, Theorem 2.28), meaning that
@@ -202,46 +207,64 @@ $(M,g)$ a Riemannian manifold and $\pi$ a Riemannian submersion
   g_{(\bm{A},s)}^{\Theta}\bracket{(\bm{V},c), (\bm{U},b)}
   = g_{[\bm{A},s]} \bracket{d\pi_{(A,s)}((\bm{V},c)), d\pi_{(A,s)}((\bm{U},b))},
 \end{equation}
-whenever $(\bm{A},s) \in \Theta$, $(\bm{V},c)$, $(\bm{U},b) \in T_{(\bm{A},s)}\Theta \cong \mathbb{R}^{p \times q} \times \mathbb{R}$.
-\section{Exponential Map and Logarithmic Map Computation}
+where $g_{(\bm{A},s)}^{\Theta}$ is the standard Euclidean metric given by 
+\begin{equation}\label{eq:euclidean_metric}
+  g_{(\bm{A},s)}^{\Theta}\bracket{(\bm{V},c), (\bm{U},b)} = \tr(\bm{V}\bm{U}^T) + cb,
+\end{equation}
+whenever $(\bm{A},s) \in \Theta$, $(\bm{V},c)$, 
+$(\bm{U},b) \in T_{(\bm{A},s)}\Theta \cong \mathbb{R}^{p \times q} \times \mathbb{R}$.
+For later convenience,
+let us define two functions $\Phi: \Theta \to \mathbb{R}^{p \times p}$
+and $\bm{\Sigma}: M \to \mathbb{R}^{p \times p}$
+by setting, for every $[\bm{A},s] \in M$:
 
-In this section, we carry out some basic computations on $(M,g)$.
+\begin{equation}\label{eq:Sigma_Phi_def}
+  \bm{\Sigma}([\bm{A},s]) := \Phi((\bm{A},s)) := \bm{A}\bm{A}^T + s\bm{I}_p.
+\end{equation}
+In other words, $\bm{\Sigma} \circ \pi = \Phi$
+gives the covariance matrix.
+\eqref{eq:original_model} is then reparametrized as
+
+\begin{equation}\label{eq:quotient_model}
+  \mathcal{P} = \curly{N_p\bracket{\bm{0}, \bm{\Sigma}([\bm{A},s])}}_{[\bm{A},s]\in M}
+\end{equation}
+and this is an identifiable model we shall work with.
+
+\section{Basic Facts about $(M,g)$}
+
 Working with Riemannian submersion, 
 we shall as usual start with computations regarding the horizontal and verticle 
 tangent spaces.
-We begin with a few technical details in the computation.
 
 \begin{proposition}\label{thm:horizontal_verticle}
-Fix $(\bm{A},s) \in \Theta$. The verticle 
-tangent space
-$V_{(\bm{A},s)} := \ker(d\pi_{(\bm{A},s)})$
-equals to the collection of all tangent vectors 
+\,
+\begin{enumerate}
+  \item The map $\bm{\Sigma}$ defined in \eqref{eq:Sigma_Phi_def}
+is a smooth injective immersion.
+  \item At every $(\bm{A},s) \in \Theta$,
+  the verticle tangent space 
+
+  \begin{equation}\label{eq:verticle_space}
+  V_{(\bm{A},s)} :=\ker(d\pi_{(\bm{A},s)}) = \ker(d\Phi_{(\bm{A},s)})
+  \end{equation}
+  equals to the collection of all tangent vectors 
 of the form $(\bm{A} \bm{\Omega}, 0) \in T_{(\bm{A},s)}\Theta$,
 with $\bm{\Omega}$ ranged over all $q \times q$ skew symmetric matrices.
-The horizontal tangent space $H_{(\bm{A},s)} := V_{(\bm{A},s)}^{\perp}$
+  \item At every $(\bm{A},s) \in \Theta$,
+  the horizontal tangent space $H_{(\bm{A},s)} := V_{(\bm{A},s)}^{\perp}$
 equals to the collection of all tangent vectors 
 of the form $(\bm{V}, c) \in T_{(\bm{A},s)}\Theta$
 ranged over all $c \in \mathbb{R}$ and all $q \times q$ matrices $\bm{V}$
 satisfying $\bm{V}^T \bm{A} = \bm{A}^T \bm{V}$.
+\end{enumerate}
 \end{proposition}
 
 \begin{proof}
-We start with computing the verticle tangent space.
-Define function $\Phi: \Theta \to \mathbb{R}^{p \times p}$ by 
-setting, for every $(\bm{A},s) \in \Theta$:
-
-\begin{equation}
-  \Phi((\bm{A},s)) = \bm{A}\bm{A}^T + s\bm{I}_p.
-\end{equation}
-
-We claim that 
-
-\begin{equation*}
-  \ker(d\pi_{(\bm{A},s)}) = \ker(d\Phi_{(\bm{A},s)}).
-\end{equation*}
-
-Before proving the claim, let us first study 
-$\ker(d\Phi_{(\bm{A},s)})$.
+Fix a point $(\bm{A},s) \in \Theta$
+throughout this proof.
+Before we start the proof,
+let us first study the set $\ker(d\Phi_{(\bm{A},s)})$,
+where $\Phi$ is given in \eqref{eq:Sigma_Phi_def}.
 For $(\bm{V}, c) \in T_{(\bm{A},s)}\Theta$, 
 define a curve $\gamma : (-\epsilon, \epsilon) \to \Theta$
 by setting $\gamma(t) = (\bm{A}+t\bm{V}, s + tc)$.
@@ -302,30 +325,33 @@ equals to the collection of all tangent vectors
 of the form $(\bm{A} \bm{\Omega}, 0) \in T_{(\bm{A},s)}\Theta$,
 with $\bm{\Omega}$ ranged over all $q \times q$ skew symmetric matrices.
 
-We now move back to prove the claim.
-Let us define 
-function $F: M \to \mathbb{R}^{p \times p}$
-by setting $F([\bm{A},s]) = \Phi((\bm{A},s))$.
-Clearly, $F$ satisfies
-$F \circ \pi = \Phi$ 
-and is hence a smooth injective function (here the smoothness of $F$ 
-is implied by 
-for example \cite{Lee_2013} Theorem 4.29).
+We now move back to prove 1 and 2 at the same time
+by showing \eqref{eq:verticle_space}.
+Clearly, $\bm{\Sigma}$ is well-defined 
+and is injective.
+The smoothness of $\bm{\Sigma}$
+is guaranteed by relation $\bm{\Sigma} \circ \pi = \Phi$
+(see for example \cite{Lee_2013} Theorem 4.29).
 By the chain rule, we have 
 
 \begin{equation} \label{eq:differential_Phi}
-  d \Phi_{(\bm{A},s)} = d F_{[\bm{A},s]} \circ d \pi_{(\bm{A},s)}.
+  d \Phi_{(\bm{A},s)} = d \bm{\Sigma}_{[\bm{A},s]} \circ d \pi_{(\bm{A},s)}.
 \end{equation}
 It follows immediately that 
 $\ker(d\Phi_{(\bm{A},s)}) \subseteq \ker(d\pi_{(\bm{A},s)})$.
 The other direction will follow if we can prove that 
-$d F_{[\bm{A},s]}$ is injective.
-To do so, suppose that $v \in T_{[\bm{A},s]}M$ is 
-such that $d F_{[\bm{A},s]} (v) = 0$.
-Let $(\bm{V},c) \in T_{(\bm{A},s)}\Theta$ be the (unique) horizontal lift of $v$ at $(\bm{A},s)$,
-meaning that $(\bm{V},c)$ is the unique horizontal tangent vector at $(\bm{A},s)$
+$d \bm{\Sigma}_{[\bm{A},s]}$ is injective,
+or equivalently that $\bm{\Sigma}$ is an immersion.
+
+To do so, suppose that $\bm{v} \in T_{[\bm{A},s]}M$ is 
+such that $d \bm{\Sigma}_{[\bm{A},s]} (\bm{v}) = 0$.
+We prove that $\bm{v} = \bm{0}$.
+Let $(\bm{V},c) \in T_{(\bm{A},s)}\Theta$ 
+be the horizontal lift of $\bm{v}$ at $(\bm{A},s)$,
+meaning that $(\bm{V},c)$ is the 
+unique horizontal tangent vector at $(\bm{A},s)$
 such that
- $v = d \pi_{(\bm{A},s)}((\bm{V},c))$.
+ $\bm{v} = d \pi_{(\bm{A},s)}((\bm{V},c))$.
 \eqref{eq:differential_Phi} then implies that 
 $(\bm{V},c) \in \ker(d \Phi_{(\bm{A},s)})$
 and the proceeding discussion shows that 
@@ -342,12 +368,12 @@ so that $\pi(\gamma(t)) = [\bm{A},s]$ for all $t$.
 We have 
 
 \begin{equation*}
-  v =
+  \bm{v} =
   d \pi_{(\bm{A},s)}((\bm{A} \bm{\Omega}, 0)) = 
   d \pi_{(\bm{A},s)} (\gamma'(0)) = \frac{d}{dt} \mid_{t=0} \pi(\gamma(t)) = \bm{0} \in T_{[\bm{A},s]}M.
 \end{equation*}
-Therefore, $d F_{[\bm{A},s]}$ is injective and the claim is proved.
-The verticle tangent space is therefore the same as $\ker(d\Phi_{(\bm{A},s)})$.
+Therefore, $d \bm{\Sigma}_{[\bm{A},s]}$ is injective and
+the verticle tangent space is the same as $\ker(d\Phi_{(\bm{A},s)})$.
 
 To compute the horizontal tangent space, any $(\bm{V}, c) \in V_{(\bm{A},s)}^{\perp}$ 
 will satisfy 
@@ -371,27 +397,29 @@ The proof is complete.
 \end{proof}
 
 \begin{proposition}\label{thm:exponential_map}
-Given $[\bm{A},s] \in M$ and $v \in T_{[\bm{A},s]}M$, 
+Given $[\bm{A},s] \in M$ and $\bm{v} \in T_{[\bm{A},s]}M$, 
 geodesics in $M$ starting at $[\bm{A},s]$ with initial velocity 
-$v$ takes the format of curves 
+$\bm{v}$ takes the format of curves 
 $\gamma: I \to M$, where $I$ is an open interval containing $0$,
 defined by $\gamma(t) = [\bm{A} + t\bm{V}, s + tc]$,
 where $(\bm{V},c) \in H_{(\bm{A},s)}$ is the horizontal lift 
-of $v$ at $ (\bm{A},s)$.
+of $\bm{v}$ at $ (\bm{A},s)$.
 Consequently, the exponential map 
-is computed as $\text{Exp}_{[\bm{A},s]}(v) = [\bm{A} + \bm{V}, s + c]$,
-well-defined over all $v$ with small norm.
+is computed as $\text{Exp}_{[\bm{A},s]}(\bm{v}) = [\bm{A} + \bm{V}, s + c]$,
+well-defined over all $\bm{v}$ such that 
+$\sqrt{g_{[\bm{A},s]}(\bm{v},\bm{v})}=\abs{\bm{v}} < \min(\sigma_{\text{min}}(\bm{A}),s)$,
+where $\sigma_{\text{min}}(\bm{A})$ is the smallest singular value of $\bm{A}$.
 \end{proposition}
 
 \begin{proof}
 First of all, let us quickly check that the curve $\gamma$ is well defined.
 Indeed, if $(\bm{A}\bm{Q},s)$, where $\bm{Q} \in O(q)$, is another representative of $[\bm{A},s]$,
-let $(\bm{V}',c')$ be the horizontal lift of $v$ to $(\bm{A}\bm{Q},s)$.
+let $(\bm{V}',c')$ be the horizontal lift of $\bm{v}$ to $(\bm{A}\bm{Q},s)$.
 With the function $R_{\bm{Q}}: \Theta \to \Theta$ defined by $R_{\bm{Q}}((\bm{A},s)) = (\bm{A}\bm{Q},s)$,
 we have 
 
 \begin{equation*}
-  v = d\pi_{(\bm{A},s)} (\bm{V},c) = d(\pi \circ R_{\bm{Q}})_{(\bm{A},s)} (\bm{V},c)
+  \bm{v} = d\pi_{(\bm{A},s)} (\bm{V},c) = d(\pi \circ R_{\bm{Q}})_{(\bm{A},s)} (\bm{V},c)
   = d \pi_{(\bm{A}\bm{Q},s)} (dR_{\bm{Q}})_{(\bm{A},s)}(\bm{V},c)
   = d \pi_{(\bm{A}\bm{Q},s)} (\bm{V}\bm{Q},c).
 \end{equation*}
@@ -399,16 +427,35 @@ Thus, $\bm{V}' = \bm{V}\bm{Q}$ and $c'=c$.
 Substitute this into the definition of $\gamma$ 
 will yield the exact same curve.
 
-The fact that $\gamma$ is a geodesic follows from a well-known property of 
+A well-known property of 
 geodesics in case of Riemannian submersion (see for example 
-\cite{O_neill_1967} Section 2 Corollary 2 or \cite{Valencia_2021} Theorem 3.6).
-Any geodesic in $\Theta$ with initial velocity being horizontal 
-will always have horizontal velocities and will remain a geodesic in $M$ after 
-applying a Riemannian submersion. 
+\cite{O_neill_1967} Section 2 Corollary 2 or \cite{Valencia_2021} Theorem 3.6)
+is that any geodesic $c$ in $\Theta$ with initial velocity being horizontal 
+will always have horizontal velocities and 
+$\gamma = \pi \circ c$
+will remain a geodesic in $M$.
+Therefore, $\text{Exp}_{[\bm{A},s]}(\bm{v}) = [\bm{A} + \bm{V}, s + c]$
+is well defined for all vectors $\bm{v} \in T_{[\bm{A},s]}M$
+of small enough norm
+making sure that $(\bm{A} + \bm{V}, s + c) \in \Theta$.
+To have a quantified upper bound of the norm,
+we cite
+Weyl's perturbation inequality (Chapter 7.3 Problem 16 equation (7.3.15) of \cite{Horn_Johnson_2013})
+to get
+
+\begin{equation*}
+  \sigma_{\text{min}}(\bm{A} + \bm{V}) \geqslant \sigma_{\text{min}}(\bm{A}) - \sigma_{\text{max}}(\bm{V})
+  \geqslant \sigma_{\text{min}}(\bm{A}) - \abs{\bm{v}} > 0,
+\end{equation*}
+whenever $\abs{\bm{v}} < \min(\sigma_{\text{min}}(\bm{A}),s)$.
+Here $\sigma_{\text{max}}(\bm{V})$ denotes the largest singular value of $\bm{V}$,
+who is smaller than the Euclidean norm of $\bm{V}$ and hence norm of $\bm{v}$.
+Thus, for these $\bm{v}$, $\rank(\bm{A} + \bm{V}) = q$
+and the exponential map is well-defined.
 \end{proof}
 
 To compute the logarithmic map, we need first preparatory lemmas that 
-work out an orthogonal matrix based on given points in the space.
+work out an orthogonal matrix based on given points in $M$.
 
 \begin{lemma}\label{thm:q_classification}
 If $\bm{L}$ is an invertible $q \times q$ matrix
@@ -575,11 +622,11 @@ is well-defined and is smooth in $U_2$.
 
 We now compute $\text{Exp}^{-1}_{[\bm{A},s]}$
 for $[\bm{B},t] \in U := U_1 \cap U_2$.
-Suppose that $v \in T_{[\bm{A},s]}M$ 
-satisfies $v = \text{Exp}^{-1}_{[\bm{A},s]}([\bm{B},t])$.
+Suppose that $\bm{v} \in T_{[\bm{A},s]}M$ 
+satisfies $\bm{v} = \text{Exp}^{-1}_{[\bm{A},s]}([\bm{B},t])$.
 By Proposition~\ref{thm:exponential_map},
 $[\bm{B},t] = [\bm{A} + \bm{V},s+c]$,
-where $(\bm{V}, c)$ is the horizontal lift of $v$ to $(\bm{A}, s)$.
+where $(\bm{V}, c)$ is the horizontal lift of $\bm{v}$ to $(\bm{A}, s)$.
 It follows that $c = t-s$ and that
 there exists a $\bm{Q} \in O(q)$
 such that $\bm{V} = \bm{B}\bm{Q}-A$.
@@ -646,7 +693,8 @@ we still have
 The reason is that,
 even when we assume $\bm{A}^T \bm{B}$ is invertible, 
 deducing $\bm{D} = \bm{I}_q$ 
-relies on letting $[\bm{B},t] \to [\bm{A},s]$.
+relies on the local smoothness of the logarithmic map and the 
+procedure of letting $[\bm{B},t] \to [\bm{A},s]$.
 If $[\bm{B},t]$ is far away from $[\bm{A},s]$,
 then $\bm{Q} = \bm{P}\bm{D}\bm{R}^T$ with some $\bm{D} \neq \bm{I}_q$
 can still produce a valid horizontal vector whose image under
@@ -660,13 +708,13 @@ and length when $[\bm{B},t]$ is any point
 such that $\bm{A}^T \bm{B}$ is invertible.
 To see this, 
 consider a general candidate $\bm{Q}' = \bm{P}\bm{D}\bm{R}^T$ and
-write $v' = d\pi_{(\bm{A},s)}((\bm{B}\bm{Q}'-\bm{A}, t-s))$,
-so that $(\bm{B}\bm{Q}'-\bm{A}, t-s)$ is the horizontal lift of $v'$
-at $(\bm{A},s)$ and $\text{Exp}_{[\bm{A},s]}(v') = [\bm{B},t]$.
-Let us compute the norm of $v'$:
+write $\bm{v'} = d\pi_{(\bm{A},s)}((\bm{B}\bm{Q}'-\bm{A}, t-s))$,
+so that $(\bm{B}\bm{Q}'-\bm{A}, t-s)$ is the horizontal lift of $\bm{v'}$
+at $(\bm{A},s)$ and $\text{Exp}_{[\bm{A},s]}(\bm{v'}) = [\bm{B},t]$.
+Let us compute the squared norm of $\bm{v'}$:
 
 \begin{align*}
-  & \tab[0.4cm] g_{[\bm{A},s]}(v', v')
+  & \tab[0.4cm] g_{[\bm{A},s]}(\bm{v'}, \bm{v'})
   = g_{(\bm{A},s)}^{\Theta}\bracket{(\bm{B}\bm{Q}'-\bm{A}, t-s), (\bm{B}\bm{Q}'-\bm{A}, t-s)} \\
   &= \tr\bracket{(\bm{B}\bm{Q}'-\bm{A})(\bm{B}\bm{Q}'-\bm{A})^T} + (t-s)^2 
   = \tr(\bm{B}\bm{B}^T) + \tr(\bm{A}\bm{A}^T) - 2\tr(\bm{S}\bm{D}) + (t-s)^2,
@@ -677,15 +725,15 @@ and used the cyclic property of the trace.
 The fact that
 the diagonal entries of $\bm{S}$ are strictly positive
 show that
-$g_{[\bm{A},s]}(v', v')$ is minimized precisely when $\bm{D} = \bm{I}_q$.
+$g_{[\bm{A},s]}(\bm{v'}, \bm{v'})$ is minimized precisely when $\bm{D} = \bm{I}_q$.
 Given that the geodesic starting at $[\bm{A},s]$
-with initial velocity $v'$ reaches $[\bm{B},t]$ at time $1$ with constant speed
-$\sqrt{g_{[\bm{A},s]}(v', v')}$, its length is $\sqrt{g_{[\bm{A},s]}(v', v')}$
-so that $\bm{D} = \bm{I}_q$ gives the slowest and hence shortest geodesic.
+with initial velocity $\bm{v'}$ reaches $[\bm{B},t]$ at time $1$ with constant speed
+$\sqrt{g_{[\bm{A},s]}(\bm{v'}, \bm{v'})}$, its length is $\sqrt{g_{[\bm{A},s]}(\bm{v'}, \bm{v'})}$.
+The choice $\bm{D} = \bm{I}_q$ gives the slowest and hence shortest geodesic.
 To illustrate,
 let us go back to the counterexample in the previous paragraph.
-Put $v_{\pm} := d\pi_{(\bm{A},s)}((\pm\bm{B}-\bm{A},0))$.
-Direct computation shows $g_{[\bm{A},s]}(v_+,v_+) = 1$ and $g_{[\bm{A},s]}(v_-,v_-) = 5$
+Put $\bm{v}_{\pm} := d\pi_{(\bm{A},s)}((\pm\bm{B}-\bm{A},0))$.
+Direct computation shows $g_{[\bm{A},s]}(\bm{v}_+,\bm{v}_+) = 1$ and $g_{[\bm{A},s]}(\bm{v}_-,\bm{v}_-) = 5$
 so that the option corresponding to $\bm{D} = \bm{I}_1=1$
 gives the slowest speed.
 Therefore, it is actually possible to define 
@@ -699,25 +747,79 @@ However, the situation totally breaks down
 in case $\bm{A}^T \bm{B}$ is not invertible.
 Consider again $p =2$, $q=1$, $\bm{A} = [1,0]^T$, $s = t = 1$,
 but this time $\bm{B} = [0,1]^T$.
-Then $g_{[\bm{A},s]}(v_+,v_+) = g_{[\bm{A},s]}(v_-,v_-) = 2$
+Then $g_{[\bm{A},s]}(\bm{v}_+,\bm{v}_+) = g_{[\bm{A},s]}(\bm{v}_-,\bm{v}_-) = 2$
 and there are two distinct geodesics of the same speed 
 so $\text{Exp}^{-1}_{[\bm{A},s]}([\bm{B},t])$
 cannot be well-defined.
 
 (Picture: there is a hole at $[0,0]^T$. 
 Starting $\bm{A}= [1,0]^T$, as $\bm{B}= [0,1]^T$ is glued to $[0,-1]^2$,
-$v_+$ points from $[1,0]^T$ to $[0,1]^T$,
-$v_-$ points from $[1,0]^T$ to $[0,-1]^T$)
+$\bm{v}_+$ points from $[1,0]^T$ to $[0,1]^T$,
+$\bm{v}_-$ points from $[1,0]^T$ to $[0,-1]^T$)
 
-Given that our work should not require a global definition,
+Given the above situation and (the expectation that) 
+our work should not require a global definition,
 we stick to the standard definition of logarithmic map
 only defined locally around $[\bm{A},s]$.
 \end{remark}
 
 \section{Properties of the Probabilistic Principal Component Analysis Model}
-We now show that the model with parameter space $M$
+We now show that the statistical model $\mathcal{P}$ 
+given by \eqref{eq:quotient_model}
 is \textit{differentiable in quadratic mean}
+and has \textit{positive definite Fisher information operator} 
 in the sense developed in \cite{Sun_Lin_Liu_2026}, definition 
+III.1 and III.2.
+
+Let us introduce a few notations.
+For each $[\bm{A},s] \in M$,
+let
+
+\begin{equation}\label{eq:p_def}
+  p(\bm{x}; [\bm{A},s])
+  = (2\pi)^{-\frac{p}{2}} \text{det}^{-\frac{1}{2}}(\bm{\Sigma}([\bm{A},s])) \exp \bracket{- 
+  \frac{1}{2}\bm{x}^T(\bm{\Sigma}([\bm{A},s]))^{-1}\bm{x}}
+\end{equation}
+be the density of $N_p(\bm{0}, \bm{\Sigma}([\bm{A},s]))$.
+Define two maps $l_{[\bm{A},s]}$ and $r_{[\bm{A},s]}$
+with domain $T_{[\bm{A},s]}M \cong \mathbb{R}^{pq+1-\frac{q(q-1)}{2}}$
+and codomain $L^2(\mathbb{R}^p)$ by setting,
+for all $\bm{v} \in T_{[\bm{A},s]}M$,
+\begin{equation}\label{eq:l_def}
+  l_{[\bm{A},s]}(\bm{v})(\bm{x}) = \log \bracket{p(\bm{x}; \text{Exp}_{[\bm{A},s]}(\bm{v}))}
+\end{equation}
+and
+\begin{equation}\label{eq:r_def}
+  r_{[\bm{A},s]}(\bm{v})(\bm{x}) = \sqrt{p(\bm{x}; \text{Exp}_{[\bm{A},s]}(\bm{v}))}.
+\end{equation}
+To show that $\mathcal{P}$ 
+is differentiable in quadratic mean,
+we must, by definition,
+show that for all $[\bm{A},s] \in M$ that $r_{[\bm{A},s]}$ is Fréchet differentiable 
+at $\bm{v} = \bm{0}$
+and give an explicit formula for its Fréchet derivative.
+We start by the computation of its Gâteaux derivative.
+
+\begin{lemma}
+The Gâteaux derivative 
+of $r_{[\bm{A},s]}$ at $\bm{v} \in T_{[\bm{A},s]}M$
+in the direction of $\bm{h} \in T_{[\bm{A},s]}M$
+is
+\end{lemma}
+
+\begin{proof}
+Given two vectors $\bm{v}$ and $\bm{h}$ of small norm,
+suppose that they respectively lift to $(\bm{V},c)$
+and $(\bm{U},b)$ at $(\bm{A},s)$.
+Then, for any $t \in \mathbb{R}$, $\bm{v} + t\bm{h}$ lifts to $(\bm{V} + t\bm{U},c+tb)$
+at $(\bm{A},s)$ and
+
+\begin{equation*}
+  \bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v} + t\bm{h}))
+  = \bm{\Sigma}([\bm{A}+\bm{V} + t\bm{U},s+c+tb])
+  = (\bm{A}+\bm{V} + t\bm{U})(\bm{A}+\bm{V} + t\bm{U})^T + (s+c+tb) \bm{I}_p
+\end{equation*}
+\end{proof}
 
 \chapter{Draft}
 We now investigate some properties of the model
@@ -827,8 +929,50 @@ Then:
 \begin{proof}
 (1) Since $v \mapsto \bar{v}$ is a linear isometry, it is linear and
 $\norm{\bm{V}_h}_F^2 + c_h^2 = \norm{\bar{h}}^2 = \norm{h}^2$,
-so that $\norm{\bm{V}_h}_2 \le \norm{\bm{V}_h}_F \le \norm{h}$ and $\abs{c_h} \le \norm{h}$.
-Weyl's perturbation inequality for singular values gives
+so that $\norm{\bm{V}_h}_2 \le \norm{\bm{V}_h}_F \le \norm{h}$ and $\abs{c_h} \le \norm{h}$;
+the first of these comparisons holds because $\norm{\bm{B}}_2^2$
+is the largest eigenvalue of $\bm{B}^T\bm{B}$
+while $\norm{\bm{B}}_F^2 = \tr(\bm{B}^T\bm{B})$ is the sum of all of them,
+and all are nonnegative.
+
+We next isolate the perturbation bound being used, since
+the precise reason the \emph{spectral} norm of $\bm{V}$ appears in it
+is worth making explicit.
+We claim that for any $p \times q$ real matrices $\bm{A}$, $\bm{V}$ with $q \le p$,
+
+\begin{equation}\label{eq:sigma_min_perturbation}
+  \sigma_{\min}(\bm{A}+\bm{V}) \ge \sigma_{\min}(\bm{A}) - \norm{\bm{V}}_2 .
+\end{equation}
+Because $q \le p$, the smallest singular value has the variational description
+
+\begin{equation}\label{eq:sigma_min_variational}
+  \sigma_{\min}(\bm{B}) = \min_{\bm{y} \in \mathbb{R}^q,\ \norm{\bm{y}}_2 = 1} \norm{\bm{B}\bm{y}}_2 :
+\end{equation}
+indeed $\norm{\bm{B}\bm{y}}_2^2 = \bm{y}^T\bm{B}^T\bm{B}\bm{y}$,
+whose minimum over unit vectors is the smallest eigenvalue of the
+positive semidefinite matrix $\bm{B}^T\bm{B}$,
+and $\sigma_{\min}(\bm{B})$ is by definition the square root of that eigenvalue.
+Now let $\bm{y} \in \mathbb{R}^q$ be any unit vector.
+The triangle inequality in $\mathbb{R}^p$, followed by the fact that
+$\norm{\cdot}_2$ is precisely the operator norm subordinate to the
+Euclidean vector norm, so that
+$\norm{\bm{V}\bm{y}}_2 \le \norm{\bm{V}}_2\norm{\bm{y}}_2 = \norm{\bm{V}}_2$, gives
+
+\begin{equation*}
+  \norm{(\bm{A}+\bm{V})\bm{y}}_2
+  \ge \norm{\bm{A}\bm{y}}_2 - \norm{\bm{V}\bm{y}}_2
+  \ge \sigma_{\min}(\bm{A}) - \norm{\bm{V}}_2 ,
+\end{equation*}
+where the second step used \eqref{eq:sigma_min_variational} for $\bm{A}$.
+Taking the minimum over such $\bm{y}$ and applying
+\eqref{eq:sigma_min_variational} to $\bm{A}+\bm{V}$ on the left
+proves \eqref{eq:sigma_min_perturbation}.
+This is exactly how $\norm{\bm{V}}_2$, rather than some other norm of $\bm{V}$,
+enters: it is by definition the largest amount by which $\bm{V}$
+can lengthen a unit vector, which is the only feature of $\bm{V}$
+the above estimate needs.
+
+Applying \eqref{eq:sigma_min_perturbation} with $\bm{V} = \bm{V}_h$,
 
 \begin{equation*}
   \sigma_{\min}(\bm{A}+\bm{V}_h) \ge \sigma_{\min}(\bm{A}) - \norm{\bm{V}_h}_2
@@ -868,6 +1012,49 @@ Therefore the value of \eqref{eq:sigma_of_h} computed at that representative is
 \end{equation*}
 as claimed.
 \end{proof}
+
+\begin{remark}\label{thm:weyl_remark}
+A word on the provenance of \eqref{eq:sigma_min_perturbation},
+since it is usually quoted rather than proved.
+It is the case $i = q$ of the general Weyl perturbation inequality
+for singular values,
+
+\begin{equation}\label{eq:weyl_singular}
+  \abs{\sigma_i(\bm{A}+\bm{V}) - \sigma_i(\bm{A})} \le \sigma_1(\bm{V}) = \norm{\bm{V}}_2,
+  \qquad i = 1, \ldots, q,
+\end{equation}
+which in \cite{Horn_Johnson_2013} is equation (7.3.15),
+stated there as Problem 7.3.P16(d) rather than as a numbered theorem.
+It is worth being careful about the attribution.
+The theorem of Weyl that carries a number in that book,
+namely \cite{Horn_Johnson_2013} Theorem 4.3.1, is the inequality
+
+\begin{equation*}
+  \lambda_i(\bm{A}+\bm{B}) \le \lambda_{i+j}(\bm{A}) + \lambda_{n-j}(\bm{B})
+\end{equation*}
+for the \emph{eigenvalues of Hermitian} $\bm{A}$, $\bm{B} \in M_n$,
+and it does not apply directly to our situation,
+where $\bm{A}$ and $\bm{V}_h$ are rectangular $p \times q$ matrices
+and neither is Hermitian.
+Passing from Theorem 4.3.1 to \eqref{eq:weyl_singular}
+requires the Jordan--Wielandt device of replacing a $p \times q$ matrix $\bm{B}$
+by the Hermitian matrix
+
+\begin{equation*}
+  \mathcal{B} := \begin{bmatrix} \bm{0} & \bm{B} \\ \bm{B}^T & \bm{0} \end{bmatrix}
+  \in M_{p+q},
+\end{equation*}
+whose eigenvalues are $\pm\sigma_1(\bm{B}), \ldots, \pm\sigma_q(\bm{B})$
+together with $p-q$ zeros, and then applying the Hermitian result to
+$\mathcal{A}+\mathcal{V} = \overline{\bm{A}+\bm{V}}$;
+this is precisely the route indicated in \cite{Horn_Johnson_2013}, Problem 7.3.P16(a).
+Only the single case $i = q$ of \eqref{eq:weyl_singular} is needed here,
+and in that case, as the proof above shows,
+the variational characterization \eqref{eq:sigma_min_variational}
+gives it in three lines with no Hermitian detour;
+so we have preferred the direct argument and use
+\eqref{eq:weyl_singular} nowhere.
+\end{remark}
 
 \subsection*{Differentiability in quadratic mean}
 
