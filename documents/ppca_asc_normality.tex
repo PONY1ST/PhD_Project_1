@@ -4,6 +4,7 @@
 \usepackage{CJKutf8} %Chinese, support of begin cjk end cjk
 \usepackage[T1]{fontenc} %French
 \usepackage[letterpaper, margin=1.27cm]{geometry}
+\setlength{\emergencystretch}{3em} %the very wide text block needs slack to avoid overfull lines
 \usepackage{subfiles} 
 \usepackage{times} %Times New Roman font
 
@@ -888,10 +889,12 @@ Secondly, for all $\bm{x} \in \mathbb{R}^p$:
 \end{equation}
 Finally:
 \begin{equation}\label{eq:r_derivative}
+  \begin{split}
   D_{\bm{h}}r_{[\bm{A},s]}(\bm{v})(\bm{x})
-  = D_{\bm{h}} \exp \bracket{\frac{1}{2}l_{[\bm{A},s]}(\bm{v})(\bm{x})}
+  & = D_{\bm{h}} \exp \bracket{\frac{1}{2}l_{[\bm{A},s]}(\bm{v})(\bm{x})}
   = \frac{1}{2} \exp \bracket{\frac{1}{2}l_{[\bm{A},s]}(\bm{v})(\bm{x})} D_{\bm{h}}l_{[\bm{A},s]}(\bm{v})(\bm{x})
-  = \frac{1}{2} r_{[\bm{A},s]}(\bm{v})(\bm{x}) D_{\bm{h}}l_{[\bm{A},s]}(\bm{v})(\bm{x}).
+  \\ & = \frac{1}{2} r_{[\bm{A},s]}(\bm{v})(\bm{x}) D_{\bm{h}}l_{[\bm{A},s]}(\bm{v})(\bm{x}).
+  \end{split}
 \end{equation}
 To prove that \eqref{eq:r_derivative}
 indeed defines a valid Gâteaux derivative,
@@ -1118,6 +1121,31 @@ of the matrix $\bracket{\bm{\Sigma}([\bm{A},s])}^{-1}
 Therefore, $D_{\bm{h}}\bm{\Sigma}([\bm{A},s]) = \bm{0}$
 and, by \eqref{eq:Sigma_directional},
 it must be the case that $\bm{h} = \bm{0}$.
+\end{proof}
+
+\begin{proposition}\label{thm:LAN}
+Suppose that $[\bm{A},s] \in M$ is the true parameter
+so that each $\bm{X}_i$ has density $p(\, \cdot \,; [\bm{A},s])$ as in \eqref{eq:p_def}.
+We have the local asymptotic normality expansion
+\begin{equation}\label{eq:LAN_expansion}
+  \sum_{i=1}^n \log \frac{p\bracket{\bm{X}_i; \text{Exp}_{[\bm{A},s]}\bracket{\frac{\bm{h}}{\sqrt{n}}}}}{p(\bm{X}_i; [\bm{A},s])}
+  = \sum_{i=1}^n s(\bm{X}_i;[\bm{A},s])\bracket{\frac{\bm{h}}{\sqrt{n}}}
+  - \frac{1}{2} G_{[\bm{A},s]}(\bm{h},\bm{h}) + o_{\mathbb{P}}(1)
+\end{equation}
+whenever $n$ large enough that
+$\frac{\bm{h}}{\sqrt{n}} \in \mathcal{E}_{[\bm{A},s]}$.
+In particular,
+\begin{equation}\label{eq:LAN_weak_convergence}
+  \sum_{i=1}^n \log \frac{p\bracket{\bm{X}_i; \text{Exp}_{[\bm{A},s]}\bracket{\frac{\bm{h}}{\sqrt{n}}}}}{p(\bm{X}_i; [\bm{A},s])}
+  \to N \bracket{-\frac{1}{2}G_{[\bm{A},s]}(\bm{h},\bm{h}), \, G_{[\bm{A},s]}(\bm{h},\bm{h})}
+\end{equation}
+in distribution as $n \to \infty$.
+\end{proposition}
+
+\begin{proof}
+Given that $\mathcal{P}$ is differentiable in quadratic mean
+and has positive definite Fisher operator,
+this follows from Proposition III.1 in \cite{Sun_Lin_Liu_2026}.
 \end{proof}
 
 \section{Properties of the Maximum Likelihood Estimator of $\mathcal{P}$}
