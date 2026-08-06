@@ -19,6 +19,8 @@
 \usepackage{fancyhdr}
 
 \pagestyle{fancy}
+\setlength{\headheight}{14.5pt}
+\addtolength{\topmargin}{-2.5pt}
 \fancyhf{}
 \lhead{
 Wen, Zehai}
@@ -116,7 +118,7 @@ Wen, Zehai}
 
 \usepackage{amsthm}  %Theorem styles
 \theoremstyle{plain}
-\newtheorem{theorem}{Théorème}
+\newtheorem{theorem}{Theorem}
 
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition} 
@@ -271,7 +273,7 @@ by setting $\gamma(t) = (\bm{A}+t\bm{V}, s + tc)$.
 Then:
 
 \begin{equation*}
-  d \Phi_{(\bm{A},s)} ((\bm{V}, c)) = \frac{d}{dt} \mid_{t = 0} \Phi(\gamma(t)) = \bm{A}\bm{V}^T + \bm{V} \bm{A}^T + c\bm{I}_p.
+  d \Phi_{(\bm{A},s)} ((\bm{V}, c)) = \frac{d}{dt} \bigg|_{t = 0} \Phi(\gamma(t)) = \bm{A}\bm{V}^T + \bm{V} \bm{A}^T + c\bm{I}_p.
 \end{equation*}
 If $(\bm{V}, c) \in \ker(d\Phi_{(\bm{A},s)})$,
 then
@@ -370,7 +372,7 @@ We have
 \begin{equation*}
   \bm{v} =
   d \pi_{(\bm{A},s)}((\bm{A} \bm{\Omega}, 0)) = 
-  d \pi_{(\bm{A},s)} (\gamma'(0)) = \frac{d}{dt} \mid_{t=0} \pi(\gamma(t)) = \bm{0} \in T_{[\bm{A},s]}M.
+  d \pi_{(\bm{A},s)} (\gamma'(0)) = \frac{d}{dt} \bigg|_{t=0} \pi(\gamma(t)) = \bm{0} \in T_{[\bm{A},s]}M.
 \end{equation*}
 Therefore, $d \bm{\Sigma}_{[\bm{A},s]}$ is injective and
 the verticle tangent space is the same as $\ker(d\Phi_{(\bm{A},s)})$.
@@ -406,7 +408,12 @@ where $(\bm{V},c) \in H_{(\bm{A},s)}$ is the horizontal lift
 of $\bm{v}$ at $ (\bm{A},s)$.
 Consequently, the exponential map 
 is computed as $\text{Exp}_{[\bm{A},s]}(\bm{v}) = [\bm{A} + \bm{V}, s + c]$,
-well-defined over all $\bm{v}$ such that 
+at least well-defined over an open ball $\mathcal{E}_{[\bm{A},s]}$
+of $\bm{0} \in T_{[\bm{A},s]}M \cong \mathbb{R}^{pq+1-\frac{q(q-1)}{2}}$ 
+of radius $\min(\sigma_{\text{min}}(\bm{A}),s)$,
+where $\sigma_{\text{min}}(\bm{A})$ denotes the smallest singular value of $\bm{A}$.
+
+all $\bm{v}$ such that 
 $\sqrt{g_{[\bm{A},s]}(\bm{v},\bm{v})}=\abs{\bm{v}} < \min(\sigma_{\text{min}}(\bm{A}),s)$,
 where $\sigma_{\text{min}}(\bm{A})$ is the smallest singular value of $\bm{A}$.
 \end{proposition}
@@ -450,7 +457,7 @@ to get
 whenever $\abs{\bm{v}} < \min(\sigma_{\text{min}}(\bm{A}),s)$.
 Here $\sigma_{\text{max}}(\bm{V})$ denotes the largest singular value of $\bm{V}$,
 who is smaller than the Euclidean norm of $\bm{V}$ and hence norm of $\bm{v}$.
-Thus, for these $\bm{v}$, $\rank(\bm{A} + \bm{V}) = q$
+Thus, for all $\bm{v} \in \mathcal{E}_{[\bm{A},s]}$, $\rank(\bm{A} + \bm{V}) = q$
 and the exponential map is well-defined.
 \end{proof}
 
@@ -782,7 +789,7 @@ let
 \end{equation}
 be the density of $N_p(\bm{0}, \bm{\Sigma}([\bm{A},s]))$.
 Define two maps $l_{[\bm{A},s]}$ and $r_{[\bm{A},s]}$
-with domain $T_{[\bm{A},s]}M \cong \mathbb{R}^{pq+1-\frac{q(q-1)}{2}}$
+with domain $\mathcal{E}_{[\bm{A},s]} \subset T_{[\bm{A},s]}M \cong \mathbb{R}^{pq+1-\frac{q(q-1)}{2}}$
 and codomain $L^2(\mathbb{R}^p)$ by setting,
 for all $\bm{v} \in T_{[\bm{A},s]}M$,
 \begin{equation}\label{eq:l_def}
@@ -792,1644 +799,329 @@ and
 \begin{equation}\label{eq:r_def}
   r_{[\bm{A},s]}(\bm{v})(\bm{x}) = \sqrt{p(\bm{x}; \text{Exp}_{[\bm{A},s]}(\bm{v}))}.
 \end{equation}
-To show that $\mathcal{P}$ 
-is differentiable in quadratic mean,
-we must, by definition,
-show that for all $[\bm{A},s] \in M$ that $r_{[\bm{A},s]}$ is Fréchet differentiable 
-at $\bm{v} = \bm{0}$
-and give an explicit formula for its Fréchet derivative.
-We start by the computation of its Gâteaux derivative.
 
-\begin{lemma}
-The Gâteaux derivative 
-of $r_{[\bm{A},s]}$ at $\bm{v} \in T_{[\bm{A},s]}M$
-in the direction of $\bm{h} \in T_{[\bm{A},s]}M$
-is
-\end{lemma}
+\begin{theorem}
+$r_{[\bm{A},s]}$ is Fréchet differentiable at any $\bm{v} \in \mathcal{E}_{[\bm{A},s]}$.
+In particular, $\mathcal{P}$ is differentiable in quadratic mean with score 
+\begin{equation}\label{eq:score}
+  s(\bm{x}; [\bm{A},s])(\bm{h})
+  = \tr \curly{\bracket{\bm{\Sigma}([\bm{A},s])}^{-1}
+  \squared{\bm{x}\bm{x}^T - \bracket{\bm{\Sigma}([\bm{A},s])}}
+  \bracket{\bm{\Sigma}([\bm{A},s])}^{-1} \bracket{D_{\bm{h}}\bm{\Sigma}([\bm{A},s])}},
+\end{equation}
+where 
+\begin{equation}\label{eq:Sigma_directional}
+  D_{\bm{h}}\bm{\Sigma}([\bm{A},s])
+  := \frac{d}{dt}\bigg|_{t=0} \bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(t\bm{h}))
+  = 2\bm{U}\bm{A}^T + b  \bm{I}_p,
+\end{equation}
+if $\bm{h}\in T_{[\bm{A},s]}M$ lifts to $(\bm{U},b)$ at $(\bm{A},s)$.
+Furthermore, $\mathcal{P}$ is a regular model in the sense that 
+the Fisher information operator 
+\begin{equation}\label{eq:G_def}
+  G_{[\bm{A},s]} (\bm{h}_1,\bm{h}_2)
+  = \tr \curly{\bracket{\bm{\Sigma}([\bm{A},s])}^{-1}
+  D_{\bm{h}_1}\bm{\Sigma}([\bm{A},s])
+  \bracket{\bm{\Sigma}([\bm{A},s])}^{-1}
+  D_{\bm{h}_2}\bm{\Sigma}([\bm{A},s])}
+\end{equation}
+ is positive definite.
+\end{theorem}
 
 \begin{proof}
-Given two vectors $\bm{v}$ and $\bm{h}$ of small norm,
-suppose that they respectively lift to $(\bm{V},c)$
-and $(\bm{U},b)$ at $(\bm{A},s)$.
-Then, for any $t \in \mathbb{R}$, $\bm{v} + t\bm{h}$ lifts to $(\bm{V} + t\bm{U},c+tb)$
-at $(\bm{A},s)$ and
+The proof for the Fréchet differentiability
+is long but routine.
+We compute the Gâteaux derivative
+of $r_{[\bm{A},s]}$ at $\bm{v} \in \mathcal{E}_{[\bm{A},s]}$
+in a given direction $\bm{h} \in T_{[\bm{A},s]}M$
+and show that the Gâteaux derivative is the Fréchet derivative 
+by a direct analysis of the remainder term.
+At the very end, we specialize our computations to 
+$\bm{v} = \bm{0}$ to prove \eqref{eq:score}
+and \eqref{eq:G_def}.
 
-\begin{equation*}
-  \bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v} + t\bm{h}))
-  = \bm{\Sigma}([\bm{A}+\bm{V} + t\bm{U},s+c+tb])
-  = (\bm{A}+\bm{V} + t\bm{U})(\bm{A}+\bm{V} + t\bm{U})^T + (s+c+tb) \bm{I}_p
-\end{equation*}
-\end{proof}
+Given $\bm{v}$ and $\bm{h}$,
+there exists an $\epsilon > 0$ such that
+$\bm{v} + t\bm{h} \in \mathcal{E}_{[\bm{A},s]}$
+whenever $t \in (-\epsilon, \epsilon)$.
+If they respectively lift to $(\bm{V},c)$
+and $(\bm{U},b)$ at $(\bm{A},s)$,
+then $\bm{v} + t\bm{h}$ lifts to $(\bm{V} + t\bm{U},c+tb)$
+at $(\bm{A},s)$.
+First of all:
 
-\chapter{Draft}
-We now investigate some properties of the model
-when the parameter space is now $M$.
-The goal of this section is to show that the model,
-viewed as a family of probability measures indexed by the
-quotient manifold $M$, is \emph{differentiable in quadratic mean},
-and to compute its score operator and its Fisher information operator
-in closed form.
-This is the entry point of the Le Cam theory on parameter manifolds
-developed in \cite{Sun_Lin_Liu_2026}
-and is what eventually licences the asymptotic normality statement
-we are after.
-Throughout we place ourselves in the framework of that paper
-with their parameter manifold taken to be our $M$
-and their parameter of interest $\psi$ taken to be the identity,
-so that no distinction between the parameter and the parameter of interest
-needs to be carried along.
-
-Let us first fix some notation.
-We write $\mathrm{Sym}(p)$ for the space of real symmetric $p \times p$ matrices
-and $\mathrm{Sym}_{++}(p) \subset \mathrm{Sym}(p)$ for the open convex cone
-of symmetric positive definite ones.
-For a real matrix $\bm{B}$ we write $\norm{\bm{B}}_F$ for its Frobenius norm,
-$\norm{\bm{B}}_2$ for its spectral norm, and
-$\sigma_{\min}(\bm{B})$ for its smallest singular value.
-For $v \in T_{[\bm{A},s]}M$ we write
-$\norm{v} := \sqrt{g_{[\bm{A},s]}(v,v)}$
-and $\bar{v} \in H_{(\bm{A},s)}$ for the horizontal lift of $v$ at $(\bm{A},s)$,
-so that \eqref{eq:g_def} says precisely that
-$v \mapsto \bar{v}$ is a linear isometry from $T_{[\bm{A},s]}M$ onto $H_{(\bm{A},s)}$.
-
-\subsection*{The statistical model on \texorpdfstring{$M$}{M}}
-
-For $(\bm{A},s) \in \Theta$ put
-
-\begin{equation}\label{eq:sigma_map}
-  \bm{\Sigma}(\bm{A},s) := \bm{A}\bm{A}^T + s\bm{I}_p,
+\begin{equation}\label{eq:Sigma_derivative}
+  \begin{split}
+  D_{\bm{h}}\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v})) & :=
+  \frac{d}{dt}\bigg|_{t=0} \bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v} + t\bm{h}))
+  = \frac{d}{dt}\bigg|_{t=0} \curly{(\bm{A}+\bm{V} + t\bm{U})(\bm{A}+\bm{V} + t\bm{U})^T + (s+c+tb) \bm{I}_p}
+  \\ & = \bm{U}\bm{V}^T + \bm{V}\bm{U}^T + 2\bm{U}\bm{A}^T + b  \bm{I}_p,
+  \end{split}
 \end{equation}
-which lies in $\mathrm{Sym}_{++}(p)$ because $\bm{A}\bm{A}^T \succeq \bm{0}$ and $s > 0$.
-By the very definition of the equivalence relation $\sim$,
-the map \eqref{eq:sigma_map} is constant on equivalence classes
-and separates distinct ones.
-It therefore descends to an \emph{injective} map on $M$,
-which we still denote by $\bm{\Sigma}$ and evaluate as
-$\bm{\Sigma}[\bm{A},s] := \bm{\Sigma}(\bm{A},s)$.
-Consequently the family
-
-\begin{equation}\label{eq:model_family}
-  \mathcal{P} := \curly{P_{[\bm{A},s]} \mid [\bm{A},s] \in M},
-  \qquad
-  \frac{dP_{[\bm{A},s]}}{d\bm{x}}(\bm{x})
-  = f(\bm{x};[\bm{A},s])
-  := \frac{\exp\bracket{-\frac{1}{2}\bm{x}^T \bm{\Sigma}[\bm{A},s]^{-1}\bm{x}}}
-          {(2\pi)^{p/2}\det\bracket{\bm{\Sigma}[\bm{A},s]}^{1/2}},
+proving \eqref{eq:Sigma_directional} with special case $\bm{v}=\bm{0}$.
+Secondly, for all $\bm{x} \in \mathbb{R}^p$:
+\begin{equation}\label{eq:l_derivative}
+  \begin{split}
+  & \tab[0.4cm] D_{\bm{h}}l_{[\bm{A},s]}(\bm{v})(\bm{x}) :=
+  \frac{d}{dt}\bigg|_{t=0} l_{[\bm{A},s]}(\bm{v} + t\bm{h})(\bm{x})
+  \\ & = \frac{d}{dt}\bigg|_{t=0} \curly{-\frac{p}{2}\log(2\pi) 
+  -\frac{1}{2}\log \det\bracket{\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v} + t\bm{h}))}
+  - \frac{1}{2}\bm{x}^T\bracket{\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v} + t\bm{h}))}^{-1}\bm{x} }
+  \\ & =
+  -\frac{1}{2}\tr 
+  \squared{\bracket{\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}^{-1}
+  \bracket{\frac{d}{dt}\bigg|_{t=0}\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v} + t\bm{h})) }}
+  \\ & + \frac{1}{2}\bm{x}^T\bracket{\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}^{-1}
+  \bracket{\frac{d}{dt}\bigg|_{t=0}\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v} + t\bm{h}))}
+  \bracket{\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}^{-1}\bm{x}
+  \\ & =
+  -\frac{1}{2} \tr 
+  \squared{\bracket{\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}^{-1}
+  \bracket{D_{\bm{h}}\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v})) }}
+  \\ & + \frac{1}{2}\bm{x}^T\bracket{\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}^{-1}
+  \bracket{D_{\bm{h}}\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}
+  \bracket{\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}^{-1}\bm{x}
+  \\ & = \frac{1}{2} \tr \curly{\bracket{\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}^{-1}
+  \squared{\bm{x}\bm{x}^T - \bracket{\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}}
+  \bracket{\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}^{-1} \bracket{D_{\bm{h}}\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}}.
+  \end{split}
 \end{equation}
-is well defined --- the density does not depend on the representative
-chosen --- and the model is \emph{identifiable},
-in the sense that $[\bm{A},s] \mapsto P_{[\bm{A},s]}$ is injective.
-Identifiability is exactly what was lost on $\Theta$ and
-is recovered on $M$ by construction;
-this is the whole point of passing to the quotient.
-Following the Le Cam theory we work with the square root of the density,
-
-\begin{equation}\label{eq:root_density}
-  r(\bm{x};[\bm{A},s]) := \sqrt{f(\bm{x};[\bm{A},s])},
+Finally:
+\begin{equation}\label{eq:r_derivative}
+  D_{\bm{h}}r_{[\bm{A},s]}(\bm{v})(\bm{x})
+  = D_{\bm{h}} \exp \bracket{\frac{1}{2}l_{[\bm{A},s]}(\bm{v})(\bm{x})}
+  = \frac{1}{2} \exp \bracket{\frac{1}{2}l_{[\bm{A},s]}(\bm{v})(\bm{x})} D_{\bm{h}}l_{[\bm{A},s]}(\bm{v})(\bm{x})
+  = \frac{1}{2} r_{[\bm{A},s]}(\bm{v})(\bm{x}) D_{\bm{h}}l_{[\bm{A},s]}(\bm{v})(\bm{x}).
 \end{equation}
-which is a unit vector of the Hilbert space $L^2(\mathbb{R}^p, d\bm{x})$
-because $\int_{\mathbb{R}^p} r(\bm{x};[\bm{A},s])^2 \, d\bm{x} = 1$.
-
-The next lemma records the two structural facts that make everything
-in this section work:
-the exponential map of $M$ is \emph{affine} in the horizontal lift
-(this is the content of Proposition~\ref{thm:exponential_map}),
-and the covariance $\bm{\Sigma}$ read through that chart
-is an \emph{exact} quadratic polynomial with no remainder.
-
-\begin{lemma}\label{thm:exp_chart}
-Fix $(\bm{A},s) \in \Theta$ and put
-$\rho(\bm{A},s) := \min\curly{\sigma_{\min}(\bm{A}), s} > 0$.
-Let $h \in T_{[\bm{A},s]}M$ with $\norm{h} < \rho(\bm{A},s)$
-and write its horizontal lift as $\bar{h} = (\bm{V}_h, c_h) \in H_{(\bm{A},s)}$.
-Then:
-
-\begin{enumerate}
-  \item $(\bm{A}+\bm{V}_h, s + c_h) \in \Theta$, so that
-  $\text{Exp}_{[\bm{A},s]}(h) = [\bm{A}+\bm{V}_h, s+c_h]$ is defined,
-  and $h \mapsto \bar{h}$ is linear.
-  \item Writing $\bm{\Sigma}_0 := \bm{\Sigma}(\bm{A},s)$ and
-  $\bm{\Sigma}(h) := \bm{\Sigma}\squared{\text{Exp}_{[\bm{A},s]}(h)}$,
-  we have the exact identity
-
-  \begin{equation}\label{eq:sigma_of_h}
-    \bm{\Sigma}(h) = \bm{\Sigma}_0 + \dot{\bm{\Sigma}}[\bar{h}] + \bm{V}_h\bm{V}_h^T,
-    \qquad \text{where} \qquad
-    \dot{\bm{\Sigma}}\squared{(\bm{V},c)} := \bm{V}\bm{A}^T + \bm{A}\bm{V}^T + c\bm{I}_p.
-  \end{equation}
-  The map $\bar{h} \mapsto \dot{\bm{\Sigma}}[\bar{h}]$ is linear with values in $\mathrm{Sym}(p)$
-  and is the differential at $(\bm{A},s)$ of the map \eqref{eq:sigma_map}.
-  \item $\bm{\Sigma}(h) \succeq (s - \norm{h})\bm{I}_p \succ \bm{0}$;
-  in particular $\bm{\Sigma}(h) \in \mathrm{Sym}_{++}(p)$.
-  \item The composite map $h \mapsto \dot{\bm{\Sigma}}[\bar{h}]$ does not depend on
-  the representative of $[\bm{A},s]$ used to define it.
-\end{enumerate}
-\end{lemma}
-
-\begin{proof}
-(1) Since $v \mapsto \bar{v}$ is a linear isometry, it is linear and
-$\norm{\bm{V}_h}_F^2 + c_h^2 = \norm{\bar{h}}^2 = \norm{h}^2$,
-so that $\norm{\bm{V}_h}_2 \le \norm{\bm{V}_h}_F \le \norm{h}$ and $\abs{c_h} \le \norm{h}$;
-the first of these comparisons holds because $\norm{\bm{B}}_2^2$
-is the largest eigenvalue of $\bm{B}^T\bm{B}$
-while $\norm{\bm{B}}_F^2 = \tr(\bm{B}^T\bm{B})$ is the sum of all of them,
-and all are nonnegative.
-
-We next isolate the perturbation bound being used, since
-the precise reason the \emph{spectral} norm of $\bm{V}$ appears in it
-is worth making explicit.
-We claim that for any $p \times q$ real matrices $\bm{A}$, $\bm{V}$ with $q \le p$,
-
-\begin{equation}\label{eq:sigma_min_perturbation}
-  \sigma_{\min}(\bm{A}+\bm{V}) \ge \sigma_{\min}(\bm{A}) - \norm{\bm{V}}_2 .
-\end{equation}
-Because $q \le p$, the smallest singular value has the variational description
-
-\begin{equation}\label{eq:sigma_min_variational}
-  \sigma_{\min}(\bm{B}) = \min_{\bm{y} \in \mathbb{R}^q,\ \norm{\bm{y}}_2 = 1} \norm{\bm{B}\bm{y}}_2 :
-\end{equation}
-indeed $\norm{\bm{B}\bm{y}}_2^2 = \bm{y}^T\bm{B}^T\bm{B}\bm{y}$,
-whose minimum over unit vectors is the smallest eigenvalue of the
-positive semidefinite matrix $\bm{B}^T\bm{B}$,
-and $\sigma_{\min}(\bm{B})$ is by definition the square root of that eigenvalue.
-Now let $\bm{y} \in \mathbb{R}^q$ be any unit vector.
-The triangle inequality in $\mathbb{R}^p$, followed by the fact that
-$\norm{\cdot}_2$ is precisely the operator norm subordinate to the
-Euclidean vector norm, so that
-$\norm{\bm{V}\bm{y}}_2 \le \norm{\bm{V}}_2\norm{\bm{y}}_2 = \norm{\bm{V}}_2$, gives
-
-\begin{equation*}
-  \norm{(\bm{A}+\bm{V})\bm{y}}_2
-  \ge \norm{\bm{A}\bm{y}}_2 - \norm{\bm{V}\bm{y}}_2
-  \ge \sigma_{\min}(\bm{A}) - \norm{\bm{V}}_2 ,
-\end{equation*}
-where the second step used \eqref{eq:sigma_min_variational} for $\bm{A}$.
-Taking the minimum over such $\bm{y}$ and applying
-\eqref{eq:sigma_min_variational} to $\bm{A}+\bm{V}$ on the left
-proves \eqref{eq:sigma_min_perturbation}.
-This is exactly how $\norm{\bm{V}}_2$, rather than some other norm of $\bm{V}$,
-enters: it is by definition the largest amount by which $\bm{V}$
-can lengthen a unit vector, which is the only feature of $\bm{V}$
-the above estimate needs.
-
-Applying \eqref{eq:sigma_min_perturbation} with $\bm{V} = \bm{V}_h$,
-
-\begin{equation*}
-  \sigma_{\min}(\bm{A}+\bm{V}_h) \ge \sigma_{\min}(\bm{A}) - \norm{\bm{V}_h}_2
-  \ge \rho(\bm{A},s) - \norm{h} > 0,
-\end{equation*}
-so $\bm{A}+\bm{V}_h$ has rank $q$;
-and $s + c_h \ge s - \norm{h} \ge \rho(\bm{A},s) - \norm{h} > 0$.
-Hence $(\bm{A}+\bm{V}_h, s+c_h) \in \Theta$ and
-Proposition~\ref{thm:exponential_map} applies.
-
-(2) Expanding,
-
-\begin{equation*}
-  (\bm{A}+\bm{V}_h)(\bm{A}+\bm{V}_h)^T + (s+c_h)\bm{I}_p
-  = \underbrace{\bm{A}\bm{A}^T + s\bm{I}_p}_{\bm{\Sigma}_0}
-  + \underbrace{\bm{V}_h\bm{A}^T + \bm{A}\bm{V}_h^T + c_h\bm{I}_p}_{\dot{\bm{\Sigma}}[\bar{h}]}
-  + \bm{V}_h\bm{V}_h^T,
-\end{equation*}
-which is \eqref{eq:sigma_of_h}; there is no higher order term because
-the expression is quadratic to begin with.
-Linearity and symmetry of $\dot{\bm{\Sigma}}$ are clear,
-and differentiating $t \mapsto \bm{\Sigma}(\bm{A}+t\bm{V}, s+tc)$ at $t=0$
-returns $\dot{\bm{\Sigma}}\squared{(\bm{V},c)}$.
-
-(3) $\bm{\Sigma}(h) - (s+c_h)\bm{I}_p = (\bm{A}+\bm{V}_h)(\bm{A}+\bm{V}_h)^T \succeq \bm{0}$
-and $s + c_h \ge s - \norm{h} > 0$ by (1).
-
-(4) Let $(\bm{A}\bm{Q},s)$, $\bm{Q} \in O(q)$, be another representative.
-The computation in the proof of Proposition~\ref{thm:exponential_map}
-shows that the horizontal lift of $h$ at $(\bm{A}\bm{Q},s)$ is $(\bm{V}_h\bm{Q}, c_h)$.
-Therefore the value of \eqref{eq:sigma_of_h} computed at that representative is
-
-\begin{equation*}
-  \bm{V}_h\bm{Q}(\bm{A}\bm{Q})^T + \bm{A}\bm{Q}(\bm{V}_h\bm{Q})^T + c_h\bm{I}_p
-  = \bm{V}_h\bm{Q}\bm{Q}^T\bm{A}^T + \bm{A}\bm{Q}\bm{Q}^T\bm{V}_h^T + c_h\bm{I}_p
-  = \dot{\bm{\Sigma}}[\bar{h}],
-\end{equation*}
-as claimed.
-\end{proof}
-
-\begin{remark}\label{thm:weyl_remark}
-A word on the provenance of \eqref{eq:sigma_min_perturbation},
-since it is usually quoted rather than proved.
-It is the case $i = q$ of the general Weyl perturbation inequality
-for singular values,
-
-\begin{equation}\label{eq:weyl_singular}
-  \abs{\sigma_i(\bm{A}+\bm{V}) - \sigma_i(\bm{A})} \le \sigma_1(\bm{V}) = \norm{\bm{V}}_2,
-  \qquad i = 1, \ldots, q,
-\end{equation}
-which in \cite{Horn_Johnson_2013} is equation (7.3.15),
-stated there as Problem 7.3.P16(d) rather than as a numbered theorem.
-It is worth being careful about the attribution.
-The theorem of Weyl that carries a number in that book,
-namely \cite{Horn_Johnson_2013} Theorem 4.3.1, is the inequality
-
-\begin{equation*}
-  \lambda_i(\bm{A}+\bm{B}) \le \lambda_{i+j}(\bm{A}) + \lambda_{n-j}(\bm{B})
-\end{equation*}
-for the \emph{eigenvalues of Hermitian} $\bm{A}$, $\bm{B} \in M_n$,
-and it does not apply directly to our situation,
-where $\bm{A}$ and $\bm{V}_h$ are rectangular $p \times q$ matrices
-and neither is Hermitian.
-Passing from Theorem 4.3.1 to \eqref{eq:weyl_singular}
-requires the Jordan--Wielandt device of replacing a $p \times q$ matrix $\bm{B}$
-by the Hermitian matrix
-
-\begin{equation*}
-  \mathcal{B} := \begin{bmatrix} \bm{0} & \bm{B} \\ \bm{B}^T & \bm{0} \end{bmatrix}
-  \in M_{p+q},
-\end{equation*}
-whose eigenvalues are $\pm\sigma_1(\bm{B}), \ldots, \pm\sigma_q(\bm{B})$
-together with $p-q$ zeros, and then applying the Hermitian result to
-$\mathcal{A}+\mathcal{V} = \overline{\bm{A}+\bm{V}}$;
-this is precisely the route indicated in \cite{Horn_Johnson_2013}, Problem 7.3.P16(a).
-Only the single case $i = q$ of \eqref{eq:weyl_singular} is needed here,
-and in that case, as the proof above shows,
-the variational characterization \eqref{eq:sigma_min_variational}
-gives it in three lines with no Hermitian detour;
-so we have preferred the direct argument and use
-\eqref{eq:weyl_singular} nowhere.
-\end{remark}
-
-\subsection*{Differentiability in quadratic mean}
-
-In the classical Euclidean theory the parameter perturbation is $\theta + h$;
-on a manifold there is no such addition, and its role is played by
-$\text{Exp}_{[\bm{A},s]}(h)$.
-Likewise the score, which classically is a vector in $\mathbb{R}^{\dim\Theta}$,
-becomes a linear functional on the tangent space,
-that is, an element of the cotangent space $T^*_{[\bm{A},s]}M$.
-The following definition is the manifold version of
-differentiability in quadratic mean;
-it reproduces \cite{Sun_Lin_Liu_2026}, Definition III.1,
-with a change of symbols,
-the model tangent space being their equation (7).
-
-\begin{definition}\label{thm:dqm_definition}
-Let $[\bm{A},s] \in M$ and abbreviate
-$[\bm{A},s]_h := \text{Exp}_{[\bm{A},s]}(h)$,
-defined for $h \in T_{[\bm{A},s]}M$ of small enough norm
-by Lemma~\ref{thm:exp_chart}.
-The model $\mathcal{P}$ of \eqref{eq:model_family} is said to be
-\emph{differentiable in quadratic mean} (DQM) at $P_{[\bm{A},s]}$
-if there exists a map
-
-\begin{equation*}
-  \dot{\ell}_{[\bm{A},s]} : \mathbb{R}^p \longrightarrow T^*_{[\bm{A},s]}M,
-\end{equation*}
-called the \emph{score operator},
-assigning to each $\bm{x} \in \mathbb{R}^p$ a linear functional
-$h \mapsto \dot{\ell}_{[\bm{A},s]}(\bm{x})(h)$ on $T_{[\bm{A},s]}M$,
-such that, as $h \to \bm{0}$ in $T_{[\bm{A},s]}M$,
-
-\begin{equation}\label{eq:dqm}
-  \int_{\mathbb{R}^p}
-  \bracket{
-    r(\bm{x};[\bm{A},s]_h) - r(\bm{x};[\bm{A},s])
-    - \tfrac{1}{2}\dot{\ell}_{[\bm{A},s]}(\bm{x})(h)\, r(\bm{x};[\bm{A},s])
-  }^2 d\bm{x}
-  = o\bracket{\norm{h}^2}.
-\end{equation}
-In that case we write $S_{[\bm{A},s]} := \dot{\ell}_{[\bm{A},s]}(\bm{X})$
-for the \emph{score} of the model, where $\bm{X} \sim P_{[\bm{A},s]}$,
-and call
-
-\begin{equation*}
-  \Lambda_{[\bm{A},s]}
-  := \overline{\text{span}}\curly{S_{[\bm{A},s]}(h) \mid h \in T_{[\bm{A},s]}M}
-  \subseteq L^2\bracket{P_{[\bm{A},s]}}
-\end{equation*}
-the \emph{model tangent space} at $[\bm{A},s]$.
-\end{definition}
-
-\begin{remark}
-Three comments on the shape of \eqref{eq:dqm}.
-First, the norm $\norm{h}$ and the space $T_{[\bm{A},s]}M$
-in which $h$ lives are intrinsic:
-no chart has been chosen, and the condition is
-invariant under the choice of representative $(\bm{A},s)$ of the class.
-Second, the perturbation $[\bm{A},s]_h$ is the geodesic one,
-not a coordinate increment;
-the whole difficulty of transporting Le Cam's theory to a manifold
-usually lies here, and Proposition~\ref{thm:exponential_map}
-is what dissolves it in the present model,
-since the geodesic perturbation is affine in the horizontal lift.
-Third, the score operator, if it exists, is unique:
-\eqref{eq:dqm} determines the element
-$\frac{1}{2}\dot{\ell}_{[\bm{A},s]}(\cdot)(h)\, r(\cdot;[\bm{A},s])$ of $L^2(\mathbb{R}^p,d\bm{x})$
-as a limit of difference quotients, and $r(\cdot;[\bm{A},s]) > 0$ everywhere.
-\end{remark}
-
-\subsection*{The score and the Fisher information operator}
-
-We now produce the candidate score operator and compute
-its first two moments.
-The bilinear form $G_{[\bm{A},s]}$ obtained below is
-the Fisher information operator of \cite{Sun_Lin_Liu_2026}, Definition III.2,
-namely the covariance $\mathbb{E}\squared{S_{[\bm{A},s]}(h)\,S_{[\bm{A},s]}(h')}$
-of the score, evaluated in our model.
-The following elementary Gaussian identity is the only probabilistic input.
-
-\begin{lemma}\label{thm:gaussian_quadratic}
-Let $\bm{\Sigma}_1 \in \mathrm{Sym}_{++}(p)$ and let $\bm{X} \sim N_p(\bm{0},\bm{\Sigma}_1)$.
-For $\bm{\Delta} \in \mathrm{Sym}(p)$ define
-$T_{\bm{\Delta}} : \mathbb{R}^p \to \mathbb{R}$ by
-
-\begin{equation}\label{eq:T_delta}
-  T_{\bm{\Delta}}(\bm{x})
-  := \frac{1}{2}\tr\bracket{\bm{\Sigma}_1^{-1}\bracket{\bm{x}\bm{x}^T - \bm{\Sigma}_1}\bm{\Sigma}_1^{-1}\bm{\Delta}}.
-\end{equation}
-Then $\bm{\Delta} \mapsto T_{\bm{\Delta}}$ is linear,
-$T_{\bm{\Delta}}(\bm{X})$ is square integrable with
-$\mathbb{E}\squared{T_{\bm{\Delta}}(\bm{X})} = 0$, and
-for all $\bm{\Delta}$, $\bm{\Delta}' \in \mathrm{Sym}(p)$
-
-\begin{equation}\label{eq:T_delta_covariance}
-  \mathbb{E}\squared{T_{\bm{\Delta}}(\bm{X}) T_{\bm{\Delta}'}(\bm{X})}
-  = \frac{1}{2}\tr\bracket{\bm{\Sigma}_1^{-1}\bm{\Delta}\bm{\Sigma}_1^{-1}\bm{\Delta}'}.
-\end{equation}
-\end{lemma}
-
-\begin{proof}
-Linearity is clear from \eqref{eq:T_delta}.
-Put $\bm{M} := \bm{\Sigma}_1^{-1}\bm{\Delta}\bm{\Sigma}_1^{-1}$,
-which is symmetric because $\bm{\Sigma}_1^{-1}$ and $\bm{\Delta}$ are,
-and likewise $\bm{M}' := \bm{\Sigma}_1^{-1}\bm{\Delta}'\bm{\Sigma}_1^{-1}$.
-Using the cyclic property of the trace twice,
-
-\begin{equation*}
-  \tr\bracket{\bm{\Sigma}_1^{-1}\bm{x}\bm{x}^T\bm{\Sigma}_1^{-1}\bm{\Delta}}
-  = \bm{x}^T\bm{\Sigma}_1^{-1}\bm{\Delta}\bm{\Sigma}_1^{-1}\bm{x} = \bm{x}^T\bm{M}\bm{x},
-  \qquad
-  \tr\bracket{\bm{\Sigma}_1^{-1}\bm{\Sigma}_1\bm{\Sigma}_1^{-1}\bm{\Delta}} = \tr(\bm{\Sigma}_1\bm{M}),
-\end{equation*}
-so that
-
-\begin{equation}\label{eq:T_as_quadratic_form}
-  T_{\bm{\Delta}}(\bm{x}) = \tfrac{1}{2}\bm{x}^T\bm{M}\bm{x} - \tfrac{1}{2}\tr(\bm{\Sigma}_1\bm{M}).
-\end{equation}
-Thus $T_{\bm{\Delta}}$ is a quadratic polynomial in $\bm{x}$
-and is square integrable against a Gaussian law;
-and $\mathbb{E}\squared{\bm{X}\bm{X}^T} = \bm{\Sigma}_1$
-together with the linearity and continuity of the trace gives
-$\mathbb{E}\squared{T_{\bm{\Delta}}(\bm{X})} = 0$.
-
-For the covariance it therefore suffices, by \eqref{eq:T_as_quadratic_form}, to prove
-
-\begin{equation}\label{eq:isserlis_consequence}
-  \text{Cov}\bracket{\bm{X}^T\bm{M}\bm{X}, \, \bm{X}^T\bm{M}'\bm{X}}
-  = 2\tr\bracket{\bm{M}\bm{\Sigma}_1\bm{M}'\bm{\Sigma}_1}.
-\end{equation}
-Whiten by writing $\bm{X} = \bm{\Sigma}_1^{1/2}\bm{Z}$ with $\bm{Z} \sim N_p(\bm{0},\bm{I}_p)$,
-and set $\widetilde{\bm{M}} := \bm{\Sigma}_1^{1/2}\bm{M}\bm{\Sigma}_1^{1/2}$
-and $\widetilde{\bm{M}}' := \bm{\Sigma}_1^{1/2}\bm{M}'\bm{\Sigma}_1^{1/2}$,
-both symmetric, so that
-$\bm{X}^T\bm{M}\bm{X} = \bm{Z}^T\widetilde{\bm{M}}\bm{Z}$
-and $\bm{X}^T\bm{M}'\bm{X} = \bm{Z}^T\widetilde{\bm{M}}'\bm{Z}$.
-For independent standard normal coordinates one has Isserlis' formula
-
-\begin{equation*}
-  \mathbb{E}\squared{Z_iZ_jZ_kZ_l} = \delta_{ij}\delta_{kl} + \delta_{ik}\delta_{jl} + \delta_{il}\delta_{jk},
-\end{equation*}
-which is checked directly: if some index occurs an odd number of times
-the expectation vanishes and so does the right hand side;
-if the four indices split into two distinct pairs
-both sides equal $1$; and if all four coincide both sides equal $3$.
-Hence
-
-\begin{align*}
-  \mathbb{E}\squared{\bm{Z}^T\widetilde{\bm{M}}\bm{Z} \cdot \bm{Z}^T\widetilde{\bm{M}}'\bm{Z}}
-  &= \sum_{i,j,k,l} \widetilde{\bm{M}}_{ij}\widetilde{\bm{M}}'_{kl}\,\mathbb{E}\squared{Z_iZ_jZ_kZ_l} \\
-  &= \bracket{\sum_{i}\widetilde{\bm{M}}_{ii}}\bracket{\sum_{k}\widetilde{\bm{M}}'_{kk}}
-   + \sum_{i,j}\widetilde{\bm{M}}_{ij}\widetilde{\bm{M}}'_{ij}
-   + \sum_{i,j}\widetilde{\bm{M}}_{ij}\widetilde{\bm{M}}'_{ji} \\
-  &= \tr\widetilde{\bm{M}}\,\tr\widetilde{\bm{M}}' + 2\tr\bracket{\widetilde{\bm{M}}\widetilde{\bm{M}}'},
-\end{align*}
-the last equality using the symmetry of $\widetilde{\bm{M}}'$.
-Since $\mathbb{E}\squared{\bm{Z}^T\widetilde{\bm{M}}\bm{Z}} = \tr\widetilde{\bm{M}}$
-and similarly for $\widetilde{\bm{M}}'$, subtracting the product of the means leaves
-
-\begin{equation*}
-  \text{Cov}\bracket{\bm{X}^T\bm{M}\bm{X}, \, \bm{X}^T\bm{M}'\bm{X}}
-  = 2\tr\bracket{\widetilde{\bm{M}}\widetilde{\bm{M}}'}
-  = 2\tr\bracket{\bm{\Sigma}_1^{1/2}\bm{M}\bm{\Sigma}_1\bm{M}'\bm{\Sigma}_1^{1/2}}
-  = 2\tr\bracket{\bm{M}\bm{\Sigma}_1\bm{M}'\bm{\Sigma}_1},
-\end{equation*}
-which is \eqref{eq:isserlis_consequence}.
-Substituting back,
-
-\begin{equation*}
-  \mathbb{E}\squared{T_{\bm{\Delta}}(\bm{X}) T_{\bm{\Delta}'}(\bm{X})}
-  = \tfrac{1}{4}\cdot 2\tr\bracket{\bm{M}\bm{\Sigma}_1\bm{M}'\bm{\Sigma}_1}
-  = \tfrac{1}{2}\tr\bracket{\bm{\Sigma}_1^{-1}\bm{\Delta}\bm{\Sigma}_1^{-1}\bm{\Delta}'},
-\end{equation*}
-which is \eqref{eq:T_delta_covariance}.
-
-\medskip
-Neither of the two steps above is new: both are special cases of moment
-formulas for the matrix variate normal law collected in
+To prove that \eqref{eq:r_derivative}
+indeed defines a valid Gâteaux derivative,
+we must prove that $D_{\bm{h}}r_{[\bm{A},s]}(\bm{v}) \in L^2(\mathbb{R}^p)$.
+Luckily, the expectation and covariance of normal 
+quadratic forms have already been very well studied in 
 \cite{Gupta_Nagar_2000}.
-There a $q \times n$ random matrix satisfies
-$\bm{Y} \sim N_{q,n}\bracket{\bm{M}_*, \bm{\Sigma}_* \otimes \bm{\Psi}}$
-when
-$\mathrm{vec}\bracket{\bm{Y}^T} \sim
-N_{qn}\bracket{\mathrm{vec}\bracket{\bm{M}_*^T}, \bm{\Sigma}_* \otimes \bm{\Psi}}$
-(\cite{Gupta_Nagar_2000}, Definition 2.2.1),
-so the choice $q = 1$, $n = p$, $\bm{M}_* = \bm{0}$, $\bm{\Sigma}_* = 1$ and
-$\bm{\Psi} = \bm{\Sigma}_1$ makes $\bm{Y}$ the row vector $\bm{X}^T$ and turns a
-matrix quadratic form $\bm{Y}\bm{A}\bm{Y}^T$ into the scalar
-$\bm{X}^T\bm{A}\bm{X}$;
-we write $(\cdot)^T$ for the transpose that \cite{Gupta_Nagar_2000} denotes by a
-prime, the prime in $\bm{M}'$ here being a label and not a transpose.
-Under this dictionary \cite{Gupta_Nagar_2000}, Corollary 2.3.3.1(iii), is
-Isserlis' formula stated directly for $\bm{\Sigma}_1$,
+For $\bm{X} \sim N_p(\bm{0}, \bm{\Sigma})$,
+Theorem 7.7.1(i) 
+states that 
+\begin{equation*}
+  \mathbb{E} \squared{\bm{X}^T \bm{Z} \bm{X}}
+  = \tr \bracket{\bm{Z}\bm{\Sigma}}
+\end{equation*}
+for any $p \times p$ matrix $\bm{Z}$
+and 
+Theorem 7.7.2 states that 
+\begin{equation*}
+  \text{Cov} \bracket{\bm{X}^T \bm{Z} \bm{X}, \bm{X}^T \bm{Y} \bm{X}}
+  = \tr(\bm{Z}\bm{\Sigma}\bm{Y}^T\bm{\Sigma}) + \tr(\bm{Z}^T\bm{\Sigma}\bm{Y}^T\bm{\Sigma})
+\end{equation*} 
+for any two $p \times p$ matrices $\bm{Y}$ and $\bm{Z}$.
+Therefore, 
+we can confirm without effort that the expectation of derivative of log density is zero:
+\begin{equation*}
+  \begin{split}
+  & \tab[0.4cm] \int_{\mathbb{R}^p} D_{\bm{h}}l_{[\bm{A},s]}(\bm{v})(\bm{x})
+  p(\bm{x}; \bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v})))\mathrm{d} \bm{x}
+   \\ & = -\frac{1}{2} \tr 
+  \squared{\bracket{\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}^{-1}
+  \bracket{D_{\bm{h}}\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v})) }}
+  \\ & + \frac{1}{2}\int_{\mathbb{R}^p}\squared{\bm{x}^T\bracket{\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}^{-1}
+  \bracket{D_{\bm{h}}\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}
+  \bracket{\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}^{-1}\bm{x}} 
+  p(\bm{x}; \bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v})))\mathrm{d} \bm{x} = 0
+  \end{split}
+\end{equation*} 
+and, whenever $\bm{h}_1$ and $\bm{h}_2 \in T_{[\bm{A},s]}M$:
+\begin{equation}\label{eq:fisher_computation}
+  \begin{split}
+  & \tab[0.4cm] 	
+   \int_{\mathbb{R}^p} D_{\bm{h}_1}l_{[\bm{A},s]}(\bm{v})(\bm{x})
+   D_{\bm{h}_2}l_{[\bm{A},s]}(\bm{v})(\bm{x})
+  p(\bm{x}; \bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v})))\mathrm{d} \bm{x}
+  \\ & = \int_{\mathbb{R}^p} \squared{\bm{x}^T\bracket{\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}^{-1}
+  \bracket{D_{\bm{h}_1}\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}
+  \bracket{\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}^{-1}\bm{x}}
+  \\ & \squared{\bm{x}^T\bracket{\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}^{-1}
+  \bracket{D_{\bm{h}_2}\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}
+  \bracket{\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}^{-1}\bm{x}}
+  p(\bm{x}; \bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v})))\mathrm{d} \bm{x}
+  \\ & = \tr \curly{\bracket{\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}^{-1}
+  D_{\bm{h}_1}\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))
+  \bracket{\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}^{-1}
+  D_{\bm{h}_2}\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}.
+  \end{split}
+\end{equation} 
+Thus, in the particular case $\bm{h} = \bm{h}_1 = \bm{h}_2$:
+\begin{equation}\label{eq:r_L2norm}
+  \begin{split}
+  & \tab[0.4cm] 	\|D_{\bm{h}}r_{[\bm{A},s]}(\bm{v});L^2(\mathbb{R}^p)	\|^{\frac{1}{2}} =
+  \int_{\mathbb{R}^p} \squared{D_{\bm{h}}r_{[\bm{A},s]}(\bm{v})(\bm{x})}^2 \mathrm{d} \bm{x}
+   \\ & = \frac{1}{4}\int_{\mathbb{R}^p} \bracket{D_{\bm{h}}l_{[\bm{A},s]}(\bm{v})(\bm{x})}^2
+  p(\bm{x}; \bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v})))\mathrm{d} \bm{x}
+  = \frac{1}{2} \tr \curly{\squared{\bracket{\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}^{-1}
+  D_{\bm{h}}\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}^2}.
+  \end{split}
+\end{equation} 
+Therefore, $D_{\bm{h}}r_{[\bm{A},s]}(\bm{v}) \in L^2(\mathbb{R}^p)$
+and \eqref{eq:r_derivative} is indeed a 
+valid Gâteaux derivative at $\bm{v}$ in the direction $\bm{h}$.
+
+To prove that this is indeed the Fréchet derivative,
+let us look at the remainder term:
 
 \begin{equation*}
-  \mathbb{E}\squared{X_iX_jX_kX_l}
-  = (\bm{\Sigma}_1)_{ij}(\bm{\Sigma}_1)_{kl}
-  + (\bm{\Sigma}_1)_{ik}(\bm{\Sigma}_1)_{jl}
-  + (\bm{\Sigma}_1)_{il}(\bm{\Sigma}_1)_{jk},
+  R(\bm{v}, \bm{h})(\bm{x}) := 
+  r_{[\bm{A},s]}(\bm{v}+\bm{h})(\bm{x}) - 
+  r_{[\bm{A},s]}(\bm{v})(\bm{x}) - D_{\bm{h}}r_{[\bm{A},s]}(\bm{v})(\bm{x}) 
 \end{equation*}
-which makes the whitening step unnecessary, while
-\cite{Gupta_Nagar_2000}, Theorem 7.7.2, gives
+and prove that 
+\begin{equation*}
+  \lim_{\bm{h} \to \bm{0}} \frac{1}{\abs{\bm{h}}^2}
+  \|R(\bm{v}, \bm{h});L^2(\mathbb{R}^p)	\|^2 = 0.
+\end{equation*}
+To start, the fundamental theorem of calculus shows that
 
 \begin{equation*}
-  \text{Cov}\bracket{\bm{Y}\bm{A}\bm{Y}^T, \, \bm{Y}\bm{B}\bm{Y}^T}
-  = \tr\bracket{\bm{A}\bm{\Psi}\bm{B}^T\bm{\Psi}}
-  + \tr\bracket{\bm{A}^T\bm{\Psi}\bm{B}^T\bm{\Psi}}
+  \begin{split}
+  & \tab[0.4cm] r_{[\bm{A},s]}(\bm{v}+\bm{h})(\bm{x}) - 
+  r_{[\bm{A},s]}(\bm{v})(\bm{x}) 
+  = \int_{0}^1 \frac{d}{dt} r_{[\bm{A},s]}(\bm{v}+t\bm{h})(\bm{x}) \mathrm{d} t 
+  \\ & = \int_{0}^1 \lim_{s \to 0} \frac{r_{[\bm{A},s]}(\bm{v}+(t+s)\bm{h})(\bm{x})
+  - r_{[\bm{A},s]}(\bm{v}+t\bm{h})(\bm{x})}{s} \mathrm{d} t 
+  = \int_{0}^1 D_{\bm{h}}r_{[\bm{A},s]}(\bm{v}+t\bm{h})(\bm{x}) \mathrm{d} t.
+  \end{split}
 \end{equation*}
-once the terms carrying the mean $\bm{M}_*$ drop out and the commutation matrix
-reduces to $K_{11} = 1$;
-with $\bm{A} := \bm{M}$ and $\bm{B} := \bm{M}'$, both symmetric, this is exactly
-\eqref{eq:isserlis_consequence}.
-The same identity can be read off from \cite{Gupta_Nagar_2000},
-Theorem 7.7.1(ii), combined with the first moment
-$\mathbb{E}\squared{\bm{Y}\bm{A}\bm{Y}^T} = \tr\bracket{\bm{A}^T\bm{\Psi}}$
-of Theorem 2.3.5(ii) there.
-We have kept the direct derivation because it is short and self contained.
+Therefore,
+by Minkowski's integral inequality and the linearity of $D_{\bm{h}}r_{[\bm{A},s]}(\bm{v})$
+in $\bm{h}$, we have
+\begin{equation*}
+  \begin{split}
+  & \tab[0.4cm] 
+  \|R(\bm{v}, \bm{h});L^2(\mathbb{R}^p)	\|
+  = \|\int_{0}^1 \bracket{D_{\bm{h}}r_{[\bm{A},s]}(\bm{v}+t\bm{h})(\bm{x})- D_{\bm{h}}r_{[\bm{A},s]}(\bm{v})(\bm{x})} 
+  \mathrm{d} t;L^2(\mathbb{R}^p)	\|
+  \\ & \leqslant \int_{0}^1 
+  \|D_{\bm{h}}r_{[\bm{A},s]}(\bm{v}+t\bm{h})- D_{\bm{h}}r_{[\bm{A},s]}(\bm{v})
+  ;L^2(\mathbb{R}^p)	\| \mathrm{d} t
+  = \abs{\bm{h}} \int_{0}^1 
+  \|D_{\frac{\bm{h}}{\abs{\bm{h}}}}r_{[\bm{A},s]}(\bm{v}+t\bm{h})- D_{\frac{\bm{h}}{\abs{\bm{h}}}}r_{[\bm{A},s]}(\bm{v})
+  ;L^2(\mathbb{R}^p)	\| \mathrm{d} t
+  \end{split}
+\end{equation*}
+and 
+\begin{equation*}
+  \begin{split}
+  & \tab[0.4cm] \frac{1}{\abs{\bm{h}}^2}
+  \|R(\bm{v}, \bm{h});L^2(\mathbb{R}^p)	\|^2 \leqslant
+  \curly{\int_{0}^1 
+  \|D_{\frac{\bm{h}}{\abs{\bm{h}}}}r_{[\bm{A},s]}(\bm{v}+t\bm{h})- D_{\frac{\bm{h}}{\abs{\bm{h}}}}r_{[\bm{A},s]}(\bm{v})
+  ;L^2(\mathbb{R}^p)	\| \mathrm{d} t}^2
+  \\ & \leqslant 
+  \curly{\int_{0}^1 \sup_{\abs{\bm{u}} = 1}
+  \|D_{\bm{u}}r_{[\bm{A},s]}(\bm{v}+t\bm{h})- D_{\bm{u}}r_{[\bm{A},s]}(\bm{v})
+  ;L^2(\mathbb{R}^p)	\| \mathrm{d} t}^2.
+  \end{split}
+\end{equation*}
+The proof will be complete once we can show that
+
+\begin{equation}\label{eq:int_sup_u}
+  \lim_{\bm{h} \to \bm{0}} 
+  \int_{0}^1 \sup_{\abs{\bm{u}} = 1}
+  \|D_{\bm{u}}r_{[\bm{A},s]}(\bm{v}+t\bm{h})- D_{\bm{u}}r_{[\bm{A},s]}(\bm{v})
+  ;L^2(\mathbb{R}^p)	\| \mathrm{d} t = 0.
+\end{equation}
+We mus therefore examine the continuity of $D_{\bm{h}}r_{[\bm{A},s]}(\bm{v})$,
+which is easy to see if we revisit the formulas.
+\eqref{eq:Sigma_derivative} shows that $ D_{\bm{h}}\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))$
+is smooth in both $\bm{h}$ and $\bm{v}$.
+Thus,
+\eqref{eq:r_derivative} shows that,
+for each fixed $\bm{x} \in \mathbb{R}^p$,
+$D_{\bm{h}}r_{[\bm{A},s]}(\bm{v})(\bm{x})$ 
+is smooth in both $\bm{h}$ and $\bm{v}$
+and \eqref{eq:r_L2norm}
+shows that $\|D_{\bm{h}}r_{[\bm{A},s]}(\bm{v});L^2(\mathbb{R}^p)	\|$
+is smooth in both $\bm{h}$ and $\bm{v}$.
+Combine the two facts, we see that 
+$D_{\bm{h}}r_{[\bm{A},s]}(\bm{v})$, as a map to $L^2(\mathbb{R}^p)$,
+is continuous in $\bm{h}$ and in $\bm{v}$.
+The integrand inside \eqref{eq:int_sup_u}
+is thus bounded uniformly 
+over all $t \in [0,1]$ and all $\bm{h}$
+in a compact neighborhood of $\bm{0}$
+and it suffices to show 
+that, for every $t \in [0,1]$, that 
+\begin{equation}\label{eq:lim_sup_u}
+  \lim_{\bm{h} \to \bm{0}} 
+  \sup_{\abs{\bm{u}} = 1}
+  \|D_{\bm{u}}r_{[\bm{A},s]}(\bm{v}+t\bm{h})- D_{\bm{u}}r_{[\bm{A},s]}(\bm{v})
+  ;L^2(\mathbb{R}^p)	\|  = 0,
+\end{equation}
+thanks to the bounded convergence theorem.
+To prove \eqref{eq:lim_sup_u}, 
+let $\bm{e}_1, \ldots, \bm{e}_d$ 
+be a $g_{[\bm{A},s]}$ orthonormal basis
+where $d = pq+1-\frac{q(q-1)}{2}$.
+Every unit vector $\bm{u}$ can be 
+expressed as $\bm{u} = \sum_{i=1}^d u_i \bm{e}_i$
+with $\sum_{i=1}^d u_i^2 = 1$.
+By linearity of $D_{\bm{h}}r_{[\bm{A},s]}(\bm{v})$ in $\bm{h}$, 
+we have 
+\begin{equation*}
+  \begin{split}
+  & \tab[0.4cm] \|D_{\bm{u}}r_{[\bm{A},s]}(\bm{v}+t\bm{h}) - D_{\bm{u}}r_{[\bm{A},s]}(\bm{v});L^2(\mathbb{R}^p)	\| 
+  \leqslant \sum_{i=1}^d \abs{u_i}\|D_{\bm{e}_i}r_{[\bm{A},s]}(\bm{v}+t\bm{h}) - 
+  D_{\bm{e}_i}r_{[\bm{A},s]}(\bm{v});L^2(\mathbb{R}^p)	\|
+  \\ & \leqslant \sqrt{d} \max_{i=1, \ldots, d} \|D_{\bm{e}_i}r_{[\bm{A},s]}(\bm{v}+t\bm{h}) - 
+  D_{\bm{e}_i}r_{[\bm{A},s]}(\bm{v});L^2(\mathbb{R}^p)	\|.
+  \end{split}
+\end{equation*}
+Taking supremum yields
+\begin{equation*}
+  \sup_{\abs{\bm{u}} = 1}
+  \|D_{\bm{u}}r_{[\bm{A},s]}(\bm{v}+t\bm{h})- D_{\bm{u}}r_{[\bm{A},s]}(\bm{v})
+  ;L^2(\mathbb{R}^p)	\|  \leqslant 
+  \sqrt{d} \max_{i=1, \ldots, d} \|D_{\bm{e}_i}r_{[\bm{A},s]}(\bm{v}+t\bm{h}) - 
+  D_{\bm{e}_i}r_{[\bm{A},s]}(\bm{v});L^2(\mathbb{R}^p)	\|.
+\end{equation*}
+Given that $D_{\bm{e}_i}r_{[\bm{A},s]}(\bm{v}+t\bm{h}) 
+\to D_{\bm{e}_i}r_{[\bm{A},s]}(\bm{v})$
+in $L^2(\mathbb{R}^p)$
+as $\bm{h} \to \bm{0}$
+for every $i$, every $t$, and every $\bm{v}$,
+the proof of Fréchet differentiability is complete.
+
+Finally,
+the formulas \eqref{eq:Sigma_derivative}, \eqref{eq:l_derivative},
+and \eqref{eq:r_derivative}
+simplifies greatly when $\bm{v} = \bm{0}$:
+\begin{equation*}
+  \begin{split}
+  & \tab[0.4cm] D_{\bm{h}}r_{[\bm{A},s]}(\bm{0})(\bm{x})
+  = \frac{1}{2} r_{[\bm{A},s]}(\bm{0})(\bm{x}) D_{\bm{h}}l_{[\bm{A},s]}(\bm{0})(\bm{x})
+  \\ & = \frac{1}{2} \sqrt{p(\bm{x}; [\bm{A},s])}
+  \tr \curly{\bracket{\bm{\Sigma}([\bm{A},s])}^{-1}
+  \squared{\bm{x}\bm{x}^T - \bracket{\bm{\Sigma}([\bm{A},s])}}
+  \bracket{\bm{\Sigma}([\bm{A},s])}^{-1} \bracket{D_{\bm{h}}\bm{\Sigma}([\bm{A},s])}}.
+  \end{split}
+\end{equation*}
+The score $s(\bm{x}; [\bm{A},s])(\bm{h})$
+therefore equals to $D_{\bm{h}}l_{[\bm{A},s]}(\bm{0})(\bm{x})$
+and is indeed given by \eqref{eq:score}.
+The Fisher information operator \eqref{eq:G_def} is obtained 
+by taking $\bm{v} = \bm{0}$ in \eqref{eq:fisher_computation}.
+To show that $G_{[\bm{A},s]}$ is positive definite,
+suppose that $\bm{h} \in T_{[\bm{A},s]}M$
+is such that $G_{[\bm{A},s]}(\bm{h},\bm{h})=0$.
+\eqref{eq:G_def} shows that the Euclidean norm 
+of the matrix $\bracket{\bm{\Sigma}([\bm{A},s])}^{-1}
+  D_{\bm{h}}\bm{\Sigma}([\bm{A},s])$
+  must be zero.
+Therefore, $D_{\bm{h}}\bm{\Sigma}([\bm{A},s]) = \bm{0}$
+and, by \eqref{eq:Sigma_directional},
+it must be the case that $\bm{h} = \bm{0}$.
 \end{proof}
 
-\begin{lemma}\label{thm:score_fisher}
-Fix $[\bm{A},s] \in M$ and write $\bm{\Sigma}_0 := \bm{\Sigma}[\bm{A},s]$.
-Define, for $\bm{x} \in \mathbb{R}^p$ and $h$, $h' \in T_{[\bm{A},s]}M$,
-
-\begin{align}
-  \dot{\ell}_{[\bm{A},s]}(\bm{x})(h)
-  &:= \frac{1}{2}\tr\bracket{\bm{\Sigma}_0^{-1}\bracket{\bm{x}\bm{x}^T - \bm{\Sigma}_0}\bm{\Sigma}_0^{-1}\dot{\bm{\Sigma}}[\bar{h}]},
-  \label{eq:score} \\
-  G_{[\bm{A},s]}(h,h')
-  &:= \frac{1}{2}\tr\bracket{\bm{\Sigma}_0^{-1}\dot{\bm{\Sigma}}[\bar{h}]\,\bm{\Sigma}_0^{-1}\dot{\bm{\Sigma}}[\bar{h}']}.
-  \label{eq:fisher}
-\end{align}
-Then:
-
-\begin{enumerate}
-  \item For each $\bm{x}$ the map $h \mapsto \dot{\ell}_{[\bm{A},s]}(\bm{x})(h)$ is linear,
-  so that $\dot{\ell}_{[\bm{A},s]}(\bm{x}) \in T^*_{[\bm{A},s]}M$;
-  and $G_{[\bm{A},s]}$ is a symmetric bilinear form on $T_{[\bm{A},s]}M$.
-  Neither depends on the representative $(\bm{A},s)$ of the class.
-  \item If $\bm{X} \sim P_{[\bm{A},s]}$ then $\dot{\ell}_{[\bm{A},s]}(\bm{X})(h)$
-  is square integrable with
-
-  \begin{equation*}
-    \mathbb{E}\squared{\dot{\ell}_{[\bm{A},s]}(\bm{X})(h)} = 0,
-    \qquad
-    \mathbb{E}\squared{\dot{\ell}_{[\bm{A},s]}(\bm{X})(h)\,\dot{\ell}_{[\bm{A},s]}(\bm{X})(h')}
-    = G_{[\bm{A},s]}(h,h').
-  \end{equation*}
-  \item $G_{[\bm{A},s]}$ is positive semidefinite; more precisely,
-
-  \begin{equation}\label{eq:fisher_frobenius}
-    G_{[\bm{A},s]}(h,h)
-    = \frac{1}{2}\norm{\bm{\Sigma}_0^{-1/2}\dot{\bm{\Sigma}}[\bar{h}]\bm{\Sigma}_0^{-1/2}}_F^2,
-  \end{equation}
-  so that $G_{[\bm{A},s]}(h,h) = 0$ if and only if $\dot{\bm{\Sigma}}[\bar{h}] = \bm{0}$.
-\end{enumerate}
-\end{lemma}
-
-\begin{proof}
-(1) By Lemma~\ref{thm:exp_chart}(1) and (2),
-$h \mapsto \bar{h} \mapsto \dot{\bm{\Sigma}}[\bar{h}]$ is a composition of linear maps,
-with values in $\mathrm{Sym}(p)$;
-composing with the linear map $\bm{\Delta} \mapsto T_{\bm{\Delta}}(\bm{x})$
-of Lemma~\ref{thm:gaussian_quadratic}
-(taken with $\bm{\Sigma}_1 = \bm{\Sigma}_0$) gives \eqref{eq:score},
-which is therefore linear in $h$.
-Bilinearity of \eqref{eq:fisher} is likewise clear,
-and symmetry follows from the cyclic property of the trace
-together with the symmetry of $\bm{\Sigma}_0^{-1}$ and of $\dot{\bm{\Sigma}}[\cdot]$:
-writing $\bm{\Sigma}_0^{-1}\dot{\bm{\Sigma}}[\bar{h}]\bm{\Sigma}_0^{-1}\dot{\bm{\Sigma}}[\bar{h}']$
-and transposing inside the trace exchanges $\bar{h}$ and $\bar{h}'$.
-Independence of the representative is Lemma~\ref{thm:exp_chart}(4),
-$\bm{\Sigma}_0$ itself being representative independent by construction.
-
-(2) With $\bm{\Sigma}_1 := \bm{\Sigma}_0$ and $\bm{\Delta} := \dot{\bm{\Sigma}}[\bar{h}]$
-we have $\dot{\ell}_{[\bm{A},s]}(\cdot)(h) = T_{\bm{\Delta}}$
-in the notation \eqref{eq:T_delta},
-and $P_{[\bm{A},s]}$ is exactly $N_p(\bm{0},\bm{\Sigma}_0)$ by \eqref{eq:model_family}.
-The claims are then Lemma~\ref{thm:gaussian_quadratic} verbatim,
-the covariance formula \eqref{eq:T_delta_covariance}
-being \eqref{eq:fisher}.
-
-(3) Put $\bm{N} := \bm{\Sigma}_0^{-1/2}\dot{\bm{\Sigma}}[\bar{h}]\bm{\Sigma}_0^{-1/2}$,
-which is symmetric, so that
-$\dot{\bm{\Sigma}}[\bar{h}] = \bm{\Sigma}_0^{1/2}\bm{N}\bm{\Sigma}_0^{1/2}$ and
-$\bm{\Sigma}_0^{-1}\dot{\bm{\Sigma}}[\bar{h}] = \bm{\Sigma}_0^{-1/2}\bm{N}\bm{\Sigma}_0^{1/2}$.
-Squaring,
-$\bracket{\bm{\Sigma}_0^{-1}\dot{\bm{\Sigma}}[\bar{h}]}^2 = \bm{\Sigma}_0^{-1/2}\bm{N}^2\bm{\Sigma}_0^{1/2}$,
-whose trace is $\tr(\bm{N}^2) = \norm{\bm{N}}_F^2$ by cyclicity and symmetry of $\bm{N}$.
-This is \eqref{eq:fisher_frobenius}.
-Finally $\norm{\bm{N}}_F = 0$ forces $\bm{N} = \bm{0}$ and hence
-$\dot{\bm{\Sigma}}[\bar{h}] = \bm{\Sigma}_0^{1/2}\bm{N}\bm{\Sigma}_0^{1/2} = \bm{0}$,
-the converse being trivial.
-\end{proof}
-
-\begin{remark}\label{thm:nondegeneracy_remark}
-Part (3) reduces the nondegeneracy of the Fisher information operator
-to the purely linear algebraic question of whether
-$\dot{\bm{\Sigma}}[\bar{h}] = \bm{0}$ forces $\bar{h} = \bm{0}$
-for \emph{horizontal} $\bar{h}$.
-Equivalently, writing $V_{(\bm{A},s)}$ and $H_{(\bm{A},s)}$ as in
-Proposition~\ref{thm:horizontal_verticle}, the question is whether
-$\ker\bracket{\dot{\bm{\Sigma}}} = V_{(\bm{A},s)}$ exactly,
-so that $\ker\bracket{\dot{\bm{\Sigma}}} \cap H_{(\bm{A},s)} = \curly{\bm{0}}$.
-This is settled in the affirmative by Proposition~\ref{thm:nondegeneracy} below,
-and --- as that proof makes plain --- with no condition whatsoever
-on the multiplicities of the singular values of $\bm{A}$.
-Almost all of the work has in fact already been done:
-the identification of $\ker(\dot{\bm{\Sigma}})$ was carried out
-inside the proof of Proposition~\ref{thm:horizontal_verticle},
-where $\dot{\bm{\Sigma}}$ appears as the differential $d\Phi_{(\bm{A},s)}$.
-Let us also record that nondegeneracy is \emph{not} needed for the
-differentiability in quadratic mean proved below,
-and is not assumed there;
-it becomes indispensable only later, when $G_{[\bm{A},s]}^{-1}$
-is to be interpreted as an asymptotic covariance.
-\end{remark}
-
-\begin{proposition}\label{thm:nondegeneracy}
-Let $[\bm{A},s] \in M$. Then $G_{[\bm{A},s]}$ is positive definite:
-for $h \in T_{[\bm{A},s]}M$,
-
-\begin{equation*}
-  G_{[\bm{A},s]}(h,h) = 0 \iff h = \bm{0}.
-\end{equation*}
-Equivalently, $\ker\bracket{\dot{\bm{\Sigma}}} = V_{(\bm{A},s)}$ exactly,
-and $\dot{\bm{\Sigma}}$ restricted to $H_{(\bm{A},s)}$ is injective.
-\end{proposition}
-
-\begin{proof}
-The implication $\Leftarrow$ is bilinearity.
-For $\Rightarrow$, suppose $G_{[\bm{A},s]}(h,h) = 0$ and
-let $\bar{h} \in H_{(\bm{A},s)}$ be the horizontal lift of $h$.
-By Lemma~\ref{thm:score_fisher}(3) this forces
-
-\begin{equation}\label{eq:in_kernel}
-  \dot{\bm{\Sigma}}[\bar{h}] = \bm{0}, \qquad\text{that is,}\qquad
-  \bar{h} \in \ker\bracket{\dot{\bm{\Sigma}}}.
-\end{equation}
-Now $\dot{\bm{\Sigma}}$ is by Lemma~\ref{thm:exp_chart}(2)
-the differential at $(\bm{A},s)$ of the map \eqref{eq:sigma_map},
-which is the map called $\Phi$ in the proof of
-Proposition~\ref{thm:horizontal_verticle};
-so $\dot{\bm{\Sigma}} = d\Phi_{(\bm{A},s)}$
-and \eqref{eq:in_kernel} reads $\bar{h} \in \ker\bracket{d\Phi_{(\bm{A},s)}}$.
-That proof establishes, as its central claim, that
-
-\begin{equation}\label{eq:kernel_is_vertical}
-  \ker\bracket{d\Phi_{(\bm{A},s)}} = \ker\bracket{d\pi_{(\bm{A},s)}} = V_{(\bm{A},s)},
-\end{equation}
-the vertical space.
-Hence $\bar{h} \in V_{(\bm{A},s)}$.
-But $\bar{h}$ is horizontal, and $H_{(\bm{A},s)} = V_{(\bm{A},s)}^{\perp}$
-by definition, so
-
-\begin{equation*}
-  \bar{h} \in V_{(\bm{A},s)} \cap V_{(\bm{A},s)}^{\perp} = \curly{\bm{0}}.
-\end{equation*}
-Therefore $\bar{h} = \bm{0}$, and since $v \mapsto \bar{v}$ is a
-linear isomorphism onto $H_{(\bm{A},s)}$ we conclude $h = \bm{0}$.
-The two reformulations are immediate:
-\eqref{eq:kernel_is_vertical} is the first,
-and the second follows from it together with
-$H_{(\bm{A},s)} \cap V_{(\bm{A},s)} = \curly{\bm{0}}$.
-\end{proof}
-
-\begin{remark}
-Two comments on the hypotheses.
-
-First, \emph{no eigengap is used.}
-Nothing in the proof refers to the singular values of $\bm{A}$,
-let alone to their being distinct.
-This is worth stressing because the classical route to asymptotic normality
-in principal component analysis --- perturbation of the eigenvectors of the
-sample covariance, followed by the delta method --- does require the
-leading population eigenvalues to be simple.
-The reason for the difference is that individual principal directions
-are not what is being estimated here:
-the point $[\bm{A},s]$ of the quotient is,
-and the quotient has already absorbed the rotational ambiguity
-that repeated singular values would otherwise create.
-
-Second, \emph{the hypothesis $q < p$ is essential},
-and is exactly where it enters:
-the proof of Proposition~\ref{thm:horizontal_verticle}
-produces a nonzero $\bm{u} \in \mathbb{R}^p$ orthogonal to every column of $\bm{A}$,
-which exists precisely because $\text{rank}(\bm{A}) = q < p$,
-and uses it to force $c = 0$.
-Without it the conclusion is false.
-Indeed, suppose $q = p$, so that $\bm{A}$ is invertible,
-and take any $c \neq 0$ together with
-$\bm{V} := -\frac{c}{2}\bm{A}^{-T}$.
-Then $\bm{A}^T\bm{V} = -\frac{c}{2}\bm{I}_p$ is symmetric,
-so $(\bm{V},c)$ is horizontal by Proposition~\ref{thm:horizontal_verticle},
-while
-
-\begin{equation*}
-  \dot{\bm{\Sigma}}\squared{(\bm{V},c)}
-  = \bm{V}\bm{A}^T + \bm{A}\bm{V}^T + c\bm{I}_p
-  = -\tfrac{c}{2}\bm{I}_p - \tfrac{c}{2}\bm{I}_p + c\bm{I}_p = \bm{0},
-\end{equation*}
-so this nonzero horizontal vector lies in $\ker(\dot{\bm{\Sigma}})$
-and $G_{[\bm{A},s]}$ is degenerate.
-The smallest instance is $p = q = 1$, where
-$\bm{\Sigma}(a,s) = a^2 + s$ maps a two dimensional parameter space
-onto a one dimensional set of variances while the vertical space is trivial;
-the model is then hopelessly non-identifiable even after quotienting,
-which is the concrete reason the standing assumption $q < p$
-of Section~\ref{sec:basic_setup} cannot be dispensed with.
-\end{remark}
-
-\begin{remark}\label{thm:why_nondegenerate}
-It is worth explaining why the conclusion of
-Proposition~\ref{thm:nondegeneracy} deserves to be called
-\emph{nondegeneracy of the model},
-and how it lines up with what that word means classically.
-Everything below rests on one identity.
-Anticipating Proposition~\ref{thm:dqm}, and writing
-$d_H(P,Q) := \norm{r_P - r_Q}_{L^2}$ for the Hellinger distance
-in the normalisation induced by \eqref{eq:root_density},
-the DQM condition \eqref{eq:dqm} says exactly that
-$r\bracket{\cdot\,;[\bm{A},s]_h} - r\bracket{\cdot\,;[\bm{A},s]}
-= \frac{1}{2}\dot{\ell}_{[\bm{A},s]}(\cdot)(h)\,r\bracket{\cdot\,;[\bm{A},s]} + o(\norm{h})$
-in $L^2$.
-Since $r\bracket{\cdot\,;[\bm{A},s]}^2$ is the density of $P_{[\bm{A},s]}$,
-the leading term has squared $L^2$ norm
-
-\begin{equation*}
-  \int_{\mathbb{R}^p}\bracket{\tfrac{1}{2}\dot{\ell}_{[\bm{A},s]}(\bm{x})(h)}^2
-  r\bracket{\bm{x};[\bm{A},s]}^2 d\bm{x}
-  = \tfrac{1}{4}\,\mathbb{E}\squared{\dot{\ell}_{[\bm{A},s]}(\bm{X})(h)^2}
-  = \tfrac{1}{4}\,G_{[\bm{A},s]}(h,h)
-\end{equation*}
-by Lemma~\ref{thm:score_fisher}(2), so that
-
-\begin{equation}\label{eq:hellinger_speed}
-  d_H\bracket{P_{[\bm{A},s]_h},\, P_{[\bm{A},s]}}^2
-  = \frac{1}{4}\,G_{[\bm{A},s]}(h,h) + o\bracket{\norm{h}^2}.
-\end{equation}
-So $G_{[\bm{A},s]}(h,h)$ is, up to the factor $\frac{1}{4}$,
-the \emph{squared speed at which the distribution moves}
-when the parameter is moved in the direction $h$.
-Positive definiteness of $G$ therefore says:
-no direction of the parameter space is invisible to the data.
-That is the content, and each of the classical meanings of nondegeneracy
-is a rephrasing of it.
-
-\emph{Local identifiability.}
-The model \eqref{eq:model_family} is identifiable by construction,
-$[\bm{A},s] \mapsto P_{[\bm{A},s]}$ being injective.
-It is essential to see that this does \emph{not} already give
-Proposition~\ref{thm:nondegeneracy}:
-injectivity of a smooth map does not imply injectivity of its differential,
-as $t \mapsto t^3$ on $\mathbb{R}$ shows.
-Identifiability is a statement about the map, nondegeneracy about its derivative,
-and the latter is strictly stronger locally.
-Concretely, if $G(h,h) = 0$ for some $h \neq \bm{0}$
-then by \eqref{eq:hellinger_speed} the parameter can be moved at unit speed
-along the geodesic $t \mapsto [\bm{A},s]_{th}$
-while the distribution stays put to first order:
-distinct parameters, but statistically indistinguishable at the relevant scale.
-
-\emph{The classical regularity condition.}
-In the Euclidean theory one says the model is regular at $\vartheta_0$ when
-it is DQM there \emph{and} the Fisher information matrix $I_{\vartheta_0}$
-is nonsingular.
-Those two conditions are, in the present setting,
-exactly Proposition~\ref{thm:dqm} and Proposition~\ref{thm:nondegeneracy},
-so with the latter in hand we have established
-the full classical regularity hypothesis on $M$.
-Singularity of $I_{\vartheta_0}$ is what classically renders
-the Cram\'er--Rao bound vacuous and the limiting Gaussian shift experiment
-$\curly{N\bracket{h, I^{-1}_{\vartheta_0}}}$ meaningless;
-here it is what would prevent the covariance $G^{-1}_{[\bm{A},s]}$,
-which is to be the asymptotic covariance of the estimator,
-from existing at all.
-
-\emph{The sharpest form.}
-Suppose $G_{[\bm{A},s]}(h,h) = 0$ for some $h \neq \bm{0}$.
-Since $G_{[\bm{A},s]}(h,h) = \mathbb{E}\squared{\dot{\ell}_{[\bm{A},s]}(\bm{X})(h)^2}$
-by Lemma~\ref{thm:score_fisher}(2),
-the score in the direction $h$ vanishes almost surely.
-The local asymptotic normality expansion in the direction $h$,
-whose two terms are the score sum and $-\frac{1}{2}G(h,h)$,
-would then reduce to $o_{P}(1)$:
-the log-likelihood ratio between the perturbed and unperturbed experiments
-converges to zero, so the two are asymptotically indistinguishable
-and no test can have asymptotic power against the alternative $h$.
-Degeneracy is thus not a technical inconvenience
-but the assertion that a genuine direction of the parameter space
-carries no information whatsoever.
-
-\emph{The quotient as a cure.}
-There is a purely linear algebraic way to see what passing to $M$ accomplished.
-A positive semidefinite form on a vector space $E$
-descends to a positive \emph{definite} form on the quotient $E/\ker$,
-and this is the standard repair for a degenerate quadratic form.
-Formula \eqref{eq:fisher} makes sense for an arbitrary,
-not necessarily horizontal, tangent vector of $\Theta$,
-and so defines a Fisher form on $T_{(\bm{A},s)}\Theta$;
-by \eqref{eq:fisher_frobenius} and \eqref{eq:kernel_is_vertical}
-that form is positive semidefinite with kernel exactly $V_{(\bm{A},s)}$,
-of dimension $\frac{q(q-1)}{2}$.
-Hence the model on $\Theta$ \emph{is} degenerate in the classical sense,
-and every classical theorem is simply inapplicable there.
-Passing to the quotient is precisely the operation of dividing out
-the null space of the Fisher form, since
-$T_{(\bm{A},s)}\Theta / V_{(\bm{A},s)} \cong H_{(\bm{A},s)} \cong T_{[\bm{A},s]}M$;
-and the content of Proposition~\ref{thm:nondegeneracy}
-is that the division is exactly right, neither too coarse nor too fine.
-This is the precise sense in which the quotient manifold $M$,
-and not $\Theta$, is the correct parameter space for an asymptotic theory.
-
-\emph{A metric restatement.}
-Combining \eqref{eq:hellinger_speed} with
-Proposition~\ref{thm:nondegeneracy} and the compactness of the unit
-sphere of $T_{[\bm{A},s]}M$, there are constants
-$0 < c \le C < \infty$ and $\delta > 0$ with
-
-\begin{equation*}
-  c\,\norm{h} \;\le\; d_H\bracket{P_{[\bm{A},s]_h},\, P_{[\bm{A},s]}} \;\le\; C\,\norm{h},
-  \qquad \norm{h} < \delta .
-\end{equation*}
-That is, the statistical distance between two nearby members of the model
-is comparable to the Riemannian distance between the corresponding points of $M$.
-The two inequalities fail in opposite ways and both are fatal.
-The upper bound is the DQM half:
-it fails for the uniform family of the examples at the end of
-Section~\ref{sec:dqm_geometry}, where
-$d_H \asymp \norm{h}^{1/2} \gg \norm{h}$ and the model moves too fast,
-which is why estimation there is $n$-consistent rather than $\sqrt{n}$-consistent.
-The lower bound is the nondegeneracy half:
-it fails when $G$ is singular, the model then moving too slowly
-in some direction for any $\sqrt{n}$-consistent estimator to exist there.
-The regular theory lives exactly between the two.
-\end{remark}
-
-\subsection*{The model is differentiable in quadratic mean}
-
-\begin{proposition}\label{thm:dqm}
-The model $\mathcal{P}$ of \eqref{eq:model_family} is differentiable in quadratic mean,
-in the sense of Definition~\ref{thm:dqm_definition},
-at $P_{[\bm{A},s]}$ for \emph{every} $[\bm{A},s] \in M$,
-with score operator $\dot{\ell}_{[\bm{A},s]}$ given by \eqref{eq:score}.
-Consequently the score $S_{[\bm{A},s]} = \dot{\ell}_{[\bm{A},s]}(\bm{X})$ is
-centred and square integrable,
-its covariance --- the Fisher information operator of the model at $[\bm{A},s]$ ---
-is the bilinear form $G_{[\bm{A},s]}$ of \eqref{eq:fisher},
-and the model tangent space is the finite dimensional subspace
-
-\begin{equation*}
-  \Lambda_{[\bm{A},s]}
-  = \curly{\dot{\ell}_{[\bm{A},s]}(\cdot)(h) \mid h \in T_{[\bm{A},s]}M}
-  \subseteq L^2\bracket{P_{[\bm{A},s]}},
-  \qquad \dim \Lambda_{[\bm{A},s]} \le \dim M.
-\end{equation*}
-\end{proposition}
-
-\begin{proof}
-Fix a representative $(\bm{A},s) \in \Theta$ of the base point,
-which is legitimate since by Lemma~\ref{thm:exp_chart}(4)
-and Lemma~\ref{thm:score_fisher}(1) nothing in the statement depends on it.
-Abbreviate $\bm{\Sigma}_0 := \bm{\Sigma}(\bm{A},s)$,
-$\rho := \min\curly{\sigma_{\min}(\bm{A}), s} > 0$, and $d := \dim M$.
-Throughout, $h$ ranges over the open ball
-$B := \curly{h \in T_{[\bm{A},s]}M \mid \norm{h} < \rho/2}$,
-on which Lemma~\ref{thm:exp_chart} applies.
-Write, for $h \in B$ and $\bm{x} \in \mathbb{R}^p$,
-
-\begin{equation}\label{eq:chart_loglik}
-  L(h;\bm{x}) := \log f\bracket{\bm{x};[\bm{A},s]_h}
-  = -\frac{p}{2}\log(2\pi) - \frac{1}{2}\log\det\bm{\Sigma}(h)
-  - \frac{1}{2}\bm{x}^T\bm{\Sigma}(h)^{-1}\bm{x},
-\end{equation}
-and $r(h;\bm{x}) := r\bracket{\bm{x};[\bm{A},s]_h} = \exp\bracket{\frac{1}{2}L(h;\bm{x})}$,
-where $\bm{\Sigma}(h) \in \mathrm{Sym}_{++}(p)$ is as in Lemma~\ref{thm:exp_chart}(2)--(3).
-Note that $r(\bm{0};\cdot) = r(\cdot;[\bm{A},s])$.
-
-We stress at the outset the structural point on which the whole proof rests:
-by Proposition~\ref{thm:exponential_map} the geodesic perturbation
-$[\bm{A},s]_h$ is \emph{affine} in the horizontal lift $\bar{h}$,
-so that $\curly{P_{[\bm{A},s]_h} \mid h \in B}$ is an ordinary parametric family
-indexed by an open subset of the $d$ dimensional Euclidean space
-$H_{(\bm{A},s)} \cong T_{[\bm{A},s]}M$.
-No approximation of the exponential map is involved anywhere below;
-the manifold statement \eqref{eq:dqm} \emph{is} the classical
-quadratic mean differentiability of this Euclidean family at $h = \bm{0}$,
-that is, condition (7.1) of \cite{van_der_Vaart_1998}, page 93.
-One could therefore finish by quoting a standard sufficient condition,
-namely \cite{van_der_Vaart_1998}, Lemma 7.6,
-which asks that $h \mapsto \sqrt{f\bracket{\bm{x};[\bm{A},s]_h}}$
-be continuously differentiable for every $\bm{x}$
-and that the Fisher information be well defined and continuous in $h$;
-Steps 1 to 4 below verify precisely these two hypotheses.
-We nevertheless carry the argument through to the end in Step 5,
-both to keep the section self-contained
-and because the passage from the directionwise statement to the
-uniform one, invisible in the one dimensional phrasing of the quoted lemma,
-is the only genuinely delicate point.
-
-\medskip
-\noindent\textbf{Step 1: pointwise smoothness in $h$ and the derivative.}
-By \eqref{eq:sigma_of_h} the map $h \mapsto \bm{\Sigma}(h)$
-is a polynomial of degree two with values in $\mathrm{Sym}(p)$,
-hence $C^{\infty}$, and since $h \mapsto \bar{h}$ is linear,
-its directional derivative at $h \in B$ in the direction $v \in T_{[\bm{A},s]}M$
-is, writing $\bar{v} = (\bm{U},b)$,
-
-\begin{equation}\label{eq:sigma_dot_at_h}
-  D_v \bm{\Sigma}(h)
-  = \bm{U}\bracket{\bm{A}+\bm{V}_h}^T + \bracket{\bm{A}+\bm{V}_h}\bm{U}^T + b\bm{I}_p
-  =: \dot{\bm{\Sigma}}_h[\bar{v}] \in \mathrm{Sym}(p),
-\end{equation}
-obtained by differentiating $t \mapsto \bm{\Sigma}(h+tv)$ at $t=0$
-and using $\overline{h+tv} = \bar{h} + t\bar{v}$.
-In particular $\dot{\bm{\Sigma}}_{\bm{0}}[\bar{v}] = \dot{\bm{\Sigma}}[\bar{v}]$,
-and $v \mapsto \dot{\bm{\Sigma}}_h[\bar{v}]$ is linear for each fixed $h$.
-
-On the open cone $\mathrm{Sym}_{++}(p)$ the maps
-$\bm{\Sigma} \mapsto \log\det\bm{\Sigma}$ and $\bm{\Sigma} \mapsto \bm{\Sigma}^{-1}$
-are $C^{\infty}$, with differentials
-$\bm{\Delta} \mapsto \tr\bracket{\bm{\Sigma}^{-1}\bm{\Delta}}$ and
-$\bm{\Delta} \mapsto -\bm{\Sigma}^{-1}\bm{\Delta}\bm{\Sigma}^{-1}$ respectively.
-By Lemma~\ref{thm:exp_chart}(3), $\bm{\Sigma}(h)$ stays in that cone for $h \in B$.
-Therefore, for every fixed $\bm{x}$, the map $h \mapsto L(h;\bm{x})$ is $C^{\infty}$ on $B$,
-hence so is $h \mapsto r(h;\bm{x}) = \exp\bracket{\frac{1}{2}L(h;\bm{x})}$,
-and the chain rule gives
-
-\begin{align}
-  D_v L(h;\bm{x})
-  &= -\frac{1}{2}\tr\bracket{\bm{\Sigma}(h)^{-1}\dot{\bm{\Sigma}}_h[\bar{v}]}
-   + \frac{1}{2}\bm{x}^T\bm{\Sigma}(h)^{-1}\dot{\bm{\Sigma}}_h[\bar{v}]\bm{\Sigma}(h)^{-1}\bm{x}
-   \notag \\
-  &= \frac{1}{2}\tr\bracket{\bm{\Sigma}(h)^{-1}\bracket{\bm{x}\bm{x}^T - \bm{\Sigma}(h)}\bm{\Sigma}(h)^{-1}\dot{\bm{\Sigma}}_h[\bar{v}]},
-  \label{eq:chart_score}
-\end{align}
-where the second equality uses the cyclic property of the trace
-exactly as in \eqref{eq:T_as_quadratic_form}, and
-
-\begin{equation}\label{eq:root_derivative}
-  D_v r(h;\bm{x}) = \tfrac{1}{2}\,D_v L(h;\bm{x})\, r(h;\bm{x}).
-\end{equation}
-Comparing \eqref{eq:chart_score} at $h = \bm{0}$ with \eqref{eq:score} we see that
-
-\begin{equation}\label{eq:score_is_derivative}
-  D_v L(\bm{0};\bm{x}) = \dot{\ell}_{[\bm{A},s]}(\bm{x})(v),
-\end{equation}
-so the candidate score of Lemma~\ref{thm:score_fisher} is
-indeed the pointwise derivative of the log-likelihood in the chart.
-It is convenient to abbreviate, for $h \in B$ and $v \in T_{[\bm{A},s]}M$,
-
-\begin{equation}\label{eq:phi_def}
-  \phi_h^v(\bm{x}) := D_v L(h;\bm{x})\, r(h;\bm{x}),
-  \qquad\text{so that}\qquad
-  D_v r(h;\cdot) = \tfrac{1}{2}\phi_h^v
-  \quad\text{and}\quad
-  \phi_{\bm{0}}^v = \dot{\ell}_{[\bm{A},s]}(\cdot)(v)\, r(\cdot;[\bm{A},s]).
-\end{equation}
-By linearity of $v \mapsto \dot{\bm{\Sigma}}_h[\bar{v}]$ and of the trace,
-$v \mapsto \phi_h^v$ is linear for each fixed $h$.
-
-\medskip
-\noindent\textbf{Step 2: $\phi_h^v$ lies in $L^2(\mathbb{R}^p, d\bm{x})$, with a closed form norm.}
-Fix $h \in B$ and $v$. Since $r(h;\cdot)^2$ is the $N_p(\bm{0},\bm{\Sigma}(h))$ density,
-
-\begin{equation*}
-  \int_{\mathbb{R}^p} \phi_h^v(\bm{x})^2 \, d\bm{x}
-  = \int_{\mathbb{R}^p} \bracket{D_v L(h;\bm{x})}^2 f\bracket{\bm{x};[\bm{A},s]_h}\,d\bm{x}
-  = \mathbb{E}\squared{T_{\bm{\Delta}}(\bm{X}_h)^2},
-\end{equation*}
-where $\bm{X}_h \sim N_p(\bm{0},\bm{\Sigma}(h))$, and where we applied
-\eqref{eq:chart_score} to recognise $D_v L(h;\cdot) = T_{\bm{\Delta}}$
-in the notation \eqref{eq:T_delta} of Lemma~\ref{thm:gaussian_quadratic}
-taken with $\bm{\Sigma}_1 := \bm{\Sigma}(h)$ and $\bm{\Delta} := \dot{\bm{\Sigma}}_h[\bar{v}]$.
-Note that Lemma~\ref{thm:gaussian_quadratic} is applied here with a
-\emph{general} symmetric $\bm{\Delta}$; no horizontality of $\bar{v}$
-relative to the shifted representative $(\bm{A}+\bm{V}_h, s+c_h)$ is needed,
-and indeed none is available.
-That lemma therefore gives $\phi_h^v \in L^2(\mathbb{R}^p,d\bm{x})$ with
-
-\begin{equation}\label{eq:phi_norm}
-  \norm{\phi_h^v}_{L^2}^2
-  = \frac{1}{2}\tr\bracket{\bm{\Sigma}(h)^{-1}\dot{\bm{\Sigma}}_h[\bar{v}]\,\bm{\Sigma}(h)^{-1}\dot{\bm{\Sigma}}_h[\bar{v}]}
-  =: I(h)(v,v),
-\end{equation}
-the Fisher information of the chart family at $h$;
-by \eqref{eq:fisher} and \eqref{eq:score_is_derivative},
-$I(\bm{0})(v,v) = G_{[\bm{A},s]}(v,v) = \norm{\phi_{\bm{0}}^v}_{L^2}^2$.
-
-\medskip
-\noindent\textbf{Step 3: $h \mapsto \phi_h^v$ is $L^2$ continuous at $h=\bm{0}$, for each fixed $v$.}
-Let $(h_n)_{n \ge 1}$ be any sequence in $B$ with $h_n \to \bm{0}$.
-
-\emph{(a) Pointwise convergence.}
-The map $h \mapsto \bm{\Sigma}(h)$ is continuous by \eqref{eq:sigma_of_h},
-takes values in $\mathrm{Sym}_{++}(p)$ by Lemma~\ref{thm:exp_chart}(3),
-and both $\bm{\Sigma} \mapsto \bm{\Sigma}^{-1}$ and $\bm{\Sigma} \mapsto \det\bm{\Sigma}$
-are continuous there;
-also $h \mapsto \dot{\bm{\Sigma}}_h[\bar{v}]$ is affine by \eqref{eq:sigma_dot_at_h}.
-Reading off \eqref{eq:chart_loglik}, \eqref{eq:chart_score} and \eqref{eq:phi_def},
-the function $\phi_h^v(\bm{x})$ is built from these by
-sums, products, traces and the exponential, so that
-for \emph{every} $\bm{x} \in \mathbb{R}^p$,
-
-\begin{equation*}
-  \phi_{h_n}^v(\bm{x}) \longrightarrow \phi_{\bm{0}}^v(\bm{x}), \qquad n \to \infty.
-\end{equation*}
-
-\emph{(b) Convergence of the norms.}
-By the same continuity applied to the closed form \eqref{eq:phi_norm},
-
-\begin{equation*}
-  \norm{\phi_{h_n}^v}_{L^2}^2 = I(h_n)(v,v) \longrightarrow I(\bm{0})(v,v) = \norm{\phi_{\bm{0}}^v}_{L^2}^2 .
-\end{equation*}
-
-\emph{(c) From (a) and (b) to $L^2$ convergence.}
-This is Riesz's criterion, which we include for completeness.
-Since $(\alpha - \beta)^2 \le 2\alpha^2 + 2\beta^2$ for reals, the functions
-
-\begin{equation*}
-  \psi_n := 2\bracket{\phi_{h_n}^v}^2 + 2\bracket{\phi_{\bm{0}}^v}^2 - \bracket{\phi_{h_n}^v - \phi_{\bm{0}}^v}^2
-\end{equation*}
-are nonnegative, and by (a) they converge pointwise to $4\bracket{\phi_{\bm{0}}^v}^2$.
-Fatou's lemma and then (b) give
-
-\begin{align*}
-  4\norm{\phi_{\bm{0}}^v}_{L^2}^2
-  &= \int_{\mathbb{R}^p} \liminf_{n} \psi_n \, d\bm{x}
-  \;\le\; \liminf_{n} \int_{\mathbb{R}^p} \psi_n \, d\bm{x} \\
-  &= \liminf_{n} \bracket{2\norm{\phi_{h_n}^v}_{L^2}^2 + 2\norm{\phi_{\bm{0}}^v}_{L^2}^2
-     - \norm{\phi_{h_n}^v - \phi_{\bm{0}}^v}_{L^2}^2} \\
-  &= 4\norm{\phi_{\bm{0}}^v}_{L^2}^2 - \limsup_{n} \norm{\phi_{h_n}^v - \phi_{\bm{0}}^v}_{L^2}^2,
-\end{align*}
-the last equality because the first two terms form a convergent sequence.
-As $\norm{\phi_{\bm{0}}^v}_{L^2} < \infty$ by Step 2, we may cancel it
-and conclude $\limsup_n \norm{\phi_{h_n}^v - \phi_{\bm{0}}^v}_{L^2}^2 \le 0$,
-that is, $\phi_{h_n}^v \to \phi_{\bm{0}}^v$ in $L^2(\mathbb{R}^p, d\bm{x})$.
-
-The sequence being arbitrary, the nondecreasing function
-
-\begin{equation}\label{eq:omega_v}
-  \omega_v(\delta) := \sup_{\norm{h} \le \delta} \norm{\phi_h^v - \phi_{\bm{0}}^v}_{L^2},
-  \qquad 0 < \delta < \rho/2,
-\end{equation}
-satisfies $\omega_v(\delta) \to 0$ as $\delta \downarrow 0$.
-Indeed, being nondecreasing it has a limit $\lambda \ge 0$ at $0^+$;
-if $\lambda > 0$ we could choose, for each $n$ large, some $h_n$ with
-$\norm{h_n} \le 1/n$ and $\norm{\phi_{h_n}^v - \phi_{\bm{0}}^v}_{L^2} > \lambda/2$,
-contradicting what we just proved.
-
-\medskip
-\noindent\textbf{Step 4: uniformity over directions.}
-Let $e_1, \ldots, e_d$ be a $g_{[\bm{A},s]}$ orthonormal basis of $T_{[\bm{A},s]}M$.
-By Step 1 the map $v \mapsto \phi_h^v$ is linear for each fixed $h$,
-and so therefore is $v \mapsto \phi_h^v - \phi_{\bm{0}}^v$.
-Hence for a unit vector $u = \sum_{j=1}^d u_j e_j$,
-for which $\sum_j u_j^2 = 1$ and so $\sum_j \abs{u_j} \le \sqrt{d}$
-by the Cauchy--Schwarz inequality,
-the triangle inequality in $L^2$ gives
-
-\begin{equation*}
-  \norm{\phi_h^u - \phi_{\bm{0}}^u}_{L^2}
-  = \norm{\sum_{j=1}^d u_j\bracket{\phi_h^{e_j} - \phi_{\bm{0}}^{e_j}}}_{L^2}
-  \le \sum_{j=1}^d \abs{u_j}\,\norm{\phi_h^{e_j} - \phi_{\bm{0}}^{e_j}}_{L^2}
-  \le \sqrt{d}\,\max_{1 \le j \le d}\norm{\phi_h^{e_j} - \phi_{\bm{0}}^{e_j}}_{L^2}.
-\end{equation*}
-Taking suprema and invoking Step 3 at each of the finitely many basis vectors,
-the modulus of continuity
-
-\begin{equation}\label{eq:omega}
-  \omega(\delta) := \sup_{\norm{h} \le \delta}\ \sup_{\norm{u} = 1} \norm{\phi_h^u - \phi_{\bm{0}}^u}_{L^2}
-  \;\le\; \sqrt{d}\,\max_{1 \le j \le d} \omega_{e_j}(\delta)
-\end{equation}
-is nondecreasing and satisfies $\omega(\delta) \to 0$ as $\delta \downarrow 0$.
-This is where the finite dimensionality of $M$ enters the analysis:
-it is what upgrades the directionwise continuity of Step 3
-to the uniformity over directions that \eqref{eq:dqm} demands,
-and the argument would have to be run differently
-on an infinite dimensional parameter manifold.
-
-\medskip
-\noindent\textbf{Step 5: the fundamental theorem of calculus and Minkowski's inequality.}
-Let $h \in B$ with $h \ne \bm{0}$ and set $u := h/\norm{h}$, a unit vector.
-For $t$ in the open interval $\bracket{-\rho/(2\norm{h}), \rho/(2\norm{h})} \supset [0,1]$
-the point $th$ lies in $B$, so that $t \mapsto r(th;\bm{x})$ is defined there,
-and it is $C^1$ --- indeed $C^{\infty}$ --- for each fixed $\bm{x}$,
-because $h' \mapsto r(h';\bm{x})$ is so by Step 1.
-We claim that
-
-\begin{equation}\label{eq:t_derivative}
-  \frac{d}{dt} r(th;\bm{x})
-  \;\overset{(a)}{=}\; D_h r(th;\bm{x})
-  \;\overset{(b)}{=}\; \norm{h}\, D_u r(th;\bm{x})
-  \;\overset{(c)}{=}\; \frac{\norm{h}}{2}\,\phi_{th}^u(\bm{x}).
-\end{equation}
-
-For $(a)$, recall that $D_v$ denotes the directional derivative
-in the direction $v$ \emph{at the point indicated by its argument}, that is
-
-\begin{equation}\label{eq:directional_derivative_recalled}
-  D_v r(h';\bm{x}) := \frac{d}{ds}\Big|_{s=0} r(h'+sv;\bm{x}).
-\end{equation}
-This is meaningful because the parameter $h'$ ranges over an open subset
-of the \emph{vector space} $T_{[\bm{A},s]}M$,
-in which a point and a direction are the same kind of object
-and the sum $h' + sv$ makes sense;
-we are working inside the exponential chart precisely so that this is so.
-Now observe that the curve $t \mapsto th$ is a straight line
-traversed at the constant velocity $h$,
-so that incrementing its parameter $t$ by $s$
-increments its value by exactly $sh$, and hence
-
-\begin{equation*}
-  \frac{d}{dt} r(th;\bm{x})
-  = \lim_{s \to 0} \frac{r\bracket{(t+s)h;\bm{x}} - r(th;\bm{x})}{s}
-  = \lim_{s \to 0} \frac{r\bracket{th+sh;\bm{x}} - r(th;\bm{x})}{s}
-  = D_h r(th;\bm{x}),
-\end{equation*}
-the last expression being, by \eqref{eq:directional_derivative_recalled}
-with $h' = th$ and $v = h$, exactly the defining difference quotient
-of $D_h$ evaluated at the point $th$.
-The two derivatives in $(a)$ are thus the same limit written twice.
-This is of course the chain rule applied to
-$r(\cdot\,;\bm{x}) \circ \gamma$ with $\gamma(t) = th$ and $\gamma'(t) \equiv h$,
-but because $\gamma$ is affine no chain rule is actually needed:
-the middle equality above is the identity $(t+s)h = th + sh$
-and nothing more.
-Note also that the point at which the derivative is taken
-moves with $t$, whereas the direction $h$ does not;
-this is what makes $\phi^u_{th}$, rather than $\phi^u_{\bm{0}}$,
-appear on the right of \eqref{eq:t_derivative}.
-
-Equality $(b)$ is linearity in the direction.
-By \eqref{eq:chart_score} the direction $v$ enters $D_vL(h';\bm{x})$
-only through the linear map $v \mapsto \dot{\bm{\Sigma}}_{h'}[\bar{v}]$,
-so $v \mapsto D_vL(h';\bm{x})$ is linear, as was noted at the end of Step 1;
-by \eqref{eq:root_derivative} the factor $r(h';\bm{x})$ does not depend on $v$,
-so $v \mapsto D_v r(h';\bm{x}) = \frac{1}{2}D_vL(h';\bm{x})\,r(h';\bm{x})$
-is linear as well.
-Applying this at $h' = th$ to the decomposition $h = \norm{h}\,u$
-gives $(b)$.
-Finally $(c)$ is \eqref{eq:root_derivative} combined with
-the definition \eqref{eq:phi_def} of $\phi^u_{th}$,
-which say together that $D_u r(h';\cdot) = \frac{1}{2}\phi^u_{h'}$.
-
-Integrating \eqref{eq:t_derivative} from $0$ to $1$,
-
-\begin{equation*}
-  r(h;\bm{x}) - r(\bm{0};\bm{x}) = \frac{\norm{h}}{2}\int_0^1 \phi_{th}^u(\bm{x})\,dt .
-\end{equation*}
-On the other hand $\dot{\ell}_{[\bm{A},s]}(\bm{x})(h) = \norm{h}\,\dot{\ell}_{[\bm{A},s]}(\bm{x})(u)$
-by linearity, so that by \eqref{eq:phi_def}
-
-\begin{equation*}
-  \tfrac{1}{2}\dot{\ell}_{[\bm{A},s]}(\bm{x})(h)\, r(\bm{x};[\bm{A},s])
-  = \frac{\norm{h}}{2}\,\phi_{\bm{0}}^u(\bm{x})
-  = \frac{\norm{h}}{2}\int_0^1 \phi_{\bm{0}}^u(\bm{x})\,dt.
-\end{equation*}
-Subtracting, the DQM remainder is exactly
-
-\begin{equation}\label{eq:dqm_remainder}
-  R_h(\bm{x})
-  := r\bracket{\bm{x};[\bm{A},s]_h} - r\bracket{\bm{x};[\bm{A},s]}
-   - \tfrac{1}{2}\dot{\ell}_{[\bm{A},s]}(\bm{x})(h)\,r\bracket{\bm{x};[\bm{A},s]}
-   = \frac{\norm{h}}{2}\int_0^1 \bracket{\phi_{th}^u(\bm{x}) - \phi_{\bm{0}}^u(\bm{x})}dt.
-\end{equation}
-Abbreviate the integrand of \eqref{eq:dqm_remainder} by
-
-\begin{equation*}
-  F(t,\bm{x}) := \phi_{th}^u(\bm{x}) - \phi_{\bm{0}}^u(\bm{x}),
-  \qquad (t,\bm{x}) \in [0,1] \times \mathbb{R}^p,
-\end{equation*}
-so that \eqref{eq:dqm_remainder} reads
-$R_h = \frac{\norm{h}}{2}\int_0^1 F(t,\cdot)\,dt$;
-here $h$, and with it the unit vector $u = h/\norm{h}$, is fixed,
-and only $t$ and $\bm{x}$ vary.
-Recall Minkowski's integral inequality in the form we need:
-if $(T,\nu)$ and $(Y,\mu)$ are $\sigma$-finite measure spaces
-and $F$ is $\nu \otimes \mu$ measurable, then
-
-\begin{equation}\label{eq:minkowski}
-  \bracket{\int_{Y}\abs{\int_{T} F(t,\bm{y})\,d\nu(t)}^2 d\mu(\bm{y})}^{1/2}
-  \;\le\;
-  \int_{T}\bracket{\int_{Y}\abs{F(t,\bm{y})}^2 d\mu(\bm{y})}^{1/2} d\nu(t),
-\end{equation}
-that is,
-$\norm{\int_{T} F(t,\cdot)\,d\nu(t)}_{L^2(\mu)}
-\le \int_{T}\norm{F(t,\cdot)}_{L^2(\mu)}\,d\nu(t)$.
-This is nothing but the triangle inequality with the finite sum
-replaced by an integral: the norm of an average is at most
-the average of the norms.
-Equivalently, it is the bound
-$\norm{\int_{T} G} \le \int_{T}\norm{G}$
-for the Bochner integral of the $L^2(\mu)$ valued map $G(t) := F(t,\cdot)$;
-we state it in the scalar form \eqref{eq:minkowski}
-to avoid having to set up vector valued integration.
-
-We apply \eqref{eq:minkowski} with $T = [0,1]$ and $Y = \mathbb{R}^p$,
-both carrying Lebesgue measure and both $\sigma$-finite.
-Its hypotheses are met:
-
-\begin{enumerate}
-  \item \emph{Joint measurability.} By Step 1 the map
-  $(h',\bm{x}) \mapsto \phi_{h'}^u(\bm{x}) = D_uL(h';\bm{x})\,r(h';\bm{x})$
-  is jointly continuous on $B \times \mathbb{R}^p$,
-  being assembled from the continuous maps
-  $h' \mapsto \bm{\Sigma}(h')^{-1}$ and $h' \mapsto \dot{\bm{\Sigma}}_{h'}[\bar{u}]$,
-  the polynomial $\bm{x} \mapsto \bm{x}\bm{x}^T$, and the exponential.
-  Precomposing with the continuous $t \mapsto th$ and subtracting the
-  ($t$-independent, continuous) function $\phi_{\bm{0}}^u$
-  shows that $F$ is jointly continuous, hence jointly measurable.
-  \item \emph{The right hand side of \eqref{eq:minkowski} is well defined.}
-  The function $\abs{F}^2$ is nonnegative and jointly measurable by (1),
-  so Tonelli's theorem makes
-  $t \mapsto \int_{\mathbb{R}^p}\abs{F(t,\bm{x})}^2 d\bm{x} = \norm{F(t,\cdot)}_{L^2}^2$
-  a measurable function of $t$.
-  \item \emph{Finiteness.} Each $F(t,\cdot)$ lies in $L^2(\mathbb{R}^p,d\bm{x})$,
-  since $\phi_{th}^u$ and $\phi_{\bm{0}}^u$ do by Step 2.
-\end{enumerate}
-Inequality \eqref{eq:minkowski} therefore gives
-
-\begin{equation}\label{eq:minkowski_applied}
-  \norm{R_h}_{L^2}
-  = \frac{\norm{h}}{2}\norm{\int_0^1 F(t,\cdot)\,dt}_{L^2}
-  \;\le\; \frac{\norm{h}}{2}\int_0^1 \norm{\phi_{th}^u - \phi_{\bm{0}}^u}_{L^2} dt.
-\end{equation}
-It remains to bound the integrand of \eqref{eq:minkowski_applied}
-uniformly in $t$, and this is exactly what Step 4 was arranged to provide.
-For every $t \in [0,1]$ we have $\norm{th} = t\norm{h} \le \norm{h}$,
-while $u$ is a unit vector;
-so the pair $(th, u)$ is one of those over which the supremum
-defining $\omega\bracket{\norm{h}}$ in \eqref{eq:omega} is taken, whence
-
-\begin{equation*}
-  \norm{\phi_{th}^u - \phi_{\bm{0}}^u}_{L^2} \le \omega\bracket{\norm{h}}
-  \qquad \text{for all } t \in [0,1].
-\end{equation*}
-The integrand of \eqref{eq:minkowski_applied} is thus dominated by
-a constant, and $\int_0^1 \omega\bracket{\norm{h}}\,dt = \omega\bracket{\norm{h}}$,
-so that
-
-\begin{equation*}
-  \norm{R_h}_{L^2} \;\le\; \frac{\norm{h}}{2}\,\omega\bracket{\norm{h}}.
-\end{equation*}
-Squaring,
-
-\begin{equation*}
-  \int_{\mathbb{R}^p}
-  \bracket{r\bracket{\bm{x};[\bm{A},s]_h} - r\bracket{\bm{x};[\bm{A},s]}
-    - \tfrac{1}{2}\dot{\ell}_{[\bm{A},s]}(\bm{x})(h)\,r\bracket{\bm{x};[\bm{A},s]}}^2 d\bm{x}
-  \;\le\; \frac{\norm{h}^2}{4}\,\omega\bracket{\norm{h}}^2 ,
-\end{equation*}
-and since $\omega(\norm{h}) \to 0$ as $h \to \bm{0}$ by Step 4,
-the right hand side is $o\bracket{\norm{h}^2}$.
-This is precisely \eqref{eq:dqm}, so $\mathcal{P}$ is differentiable
-in quadratic mean at $P_{[\bm{A},s]}$ with score operator $\dot{\ell}_{[\bm{A},s]}$.
-
-\medskip
-\noindent\textbf{Step 6: the remaining assertions.}
-The base point $[\bm{A},s] \in M$ was arbitrary, so DQM holds everywhere on $M$;
-observe that the only properties of $(\bm{A},s)$ used were
-$\text{rank}(\bm{A}) = q$ and $s > 0$, which hold throughout $\Theta$ by definition.
-That $S_{[\bm{A},s]}$ is centred and square integrable with covariance $G_{[\bm{A},s]}$
-is Lemma~\ref{thm:score_fisher}(2).
-Finally, by Lemma~\ref{thm:score_fisher}(1) the map
-$h \mapsto \dot{\ell}_{[\bm{A},s]}(\cdot)(h)$ is linear from $T_{[\bm{A},s]}M$
-into $L^2\bracket{P_{[\bm{A},s]}}$, so its range is a linear subspace
-of dimension at most $\dim T_{[\bm{A},s]}M = \dim M$.
-A finite dimensional subspace of a normed space is closed,
-so the range already equals its own closure
-and no completion is needed in the definition of $\Lambda_{[\bm{A},s]}$.
-\end{proof}
-
-\begin{remark}
-It is worth isolating what made the proof go through,
-because it is special to this model and not a general phenomenon
-on quotient manifolds.
-Quadratic mean differentiability is a statement about a
-\emph{one parameter family of perturbations} of the true measure,
-and on a manifold the natural perturbation is geodesic.
-In general one must then control the difference between the
-geodesic perturbation and any coordinate perturbation, which costs an
-extra approximation argument.
-Here Proposition~\ref{thm:exponential_map} says that the geodesics of $M$
-are the projections of straight lines in $\Theta$, so that
-$h \mapsto [\bm{A},s]_h$ is affine in the horizontal lift;
-and Lemma~\ref{thm:exp_chart}(2) says that the covariance,
-read in that chart, is an exact quadratic polynomial in $h$ with no remainder.
-The family $\curly{P_{[\bm{A},s]_h}}$ is then a perfectly ordinary
-Euclidean exponential type family, and the only genuine analysis left
-is the $L^2$ continuity of Step 3.
-By contrast, positive definiteness of $G_{[\bm{A},s]}$
-(Proposition~\ref{thm:nondegeneracy}) is where the quotient structure
-really bites: it is the one statement in this section
-that would be false on $\Theta$.
-\end{remark}
-
-\section{The Geometric Content of Differentiability in Quadratic Mean}
-\label{sec:dqm_geometry}
-
-Definition~\ref{thm:dqm_definition} is short but opaque on first reading:
-it is not obvious where the square root comes from,
-why the perturbation is squared and integrated,
-why the factor $\frac{1}{2}$ appears,
-or what the condition is really asking of the model.
-This section answers those questions.
-The short answer is that
-\emph{differentiability in quadratic mean is nothing other than
-Fr\'echet differentiability, at the point in question,
-of the map sending a parameter to the square root of its density,
-regarded as a map into the Hilbert space $L^2$}.
-Everything else in the definition is bookkeeping around that one idea.
-
-Most of this section is expository and is not used later.
-Two points are not: the warning of
-Remark~\ref{thm:two_metrics} that $M$ carries two
-distinct and non-proportional bilinear forms,
-and the factorization of Proposition~\ref{thm:factorization},
-which is the cleanest way to see what
-Proposition~\ref{thm:nondegeneracy} really says.
-
-\subsection*{The root density map}
-
-Let us first strip away the manifold and recall the classical picture.
-Let $U \subseteq \mathbb{R}^k$ be open, let $\mu$ be a measure on a sample space $\mathcal{X}$,
-and let $\curly{p_{\vartheta} \mid \vartheta \in U}$ be a family of $\mu$-densities.
-Put $\mathcal{H} := L^2(\mathcal{X},\mu)$, a real Hilbert space, and define
-
-\begin{equation}\label{eq:root_map}
-  \Phi : U \longrightarrow \mathcal{H}, \qquad \Phi(\vartheta) := r_{\vartheta} = \sqrt{p_{\vartheta}}.
-\end{equation}
-The classical DQM condition at $\vartheta_0$ reads
-
-\begin{equation}\label{eq:classical_dqm}
-  \int_{\mathcal{X}} \bracket{r_{\vartheta_0+h} - r_{\vartheta_0}
-  - \tfrac{1}{2}\dot{\ell}_{\vartheta_0}(h)\, r_{\vartheta_0}}^2 d\mu = o\bracket{\norm{h}^2},
-\end{equation}
-which, since the integral of a square is exactly a squared $\mathcal{H}$-norm,
-is the same as
-
-\begin{equation}\label{eq:frechet}
-  \norm{\Phi(\vartheta_0+h) - \Phi(\vartheta_0) - D\Phi_{\vartheta_0}(h)}_{\mathcal{H}}
-  = o\bracket{\norm{h}},
-  \qquad D\Phi_{\vartheta_0}(h) := \tfrac{1}{2}\dot{\ell}_{\vartheta_0}(h)\, r_{\vartheta_0}.
-\end{equation}
-That is precisely the definition of Fr\'echet differentiability of $\Phi$ at $\vartheta_0$
-with derivative the bounded linear map $D\Phi_{\vartheta_0}$.
-The same remark applies verbatim to \eqref{eq:dqm},
-with $U$ replaced by $M$ and $\mu$ by Lebesgue measure on $\mathbb{R}^p$.
-
-\begin{remark}
-It is worth saying explicitly that \eqref{eq:classical_dqm}
-is a \emph{first order} condition, notwithstanding the exponent $2$
-on both sides.
-The square on the left is the square of the Hilbert norm
-and the square on the right compensates for it;
-after taking square roots one is left with \eqref{eq:frechet},
-an ordinary first order Taylor statement.
-The condition is stated in the squared form only because
-the left hand side is then an integral one can actually estimate.
-\end{remark}
-
-Three features of the definition now explain themselves.
-
-\emph{Why the square root.}
-Because $\int r_{\vartheta}^2 \, d\mu = \int p_{\vartheta} \, d\mu = 1$,
-the map $\Phi$ takes its values in the \emph{unit sphere}
-
-\begin{equation*}
-  S(\mathcal{H}) := \curly{u \in \mathcal{H} \mid \norm{u}_{\mathcal{H}} = 1},
-\end{equation*}
-a fixed subset of a fixed Hilbert space, the same one for every $\vartheta$.
-The normalisation constraint on a density,
-which is an awkward affine side condition if one works with $p_{\vartheta}$ itself,
-becomes a piece of geometry.
-Moreover $\norm{r_{\vartheta_1} - r_{\vartheta_2}}_{\mathcal{H}}$
-is exactly the Hellinger distance between $P_{\vartheta_1}$ and $P_{\vartheta_2}$
-up to the normalising convention,
-so DQM says that $\vartheta \mapsto P_{\vartheta}$ is differentiable
-\emph{in Hellinger distance}.
-That is the metric one wants, because it interacts correctly with
-products of experiments and hence survives the localisation $h \mapsto h/\sqrt{n}$
-that the whole asymptotic theory is built on.
-
-\emph{Why the choice of $\mu$ does not matter.}
-Suppose $d\mu = v \, d\mu'$ for a positive $v$.
-Then $p_{\vartheta}' = p_{\vartheta} v$ and $r_{\vartheta}' = r_{\vartheta}\sqrt{v}$,
-and the map $u \mapsto u\sqrt{v}$ is a linear isometry
-from $L^2(\mu)$ onto $L^2(\mu')$, since
-$\int \abs{u \sqrt{v}}^2 d\mu' = \int u^2 v \, d\mu' = \int u^2 d\mu$.
-This isometry does not depend on $\vartheta$,
-so it carries \eqref{eq:frechet} to the corresponding statement for $\mu'$
-and carries $\frac{1}{2}\dot{\ell}(h)r_{\vartheta}$ to $\frac{1}{2}\dot{\ell}(h)r_{\vartheta}'$,
-leaving the score $\dot{\ell}$ itself untouched.
-This is why \cite{Sun_Lin_Liu_2026} can say that the dominating measure
-is not necessarily unique without any further comment.
-
-\emph{Why the factor $\frac{1}{2}$, and why the derivative is written as a multiple of $r_{\vartheta_0}$.}
-The $\frac{1}{2}$ is the chain rule for the square root:
-where things are smooth enough to compute pointwise,
-
-\begin{equation*}
-  \frac{\partial}{\partial \vartheta} \sqrt{p_{\vartheta}}
-  = \frac{1}{2\sqrt{p_{\vartheta}}}\,\frac{\partial p_{\vartheta}}{\partial \vartheta}
-  = \frac{1}{2}\,\frac{\partial \log p_{\vartheta}}{\partial \vartheta}\,\sqrt{p_{\vartheta}}.
-\end{equation*}
-So the factor is there for exactly one reason:
-to make the object called the score the derivative of $\log p_{\vartheta}$
-rather than of $\sqrt{p_{\vartheta}}$.
-As for the shape $\frac{1}{2}\dot{\ell}(h)\,r_{\vartheta_0}$,
-note that $u \mapsto u \, r_{\vartheta_0}$ is an isometry
-from $L^2(P_{\vartheta_0})$ into $L^2(\mu)$, because
-
-\begin{equation}\label{eq:score_isometry}
-  \int \bracket{u \, r_{\vartheta_0}}^2 d\mu = \int u^2 p_{\vartheta_0} \, d\mu
-  = \mathbb{E}\squared{u(\bm{X})^2}.
-\end{equation}
-Insisting that the derivative be written in the form
-$\frac{1}{2}\dot{\ell}(h) \, r_{\vartheta_0}$
-rather than merely as some element of $L^2(\mu)$
-is therefore a change of variables which factors the derivative
-through that isometry.
-It is what makes the score a \emph{random variable},
-square integrable under $P_{\vartheta_0}$ and independent of $\mu$,
-instead of a $\mu$-dependent function.
-
-\subsection*{The model as a surface in the unit sphere}
-
-The picture to keep in mind is that a statistical model is a
-parametrised surface drawn on the unit sphere of a Hilbert space,
-and that the score is its tangent vector.
-Two standard facts are immediate consequences of that picture rather than
-of any computation with integrals.
-
-First, \emph{the score has mean zero because the derivative is tangent to the sphere}.
-Differentiating the identity $\norm{r_{\vartheta}}^2 \equiv 1$ in the direction $h$ gives
-
-\begin{equation}\label{eq:tangency}
-  0 = 2\big\langle D\Phi_{\vartheta_0}(h), \, r_{\vartheta_0}\big\rangle_{\mathcal{H}}
-  = \int \dot{\ell}_{\vartheta_0}(h)\, r_{\vartheta_0}^2 \, d\mu
-  = \int \dot{\ell}_{\vartheta_0}(h)\, p_{\vartheta_0} \, d\mu
-  = \mathbb{E}\squared{\dot{\ell}_{\vartheta_0}(h)}.
-\end{equation}
-So the vanishing of the expected score is not an artifact of
-differentiating under the integral sign,
-and does not need the interchange to be justified:
-it is the constraint $\norm{r_{\vartheta}} \equiv 1$ differentiated once.
-This is why the classical theory obtains it as a
-\emph{consequence} of DQM rather than as a hypothesis
-(see \cite{van_der_Vaart_1998}, Theorem 7.2).
-In our own development we verified it by direct computation
-in Lemma~\ref{thm:score_fisher}(2), which is a perfectly good proof,
-but \eqref{eq:tangency} is the reason.
-
-Second, \emph{the Fisher information is the pullback of the $L^2$ inner product}.
-Indeed, by \eqref{eq:score_isometry},
-
-\begin{equation}\label{eq:fisher_is_pullback}
-  \big\langle D\Phi_{\vartheta_0}(h), \, D\Phi_{\vartheta_0}(h')\big\rangle_{\mathcal{H}}
-  = \frac{1}{4}\int \dot{\ell}(h)\dot{\ell}(h')\, p_{\vartheta_0} \, d\mu
-  = \frac{1}{4}\, G_{\vartheta_0}(h,h').
-\end{equation}
-So the Fisher form is four times the first fundamental form of the model
-regarded as a surface in $S(\mathcal{H})$.
-In particular
-
-\begin{equation*}
-  G_{\vartheta_0} \text{ is positive definite}
-  \iff D\Phi_{\vartheta_0} \text{ is injective}
-  \iff \Phi \text{ is an immersion at } \vartheta_0,
-\end{equation*}
-which is the geometric reading of Proposition~\ref{thm:nondegeneracy}:
-that proposition says exactly that our model,
-viewed through $\Phi$, is an immersed surface in $S(\mathcal{H})$
-rather than one that has been crushed in some direction.
-
-\subsection*{Fr\'echet, not merely directional}
-
-It is worth being precise about which notion of differentiability is meant,
-because that is where the analytic work actually lies.
-Condition \eqref{eq:frechet} is \emph{Fr\'echet} differentiability:
-the remainder is $o(\norm{h})$ as $h \to \bm{0}$ in any manner whatsoever.
-It is strictly stronger than the directional, or Gateaux, statement
-
-\begin{equation*}
-  \lim_{t \to 0}\ \frac{1}{t}\norm{\Phi(\vartheta_0 + tv) - \Phi(\vartheta_0) - t\, D\Phi_{\vartheta_0}(v)} = 0
-  \qquad \text{for each fixed } v,
-\end{equation*}
-which does not suffice for local asymptotic normality
-even when the directional derivative happens to be linear in $v$.
-The gap between the two is exactly a uniformity over directions.
-This is what the classical sufficient condition
-(\cite{van_der_Vaart_1998}, Lemma 7.6) buys with its
-continuity hypothesis on the information matrix,
-and it is what Step 4 of the proof of Proposition~\ref{thm:dqm}
-supplies by hand, by combining linearity in the direction
-with convergence at finitely many basis directions.
-A reader who wonders why that proof is not simply Step 3
-now has the answer: Step 3 alone gives only the Gateaux statement.
-
-\subsection*{What changes on a manifold}
-
-Almost nothing, conceptually.
-Comparing \eqref{eq:dqm} with \eqref{eq:classical_dqm},
-the target Hilbert space is untouched;
-only the \emph{source} has changed, from an open subset of $\mathbb{R}^k$
-to the manifold $M$.
-Differentiability at a point of a map from a manifold into a Banach space
-is an entirely standard notion,
-and its derivative is a linear map $d\Phi_{[\bm{A},s]} : T_{[\bm{A},s]}M \to \mathcal{H}$.
-
-The exponential map enters for one reason only:
-on a manifold there is no ``$\vartheta_0 + h$'',
-so to compare $\Phi$ at nearby points one must pass through some chart,
-and $\mathrm{Exp}_{[\bm{A},s]}$ is the canonical intrinsic choice of one.
-It is a convenience, not an ingredient.
-Concretely, if $\varphi$ is any other $C^1$ chart centred at $[\bm{A},s]$
-whose differential at the origin is the identity of $T_{[\bm{A},s]}M$,
-then $\varphi$ and $\mathrm{Exp}_{[\bm{A},s]}$ differ by a map tangent to the identity,
-which a remainder of size $o(\norm{h})$ cannot detect;
-so DQM through $\varphi$ holds if and only if DQM through $\mathrm{Exp}_{[\bm{A},s]}$ holds,
-and the score operator is the same in both cases.
-For the same reason the condition does not depend on which
-norm is used to measure $\norm{h}$,
-all norms on the finite dimensional space $T_{[\bm{A},s]}M$ being equivalent.
-The definition is thus considerably more robust than its
-notation suggests;
-what is genuinely intrinsic in it is the pair
-$\bracket{T_{[\bm{A},s]}M, \; d\Phi_{[\bm{A},s]}}$.
-
-\begin{remark}\label{thm:two_metrics}
-This robustness comes with a trap worth flagging,
-since $M$ now carries \emph{two} bilinear forms which are easily conflated.
-The quotient Euclidean metric $g$ of \eqref{eq:g_def}
-is the one that defines $\mathrm{Exp}_{[\bm{A},s]}$, $\mathrm{Exp}^{-1}_{[\bm{A},s]}$,
-the horizontal lift and the norm $\norm{h}$ appearing in \eqref{eq:dqm}.
-The Fisher form $G_{[\bm{A},s]}$ of \eqref{eq:fisher}
-is the statistical one, and it is the inverse $G^{-1}_{[\bm{A},s]}$
-that will appear as an asymptotic covariance.
-These two are \emph{not} proportional:
-$g$ is a fixed Euclidean object,
-while $G$ depends on $\bm{\Sigma}_0$ through
-$\bm{\Sigma}_0^{-1}\dot{\bm{\Sigma}}[\cdot]\bm{\Sigma}_0^{-1}$.
-Geodesics, logarithms and parallel transport are taken with respect to $g$;
-variances are read off $G^{-1}$.
-Nothing above is harmed by this, precisely because DQM is insensitive
-to the choice of $g$, but the distinction has to be maintained
-in any statement that mixes the two.
-\end{remark}
-
-\subsection*{The present model: a factorization}
-
-For the probabilistic principal component analysis model
-the root density map admits a factorization that isolates
-where the geometry actually lives.
-
-\begin{proposition}\label{thm:factorization}
-Let $N : \mathrm{Sym}_{++}(p) \to L^2(\mathbb{R}^p, d\bm{x})$
-send a positive definite matrix to the square root of the
-$N_p(\bm{0}, \cdot)$ density,
-
-\begin{equation*}
-  N(\bm{\Sigma}_1)(\bm{x})
-  := \frac{\exp\bracket{-\frac{1}{4}\bm{x}^T\bm{\Sigma}_1^{-1}\bm{x}}}
-          {(2\pi)^{p/4}\det(\bm{\Sigma}_1)^{1/4}}.
-\end{equation*}
-Then the root density map $\Phi = r(\cdot\,;\cdot)$ of \eqref{eq:root_density}
-factors as $\Phi = N \circ \bm{\Sigma}$, that is,
-
-\begin{equation*}
-  M \xrightarrow{\ \bm{\Sigma}\ } \mathrm{Sym}_{++}(p) \xrightarrow{\ N\ } S\bracket{L^2(\mathbb{R}^p,d\bm{x})},
-\end{equation*}
-with $\bm{\Sigma}$ as in \eqref{eq:sigma_map}.
-Moreover $N$ is an injective immersion, and the metric it induces
-on $\mathrm{Sym}_{++}(p)$ is
-
-\begin{equation}\label{eq:affine_invariant}
-  4\big\langle dN_{\bm{\Sigma}_1}[\bm{\Delta}], \, dN_{\bm{\Sigma}_1}[\bm{\Delta}']\big\rangle_{L^2}
-  = \frac{1}{2}\tr\bracket{\bm{\Sigma}_1^{-1}\bm{\Delta}\,\bm{\Sigma}_1^{-1}\bm{\Delta}'},
-\end{equation}
-namely one half of the affine invariant metric of the positive definite cone.
-Consequently $G_{[\bm{A},s]}$ is the pullback along $\bm{\Sigma}$ of \eqref{eq:affine_invariant},
-and
-
-\begin{equation*}
-  G_{[\bm{A},s]} \text{ is positive definite}
-  \iff \bm{\Sigma} : M \to \mathrm{Sym}_{++}(p) \text{ is an immersion at } [\bm{A},s].
-\end{equation*}
-\end{proposition}
-
-\begin{proof}
-The factorization is the definition \eqref{eq:model_family} of the model,
-which produces the density from the class $[\bm{A},s]$
-only through the matrix $\bm{\Sigma}[\bm{A},s]$.
-Injectivity of $N$ holds because distinct covariances give distinct
-centred Gaussian laws.
-For \eqref{eq:affine_invariant}, apply \eqref{eq:fisher_is_pullback}
-to the family $\curly{N_p(\bm{0},\bm{\Sigma}_1)}$ parametrised by
-$\bm{\Sigma}_1 \in \mathrm{Sym}_{++}(p)$ itself,
-whose score in the direction $\bm{\Delta}$ is $T_{\bm{\Delta}}$
-in the notation \eqref{eq:T_delta}
-and whose information is therefore
-$\frac{1}{2}\tr\bracket{\bm{\Sigma}_1^{-1}\bm{\Delta}\bm{\Sigma}_1^{-1}\bm{\Delta}'}$
-by Lemma~\ref{thm:gaussian_quadratic}.
-That form is positive definite by the computation of
-Lemma~\ref{thm:score_fisher}(3) applied at $\bm{\Sigma}_1$,
-so $dN$ is injective and $N$ is an immersion.
-The final two claims follow by the chain rule
-$d\Phi = dN \circ d\bm{\Sigma}$:
-comparing \eqref{eq:fisher} with \eqref{eq:affine_invariant}
-identifies $G_{[\bm{A},s]}$ as $\bm{\Sigma}^*$ of the latter,
-and since $dN$ is injective, $d\Phi_{[\bm{A},s]}$ is injective
-if and only if $d\bm{\Sigma}_{[\bm{A},s]}$ is.
-\end{proof}
-
-The point of Proposition~\ref{thm:factorization} is that the second arrow
-is model independent: it is the same for any family of centred Gaussians,
-and it is an immersion for trivial reasons.
-All of the content specific to probabilistic principal component analysis
-sits in the first arrow $\bm{\Sigma}$, which is why the score \eqref{eq:score},
-the Fisher form \eqref{eq:fisher} and the chart covariance \eqref{eq:sigma_of_h}
-are all expressed through $\dot{\bm{\Sigma}}$ and nothing else.
-It also puts Remark~\ref{thm:nondegeneracy_remark} in its proper light.
-On the total space $\Theta$ the map $\bm{\Sigma}$ is \emph{not} an immersion:
-its differential kills the vertical space $V_{(\bm{A},s)}$,
-of dimension $\frac{q(q-1)}{2}$, as was established inside the proof of
-Proposition~\ref{thm:horizontal_verticle}.
-That failure \emph{is} the non-identifiability of the model.
-Passing to the quotient $M = \Theta/\!\sim$ is exactly the operation
-that repairs it, and the assertion that the repair is complete ---
-that nothing beyond the vertical space is killed ---
-is precisely Proposition~\ref{thm:nondegeneracy}.
-In the language of this section, then,
-that proposition says that $\bm{\Sigma}$ descends from a map which is
-merely constant on orbits to one which is an \emph{immersion} of $M$,
-and hence that $\Phi = N \circ \bm{\Sigma}$ realises $M$ as an
-immersed submanifold of the unit sphere of $L^2(\mathbb{R}^p, d\bm{x})$.
-
-\subsection*{Two calibrating examples}
-
-Finally, two classical one dimensional examples show that
-the Fr\'echet in $L^2$ reading is doing real work,
-and in particular that DQM is neither implied by nor implies
-pointwise smoothness of the density.
-
-The double exponential location family
-$p_{\vartheta}(x) = \frac{1}{2}e^{-\abs{x-\vartheta}}$ on $\mathbb{R}$
-is differentiable in quadratic mean at every $\vartheta$,
-with score $\dot{\ell}_{\vartheta}(x) = \text{sign}(x - \vartheta)$,
-even though $x \mapsto p_{\vartheta}(x)$ fails to be differentiable at $x = \vartheta$
-for every $\vartheta$.
-A single non-differentiability, being a $\mu$-null event,
-is invisible to an $L^2$ norm.
-
-Conversely, let $p_{\vartheta} = \vartheta^{-1}\bm{1}_{[0,\vartheta]}$ be
-the uniform family on $[0,\vartheta]$, $\vartheta > 0$.
-For $h > 0$ small,
-
-\begin{equation*}
-  \norm{r_{\vartheta+h} - r_{\vartheta}}^2_{L^2}
-  = \int_0^{\vartheta}\bracket{\frac{1}{\sqrt{\vartheta+h}} - \frac{1}{\sqrt{\vartheta}}}^2 dx
-  + \int_{\vartheta}^{\vartheta+h} \frac{dx}{\vartheta+h}
-  = \frac{h^2}{4\vartheta^2} + O(h^3) + \frac{h}{\vartheta+h},
-\end{equation*}
-so that $\norm{r_{\vartheta+h} - r_{\vartheta}}_{L^2} \sim \sqrt{h/\vartheta}$.
-The curve $\vartheta \mapsto r_{\vartheta}$ is therefore only H\"older
-of exponent $\frac{1}{2}$ in $\mathcal{H}$ and is nowhere differentiable,
-so no score operator can exist and the family is not DQM at any $\vartheta$ ---
-notwithstanding that $p_{\vartheta}(x)$ is a perfectly smooth,
-indeed constant, function of $\vartheta$ for each fixed $x \neq \vartheta$.
-This is the analytic shadow of the familiar fact that the maximum
-likelihood estimator in this model converges at rate $n^{-1}$
-rather than $n^{-1/2}$,
-and it shows that the whole asymptotic theory really is keyed
-to the smoothness of a curve in a Hilbert space
-and not to the smoothness of a density.
+\section{Properties of the Maximum Likelihood Estimator of $\mathcal{P}$}
+We now move to the core of the subject.
 
 \bibliographystyle{plainnat}
 \def\bibname{References} % Nom obligatoire de la section des références.

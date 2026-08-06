@@ -1,4 +1,4 @@
-\begin{thebibliography}{8}
+\begin{thebibliography}{7}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -51,14 +51,5 @@ Fabricio Valencia.
 \newblock Riemannian submersions.
 \newblock Unpublished notes, Instituto de Matem{\'a}tica e Estat{\'i}stica,
   Universidade de S{\~a}o Paulo, July 2021.
-
-\bibitem[van~der Vaart(1998)]{van_der_Vaart_1998}
-A.~W. van~der Vaart.
-\newblock \emph{Asymptotic Statistics}.
-\newblock Cambridge Series in Statistical and Probabilistic Mathematics.
-  Cambridge University Press, Cambridge, 1998.
-\newblock ISBN 0-521-49603-9.
-\newblock First published 1998; first paperback edition 2000, ISBN
-  0-521-78450-6.
 
 \end{thebibliography}
