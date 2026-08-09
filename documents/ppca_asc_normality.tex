@@ -341,12 +341,11 @@ By the chain rule, we have
   d \Phi_{(\bm{A},s)} = d \bm{\Sigma}_{[\bm{A},s]} \circ d \pi_{(\bm{A},s)}.
 \end{equation}
 It follows immediately that 
-$\ker(d\Phi_{(\bm{A},s)}) \subseteq \ker(d\pi_{(\bm{A},s)})$.
+$\ker(d\pi_{(\bm{A},s)}) \subseteq \ker(d\Phi_{(\bm{A},s)})$.
 The other direction will follow if we can prove that 
-$d \bm{\Sigma}_{[\bm{A},s]}$ is injective,
-or equivalently that $\bm{\Sigma}$ is an immersion.
+$d \bm{\Sigma}_{[\bm{A},s]}$ is injective.
 
-To do so, suppose that $\bm{v} \in T_{[\bm{A},s]}M$ is 
+Suppose that $\bm{v} \in T_{[\bm{A},s]}M$ is 
 such that $d \bm{\Sigma}_{[\bm{A},s]} (\bm{v}) = 0$.
 We prove that $\bm{v} = \bm{0}$.
 Let $(\bm{V},c) \in T_{(\bm{A},s)}\Theta$ 
@@ -377,6 +376,7 @@ We have
 \end{equation*}
 Therefore, $d \bm{\Sigma}_{[\bm{A},s]}$ is injective and
 the verticle tangent space is the same as $\ker(d\Phi_{(\bm{A},s)})$.
+Since $[\bm{A},s]$ is arbitrary, $\bm{\Sigma}$ is an immersion.
 
 To compute the horizontal tangent space, any $(\bm{V}, c) \in V_{(\bm{A},s)}^{\perp}$ 
 will satisfy 
@@ -413,10 +413,6 @@ at least well-defined over an open ball $\mathcal{E}_{[\bm{A},s]}$
 of $\bm{0} \in T_{[\bm{A},s]}M \cong \mathbb{R}^{pq+1-\frac{q(q-1)}{2}}$ 
 of radius $\min(\sigma_{\text{min}}(\bm{A}),s)$,
 where $\sigma_{\text{min}}(\bm{A})$ denotes the smallest singular value of $\bm{A}$.
-
-all $\bm{v}$ such that 
-$\sqrt{g_{[\bm{A},s]}(\bm{v},\bm{v})}=\abs{\bm{v}} < \min(\sigma_{\text{min}}(\bm{A}),s)$,
-where $\sigma_{\text{min}}(\bm{A})$ is the smallest singular value of $\bm{A}$.
 \end{proposition}
 
 \begin{proof}
@@ -801,27 +797,27 @@ and
   r_{[\bm{A},s]}(\bm{v})(\bm{x}) = \sqrt{p(\bm{x}; \text{Exp}_{[\bm{A},s]}(\bm{v}))}.
 \end{equation}
 
-\begin{theorem}
+\begin{theorem}\label{thm:DQM}
 $r_{[\bm{A},s]}$ is Fréchet differentiable at any $\bm{v} \in \mathcal{E}_{[\bm{A},s]}$.
-In particular, $\mathcal{P}$ is differentiable in quadratic mean with score 
+In particular, $\mathcal{P}$ is differentiable in quadratic mean with score
 \begin{equation}\label{eq:score}
   s(\bm{x}; [\bm{A},s])(\bm{h})
-  = \tr \curly{\bracket{\bm{\Sigma}([\bm{A},s])}^{-1}
+  = \frac{1}{2}\tr \curly{\bracket{\bm{\Sigma}([\bm{A},s])}^{-1}
   \squared{\bm{x}\bm{x}^T - \bracket{\bm{\Sigma}([\bm{A},s])}}
   \bracket{\bm{\Sigma}([\bm{A},s])}^{-1} \bracket{D_{\bm{h}}\bm{\Sigma}([\bm{A},s])}},
 \end{equation}
-where 
+where
 \begin{equation}\label{eq:Sigma_directional}
   D_{\bm{h}}\bm{\Sigma}([\bm{A},s])
   := \frac{d}{dt}\bigg|_{t=0} \bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(t\bm{h}))
-  = 2\bm{U}\bm{A}^T + b  \bm{I}_p,
+  = \bm{U}\bm{A}^T + \bm{A}\bm{U}^T + b  \bm{I}_p,
 \end{equation}
 if $\bm{h}\in T_{[\bm{A},s]}M$ lifts to $(\bm{U},b)$ at $(\bm{A},s)$.
-Furthermore, $\mathcal{P}$ is a regular model in the sense that 
-the Fisher information operator 
+Furthermore, $\mathcal{P}$ is a regular model in the sense that
+the Fisher information operator
 \begin{equation}\label{eq:G_def}
   G_{[\bm{A},s]} (\bm{h}_1,\bm{h}_2)
-  = \tr \curly{\bracket{\bm{\Sigma}([\bm{A},s])}^{-1}
+  = \frac{1}{2}\tr \curly{\bracket{\bm{\Sigma}([\bm{A},s])}^{-1}
   D_{\bm{h}_1}\bm{\Sigma}([\bm{A},s])
   \bracket{\bm{\Sigma}([\bm{A},s])}^{-1}
   D_{\bm{h}_2}\bm{\Sigma}([\bm{A},s])}
@@ -855,8 +851,9 @@ First of all:
   \begin{split}
   D_{\bm{h}}\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v})) & :=
   \frac{d}{dt}\bigg|_{t=0} \bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v} + t\bm{h}))
-  = \frac{d}{dt}\bigg|_{t=0} \curly{(\bm{A}+\bm{V} + t\bm{U})(\bm{A}+\bm{V} + t\bm{U})^T + (s+c+tb) \bm{I}_p}
-  \\ & = \bm{U}\bm{V}^T + \bm{V}\bm{U}^T + 2\bm{U}\bm{A}^T + b  \bm{I}_p,
+  \\ & = \frac{d}{dt}\bigg|_{t=0} \curly{(\bm{A}+\bm{V} + t\bm{U})(\bm{A}+\bm{V} + t\bm{U})^T + (s+c+tb) \bm{I}_p}
+  \\ & 
+  = \bm{U}\bm{V}^T + \bm{V}\bm{U}^T + \bm{U}\bm{A}^T + \bm{A}\bm{U}^T + b  \bm{I}_p,
   \end{split}
 \end{equation}
 proving \eqref{eq:Sigma_directional} with special case $\bm{v}=\bm{0}$.
@@ -939,27 +936,31 @@ and, whenever $\bm{h}_1$ and $\bm{h}_2 \in T_{[\bm{A},s]}M$:
    \int_{\mathbb{R}^p} D_{\bm{h}_1}l_{[\bm{A},s]}(\bm{v})(\bm{x})
    D_{\bm{h}_2}l_{[\bm{A},s]}(\bm{v})(\bm{x})
   p(\bm{x}; \bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v})))\mathrm{d} \bm{x}
-  \\ & = \int_{\mathbb{R}^p} \squared{\bm{x}^T\bracket{\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}^{-1}
-  \bracket{D_{\bm{h}_1}\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}
-  \bracket{\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}^{-1}\bm{x}}
-  \\ & \squared{\bm{x}^T\bracket{\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}^{-1}
-  \bracket{D_{\bm{h}_2}\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}
-  \bracket{\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}^{-1}\bm{x}}
-  p(\bm{x}; \bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v})))\mathrm{d} \bm{x}
-  \\ & = \tr \curly{\bracket{\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}^{-1}
+  \\ & = \frac{1}{4}\text{Cov}\bracket{\bm{X}^T\bm{Z}_1\bm{X}, \, \bm{X}^T\bm{Z}_2\bm{X}}
+  = \frac{1}{4} \cdot 2 \tr \bracket{\bm{Z}_1 \bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))
+  \bm{Z}_2 \bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}
+  \\ & = \frac{1}{2}\tr \curly{\bracket{\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}^{-1}
   D_{\bm{h}_1}\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))
   \bracket{\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}^{-1}
-  D_{\bm{h}_2}\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}.
+  D_{\bm{h}_2}\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))},
   \end{split}
-\end{equation} 
+\end{equation}
+where $\bm{X} \sim N_p(\bm{0}, \bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v})))$ and
+\begin{equation}\label{eq:Z_j_def}
+  \bm{Z}_j := \bracket{\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}^{-1}
+  \bracket{D_{\bm{h}_j}\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}
+  \bracket{\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}^{-1}
+\end{equation}
+is symmetric for $j=1,2$, so that the two terms in Theorem 7.7.2
+of \cite{Gupta_Nagar_2000} coincide.
 Thus, in the particular case $\bm{h} = \bm{h}_1 = \bm{h}_2$:
 \begin{equation}\label{eq:r_L2norm}
   \begin{split}
-  & \tab[0.4cm] 	\|D_{\bm{h}}r_{[\bm{A},s]}(\bm{v});L^2(\mathbb{R}^p)	\|^{\frac{1}{2}} =
+  & \tab[0.4cm] 	\|D_{\bm{h}}r_{[\bm{A},s]}(\bm{v});L^2(\mathbb{R}^p)	\|^{2} =
   \int_{\mathbb{R}^p} \squared{D_{\bm{h}}r_{[\bm{A},s]}(\bm{v})(\bm{x})}^2 \mathrm{d} \bm{x}
    \\ & = \frac{1}{4}\int_{\mathbb{R}^p} \bracket{D_{\bm{h}}l_{[\bm{A},s]}(\bm{v})(\bm{x})}^2
   p(\bm{x}; \bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v})))\mathrm{d} \bm{x}
-  = \frac{1}{2} \tr \curly{\squared{\bracket{\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}^{-1}
+  = \frac{1}{8} \tr \curly{\squared{\bracket{\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}^{-1}
   D_{\bm{h}}\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}^2}.
   \end{split}
 \end{equation} 
@@ -1100,7 +1101,7 @@ simplifies greatly when $\bm{v} = \bm{0}$:
   \begin{split}
   & \tab[0.4cm] D_{\bm{h}}r_{[\bm{A},s]}(\bm{0})(\bm{x})
   = \frac{1}{2} r_{[\bm{A},s]}(\bm{0})(\bm{x}) D_{\bm{h}}l_{[\bm{A},s]}(\bm{0})(\bm{x})
-  \\ & = \frac{1}{2} \sqrt{p(\bm{x}; [\bm{A},s])}
+  \\ & = \frac{1}{4} \sqrt{p(\bm{x}; [\bm{A},s])}
   \tr \curly{\bracket{\bm{\Sigma}([\bm{A},s])}^{-1}
   \squared{\bm{x}\bm{x}^T - \bracket{\bm{\Sigma}([\bm{A},s])}}
   \bracket{\bm{\Sigma}([\bm{A},s])}^{-1} \bracket{D_{\bm{h}}\bm{\Sigma}([\bm{A},s])}}.
@@ -1114,13 +1115,20 @@ by taking $\bm{v} = \bm{0}$ in \eqref{eq:fisher_computation}.
 To show that $G_{[\bm{A},s]}$ is positive definite,
 suppose that $\bm{h} \in T_{[\bm{A},s]}M$
 is such that $G_{[\bm{A},s]}(\bm{h},\bm{h})=0$.
-\eqref{eq:G_def} shows that the Euclidean norm 
-of the matrix $\bracket{\bm{\Sigma}([\bm{A},s])}^{-1}
-  D_{\bm{h}}\bm{\Sigma}([\bm{A},s])$
-  must be zero.
-Therefore, $D_{\bm{h}}\bm{\Sigma}([\bm{A},s]) = \bm{0}$
-and, by \eqref{eq:Sigma_directional},
-it must be the case that $\bm{h} = \bm{0}$.
+\eqref{eq:G_def} then reads that 
+
+\begin{equation*}
+  \tr \curly{ \squared{\bracket{\bm{\Sigma}([\bm{A},s])}^{-1}
+  D_{\bm{h}}\bm{\Sigma}([\bm{A},s])}^2 } = 0.
+\end{equation*}
+Therefore, $D_{\bm{h}}\bm{\Sigma}([\bm{A},s]) = \bm{0}$.
+Now \eqref{eq:Sigma_directional}
+reads the same as \eqref{eq:ker_Phi_equation}
+in the proof of Proposition~\ref{thm:horizontal_verticle}.
+We therefore get $(\bm{U},b) \in \ker(d\Phi_{(\bm{A},s)}) = V_{(\bm{A},s)}$.
+However, being lifted from $\bm{h}$,
+$(\bm{U},b)$ must also be a horizontal vector.
+Therefore, $\bm{h} = \bm{0}$.
 \end{proof}
 
 \begin{proposition}\label{thm:LAN}
@@ -1148,8 +1156,969 @@ and has positive definite Fisher operator,
 this follows from Proposition III.1 in \cite{Sun_Lin_Liu_2026}.
 \end{proof}
 
-\section{Properties of the Maximum Likelihood Estimator of $\mathcal{P}$}
+\section{Properties of the Maximum Likelihood Estimator of $\mathcal{P}$}\label{sec:MLE}
 We now move to the core of the subject.
+Throughout this section we fix a \textit{true parameter} $[\bm{A}_0,s_0] \in M$,
+we assume that $\bm{X}_1, \bm{X}_2, \ldots$ are independent and identically
+distributed random vectors with common density $p(\, \cdot \,;[\bm{A}_0,s_0])$
+as in \eqref{eq:p_def}, and we abbreviate
+
+\begin{equation}\label{eq:Sigma_0_def}
+  \bm{\Sigma}_0 := \bm{\Sigma}([\bm{A}_0,s_0]) = \bm{A}_0\bm{A}_0^T + s_0\bm{I}_p,
+  \qquad
+  \bm{S}_n := \frac{1}{n}\sum_{i=1}^n \bm{X}_i \bm{X}_i^T,
+  \qquad
+  d := pq+1-\frac{q(q-1)}{2} = \dim M.
+\end{equation}
+We write $\rightsquigarrow$ for convergence in distribution and,
+following \eqref{eq:g_def}, we abbreviate
+$\abs{\bm{v}} := \sqrt{g_{[\bm{A},s]}(\bm{v},\bm{v})}$ for $\bm{v} \in T_{[\bm{A},s]}M$.
+
+The whole point of the construction of Section~\ref{sec:basic_setup}
+is that the naive statement ``$\sqrt{n}(\hat{\bm{A}}_n - \bm{A}_0)$
+is asymptotically normal'' is not merely false but meaningless:
+by non-identifiability the estimator $\hat{\bm{A}}_n$ produced by
+any algorithm is only determined up to a right multiplication by
+an element of $O(q)$, so that $\hat{\bm{A}}_n$ need not converge to $\bm{A}_0$
+at all, and only its orbit can.
+The correct object to look at is the intrinsic estimation error
+$\text{Exp}^{-1}_{[\bm{A}_0,s_0]}([\hat{\bm{A}}_n,\hat{s}_n]) \in T_{[\bm{A}_0,s_0]}M$
+of \cite{Sun_Lin_Liu_2026}, which by
+Proposition~\ref{thm:logarithmic_map} is the ordinary error
+\textit{after optimal rotational alignment}.
+The goal of this section is to prove that this tangent vector
+is asymptotically linear in the sense of \cite{Sun_Lin_Liu_2026},
+Lemma III.3, with influence operator $G^{-1}_{[\bm{A}_0,s_0]}s(\,\cdot\,;[\bm{A}_0,s_0])$,
+and consequently asymptotically normal with covariance
+operator $G^{-1}_{[\bm{A}_0,s_0]}$.
+
+It will be convenient to name the horizontal lift.
+By Proposition~\ref{thm:horizontal_verticle} and the definition
+\eqref{eq:g_def} of $g$, the restriction of $d\pi_{(\bm{A},s)}$
+to $H_{(\bm{A},s)}$ is a linear isometry onto $T_{[\bm{A},s]}M$;
+we denote its inverse by
+
+\begin{equation}\label{eq:lift_def}
+  \iota_{(\bm{A},s)} := \bracket{d\pi_{(\bm{A},s)}\big|_{H_{(\bm{A},s)}}}^{-1}
+  : T_{[\bm{A},s]}M \longrightarrow H_{(\bm{A},s)},
+  \qquad
+  \iota_{(\bm{A},s)}(\bm{h}) =: (\bm{U}_{\bm{h}}, b_{\bm{h}}),
+\end{equation}
+so that $\iota_{(\bm{A},s)}$ is a \textit{linear} isometry and
+$\abs{\bm{h}}^2 = \tr(\bm{U}_{\bm{h}}\bm{U}_{\bm{h}}^T) + b_{\bm{h}}^2$.
+Finally, since $G_{[\bm{A},s]}$ is a positive definite bilinear form
+on $T_{[\bm{A},s]}M$ by Theorem~\ref{thm:DQM}, the map
+$\bm{h} \mapsto G_{[\bm{A},s]}(\bm{h}, \, \cdot \,)$ is a linear isomorphism
+from $T_{[\bm{A},s]}M$ onto its dual $T^*_{[\bm{A},s]}M$;
+we write $G^{-1}_{[\bm{A},s]}$ for its inverse, characterized by
+
+\begin{equation}\label{eq:G_inverse_def}
+  G_{[\bm{A},s]}\bracket{G^{-1}_{[\bm{A},s]}(\varphi), \bm{h}} = \varphi(\bm{h})
+  \qquad \text{for all } \varphi \in T^*_{[\bm{A},s]}M
+  \text{ and all } \bm{h} \in T_{[\bm{A},s]}M.
+\end{equation}
+Since the score $s(\bm{x};[\bm{A},s])$ of \eqref{eq:score} is a linear
+functional on $T_{[\bm{A},s]}M$, the composition
+$G^{-1}_{[\bm{A},s]}s(\bm{x};[\bm{A},s])$ is a genuine tangent vector.
+
+\subsection*{The maximum likelihood estimator}
+
+The log-likelihood of the model \eqref{eq:quotient_model}
+is the function on $M$ given by
+
+\begin{equation}\label{eq:loglik}
+  \mathbb{L}_n([\bm{A},s]) := \sum_{i=1}^n \log p(\bm{X}_i;[\bm{A},s])
+  = -\frac{np}{2}\log(2\pi) - \frac{n}{2}\log \det \bm{\Sigma}([\bm{A},s])
+  - \frac{n}{2}\tr \bracket{\bracket{\bm{\Sigma}([\bm{A},s])}^{-1}\bm{S}_n};
+\end{equation}
+it depends on the sample only through $\bm{S}_n$ and it is genuinely
+a function on the quotient $M$, since the right hand side depends on
+$(\bm{A},s)$ only through $\bm{\Sigma}$.
+This is precisely the reason why the model had to be quotiented
+in the first place: $\mathbb{L}_n$ is exactly constant along the
+fibers of $\pi$, so no maximizer of $\mathbb{L}_n$ on $\Theta$ can ever be
+unique, whereas on $M$ it can.
+The following classical computation identifies the maximizer.
+We write $\lambda_1(\bm{S}) \geqslant \ldots \geqslant \lambda_p(\bm{S})$
+for the eigenvalues of $\bm{S} \in \text{Sym}(p)$, the space of real symmetric
+$p \times p$ matrices, repeated according to multiplicity, and
+we let
+
+\begin{equation}\label{eq:O_def}
+  \mathcal{O} := \curly{\bm{S} \in \text{Sym}(p) : \lambda_q(\bm{S}) > \lambda_{q+1}(\bm{S})},
+\end{equation}
+which is an open subset of $\text{Sym}(p)$ because the eigenvalues depend
+continuously on $\bm{S}$.
+For $\bm{S} \in \mathcal{O}$ we write $\bm{P}_q(\bm{S})$ for the orthogonal
+projector of $\mathbb{R}^p$ onto the sum of the eigenspaces of
+$\lambda_1(\bm{S}), \ldots, \lambda_q(\bm{S})$; this is well defined
+precisely because of the spectral gap in \eqref{eq:O_def}.
+
+\begin{proposition}[Tipping--Bishop]\label{thm:TB}
+Let $\bm{S} \in \mathcal{O}$ be positive definite and put
+$\lambda_j := \lambda_j(\bm{S})$ and $\bm{P}_q := \bm{P}_q(\bm{S})$.
+Then the function
+\begin{equation*}
+  [\bm{A},s] \longmapsto
+  -\frac{p}{2}\log(2\pi) - \frac{1}{2}\log \det \bm{\Sigma}([\bm{A},s])
+  - \frac{1}{2}\tr \bracket{\bracket{\bm{\Sigma}([\bm{A},s])}^{-1}\bm{S}}
+\end{equation*}
+attains its maximum over $M$ at one and only one point
+$[\hat{\bm{A}},\hat{s}] \in M$, determined by
+
+\begin{equation}\label{eq:TB_formula}
+  \hat{s} = \frac{1}{p-q}\sum_{j=q+1}^p \lambda_j,
+  \qquad
+  \hat{\bm{A}}\hat{\bm{A}}^T = \bm{P}_q \bm{S} \bm{P}_q - \hat{s}\, \bm{P}_q.
+\end{equation}
+Concretely, $\hat{\bm{A}} = \bm{W}_q(\bm{\Lambda}_q - \hat{s}\bm{I}_q)^{\frac{1}{2}}\bm{R}$
+for an arbitrary $\bm{R} \in O(q)$, where the columns of
+$\bm{W}_q \in \mathbb{R}^{p \times q}$ are orthonormal eigenvectors of
+$\bm{S}$ associated with $\lambda_1, \ldots, \lambda_q$
+and $\bm{\Lambda}_q = \text{diag}(\lambda_1,\ldots,\lambda_q)$.
+\end{proposition}
+
+\begin{proof}
+This is Section 3.2 together with Appendix A of \cite{Tipping_Bishop_1999}:
+equations (7) and (8) there give the stationary points and equations
+(17)--(20) of their Appendix A.2 show that the global maximum is attained
+exactly when the $q$ \textit{largest} eigenvalues of $\bm{S}$ are retained.
+Since $\lambda_q > \lambda_{q+1}$ the set of retained eigenvalues,
+and hence the projector $\bm{P}_q$, is unambiguous, so the maximizer
+is a single point of $M$.
+The two descriptions agree because
+$\bm{P}_q\bm{S}\bm{P}_q = \bm{W}_q\bm{\Lambda}_q\bm{W}_q^T$
+and $\bm{P}_q = \bm{W}_q\bm{W}_q^T$.
+Finally $[\hat{\bm{A}},\hat{s}]$ is really a point of $M$:
+$\hat{s} > 0$ because $\bm{S}$ is positive definite, and
+$\rank(\hat{\bm{A}}) = q$ because
+$\hat{s} \leqslant \lambda_{q+1} < \lambda_q$
+forces every diagonal entry of $\bm{\Lambda}_q - \hat{s}\bm{I}_q$
+to be strictly positive.
+\end{proof}
+
+\begin{definition}\label{def:MLE}
+Whenever $\bm{S}_n$ is positive definite and lies in $\mathcal{O}$,
+we let $[\hat{\bm{A}}_n, \hat{s}_n] \in M$ denote the maximum likelihood
+estimator, that is the unique maximizer of \eqref{eq:loglik} over $M$
+supplied by Proposition~\ref{thm:TB} applied to $\bm{S} = \bm{S}_n$.
+On the complementary event we set $[\hat{\bm{A}}_n, \hat{s}_n] := [\bm{A}_0,s_0]$;
+Lemma~\ref{thm:generic_S} below shows that this convention is invoked
+only on a null set as soon as $n \geqslant p$.
+\end{definition}
+
+\subsection*{Genericity of the sample covariance matrix}
+
+Both the well-posedness of the estimation error and the consistency
+of the maximum likelihood estimator rest on the behaviour of the
+spectral projector $\bm{P}_q$, which we now record.
+
+\begin{lemma}\label{thm:riesz}
+\,
+\begin{enumerate}
+  \item $\mathcal{O}$ is open and connected in $\text{Sym}(p)$.
+  \item $\bm{P}_q : \mathcal{O} \to \text{Sym}(p)$ is real analytic.
+  \item Let $\bm{U}_0 \in \mathbb{R}^{p \times q}$ have orthonormal columns
+  and define $\phi : \mathcal{O} \to \mathbb{R}$ by
+  $\phi(\bm{S}) := \det \bracket{\bm{U}_0^T \bm{P}_q(\bm{S})\bm{U}_0}$.
+  Then $\phi$ is real analytic and $\phi^{-1}(\{0\})$ is a Lebesgue null
+  subset of $\text{Sym}(p) \cong \mathbb{R}^{\frac{p(p+1)}{2}}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+1. Openness was already observed.
+For connectedness, fix $\bm{S} \in \mathcal{O}$ and diagonalize
+$\bm{S} = \bm{K}\text{diag}(\bm{\lambda})\bm{K}^T$ with $\bm{K} \in O(p)$
+and $\bm{\lambda} = (\lambda_1(\bm{S}),\ldots,\lambda_p(\bm{S}))$
+non-increasing; replacing one column of $\bm{K}$ by its negative
+if necessary, which does not change $\bm{S}$, we may assume
+$\det(\bm{K}) = 1$.
+Let $\bm{\mu} := (2,\ldots,2,1,\ldots,1)$ with the value $2$ repeated
+$q$ times, and consider first the path
+$t \mapsto \bm{K}\text{diag}((1-t)\bm{\lambda}+t\bm{\mu})\bm{K}^T$
+for $t \in [0,1]$.
+The vector $(1-t)\bm{\lambda}+t\bm{\mu}$ is non-increasing, being a convex
+combination of non-increasing vectors, so it lists the ordered eigenvalues,
+and the gap at position $q$ equals
+$(1-t)(\lambda_q(\bm{S})-\lambda_{q+1}(\bm{S})) + t > 0$;
+the path therefore stays inside $\mathcal{O}$ and joins $\bm{S}$
+to $\bm{K}\text{diag}(\bm{\mu})\bm{K}^T$.
+Next, $SO(p)$ is path connected, so there is a path $u \mapsto \bm{K}(u)$
+in $SO(p)$ from $\bm{K}$ to $\bm{I}_p$; the induced path
+$u \mapsto \bm{K}(u)\text{diag}(\bm{\mu})\bm{K}(u)^T$
+has constant spectrum $\bm{\mu}$, hence constant gap $1 > 0$ at position $q$,
+stays in $\mathcal{O}$, and ends at $\text{diag}(\bm{\mu})$.
+Every point of $\mathcal{O}$ is thus joined to the fixed point
+$\text{diag}(\bm{\mu})$ by a path inside $\mathcal{O}$.
+
+2. Fix $\bm{S}_* \in \mathcal{O}$, choose $c \in \mathbb{R}$ with
+$\lambda_{q+1}(\bm{S}_*) < c < \lambda_{q}(\bm{S}_*)$
+and let $\Gamma \subset \mathbb{C}$ be the positively oriented circle
+of centre $\frac{1}{2}(\lambda_1(\bm{S}_*) + c)$
+and radius $\frac{1}{2}(\lambda_1(\bm{S}_*) - c) + 1$,
+so that $\Gamma$ encircles $\lambda_1(\bm{S}_*), \ldots, \lambda_q(\bm{S}_*)$
+and no other eigenvalue of $\bm{S}_*$.
+Put $\delta := \min_{z \in \Gamma}\text{dist}(z, \text{spec}(\bm{S}_*)) > 0$.
+If $\bm{S} \in \text{Sym}(p)$ satisfies $\|\bm{S}-\bm{S}_*\|_2 < \delta$
+then $z\bm{I}_p - \bm{S}$ is invertible for every $z \in \Gamma$,
+Weyl's inequality keeps exactly $q$ eigenvalues of $\bm{S}$ inside $\Gamma$,
+and diagonalizing $\bm{S}$ shows, by the residue theorem applied to each
+eigenvalue separately, that
+
+\begin{equation}\label{eq:riesz_formula}
+  \bm{P}_q(\bm{S}) = \frac{1}{2\pi i}\oint_{\Gamma}(z\bm{I}_p - \bm{S})^{-1}\mathrm{d}z.
+\end{equation}
+Expanding the resolvent in a Neumann series,
+\begin{equation*}
+  (z\bm{I}_p - \bm{S})^{-1}
+  = \sum_{k=0}^{\infty}\squared{(z\bm{I}_p-\bm{S}_*)^{-1}(\bm{S}-\bm{S}_*)}^k
+  (z\bm{I}_p-\bm{S}_*)^{-1},
+\end{equation*}
+a series which converges absolutely and uniformly in $z \in \Gamma$
+whenever $\|\bm{S}-\bm{S}_*\|_2 < \delta$, since
+$\|(z\bm{I}_p-\bm{S}_*)^{-1}\|_2 \leqslant \delta^{-1}$ there.
+Each summand is a homogeneous polynomial of degree $k$ in the entries
+of $\bm{S}-\bm{S}_*$ whose coefficients are continuous in $z$,
+so integrating term by term over the compact contour $\Gamma$
+exhibits $\bm{P}_q$ as a convergent power series in the entries of
+$\bm{S}-\bm{S}_*$ on that ball.
+
+3. Real analyticity of $\phi$ is immediate from 2, the determinant being
+a polynomial.
+Moreover $\phi$ does not vanish identically: taking
+$\bm{S}_\star := \bm{I}_p + \bm{U}_0\bm{U}_0^T$, whose eigenvalues are
+$2$ with multiplicity $q$, with eigenspace the column space of $\bm{U}_0$,
+and $1$ with multiplicity $p-q$, we get $\bm{S}_\star \in \mathcal{O}$,
+$\bm{P}_q(\bm{S}_\star) = \bm{U}_0\bm{U}_0^T$ and
+$\phi(\bm{S}_\star) = \det(\bm{I}_q) = 1$.
+By 1 the domain $\mathcal{O}$ is open and connected, so the zero set of the
+non-trivial real analytic function $\phi$ is Lebesgue null in
+$\text{Sym}(p)$ by \cite{Mityagin_2020}.
+Finally $\text{Sym}(p)\setminus \mathcal{O}$ is itself Lebesgue null:
+it is contained in the zero set of the discriminant of the characteristic
+polynomial of $\bm{S}$, which is a polynomial in the entries of $\bm{S}$
+and does not vanish at $\text{diag}(1,2,\ldots,p)$.
+\end{proof}
+
+\begin{lemma}\label{thm:generic_S}
+Suppose $n \geqslant p$.
+Then, almost surely, $\bm{S}_n$ is positive definite,
+$\bm{S}_n \in \mathcal{O}$, and the $q \times q$ matrix
+$\bm{A}_0^T \hat{\bm{A}}_n$ is invertible.
+In particular the orthogonal matrix
+
+\begin{equation}\label{eq:Q_n_def}
+  \bm{Q}_n := \bm{Q}(\bm{A}_0, \hat{\bm{A}}_n)
+  = \bracket{\hat{\bm{A}}_n^T\bm{A}_0\bm{A}_0^T\hat{\bm{A}}_n}^{-\frac{1}{2}}
+  \hat{\bm{A}}_n^T \bm{A}_0 \in O(q)
+\end{equation}
+of Proposition~\ref{thm:logarithmic_map} is almost surely well defined.
+\end{lemma}
+
+\begin{proof}
+We first check that the law of $\bm{S}_n$ is absolutely continuous with
+respect to the Lebesgue measure of $\text{Sym}(p)$.
+Let $\bm{Y}_1 \in \mathbb{R}^{p \times p}$ be the matrix whose rows are
+$\bm{X}_1^T, \ldots, \bm{X}_p^T$ and let $\bm{Y}_2$ collect the remaining
+$n-p$ observations, so that
+$\bm{S}_n = \frac{1}{n}\bracket{\bm{Y}_1^T\bm{Y}_1 + \bm{Y}_2^T\bm{Y}_2}$
+and $\bm{Y}_1$ is independent of $\bm{Y}_2$ with a strictly positive
+Lebesgue density on $\mathbb{R}^{p \times p}$.
+Condition on $\bm{Y}_2$ and consider
+$T(\bm{Y}) := \frac{1}{n}(\bm{Y}^T\bm{Y} + \bm{Y}_2^T\bm{Y}_2)$
+on the open set of invertible $\bm{Y} \in \mathbb{R}^{p \times p}$,
+whose complement is Lebesgue null.
+Its differential at $\bm{Y}$ is
+$\bm{H} \mapsto \frac{1}{n}(\bm{H}^T\bm{Y} + \bm{Y}^T\bm{H})$,
+which is onto $\text{Sym}(p)$: given $\bm{B} \in \text{Sym}(p)$,
+the choice $\bm{H} = \frac{n}{2}\bm{Y}^{-T}\bm{B}$ returns $\bm{B}$.
+Thus $T$ is a smooth submersion, and by the rank theorem
+(\cite{Lee_2013}, Theorem 4.12) every point has a neighbourhood on which
+$T$ is, up to diffeomorphisms, a linear projection
+$\mathbb{R}^{p^2} \to \mathbb{R}^{\frac{p(p+1)}{2}}$.
+Since preimages of Lebesgue null sets under such projections are
+Lebesgue null by Fubini's theorem, and diffeomorphisms preserve
+Lebesgue null sets, $T^{-1}(N)$ is Lebesgue null for every
+Lebesgue null $N \subseteq \text{Sym}(p)$, after covering the domain
+by countably many such neighbourhoods.
+Hence the conditional law of $\bm{S}_n$ given $\bm{Y}_2$ charges no
+Lebesgue null set, and the same holds for its mixture over $\bm{Y}_2$.
+
+By Lemma~\ref{thm:riesz}, the set of $\bm{S} \in \text{Sym}(p)$ that
+either fail to be positive definite with $p$ distinct eigenvalues,
+or lie outside $\mathcal{O}$, or satisfy $\phi(\bm{S}) = 0$,
+is Lebesgue null; here we take $\bm{U}_0 \in \mathbb{R}^{p \times q}$ to be
+any matrix with orthonormal columns spanning the column space of $\bm{A}_0$,
+which has dimension $q$ because $\rank(\bm{A}_0) = q$.
+It follows that almost surely $\bm{S}_n$ is positive definite,
+$\bm{S}_n \in \mathcal{O}$ and $\phi(\bm{S}_n) \neq 0$.
+
+It remains to see that $\phi(\bm{S}_n)\neq 0$ is exactly the invertibility
+of $\bm{A}_0^T\hat{\bm{A}}_n$.
+Write $\bm{A}_0 = \bm{U}_0\bm{T}$ with $\bm{T} \in \mathbb{R}^{q\times q}$
+invertible, which is possible since the columns of $\bm{U}_0$
+form a basis of the column space of $\bm{A}_0$, and use the
+representative $\hat{\bm{A}}_n = \bm{W}_q(\bm{\Lambda}_q-\hat{s}_n\bm{I}_q)^{\frac{1}{2}}$
+of Proposition~\ref{thm:TB}; note that invertibility of
+$\bm{A}_0^T\hat{\bm{A}}_n$ is unchanged if $\hat{\bm{A}}_n$ is replaced by
+$\hat{\bm{A}}_n\bm{R}$ with $\bm{R} \in O(q)$, so it is a property of the
+class $[\hat{\bm{A}}_n,\hat{s}_n]$.
+Since $\bm{\Lambda}_q - \hat{s}_n\bm{I}_q$ is invertible, we get
+\begin{equation*}
+  \bm{A}_0^T\hat{\bm{A}}_n \text{ is invertible}
+  \iff \bm{U}_0^T\bm{W}_q \text{ is invertible}
+  \iff \det\bracket{\bm{U}_0^T\bm{W}_q\bm{W}_q^T\bm{U}_0} \neq 0
+  \iff \phi(\bm{S}_n) \neq 0,
+\end{equation*}
+where we used $\det(\bm{U}_0^T\bm{W}_q)^2
+= \det(\bm{U}_0^T\bm{W}_q\bm{W}_q^T\bm{U}_0)$
+and $\bm{W}_q\bm{W}_q^T = \bm{P}_q(\bm{S}_n)$.
+\end{proof}
+
+\subsection*{Consistency and the aligned estimation error}
+
+\begin{proposition}\label{thm:consistency}
+Almost surely, $[\hat{\bm{A}}_n,\hat{s}_n] \to [\bm{A}_0,s_0]$ in $M$.
+\end{proposition}
+
+\begin{proof}
+Write $\bm{P}_0$ for the orthogonal projector onto the column space of
+$\bm{A}_0$, so that $\bm{P}_0\bm{A}_0 = \bm{A}_0$.
+The eigenvalues of $\bm{\Sigma}_0 = \bm{A}_0\bm{A}_0^T + s_0\bm{I}_p$
+are $\sigma_j(\bm{A}_0)^2 + s_0$ for $j = 1, \ldots, q$
+and $s_0$ with multiplicity $p-q$, where $\sigma_j$ denotes the singular values;
+since $\rank(\bm{A}_0)=q$ we have $\sigma_q(\bm{A}_0) > 0$ and hence
+$\lambda_q(\bm{\Sigma}_0) > s_0 = \lambda_{q+1}(\bm{\Sigma}_0)$.
+Thus $\bm{\Sigma}_0 \in \mathcal{O}$ and $\bm{P}_q(\bm{\Sigma}_0) = \bm{P}_0$.
+
+By the strong law of large numbers applied to each of the finitely many
+entries, $\bm{S}_n \to \bm{\Sigma}_0$ almost surely.
+As $\mathcal{O}$ is open and $\bm{P}_q$ is continuous on $\mathcal{O}$
+by Lemma~\ref{thm:riesz}, almost surely $\bm{S}_n \in \mathcal{O}$ for
+all large $n$ and $\bm{P}_q(\bm{S}_n) \to \bm{P}_0$.
+Since
+$\bm{S}_n$ is eventually positive definite as well,
+Proposition~\ref{thm:TB} applies and \eqref{eq:TB_formula} gives, almost surely,
+\begin{equation*}
+  \hat{s}_n = \frac{1}{p-q}\tr\bracket{(\bm{I}_p - \bm{P}_q(\bm{S}_n))\bm{S}_n}
+  \longrightarrow \frac{1}{p-q}\tr\bracket{(\bm{I}_p-\bm{P}_0)\bm{\Sigma}_0}
+  = \frac{s_0}{p-q}\tr(\bm{I}_p - \bm{P}_0) = s_0
+\end{equation*}
+because $(\bm{I}_p-\bm{P}_0)\bm{\Sigma}_0 = s_0(\bm{I}_p-\bm{P}_0)$, and
+\begin{equation*}
+  \hat{\bm{A}}_n\hat{\bm{A}}_n^T
+  = \bm{P}_q(\bm{S}_n)\bm{S}_n\bm{P}_q(\bm{S}_n) - \hat{s}_n\bm{P}_q(\bm{S}_n)
+  \longrightarrow \bm{P}_0\bm{\Sigma}_0\bm{P}_0 - s_0\bm{P}_0
+  = \bm{A}_0\bm{A}_0^T,
+\end{equation*}
+using $\bm{P}_0\bm{\Sigma}_0\bm{P}_0 = \bm{A}_0\bm{A}_0^T + s_0\bm{P}_0$.
+
+It remains to convert this into convergence in $M$.
+We claim that if $\bm{B}_n \in \mathbb{R}^{p\times q}$ satisfy
+$\bm{B}_n\bm{B}_n^T \to \bm{A}_0\bm{A}_0^T$, then
+$\min_{\bm{Q}\in O(q)}\|\bm{B}_n\bm{Q}-\bm{A}_0\|_F \to 0$.
+Indeed $\|\bm{B}_n\|_F^2 = \tr(\bm{B}_n\bm{B}_n^T)$ is convergent, hence
+bounded.
+If the claim failed there would be $\epsilon > 0$ and a subsequence
+along which $\min_{\bm{Q}}\|\bm{B}_n\bm{Q}-\bm{A}_0\|_F \geqslant \epsilon$;
+by boundedness we may extract a further subsequence with
+$\bm{B}_n \to \bm{B}$, and then $\bm{B}\bm{B}^T = \bm{A}_0\bm{A}_0^T$.
+This matrix has rank $q$, so $\rank(\bm{B}) = q$ and
+$(\bm{B},s_0) \sim (\bm{A}_0,s_0)$;
+by the description of the equivalence classes recalled in
+Section~\ref{sec:basic_setup} there is $\bm{Q}_0 \in O(q)$ with
+$\bm{B} = \bm{A}_0\bm{Q}_0$.
+Consequently
+$\min_{\bm{Q}}\|\bm{B}_n\bm{Q}-\bm{A}_0\|_F
+\leqslant \|\bm{B}_n\bm{Q}_0^T - \bm{B}\bm{Q}_0^T\|_F
+= \|\bm{B}_n-\bm{B}\|_F \to 0$
+along that subsequence, a contradiction.
+
+Applying the claim to $\bm{B}_n = \hat{\bm{A}}_n$ we obtain, almost surely,
+matrices $\bm{Q}_n' \in O(q)$ with
+$\hat{\bm{A}}_n\bm{Q}_n' \to \bm{A}_0$; combined with $\hat{s}_n \to s_0$
+this says $(\hat{\bm{A}}_n\bm{Q}_n', \hat{s}_n) \to (\bm{A}_0,s_0)$ in
+$\Theta$, and the continuity of $\pi$ gives
+\begin{equation*}
+  [\hat{\bm{A}}_n,\hat{s}_n]
+  = \pi\bracket{(\hat{\bm{A}}_n\bm{Q}_n', \hat{s}_n)}
+  \longrightarrow \pi\bracket{(\bm{A}_0,s_0)} = [\bm{A}_0,s_0]
+\end{equation*}
+in $M$, as required.
+\end{proof}
+
+\begin{remark}
+Proposition~\ref{thm:consistency} recovers, for the independent and
+identically distributed Gaussian sampling scheme, the strong consistency
+result of \cite{Datta_Chakrabarty_2023} and \cite{Datta_2026}, Corollary 1,
+which is proved there by a Wald-type argument valid under considerably
+weaker assumptions.
+The proof above is included because it is short once
+Lemma~\ref{thm:riesz} is available, and because it makes the section
+self-contained.
+\end{remark}
+
+We can now fix once and for all the normal chart in which the whole
+analysis will be carried out.
+
+\begin{lemma}\label{thm:chart}
+There exists $\rho \in \bracket{0, \min(\sigma_{\text{min}}(\bm{A}_0), s_0)}$
+such that, writing
+$B_{\rho} := \{\bm{u} \in T_{[\bm{A}_0,s_0]}M : \abs{\bm{u}} < \rho\}
+\subset \mathcal{E}_{[\bm{A}_0,s_0]}$,
+the map $\text{Exp}_{[\bm{A}_0,s_0]}$ restricted to $B_{\rho}$
+is a diffeomorphism onto an open subset
+$\mathcal{U}_0 := \text{Exp}_{[\bm{A}_0,s_0]}(B_{\rho}) \subseteq M$,
+and such that $\mathcal{U}_0 \subseteq U$, where $U$ is the neighbourhood
+supplied by Proposition~\ref{thm:logarithmic_map} at $[\bm{A}_0,s_0]$.
+\end{lemma}
+
+\begin{proof}
+By Proposition~\ref{thm:exponential_map} the exponential map is defined on
+$\mathcal{E}_{[\bm{A}_0,s_0]}$, and it is a local diffeomorphism at
+$\bm{0}$, so there is an open neighbourhood $\mathcal{N}$ of $\bm{0}$
+inside $\mathcal{E}_{[\bm{A}_0,s_0]}$ that is mapped diffeomorphically onto
+an open subset of $M$.
+Since $\text{Exp}_{[\bm{A}_0,s_0]}$ is continuous and
+$\text{Exp}_{[\bm{A}_0,s_0]}(\bm{0}) = [\bm{A}_0,s_0] \in U$,
+we may pick $\rho > 0$ so small that
+$B_{\rho} \subseteq \mathcal{N}$ and
+$\text{Exp}_{[\bm{A}_0,s_0]}(B_{\rho}) \subseteq U$.
+A restriction of a diffeomorphism to an open subset is again a
+diffeomorphism onto its (open) image.
+\end{proof}
+
+We fix such a $\rho$ for the rest of the section, and define the
+\textit{aligned estimation error}
+
+\begin{equation}\label{eq:e_n_def}
+  \bm{e}_n := \bracket{\hat{\bm{A}}_n\bm{Q}_n - \bm{A}_0,\ \hat{s}_n - s_0}
+  \in \mathbb{R}^{p \times q} \times \mathbb{R},
+  \qquad
+  \hat{\bm{u}}_n := \begin{cases}
+    \text{Exp}^{-1}_{[\bm{A}_0,s_0]}\bracket{[\hat{\bm{A}}_n,\hat{s}_n]}
+    & \text{on } \mathcal{A}_n, \\
+    \bm{0} & \text{otherwise},
+  \end{cases}
+\end{equation}
+where $\bm{Q}_n$ is as in \eqref{eq:Q_n_def} and
+$\mathcal{A}_n := \curly{[\hat{\bm{A}}_n,\hat{s}_n] \in \mathcal{U}_0}$.
+
+\begin{proposition}\label{thm:error_welldefined}
+For $n \geqslant p$ we have $\mathbb{P}(\mathcal{A}_n) \to 1$;
+on $\mathcal{A}_n$ the vector $\hat{\bm{u}}_n$ belongs to $B_{\rho}$
+and its horizontal lift at $(\bm{A}_0,s_0)$ is exactly $\bm{e}_n$,
+that is $\iota_{(\bm{A}_0,s_0)}(\hat{\bm{u}}_n) = \bm{e}_n$;
+and $\hat{\bm{u}}_n \to \bm{0}$ almost surely.
+\end{proposition}
+
+\begin{proof}
+By Lemma~\ref{thm:generic_S} the matrix $\bm{Q}_n$ is almost surely well
+defined for $n \geqslant p$, so $\bm{e}_n$ is.
+By Proposition~\ref{thm:consistency} and the fact that $\mathcal{U}_0$ is
+an open neighbourhood of $[\bm{A}_0,s_0]$, almost surely
+$[\hat{\bm{A}}_n,\hat{s}_n] \in \mathcal{U}_0$ for all large $n$;
+in particular $\mathbb{P}(\mathcal{A}_n) \to 1$.
+On $\mathcal{A}_n$ we have $\hat{\bm{u}}_n \in B_{\rho}$ by
+Lemma~\ref{thm:chart}, and since
+$\mathcal{U}_0 \subseteq U$ the formula of
+Proposition~\ref{thm:logarithmic_map} applies and reads
+\begin{equation*}
+  \hat{\bm{u}}_n
+  = d\pi_{(\bm{A}_0,s_0)}\bracket{\bracket{\hat{\bm{A}}_n\bm{Q}_n - \bm{A}_0,\ \hat{s}_n - s_0}}
+  = d\pi_{(\bm{A}_0,s_0)}(\bm{e}_n).
+\end{equation*}
+As observed in the proof of Proposition~\ref{thm:logarithmic_map},
+$\bm{e}_n$ is a horizontal vector at $(\bm{A}_0,s_0)$, so
+$\iota_{(\bm{A}_0,s_0)}(\hat{\bm{u}}_n) = \bm{e}_n$ by \eqref{eq:lift_def}.
+Finally let $\epsilon \in (0,\rho)$.
+Then $\text{Exp}_{[\bm{A}_0,s_0]}(B_{\epsilon})$ is an open neighbourhood
+of $[\bm{A}_0,s_0]$, so almost surely
+$[\hat{\bm{A}}_n,\hat{s}_n]$ lies in it for large $n$, and injectivity of
+$\text{Exp}_{[\bm{A}_0,s_0]}$ on $B_{\rho}$ then forces
+$\abs{\hat{\bm{u}}_n} < \epsilon$.
+\end{proof}
+
+\begin{remark}
+Assumption III.2 of \cite{Sun_Lin_Liu_2026} postulates that the estimator
+almost surely avoids the cut locus of the true parameter, so that the
+logarithmic map may be applied to it, and
+Proposition~\ref{thm:error_welldefined} is what plays that role here.
+We cannot verify that assumption literally, because $M$ is incomplete and
+the discussion following Proposition~\ref{thm:logarithmic_map} shows that
+$\text{Exp}^{-1}_{[\bm{A}_0,s_0]}$ genuinely fails to be globally defined.
+What Proposition~\ref{thm:error_welldefined} provides instead is the only
+thing the asymptotic theory ever uses: an event of probability tending to
+one on which the intrinsic error is well defined, together with the
+explicit Procrustes description \eqref{eq:e_n_def} of it.
+Since modifying a sequence of random vectors on a sequence of events of
+vanishing probability affects neither its limit in probability nor its
+limit in distribution, all statements below are insensitive to the
+convention adopted off $\mathcal{A}_n$.
+\end{remark}
+
+\subsection*{Asymptotic linearity}
+
+We can now state the definition, which is Definition 3.10 of the
+companion draft and, in the language of \cite{Sun_Lin_Liu_2026},
+the hypothesis of their Lemma III.3.
+
+\begin{definition}\label{def:asymptotic_linearity}
+Let $[\hat{\bm{A}}_n,\hat{s}_n]$ be a sequence of estimators for which the
+intrinsic estimation error $\hat{\bm{u}}_n$ of \eqref{eq:e_n_def} is
+defined on events of probability tending to one.
+The sequence is said to be \textit{asymptotically linear at $[\bm{A}_0,s_0]$
+with influence operator} $\text{IF}$
+if $\text{IF} : \mathbb{R}^p \to T_{[\bm{A}_0,s_0]}M$ is measurable,
+centred and square integrable, that is
+\begin{equation}\label{eq:IF_moments}
+  \mathbb{E}\squared{\text{IF}(\bm{X}_1)} = \bm{0}
+  \qquad \text{and} \qquad
+  \mathbb{E}\squared{\abs{\text{IF}(\bm{X}_1)}^2} < \infty,
+\end{equation}
+and if
+\begin{equation}\label{eq:asymptotic_linearity}
+  \sqrt{n}\,\hat{\bm{u}}_n
+  = \frac{1}{\sqrt{n}}\sum_{i=1}^n \text{IF}(\bm{X}_i) + o_{\mathbb{P}}(1),
+\end{equation}
+the remainder being $o_{\mathbb{P}}(1)$ with respect to the norm
+$\abs{\, \cdot \,}$ of $T_{[\bm{A}_0,s_0]}M$.
+\end{definition}
+
+\begin{remark}
+Both sides of \eqref{eq:asymptotic_linearity} live in the single fixed
+vector space $T_{[\bm{A}_0,s_0]}M$, so the expression is meaningful even
+though $M$ is curved; this is exactly the device by which
+\cite{Sun_Lin_Liu_2026} transport the classical theory to manifolds.
+Note also that $\text{IF}$ is required to take values in the
+\textit{tangent} space, whereas the score \eqref{eq:score} is a linear
+functional, that is an element of the \textit{cotangent} space;
+the inverse Fisher operator \eqref{eq:G_inverse_def} is precisely
+what converts one into the other.
+\end{remark}
+
+The following theorem is the main result of this section.
+It is the analogue of Theorem 5.3 of the companion draft, and it
+instantiates Corollary V.1 of \cite{Sun_Lin_Liu_2026} for the
+probabilistic principal component analysis model.
+
+\begin{theorem}\label{thm:MLE_CLT}
+Let $1 \leqslant q < p$ and let $[\bm{A}_0,s_0] \in M$.
+Then the maximum likelihood estimator $[\hat{\bm{A}}_n,\hat{s}_n]$ of
+Definition~\ref{def:MLE} is asymptotically linear at $[\bm{A}_0,s_0]$
+in the sense of Definition~\ref{def:asymptotic_linearity},
+with influence operator
+\begin{equation}\label{eq:IF_def}
+  \text{IF}(\bm{x}) := G^{-1}_{[\bm{A}_0,s_0]}\bracket{s(\bm{x};[\bm{A}_0,s_0])}
+  \in T_{[\bm{A}_0,s_0]}M .
+\end{equation}
+That is,
+\begin{equation}\label{eq:MLE_linear}
+  \sqrt{n}\,\text{Exp}^{-1}_{[\bm{A}_0,s_0]}\bracket{[\hat{\bm{A}}_n,\hat{s}_n]}
+  = \frac{1}{\sqrt{n}}\sum_{i=1}^n
+  G^{-1}_{[\bm{A}_0,s_0]}\bracket{s(\bm{X}_i;[\bm{A}_0,s_0])} + o_{\mathbb{P}}(1),
+\end{equation}
+and consequently
+\begin{equation}\label{eq:MLE_CLT}
+  \sqrt{n}\,\text{Exp}^{-1}_{[\bm{A}_0,s_0]}\bracket{[\hat{\bm{A}}_n,\hat{s}_n]}
+  \rightsquigarrow N\bracket{\bm{0}, G^{-1}_{[\bm{A}_0,s_0]}}
+  \qquad \text{on } T_{[\bm{A}_0,s_0]}M,
+\end{equation}
+the Gaussian measure on $T_{[\bm{A}_0,s_0]}M$ whose covariance operator is
+the inverse Fisher information operator.
+Equivalently, in terms of the Procrustes aligned error \eqref{eq:e_n_def},
+\begin{equation}\label{eq:MLE_CLT_procrustes}
+  \sqrt{n}\bracket{\hat{\bm{A}}_n\bm{Q}_n - \bm{A}_0,\ \hat{s}_n - s_0}
+  \rightsquigarrow
+  \iota_{(\bm{A}_0,s_0)}\bracket{N\bracket{\bm{0}, G^{-1}_{[\bm{A}_0,s_0]}}}
+\end{equation}
+as random elements of $\mathbb{R}^{p\times q}\times \mathbb{R}$;
+the limit is a centred Gaussian law carried by the
+$d$-dimensional subspace $H_{(\bm{A}_0,s_0)}$.
+\end{theorem}
+
+\begin{proof}
+Write $G := G_{[\bm{A}_0,s_0]}$, $\iota := \iota_{(\bm{A}_0,s_0)}$
+and $s(\bm{x}) := s(\bm{x};[\bm{A}_0,s_0])$ throughout.
+The strategy is the one of Step 2 of the companion draft:
+in the normal chart supplied by Lemma~\ref{thm:chart} the family
+$\mathcal{P}$ becomes an ordinary parametric family indexed by an open
+subset of a Euclidean space, and $\hat{\bm{u}}_n$ becomes an ordinary
+$M$-estimator, so that Theorem 5.23 of \cite{van_der_Vaart_1998}
+applies once its four hypotheses have been verified.
+The essential structural point, which makes every verification a finite
+computation, is that by Proposition~\ref{thm:exponential_map} the
+exponential map is \textit{linear} in the horizontal lift, so no
+approximation of $\text{Exp}$ is ever needed.
+
+\textbf{Step 1: the model in normal coordinates.}
+Fix a $g_{[\bm{A}_0,s_0]}$-orthonormal basis $\bm{e}_1,\ldots,\bm{e}_d$ of
+$T_{[\bm{A}_0,s_0]}M$ and identify $T_{[\bm{A}_0,s_0]}M$ with
+$\mathbb{R}^d$ through it; under this identification $B_{\rho}$ is the
+open Euclidean ball of radius $\rho$ and $\abs{\, \cdot \,}$ is the
+Euclidean norm.
+For $\bm{u} \in B_{\rho}$ put $(\bm{U}_{\bm{u}}, b_{\bm{u}}) := \iota(\bm{u})$
+and
+\begin{equation}\label{eq:Sigma_u_def}
+  \bm{\Sigma}_{\bm{u}} := \bm{\Sigma}\bracket{\text{Exp}_{[\bm{A}_0,s_0]}(\bm{u})}
+  = (\bm{A}_0+\bm{U}_{\bm{u}})(\bm{A}_0+\bm{U}_{\bm{u}})^T
+  + (s_0+b_{\bm{u}})\bm{I}_p,
+\end{equation}
+using Proposition~\ref{thm:exponential_map} and \eqref{eq:Sigma_Phi_def}.
+Because $\iota$ is linear, expanding \eqref{eq:Sigma_u_def} gives the
+\textit{exact} identity
+\begin{equation}\label{eq:Sigma_u_quadratic}
+  \bm{\Sigma}_{\bm{u}} = \bm{\Sigma}_0
+  + \bracket{\bm{U}_{\bm{u}}\bm{A}_0^T + \bm{A}_0\bm{U}_{\bm{u}}^T + b_{\bm{u}}\bm{I}_p}
+  + \bm{U}_{\bm{u}}\bm{U}_{\bm{u}}^T
+  = \bm{\Sigma}_0 + D_{\bm{u}}\bm{\Sigma}([\bm{A}_0,s_0])
+  + \bm{U}_{\bm{u}}\bm{U}_{\bm{u}}^T,
+\end{equation}
+by \eqref{eq:Sigma_directional}: as a function of $\bm{u}$, the covariance
+matrix is a quadratic polynomial with no remainder whatsoever.
+Set, for $\bm{u} \in B_{\rho}$ and $\bm{x} \in \mathbb{R}^p$,
+\begin{equation}\label{eq:m_def}
+  m(\bm{u};\bm{x}) := \log p\bracket{\bm{x}; \text{Exp}_{[\bm{A}_0,s_0]}(\bm{u})}
+  = -\frac{p}{2}\log(2\pi) - \frac{1}{2}\log\det \bm{\Sigma}_{\bm{u}}
+  - \frac{1}{2}\bm{x}^T\bm{\Sigma}_{\bm{u}}^{-1}\bm{x},
+\end{equation}
+which in the notation \eqref{eq:l_def} is $l_{[\bm{A}_0,s_0]}(\bm{u})(\bm{x})$,
+and write $\mathbb{M}_n(\bm{u}) := \frac{1}{n}\sum_{i=1}^n m(\bm{u};\bm{X}_i)$
+and $M(\bm{u}) := \mathbb{E}\squared{m(\bm{u};\bm{X}_1)}$.
+By \eqref{eq:loglik} and Lemma~\ref{thm:chart},
+on the event $\mathcal{A}_n$ the vector $\hat{\bm{u}}_n$ maximizes
+$\mathbb{M}_n$ over $B_{\rho}$, since $[\hat{\bm{A}}_n,\hat{s}_n]$ maximizes
+$\mathbb{L}_n$ over all of $M$ and lies in the chart.
+
+\textbf{Step 2: uniform spectral bounds.}
+Let $\bm{u} \in B_{\rho}$.
+Since $\iota$ is an isometry, $\|\bm{U}_{\bm{u}}\|_F \leqslant \rho$
+and $\abs{b_{\bm{u}}} \leqslant \rho$; as $\rho < s_0$, formula
+\eqref{eq:Sigma_u_def} gives
+\begin{equation}\label{eq:spectral_bounds}
+  c_1 \bm{I}_p \preceq \bm{\Sigma}_{\bm{u}} \preceq c_2 \bm{I}_p,
+  \qquad
+  c_1 := s_0 - \rho > 0,
+  \qquad
+  c_2 := \bracket{\sigma_{\text{max}}(\bm{A}_0)+\rho}^2 + s_0 + \rho,
+\end{equation}
+the lower bound because $(\bm{A}_0+\bm{U}_{\bm{u}})(\bm{A}_0+\bm{U}_{\bm{u}})^T
+\succeq \bm{0}$, and the upper bound because
+$\sigma_{\text{max}}(\bm{A}_0+\bm{U}_{\bm{u}}) \leqslant
+\sigma_{\text{max}}(\bm{A}_0) + \|\bm{U}_{\bm{u}}\|_F$.
+In particular $\|\bm{\Sigma}_{\bm{u}}^{-1}\|_2 \leqslant c_1^{-1}$
+and $\|\bm{\Sigma}_{\bm{u}}\|_F \leqslant \sqrt{p}\,c_2$
+uniformly on $B_{\rho}$.
+
+\textbf{Step 3: smoothness and the derivative of the criterion.}
+On the open cone of positive definite matrices the maps
+$\bm{\Sigma}\mapsto \bm{\Sigma}^{-1}$ and $\bm{\Sigma}\mapsto\log\det\bm{\Sigma}$
+are real analytic, and $\bm{u}\mapsto\bm{\Sigma}_{\bm{u}}$ is a polynomial by
+\eqref{eq:Sigma_u_quadratic}; hence for every fixed $\bm{x}$ the function
+$\bm{u} \mapsto m(\bm{u};\bm{x})$ is $C^{\infty}$ on $B_{\rho}$.
+Its differential is computed exactly as in \eqref{eq:l_derivative}: for
+$\bm{h} \in T_{[\bm{A}_0,s_0]}M$,
+\begin{equation}\label{eq:m_derivative}
+  \nabla m(\bm{u};\bm{x})[\bm{h}]
+  = \frac{1}{2}\tr\curly{\bm{\Sigma}_{\bm{u}}^{-1}
+  \squared{\bm{x}\bm{x}^T - \bm{\Sigma}_{\bm{u}}}\bm{\Sigma}_{\bm{u}}^{-1}
+  \bracket{D_{\bm{h}}\bm{\Sigma}\bracket{\text{Exp}_{[\bm{A}_0,s_0]}(\bm{u})}}},
+\end{equation}
+where, by \eqref{eq:Sigma_derivative},
+\begin{equation}\label{eq:Sigma_derivative_u}
+  D_{\bm{h}}\bm{\Sigma}\bracket{\text{Exp}_{[\bm{A}_0,s_0]}(\bm{u})}
+  = \bm{U}_{\bm{h}}(\bm{A}_0+\bm{U}_{\bm{u}})^T
+  + (\bm{A}_0+\bm{U}_{\bm{u}})\bm{U}_{\bm{h}}^T + b_{\bm{h}}\bm{I}_p,
+\end{equation}
+which is linear in $\bm{h}$ and affine in $\bm{u}$.
+Taking $\bm{u} = \bm{0}$ in \eqref{eq:m_derivative} and comparing with
+\eqref{eq:score} shows
+\begin{equation}\label{eq:score_is_gradient}
+  \nabla m(\bm{0};\bm{x})[\bm{h}] = s(\bm{x})(\bm{h}),
+\end{equation}
+so that the gradient of the criterion at the truth is the score.
+
+\textbf{Step 4: a square integrable Lipschitz envelope.}
+Let $\bm{u} \in B_{\rho}$ and let $\bm{h}$ be a unit vector.
+From \eqref{eq:Sigma_derivative_u} and
+$\|\bm{U}_{\bm{h}}\bm{C}^T\|_F \leqslant \|\bm{U}_{\bm{h}}\|_F\|\bm{C}\|_2$,
+\begin{equation*}
+  \left\|D_{\bm{h}}\bm{\Sigma}\bracket{\text{Exp}_{[\bm{A}_0,s_0]}(\bm{u})}\right\|_F
+  \leqslant 2\bracket{\sigma_{\text{max}}(\bm{A}_0)+\rho} + \sqrt{p}
+  =: c_3 .
+\end{equation*}
+Combining this with $\abs{\tr(\bm{Z}\bm{Y})}\leqslant \|\bm{Z}\|_F\|\bm{Y}\|_F$
+and the bounds of Step 2, \eqref{eq:m_derivative} gives
+\begin{equation}\label{eq:envelope}
+  \sup_{\abs{\bm{h}}=1}\abs{\nabla m(\bm{u};\bm{x})[\bm{h}]}
+  \leqslant \frac{c_3}{2c_1^{2}}\bracket{\|\bm{x}\|^2 + \sqrt{p}\,c_2}
+  =: \dot{m}(\bm{x})
+  \qquad \text{for all } \bm{u} \in B_{\rho}.
+\end{equation}
+Since $\bm{X}_1$ is Gaussian, $\mathbb{E}[\|\bm{X}_1\|^4] < \infty$
+and therefore $\mathbb{E}[\dot{m}(\bm{X}_1)^2] < \infty$.
+As $B_{\rho}$ is convex and $m(\, \cdot \,;\bm{x})$ is $C^1$ there,
+the mean value theorem yields
+\begin{equation}\label{eq:lipschitz}
+  \abs{m(\bm{u}_1;\bm{x}) - m(\bm{u}_2;\bm{x})}
+  \leqslant \dot{m}(\bm{x})\abs{\bm{u}_1-\bm{u}_2}
+  \qquad \text{for all } \bm{u}_1, \bm{u}_2 \in B_{\rho}.
+\end{equation}
+
+\textbf{Step 5: the population criterion.}
+Since $\mathbb{E}[\bm{X}_1\bm{X}_1^T] = \bm{\Sigma}_0$, \eqref{eq:m_def} gives
+the closed form
+\begin{equation}\label{eq:M_def}
+  M(\bm{u}) = -\frac{p}{2}\log(2\pi) - \frac{1}{2}\log \det \bm{\Sigma}_{\bm{u}}
+  - \frac{1}{2}\tr\bracket{\bm{\Sigma}_{\bm{u}}^{-1}\bm{\Sigma}_0},
+\end{equation}
+which, by the argument of Step 3, is $C^{\infty}$ on $B_{\rho}$;
+in particular no differentiation under the integral sign is needed
+anywhere below.
+Subtracting $M(\bm{0})$,
+\begin{equation}\label{eq:KL}
+  M(\bm{0}) - M(\bm{u})
+  = \frac{1}{2}\squared{\tr\bracket{\bm{\Sigma}_{\bm{u}}^{-1}\bm{\Sigma}_0} - p
+  + \log\frac{\det\bm{\Sigma}_{\bm{u}}}{\det\bm{\Sigma}_0}}
+  = \frac{1}{2}\sum_{j=1}^p \bracket{\mu_j - 1 - \log\mu_j},
+\end{equation}
+where $\mu_1,\ldots,\mu_p > 0$ are the eigenvalues of the positive definite
+matrix $\bm{\Sigma}_{\bm{u}}^{-\frac{1}{2}}\bm{\Sigma}_0\bm{\Sigma}_{\bm{u}}^{-\frac{1}{2}}$,
+which is similar to $\bm{\Sigma}_{\bm{u}}^{-1}\bm{\Sigma}_0$.
+The elementary inequality $\mu - 1 - \log \mu \geqslant 0$, with equality
+only at $\mu = 1$, shows that $M(\bm{0}) - M(\bm{u}) \geqslant 0$ with
+equality if and only if all $\mu_j = 1$, that is if and only if
+$\bm{\Sigma}_{\bm{u}} = \bm{\Sigma}_0$.
+By the injectivity of $\bm{\Sigma}$ established in
+Proposition~\ref{thm:horizontal_verticle} this happens exactly when
+$\text{Exp}_{[\bm{A}_0,s_0]}(\bm{u}) = [\bm{A}_0,s_0]$, and by
+Lemma~\ref{thm:chart} exactly when $\bm{u} = \bm{0}$.
+Hence $\bm{0}$ is the unique maximizer of $M$ over $B_{\rho}$.
+
+We now compute the second order Taylor expansion of $M$ at $\bm{0}$.
+Fix $\bm{h} \in T_{[\bm{A}_0,s_0]}M$, write
+$(\bm{U},b) := \iota(\bm{h})$, and let
+$\bm{\Sigma}(t) := \bm{\Sigma}_{t\bm{h}}$.
+By \eqref{eq:Sigma_u_quadratic},
+\begin{equation}\label{eq:ray}
+  \bm{\Sigma}(t) = \bm{\Sigma}_0 + t\bm{\Delta} + t^2 \bm{U}\bm{U}^T,
+  \qquad
+  \bm{\Delta} := D_{\bm{h}}\bm{\Sigma}([\bm{A}_0,s_0])
+  = \bm{U}\bm{A}_0^T + \bm{A}_0\bm{U}^T + b\bm{I}_p,
+\end{equation}
+so $\dot{\bm{\Sigma}}(0) = \bm{\Delta}$ and
+$\ddot{\bm{\Sigma}}(0) = 2\bm{U}\bm{U}^T$ exactly.
+Using $\frac{d}{dt}\log\det\bm{\Sigma} = \tr(\bm{\Sigma}^{-1}\dot{\bm{\Sigma}})$
+and $\frac{d}{dt}\bm{\Sigma}^{-1} = -\bm{\Sigma}^{-1}\dot{\bm{\Sigma}}\bm{\Sigma}^{-1}$,
+the two terms of \eqref{eq:M_def} contribute
+\begin{equation*}
+  \frac{d}{dt}\bigg|_{t=0}\squared{-\frac{1}{2}\log\det\bm{\Sigma}(t)}
+  = -\frac{1}{2}\tr\bracket{\bm{\Sigma}_0^{-1}\bm{\Delta}},
+  \qquad
+  \frac{d}{dt}\bigg|_{t=0}\squared{-\frac{1}{2}\tr\bracket{\bm{\Sigma}(t)^{-1}\bm{\Sigma}_0}}
+  = \frac{1}{2}\tr\bracket{\bm{\Sigma}_0^{-1}\bm{\Delta}},
+\end{equation*}
+whose sum vanishes, so $\nabla M(\bm{0}) = 0$, as it must since $\bm{0}$ is
+an interior maximizer.
+Differentiating once more,
+\begin{equation*}
+  \frac{d^2}{dt^2}\bigg|_{t=0}\squared{-\frac{1}{2}\log\det\bm{\Sigma}(t)}
+  = -\frac{1}{2}\tr\bracket{\bm{\Sigma}_0^{-1}\ddot{\bm{\Sigma}}(0)}
+  + \frac{1}{2}\tr\bracket{\bracket{\bm{\Sigma}_0^{-1}\bm{\Delta}}^2}
+\end{equation*}
+and, since
+$\frac{d}{dt}\bracket{\bm{\Sigma}^{-1}\dot{\bm{\Sigma}}\bm{\Sigma}^{-1}}
+= \bm{\Sigma}^{-1}\ddot{\bm{\Sigma}}\bm{\Sigma}^{-1}
+- 2\bm{\Sigma}^{-1}\dot{\bm{\Sigma}}\bm{\Sigma}^{-1}\dot{\bm{\Sigma}}\bm{\Sigma}^{-1}$,
+\begin{equation*}
+  \frac{d^2}{dt^2}\bigg|_{t=0}\squared{-\frac{1}{2}\tr\bracket{\bm{\Sigma}(t)^{-1}\bm{\Sigma}_0}}
+  = \frac{1}{2}\tr\bracket{\bm{\Sigma}_0^{-1}\ddot{\bm{\Sigma}}(0)}
+  - \tr\bracket{\bracket{\bm{\Sigma}_0^{-1}\bm{\Delta}}^2}.
+\end{equation*}
+The terms in $\ddot{\bm{\Sigma}}(0)$ cancel identically and we are left with
+\begin{equation}\label{eq:hessian}
+  \frac{d^2}{dt^2}\bigg|_{t=0}M(t\bm{h})
+  = -\frac{1}{2}\tr\bracket{\bracket{\bm{\Sigma}_0^{-1}
+  D_{\bm{h}}\bm{\Sigma}([\bm{A}_0,s_0])}^2}
+  = -G(\bm{h},\bm{h})
+\end{equation}
+by \eqref{eq:G_def}.
+As $M$ is twice continuously differentiable on $B_{\rho}$, its Hessian at
+$\bm{0}$ is the symmetric bilinear form determined by the quadratic form
+\eqref{eq:hessian}, namely $-G$, and Taylor's theorem gives
+\begin{equation}\label{eq:M_taylor}
+  M(\bm{u}) = M(\bm{0}) - \frac{1}{2}G(\bm{u},\bm{u}) + o\bracket{\abs{\bm{u}}^2}
+  \qquad \text{as } \bm{u} \to \bm{0}.
+\end{equation}
+By Theorem~\ref{thm:DQM} the form $G$ is positive definite, so the second
+derivative matrix of $M$ at $\bm{0}$ is symmetric and nonsingular.
+Incidentally, \eqref{eq:hessian} is the manifold version of the classical
+identity between the Fisher information and the expected negative Hessian
+of the log-likelihood, recorded as Remark III.4 of \cite{Sun_Lin_Liu_2026};
+here it comes out of \eqref{eq:Sigma_u_quadratic} by a finite computation
+precisely because the exponential map is linear in the horizontal lift.
+
+\textbf{Step 6: application of the $M$-estimation theorem.}
+We check the four hypotheses of Theorem 5.23 of
+\cite{van_der_Vaart_1998} for the criterion functions
+$\{m(\bm{u};\, \cdot \,)\}_{\bm{u} \in B_{\rho}}$ indexed by the open
+subset $B_{\rho}$ of $\mathbb{R}^d$, at the point $\bm{u} = \bm{0}$.
+\begin{enumerate}
+  \item For each $\bm{u}$ the map $\bm{x}\mapsto m(\bm{u};\bm{x})$ is
+  measurable, being continuous, and for each $\bm{x}$ the map
+  $\bm{u}\mapsto m(\bm{u};\bm{x})$ is differentiable at $\bm{0}$ with
+  derivative $s(\bm{x}) \in L^2$, by Step 3 and \eqref{eq:score_is_gradient};
+  square integrability of the score is \eqref{eq:r_L2norm}.
+  \item The Lipschitz condition with square integrable envelope is
+  \eqref{eq:lipschitz} and \eqref{eq:envelope}.
+  \item The map $\bm{u}\mapsto M(\bm{u})$ admits the second order Taylor
+  expansion \eqref{eq:M_taylor} at the maximizer $\bm{0}$, with
+  nonsingular symmetric second derivative matrix $-G$, by Step 5.
+  \item By Proposition~\ref{thm:error_welldefined},
+  $\hat{\bm{u}}_n \to \bm{0}$ in probability, and
+  $\mathbb{M}_n(\hat{\bm{u}}_n) \geqslant \mathbb{M}_n(\bm{0})$ holds exactly:
+  on $\mathcal{A}_n$ because $\hat{\bm{u}}_n$ maximizes $\mathbb{M}_n$ over
+  $B_{\rho} \ni \bm{0}$ by Step 1, and off $\mathcal{A}_n$ because there
+  $\hat{\bm{u}}_n = \bm{0}$.
+  In particular
+  $\mathbb{M}_n(\hat{\bm{u}}_n) \geqslant \mathbb{M}_n(\bm{0}) - o_{\mathbb{P}}(n^{-1})$.
+\end{enumerate}
+The cited theorem therefore yields
+\begin{equation}\label{eq:vdV_conclusion}
+  \sqrt{n}\,\hat{\bm{u}}_n
+  = \bm{G}^{-1}\frac{1}{\sqrt{n}}\sum_{i=1}^n \bm{s}(\bm{X}_i) + o_{\mathbb{P}}(1),
+\end{equation}
+where, in the orthonormal coordinates of Step 1, $\bm{G}$ is the
+$d \times d$ matrix with entries $\bm{G}_{jk} = G(\bm{e}_j,\bm{e}_k)$ and
+$\bm{s}(\bm{x}) \in \mathbb{R}^d$ is the vector with entries
+$\bm{s}(\bm{x})_j = s(\bm{x})(\bm{e}_j)$.
+Now if $\text{IF}(\bm{x}) = \sum_{j}c_j(\bm{x})\bm{e}_j$ is defined by
+\eqref{eq:IF_def}, then \eqref{eq:G_inverse_def} reads
+$\sum_k \bm{G}_{jk}c_k(\bm{x}) = s(\bm{x})(\bm{e}_j)$ for every $j$,
+that is $\bm{c}(\bm{x}) = \bm{G}^{-1}\bm{s}(\bm{x})$;
+so \eqref{eq:vdV_conclusion} is precisely
+\eqref{eq:MLE_linear} and \eqref{eq:asymptotic_linearity}.
+
+The requirements \eqref{eq:IF_moments} hold: the score has mean zero
+and covariance $G$ by Theorem~\ref{thm:DQM}, that is
+$\mathbb{E}[\bm{s}(\bm{X}_1)] = \bm{0}$ and
+$\mathbb{E}[\bm{s}(\bm{X}_1)\bm{s}(\bm{X}_1)^T] = \bm{G}$,
+whence $\mathbb{E}[\bm{c}(\bm{X}_1)] = \bm{0}$ and
+$\mathbb{E}[\|\bm{c}(\bm{X}_1)\|^2] = \tr(\bm{G}^{-1}) < \infty$.
+The vectors $\bm{s}(\bm{X}_1), \bm{s}(\bm{X}_2), \ldots$ being independent,
+identically distributed, centred and square integrable, the multivariate
+central limit theorem gives
+$n^{-\frac{1}{2}}\sum_{i=1}^n\bm{s}(\bm{X}_i) \rightsquigarrow N(\bm{0},\bm{G})$,
+so that by \eqref{eq:vdV_conclusion}, Slutsky's lemma and the continuous
+mapping theorem,
+\begin{equation*}
+  \sqrt{n}\,\hat{\bm{u}}_n \rightsquigarrow
+  N\bracket{\bm{0}, \bm{G}^{-1}\bm{G}\bm{G}^{-1}} = N\bracket{\bm{0},\bm{G}^{-1}},
+\end{equation*}
+which is \eqref{eq:MLE_CLT}: in the $g_{[\bm{A}_0,s_0]}$-orthonormal basis
+$\bm{e}_1,\ldots,\bm{e}_d$ the covariance operator $G^{-1}_{[\bm{A}_0,s_0]}$
+is represented by the matrix $\bm{G}^{-1}$.
+
+\textbf{Step 7: the Procrustes form.}
+By Proposition~\ref{thm:error_welldefined},
+$\bm{e}_n = \iota(\hat{\bm{u}}_n)$ on $\mathcal{A}_n$, and
+$\mathbb{P}(\mathcal{A}_n)\to 1$.
+If $\bm{\xi}_n$ and $\bm{\eta}_n$ agree on events of probability tending
+to one and $\bm{\xi}_n \rightsquigarrow \bm{\xi}$, then
+$\bm{\eta}_n\rightsquigarrow \bm{\xi}$ as well, since for every bounded
+Lipschitz test function $\psi$ one has
+$\abs{\mathbb{E}\psi(\bm{\xi}_n)-\mathbb{E}\psi(\bm{\eta}_n)}
+\leqslant 2\|\psi\|_{\infty}\mathbb{P}(\mathcal{A}_n^c)\to 0$
+by the portmanteau theorem.
+Applying this and the continuous mapping theorem to the linear isometry
+$\iota$ turns \eqref{eq:MLE_CLT} into \eqref{eq:MLE_CLT_procrustes};
+the limit is carried by $\iota(T_{[\bm{A}_0,s_0]}M) = H_{(\bm{A}_0,s_0)}$,
+which by Proposition~\ref{thm:horizontal_verticle} has dimension $d$.
+\end{proof}
+
+\begin{corollary}\label{thm:influence_relation}
+The influence operator \eqref{eq:IF_def} satisfies the influence relation
+of \cite{Sun_Lin_Liu_2026}, Lemma III.3, namely
+\begin{equation}\label{eq:influence_relation}
+  \mathbb{E}\squared{\text{IF}(\bm{X}_1)\otimes s(\bm{X}_1;[\bm{A}_0,s_0])}
+  = \text{id}_{T_{[\bm{A}_0,s_0]}M}.
+\end{equation}
+Moreover it is the only influence operator with values in the span of the
+score for which \eqref{eq:asymptotic_linearity} can hold.
+\end{corollary}
+
+\begin{proof}
+In the coordinates of Step 6 of the previous proof,
+\eqref{eq:influence_relation} reads
+\begin{equation*}
+  \mathbb{E}\squared{\bm{c}(\bm{X}_1)\bm{s}(\bm{X}_1)^T}
+  = \bm{G}^{-1}\mathbb{E}\squared{\bm{s}(\bm{X}_1)\bm{s}(\bm{X}_1)^T}
+  = \bm{G}^{-1}\bm{G} = \bm{I}_d .
+\end{equation*}
+For the uniqueness, an influence operator of the stated form is
+$\text{IF}'(\bm{x}) = \bm{C}\bm{s}(\bm{x})$ for some $d\times d$ matrix
+$\bm{C}$, and \eqref{eq:influence_relation}, which
+\cite{Sun_Lin_Liu_2026} show to be forced for regular asymptotically
+linear sequences, gives $\bm{C}\bm{G} = \bm{I}_d$, that is
+$\bm{C} = \bm{G}^{-1}$.
+\end{proof}
+
+\begin{remark}
+Three comments on the content of Theorem~\ref{thm:MLE_CLT}.
+
+First, \eqref{eq:MLE_CLT_procrustes} is the well posed replacement of the
+false naive statement discussed at the beginning of this section:
+it is not the raw error $\hat{\bm{A}}_n - \bm{A}_0$ that is asymptotically
+Gaussian, but the error measured after the optimal rotational alignment
+$\hat{\bm{A}}_n \mapsto \hat{\bm{A}}_n\bm{Q}_n$, and the limit lives on the
+horizontal space $H_{(\bm{A}_0,s_0)}$ only.
+Viewed inside $\mathbb{R}^{p\times q}\times\mathbb{R} \cong \mathbb{R}^{pq+1}$
+the limiting Gaussian law is degenerate, carrying no mass in the
+$\frac{q(q-1)}{2}$ vertical directions of
+Proposition~\ref{thm:horizontal_verticle}.
+This degeneracy is a feature and not a defect: those are exactly the
+directions along which the likelihood \eqref{eq:loglik} is constant,
+so no data can ever be informative about them.
+
+Second, \eqref{eq:MLE_CLT} contains as a by-product the rate of
+convergence, since it gives
+$\abs{\text{Exp}^{-1}_{[\bm{A}_0,s_0]}([\hat{\bm{A}}_n,\hat{s}_n])}
+= O_{\mathbb{P}}(n^{-\frac{1}{2}})$
+and hence, on $\mathcal{A}_n$, that the Riemannian distance between
+$[\hat{\bm{A}}_n,\hat{s}_n]$ and $[\bm{A}_0,s_0]$ is
+$O_{\mathbb{P}}(n^{-\frac{1}{2}})$.
+This is the quantitative refinement of
+Proposition~\ref{thm:consistency}.
+
+Third, no assumption whatsoever has been made on the multiplicities of the
+singular values of $\bm{A}_0$.
+This is worth emphasizing, because the classical route to such a theorem,
+namely perturbation of the eigenvectors of $\bm{S}_n$ followed by the delta
+method, requires the leading $q$ eigenvalues of $\bm{\Sigma}_0$ to be simple.
+When they are not, individual principal directions are genuinely not
+asymptotically normal, and yet the point $[\hat{\bm{A}}_n,\hat{s}_n]$
+of $M$ still is: the quotient level limit simply does not see the
+multiplicities.
+The reason is Theorem~\ref{thm:DQM}, where positive definiteness of
+$G_{[\bm{A}_0,s_0]}$ was obtained from
+$V_{(\bm{A}_0,s_0)}\cap H_{(\bm{A}_0,s_0)} = \{\bm{0}\}$ alone.
+\end{remark}
+
+\begin{remark}
+Theorem~\ref{thm:MLE_CLT} is the input required by the optimality theory of
+\cite{Sun_Lin_Liu_2026}.
+Together with the local asymptotic normality expansion of
+Proposition~\ref{thm:LAN} it yields, through Le Cam's third lemma, that the
+maximum likelihood estimator is locally regular in the sense of their
+Definition III.5, and then their convolution theorem, Theorem III.1, and
+their local asymptotic minimax theorem, Theorem III.2, identify
+$G^{-1}_{[\bm{A}_0,s_0]}$ as the efficiency bound over all regular estimator
+sequences; compare their Theorem V.1.
+Carrying this out requires the parallel transport of $(M,g)$ and a
+comparison between the transported and the coordinate errors, and is left
+for the next section.
+\end{remark}
 
 \bibliographystyle{plainnat}
 \def\bibname{References} % Nom obligatoire de la section des références.
