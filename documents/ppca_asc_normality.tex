@@ -718,19 +718,15 @@ Now, given that Lemma~\ref{thm:singular_PR}
 shows that $\bm{Q}(\bm{A}, \bm{B}) = \bm{P}\bm{R}^T$,
 the only thing remaining is 
 to rule out all $\bm{D} \neq \bm{I}_q$.
-We achieve this by comparing the two matrices directly.
-We have 
+We achieve this by comparing the two matrices directly:
 
 \begin{equation*}
   	\|\bm{Q}-	\bm{Q}(\bm{A},\bm{B})\|
     = \|\bm{Q}\bm{Q}(\bm{A},\bm{B})^T-\bm{I}_q \|
-    = \|\bm{P}\bm{D}\bm{P}^T-\bm{I}_q \|.
+    = \|\bm{P}\bm{D}\bm{P}^T-\bm{I}_q \|
+    = \|\bm{D}-\bm{I}_q \|.
 \end{equation*}
-Given that 
-\begin{equation*}
-  (\bm{P}\bm{D}\bm{P}^T-\bm{I}_q)^2 = \bm{P}(\bm{D}^2-2\bm{D}+\bm{I}_q)\bm{P}^T,
-\end{equation*}
-we see that $\|\bm{Q}-	\bm{Q}(\bm{A},\bm{B})\|$
+Thus, $\|\bm{Q}-	\bm{Q}(\bm{A},\bm{B})\|$
 equals to either $0$ or $2$ 
 and takes no other values.
 It suffices to bound it away from $2$.
