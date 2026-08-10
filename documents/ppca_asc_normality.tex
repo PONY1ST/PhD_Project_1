@@ -1462,7 +1462,12 @@ $\text{diag}(\bm{\mu})$ by a path inside $\mathcal{O}$.
 $\lambda_{q+1}(\bm{S}_*) < c < \lambda_{q}(\bm{S}_*)$
 and let $\Gamma \subset \mathbb{C}$ be the positively oriented circle
 of centre $\frac{1}{2}(\lambda_1(\bm{S}_*) + c)$
-and radius $\frac{1}{2}(\lambda_1(\bm{S}_*) - c) + 1$,
+and radius $\frac{1}{2}\bracket{\lambda_1(\bm{S}_*) - \lambda_{q+1}(\bm{S}_*)}$,
+which meets the real axis in the interval with endpoints
+$\frac{1}{2}\bracket{c + \lambda_{q+1}(\bm{S}_*)}
+\in \bracket{\lambda_{q+1}(\bm{S}_*), c}$ and
+$\lambda_1(\bm{S}_*) + \frac{1}{2}\bracket{c - \lambda_{q+1}(\bm{S}_*)}
+> \lambda_1(\bm{S}_*)$,
 so that $\Gamma$ encircles $\lambda_1(\bm{S}_*), \ldots, \lambda_q(\bm{S}_*)$
 and no other eigenvalue of $\bm{S}_*$.
 Put $\delta := \min_{z \in \Gamma}\text{dist}(z, \text{spec}(\bm{S}_*)) > 0$.
@@ -1552,13 +1557,21 @@ Hence the conditional law of $\bm{S}_n$ given $\bm{Y}_2$ charges no
 Lebesgue null set, and the same holds for its mixture over $\bm{Y}_2$.
 
 By Lemma~\ref{thm:riesz}, the set of $\bm{S} \in \text{Sym}(p)$ that
-either fail to be positive definite with $p$ distinct eigenvalues,
-or lie outside $\mathcal{O}$, or satisfy $\phi(\bm{S}) = 0$,
+either lie outside $\mathcal{O}$ or satisfy $\phi(\bm{S}) = 0$
 is Lebesgue null; here we take $\bm{U}_0 \in \mathbb{R}^{p \times q}$ to be
 any matrix with orthonormal columns spanning the column space of $\bm{A}_0$,
 which has dimension $q$ because $\rank(\bm{A}_0) = q$.
-It follows that almost surely $\bm{S}_n$ is positive definite,
+It follows that almost surely
 $\bm{S}_n \in \mathcal{O}$ and $\phi(\bm{S}_n) \neq 0$.
+Positive definiteness, by contrast, is not a generic property in
+$\text{Sym}(p)$ and must come from the structure of $\bm{S}_n$ instead:
+the singular matrices form a Lebesgue null subset of
+$\mathbb{R}^{p \times p}$, so $\bm{Y}_1$ is almost surely invertible and
+\begin{equation*}
+  \bm{S}_n = \frac{1}{n}\bm{Y}_1^T\bm{Y}_1 + \frac{1}{n}\bm{Y}_2^T\bm{Y}_2
+  \succeq \frac{1}{n}\bm{Y}_1^T\bm{Y}_1 \succ \bm{0}
+\end{equation*}
+almost surely.
 
 It remains to see that $\phi(\bm{S}_n)\neq 0$ is exactly the invertibility
 of $\bm{A}_0^T\hat{\bm{A}}_n$.
@@ -1893,9 +1906,14 @@ which in the notation \eqref{eq:l_def} is $l_{[\bm{A}_0,s_0]}(\bm{u})(\bm{x})$,
 and write $\mathbb{M}_n(\bm{u}) := \frac{1}{n}\sum_{i=1}^n m(\bm{u};\bm{X}_i)$
 and $M(\bm{u}) := \mathbb{E}\squared{m(\bm{u};\bm{X}_1)}$.
 By \eqref{eq:loglik} and Lemma~\ref{thm:chart},
-on the event $\mathcal{A}_n$ the vector $\hat{\bm{u}}_n$ maximizes
-$\mathbb{M}_n$ over $B_{\rho}$, since $[\hat{\bm{A}}_n,\hat{s}_n]$ maximizes
-$\mathbb{L}_n$ over all of $M$ and lies in the chart.
+on the event $\mathcal{A}_n$ the vector $\hat{\bm{u}}_n$ almost surely
+maximizes $\mathbb{M}_n$ over $B_{\rho}$, since by
+Lemma~\ref{thm:generic_S} and Definition~\ref{def:MLE} the point
+$[\hat{\bm{A}}_n,\hat{s}_n]$ almost surely maximizes
+$\mathbb{L}_n$ over all of $M$, and there it lies in the chart.
+On the remaining null event $\hat{\bm{u}}_n = \bm{0}$, because
+$[\hat{\bm{A}}_n,\hat{s}_n] = [\bm{A}_0,s_0]$ by
+Definition~\ref{def:MLE}.
 
 \textbf{Step 2: uniform spectral bounds.}
 Let $\bm{u} \in B_{\rho}$.
