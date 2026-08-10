@@ -204,18 +204,22 @@ Moreover, this action is verticle, transitive on fibers
 and is isomertic with respect to the Euclidean metric.
 Thus, there exists a unique metric $g$ on $M$ making
 $(M,g)$ a Riemannian manifold and $\pi$ a Riemannian submersion
-(see \cite{Lee_2018}, Theorem 2.28), meaning that
-
-\begin{equation}\label{eq:g_def}
-  g_{(\bm{A},s)}^{\Theta}\bracket{(\bm{V},c), (\bm{U},b)}
-  = g_{[\bm{A},s]} \bracket{d\pi_{(A,s)}((\bm{V},c)), d\pi_{(A,s)}((\bm{U},b))},
-\end{equation}
-where $g_{(\bm{A},s)}^{\Theta}$ is the standard Euclidean metric given by 
+(see \cite{Lee_2018}, Theorem 2.28).
+In more concrete terms, 
+if $g^{\Theta}$ is the standard Euclidean metric given by 
 \begin{equation}\label{eq:euclidean_metric}
   g_{(\bm{A},s)}^{\Theta}\bracket{(\bm{V},c), (\bm{U},b)} = \tr(\bm{V}\bm{U}^T) + cb,
 \end{equation}
 whenever $(\bm{A},s) \in \Theta$, $(\bm{V},c)$, 
-$(\bm{U},b) \in T_{(\bm{A},s)}\Theta \cong \mathbb{R}^{p \times q} \times \mathbb{R}$.
+$(\bm{U},b) \in T_{(\bm{A},s)}\Theta \cong \mathbb{R}^{p \times q} \times \mathbb{R}$,
+then 
+\begin{equation}\label{eq:g_def}
+  g_{[\bm{A},s]}(\bm{v}, \bm{h})
+  = g_{[\bm{A},s]} \bracket{d\pi_{(A,s)}((\bm{V},c)), d\pi_{(A,s)}((\bm{U},b))}
+  = g_{(\bm{A},s)}^{\Theta}\bracket{(\bm{V},c), (\bm{U},b)},
+\end{equation}
+whenever $\bm{v}$, $\bm{h} \in T_{[\bm{A},s]}M$
+lifting to $(\bm{V},c)$ and $(\bm{U},b)$ respectively.
 For later convenience,
 let us define two functions $\Phi: \Theta \to \mathbb{R}^{p \times p}$
 and $\bm{\Sigma}: M \to \mathbb{R}^{p \times p}$
@@ -231,7 +235,16 @@ gives the covariance matrix.
 \begin{equation}\label{eq:quotient_model}
   \mathcal{P} = \curly{N_p\bracket{\bm{0}, \bm{\Sigma}([\bm{A},s])}}_{[\bm{A},s]\in M}
 \end{equation}
-and this is an identifiable model we shall work with.
+and this is the identifiable model we shall work with.
+
+Finally, thoughout the entire document,
+$	\|\bm{A}\|$ will denote the spectral norm 
+of a matrix $\bm{A}$,
+which is defined as the largest singular value:
+the largest eigenvalue 
+of $(\bm{A}^T\bm{A})^{\frac{1}{2}}$.
+On the other hand, the smallest singular value of 
+$\bm{A}$ will be denoted by $\sigma_{\min}(\bm{A})$.
 
 \section{Basic Facts about $(M,g)$}
 
@@ -257,7 +270,8 @@ with $\bm{\Omega}$ ranged over all $q \times q$ skew symmetric matrices.
   the horizontal tangent space $H_{(\bm{A},s)} := V_{(\bm{A},s)}^{\perp}$
 equals to the collection of all tangent vectors 
 of the form $(\bm{V}, c) \in T_{(\bm{A},s)}\Theta$
-ranged over all $c \in \mathbb{R}$ and all $q \times q$ matrices $\bm{V}$
+ranged over all $c \in \mathbb{R}$ and all 
+$p \times q$ matrices $\bm{V}$
 satisfying $\bm{V}^T \bm{A} = \bm{A}^T \bm{V}$.
 \end{enumerate}
 \end{proposition}
@@ -382,7 +396,9 @@ To compute the horizontal tangent space, any $(\bm{V}, c) \in V_{(\bm{A},s)}^{\p
 will satisfy 
 
 \begin{equation}\label{eq:orthogonal_horizontal}
-  0 = g_{(\bm{A},s)} \bracket{(\bm{V}, c), (\bm{A} \bm{\Omega}, 0)} = \tr(\bm{A}^T \bm{V} \bm{\Omega})
+  0 = g_{(\bm{A},s)}^{\Theta} 
+  \bracket{(\bm{V}, c), (\bm{A} \bm{\Omega}, 0)} = 
+  \tr(\bm{A}^T \bm{V} \bm{\Omega})
 \end{equation}
 for all skew-symmetric $\bm{\Omega}$.
 Decomposing $\bm{A}^T \bm{V} = \bm{S} + \bm{K}$, 
@@ -411,8 +427,7 @@ Consequently, the exponential map
 is computed as $\text{Exp}_{[\bm{A},s]}(\bm{v}) = [\bm{A} + \bm{V}, s + c]$,
 at least well-defined over an open ball $\mathcal{E}_{[\bm{A},s]}$
 of $\bm{0} \in T_{[\bm{A},s]}M \cong \mathbb{R}^{pq+1-\frac{q(q-1)}{2}}$ 
-of radius $\min(\sigma_{\text{min}}(\bm{A}),s)$,
-where $\sigma_{\text{min}}(\bm{A})$ denotes the smallest singular value of $\bm{A}$.
+of radius $\min(\sigma_{\text{min}}(\bm{A}),s)$.
 \end{proposition}
 
 \begin{proof}
@@ -448,12 +463,12 @@ Weyl's perturbation inequality (Chapter 7.3 Problem 16 equation (7.3.15) of \cit
 to get
 
 \begin{equation*}
-  \sigma_{\text{min}}(\bm{A} + \bm{V}) \geqslant \sigma_{\text{min}}(\bm{A}) - \sigma_{\text{max}}(\bm{V})
+  \sigma_{\text{min}}(\bm{A} + \bm{V}) \geqslant \sigma_{\text{min}}(\bm{A}) - \|\bm{V}\|
   \geqslant \sigma_{\text{min}}(\bm{A}) - \abs{\bm{v}} > 0,
 \end{equation*}
 whenever $\abs{\bm{v}} < \min(\sigma_{\text{min}}(\bm{A}),s)$.
-Here $\sigma_{\text{max}}(\bm{V})$ denotes the largest singular value of $\bm{V}$,
-who is smaller than the Euclidean norm of $\bm{V}$ and hence norm of $\bm{v}$.
+The last inequality is because the spectral norm of $\bm{V}$ is always smaller than 
+the Euclidean norm (Frobenius norm) of $\bm{V}$ and hence norm of $\bm{v}$.
 Thus, for all $\bm{v} \in \mathcal{E}_{[\bm{A},s]}$, $\rank(\bm{A} + \bm{V}) = q$
 and the exponential map is well-defined.
 \end{proof}
@@ -512,7 +527,7 @@ Furthermore, each block of $\bm{J}$ must still be orthogonal and symmetric.
 
 We now diagonalize $\bm{J}$ based on the above information.
 Suppose that $\bm{S} = \oplus_{i=1}^k \bm{s}_i\bm{I}_{m_i}$,
-where $\bm{s}_1 > \ldots > \bm{s}_k$ are the unique diagonal entries of 
+where $\bm{s}_1 < \ldots < \bm{s}_k$ are the unique diagonal entries of 
 $\bm{S}$ and each repeats for $m_i$ times.
 Thus, $\bm{J}$ has $k$ blocks.
 Write the $i$th block by $\bm{J}_i$ so that
@@ -586,16 +601,16 @@ neighborhood $U \subset M$ containing $[\bm{A},s]$ such that
   \item The logarithmic map $\text{Exp}^{-1}_{[\bm{A},s]}:U \to T_{[\bm{A},s]}M$ 
   is well-defined and is smooth in $U$. In fact:
 
-  \begin{equation*}
+  \begin{equation}\label{eq:logarithmic_def}
     \text{Exp}^{-1}_{[\bm{A},s]}([\bm{B},t]) 
     = d \pi_{(\bm{A},s)}((\bm{B}\bm{Q}(\bm{A},\bm{B})-\bm{A}, t-s)),
-  \end{equation*}
+  \end{equation}
   where 
 
-  \begin{equation*}
+  \begin{equation}\label{eq:Q_A_B_def}
     \bm{Q}(\bm{A},\bm{B}) 
     = (\bm{B}^T \bm{A} \bm{A}^T \bm{B})^{- \frac{1}{2}} \bm{B}^T \bm{A} \in O(q).
-  \end{equation*}
+  \end{equation}
 \end{enumerate}
 \end{proposition}
 
@@ -605,32 +620,72 @@ if $\bm{R} \in O(q)$ and $\bm{P} \in O(q)$,
 then $\bm{Q}(\bm{A}\bm{P},\bm{B}\bm{R}) = \bm{R}^T\bm{Q}(\bm{A},\bm{B})\bm{P}$
 and the same computation as in the proof of 
 Proposition~\ref{thm:exponential_map}
-shows that the formula of logarithmic map is indeed well-defined.
+shows that \eqref{eq:logarithmic_def} is indeed well-defined.
 
-Given that the determinant is a continuous function
-and $\det(\bm{A}^T\bm{A}) > 0$,
-there exists a neighborhood $U_{\Theta} \subset \Theta$ 
-containing $(\bm{A},s)$ 
-such that $\det(\bm{A}^T\bm{B}) > 0$ 
-whenever $(\bm{B},t) \in U_{\Theta}$.
-Thus,
-for any $[\bm{B},t] \in U_1 := \pi(U_{\Theta}) \subset M$,
-$\bm{A}^T\bm{B}$ is invertible.
-
-Next, 
-it is a well-known fact that $\text{Exp}_{[\bm{A},s]}$ 
+It is a well-known fact that $\text{Exp}_{[\bm{A},s]}$ 
 is a local diffeomorphism 
-and thus there exists an open neighborhood $U_2 \subset M$ containing $[\bm{A},s]$
-such that the logarithmic map $\text{Exp}^{-1}_{[\bm{A},s]}$
-is well-defined and is smooth in $U_2$.
+and thus there exists an open neighborhood containing $[\bm{A},s]$
+in which the logarithmic map $\text{Exp}^{-1}_{[\bm{A},s]}$
+is well-defined and is smooth.
+Given that $\text{Exp}^{-1}_{[\bm{A},s]}([\bm{A},s]) = \bm{0}$,
+we shall only take 
+an open subset $U_1$ of this open neighborhood
+such that, whenever $[\bm{B},t] \in U_1$
+and $\bm{v} = \text{Exp}^{-1}_{[\bm{A},s]}([\bm{B},t])$,
+we always have $\abs{\bm{v}} < \epsilon$,
+where 
+\begin{equation*}
+  \epsilon \in \bracket{0, \min\bracket{\sigma_{\min}(\bm{A}), 2\squared{\frac{2}{\sigma_{\min}(\bm{A})}+1}^{-1}}}
+\end{equation*}
+is a fixed constant.
+
+Next, let $U^{\Theta} \subset \Theta$
+be the collection of all $(\bm{B},t) \in \Theta$
+such that $	\|\bm{A}-\bm{B}	\| < \epsilon$.
+Then $U^{\Theta}$ is an open neighborhood of $(\bm{A},s)$
+and any $(\bm{B},t) \in U_{\Theta}$
+has the property that $\bm{A}^T\bm{B}$ is invertible
+thanks to the condition that $\epsilon < \sigma_{\min}(\bm{A})$.
+To see this, suppose for the sake of contradiction 
+that there exists a unit vector $\bm{x} \in \mathbb{R}^q$
+with $\bm{A}^T\bm{B} \bm{x} = \bm{0}$.
+Then 
+\begin{equation*}
+  \abs{\bm{A} \bm{x}}^2 = \bm{x}^T \bm{A}^T\bm{ A}  \bm{x}
+  = -\bm{x}^T \bm{A}^T(\bm{B}-\bm{A})  \bm{x} \leqslant \abs{\bm{A} \bm{x}} \|\bm{B}-\bm{A}	\| \cdot 1 
+\end{equation*}
+and 
+$\|\bm{B}-\bm{A}	\| \geqslant \abs{\bm{A} \bm{x}} \geqslant \sigma_{\min}(\bm{A})$,
+a contradiction.
+The fact that $\bm{A}^T\bm{B}$ is invertible
+guarantees that the matrix $\bm{Q}(\bm{A}, \bm{B})$
+given at
+\eqref{eq:Q_A_B_def}
+is well defined for any $(\bm{B},t) \in U_{\Theta}$
+and, by continuity of $\bm{Q}(\bm{A}, \bm{B})$
+and the fact that $\bm{Q}(\bm{A}, \bm{A}) = \bm{I}_q$,
+we can shrink $U^{\Theta}$ to also guarantee
+that $\|\bm{Q}(\bm{A}, \bm{B})-\bm{I}_q	\| < \epsilon$
+whenever $(\bm{B},t) \in U_{\Theta}$.
+We define $U_2 := \pi(U^{\Theta})$.
+Given that $\pi$ is an open map, $U_2$ is an open neighborhood of $[\bm{A},s]$.
+If $[\bm{B},t] \in U_2$, then \textit{every} representative 
+$(\bm{B},t)$ of $[\bm{B},t]$ will have $\bm{A}^T \bm{B}$
+being invertible because $\det(\bm{A}^T \bm{B} \bm{R}) = \det(\bm{A}^T \bm{B}) \neq 0$
+for every $\bm{R} \in O(q)$,
+although only \textit{some} representatives $(\bm{B},t)$
+will satisfy both $\|\bm{A}-\bm{B}	\| < \epsilon$
+and $\|\bm{Q}(\bm{A}, \bm{B})-\bm{I}_q	\| < \epsilon$.
+Given that our results do not depend on representatives,
+we shall always choose a representative $(\bm{B},t)$
+such that this is the case.
 
 We now compute $\text{Exp}^{-1}_{[\bm{A},s]}$
 for $[\bm{B},t] \in U := U_1 \cap U_2$.
-Suppose that $\bm{v} \in T_{[\bm{A},s]}M$ 
-satisfies $\bm{v} = \text{Exp}^{-1}_{[\bm{A},s]}([\bm{B},t])$.
 By Proposition~\ref{thm:exponential_map},
 $[\bm{B},t] = [\bm{A} + \bm{V},s+c]$,
-where $(\bm{V}, c)$ is the horizontal lift of $\bm{v}$ to $(\bm{A}, s)$.
+where $(\bm{V}, c)$ is the horizontal lift of 
+$\bm{v} = \text{Exp}^{-1}_{[\bm{A},s]}([\bm{B},t])$ to $(\bm{A}, s)$.
 It follows that $c = t-s$ and that
 there exists a $\bm{Q} \in O(q)$
 such that $\bm{V} = \bm{B}\bm{Q}-A$.
@@ -659,22 +714,42 @@ and $\bm{Q} = \bm{P}\bm{D}\bm{R}^T$.
   \text{Exp}^{-1}_{[\bm{A},s]}([\bm{B},t]) 
     = d \pi_{(\bm{A},s)}((\bm{B}\bm{P}\bm{D}\bm{R}^T-\bm{A}, t-s)).
 \end{equation}
-Now let $\bm{B} \to \bm{A}$ and $t \to s$.
-The left hand size of \eqref{eq:logarithmic_PR_in_proof}
-now becomes $\text{Exp}^{-1}_{[\bm{A},s]}([\bm{A},s]) = \bm{0} \in T_{[\bm{A},s]}M$.
-The singular value decomposition converges to 
-the orthogonal diagonalization because $\bm{A}^T \bm{A}$
-is symmetric, meaning that $\bm{P} =  \bm{R}$. Thus
+Now, given that Lemma~\ref{thm:singular_PR}
+shows that $\bm{Q}(\bm{A}, \bm{B}) = \bm{P}\bm{R}^T$,
+the only thing remaining is 
+to rule out all $\bm{D} \neq \bm{I}_q$.
+We achieve this by comparing the two matrices directly.
+We have 
 
 \begin{equation*}
-  \bm{A}\bm{P}\bm{D}\bm{P}^T-\bm{A} = \bm{0}.
+  	\|\bm{Q}-	\bm{Q}(\bm{A},\bm{B})\|
+    = \|\bm{Q}\bm{Q}(\bm{A},\bm{B})^T-\bm{I}_q \|
+    = \|\bm{P}\bm{D}\bm{P}^T-\bm{I}_q \|.
 \end{equation*}
-Therefore, $\bm{P}\bm{D}\bm{P}^T = \bm{I}_q$
-and $\bm{D} = \bm{I}_q$.
-Lemma~\ref{thm:singular_PR} then shows 
-that 
+Given that 
 \begin{equation*}
-  \bm{Q} = \bm{P}\bm{R}^T = (\bm{B}^T \bm{A} \bm{A}^T \bm{B})^{- \frac{1}{2}} \bm{B}^T \bm{A}.
+  (\bm{P}\bm{D}\bm{P}^T-\bm{I}_q)^2 = \bm{P}(\bm{D}^2-2\bm{D}+\bm{I}_q)\bm{P}^T,
+\end{equation*}
+we see that $\|\bm{Q}-	\bm{Q}(\bm{A},\bm{B})\|$
+equals to either $0$ or $2$ 
+and takes no other values.
+It suffices to bound it away from $2$.
+We have 
+
+\begin{equation*}
+  \begin{split}
+    & \tab[0.4cm] \|\bm{Q}\bm{Q}(\bm{A},\bm{B})^T-\bm{I}_q \|
+    \leqslant \|\bracket{\bm{Q}-\bm{I}_q}\bm{Q}(\bm{A},\bm{B})^T
+  + \bracket{\bm{Q}(\bm{A},\bm{B})^T - \bm{I}_q} \|
+  \leqslant \|\bm{Q}(\bm{A},\bm{B})^T - \bm{I}_q \| +\|\bm{Q}-\bm{I}_q\| 
+  \\ &  < \epsilon + 
+  \frac{1}{\sigma_{\min}(\bm{A})} \|\bm{A}\bm{Q}-\bm{A}\| 
+  \leqslant \epsilon + 
+  \frac{1}{\sigma_{\min}(\bm{A})} \|\bm{A}\bm{Q}-\bm{B}\bm{Q}+\bm{V}\|
+   \leqslant \epsilon + 
+  \frac{1}{\sigma_{\min}(\bm{A})} \bracket{\|\bm{A}-\bm{B}\| + \|\bm{V}\|}
+  \\ & \leqslant \epsilon + \frac{2\epsilon}{\sigma_{\min}(\bm{A})} < 2.
+  \end{split}
 \end{equation*}
 This completes the proof.
 \end{proof}
@@ -711,28 +786,30 @@ property of selecting the geodesic of minimal speed
 and length when $[\bm{B},t]$ is any point 
 such that $\bm{A}^T \bm{B}$ is invertible.
 To see this, 
-consider a general candidate $\bm{Q}' = \bm{P}\bm{D}\bm{R}^T$ and
-write $\bm{v'} = d\pi_{(\bm{A},s)}((\bm{B}\bm{Q}'-\bm{A}, t-s))$,
-so that $(\bm{B}\bm{Q}'-\bm{A}, t-s)$ is the horizontal lift of $\bm{v'}$
-at $(\bm{A},s)$ and $\text{Exp}_{[\bm{A},s]}(\bm{v'}) = [\bm{B},t]$.
-Let us compute the squared norm of $\bm{v'}$:
+consider a general candidate $\bm{Q} = \bm{P}\bm{D}\bm{R}^T$ and
+suppose that $\bm{v} = d\pi_{(\bm{A},s)}((\bm{B}\bm{Q}-\bm{A}, t-s))$
+satisfies $\text{Exp}_{[\bm{A},s]}(\bm{v}) = [\bm{B},t]$.
+Given that 
+so that $(\bm{B}\bm{Q}-\bm{A}, t-s)$ is the horizontal lift of $\bm{v}$
+at $(\bm{A},s)$,
+we can compute the squared norm of $\bm{v}$:
 
 \begin{align*}
-  & \tab[0.4cm] g_{[\bm{A},s]}(\bm{v'}, \bm{v'})
-  = g_{(\bm{A},s)}^{\Theta}\bracket{(\bm{B}\bm{Q}'-\bm{A}, t-s), (\bm{B}\bm{Q}'-\bm{A}, t-s)} \\
-  &= \tr\bracket{(\bm{B}\bm{Q}'-\bm{A})(\bm{B}\bm{Q}'-\bm{A})^T} + (t-s)^2 
+  & \tab[0.4cm] g_{[\bm{A},s]}(\bm{v}, \bm{v})
+  = g_{(\bm{A},s)}^{\Theta}\bracket{(\bm{B}\bm{Q}-\bm{A}, t-s), (\bm{B}\bm{Q}-\bm{A}, t-s)} \\
+  &= \tr\bracket{(\bm{B}\bm{Q}-\bm{A})(\bm{B}\bm{Q}-\bm{A})^T} + (t-s)^2 
   = \tr(\bm{B}\bm{B}^T) + \tr(\bm{A}\bm{A}^T) - 2\tr(\bm{S}\bm{D}) + (t-s)^2,
 \end{align*}
 where the last equality substituted
-$\bm{A}^T\bm{B}\bm{Q}' = \bm{R}\bm{S}\bm{P}^T\bm{P}\bm{D}\bm{R}^T = \bm{R}\bm{S}\bm{D}\bm{R}^T$
+$\bm{A}^T\bm{B}\bm{Q} = \bm{R}\bm{S}\bm{P}^T\bm{P}\bm{D}\bm{R}^T = \bm{R}\bm{S}\bm{D}\bm{R}^T$
 and used the cyclic property of the trace.
 The fact that
 the diagonal entries of $\bm{S}$ are strictly positive
 show that
-$g_{[\bm{A},s]}(\bm{v'}, \bm{v'})$ is minimized precisely when $\bm{D} = \bm{I}_q$.
+$g_{[\bm{A},s]}(\bm{v}, \bm{v})$ is minimized precisely when $\bm{D} = \bm{I}_q$.
 Given that the geodesic starting at $[\bm{A},s]$
-with initial velocity $\bm{v'}$ reaches $[\bm{B},t]$ at time $1$ with constant speed
-$\sqrt{g_{[\bm{A},s]}(\bm{v'}, \bm{v'})}$, its length is $\sqrt{g_{[\bm{A},s]}(\bm{v'}, \bm{v'})}$.
+with initial velocity $\bm{v}$ reaches $[\bm{B},t]$ at time $1$ with constant speed
+$\sqrt{g_{[\bm{A},s]}(\bm{v}, \bm{v})}$, its length is $\sqrt{g_{[\bm{A},s]}(\bm{v}, \bm{v})}$.
 The choice $\bm{D} = \bm{I}_q$ gives the slowest and hence shortest geodesic.
 To illustrate,
 let us go back to the counterexample in the previous paragraph.
@@ -785,16 +862,20 @@ let
   \frac{1}{2}\bm{x}^T(\bm{\Sigma}([\bm{A},s]))^{-1}\bm{x}}
 \end{equation}
 be the density of $N_p(\bm{0}, \bm{\Sigma}([\bm{A},s]))$.
-Define two maps $l_{[\bm{A},s]}$ and $r_{[\bm{A},s]}$
-with domain $\mathcal{E}_{[\bm{A},s]} \subset T_{[\bm{A},s]}M \cong \mathbb{R}^{pq+1-\frac{q(q-1)}{2}}$
-and codomain $L^2(\mathbb{R}^p)$ by setting,
-for all $\bm{v} \in T_{[\bm{A},s]}M$,
+For $\bm{v} \in \mathcal{E}_{[\bm{A},s]} \subset T_{[\bm{A},s]}M \cong \mathbb{R}^{pq+1-\frac{q(q-1)}{2}}$,
+write $l_{[\bm{A},s]}(\bm{v})$
+for the log-likelihood function of the local experiment
 \begin{equation}\label{eq:l_def}
-  l_{[\bm{A},s]}(\bm{v})(\bm{x}) = \log \bracket{p(\bm{x}; \text{Exp}_{[\bm{A},s]}(\bm{v}))}
+  l_{[\bm{A},s]}(\bm{v})(\bm{x}) = \log 
+  \bracket{p(\bm{x}; \text{Exp}_{[\bm{A},s]}(\bm{v}))}.
 \end{equation}
-and
+Define the square root likelihood function $r_{[\bm{A},s]} : 
+\mathcal{E}_{[\bm{A},s]} \to L^2(\mathbb{R}^p)$
+by setting, for all $\bm{v} \in \mathcal{E}_{[\bm{A},s]}$,
+that 
 \begin{equation}\label{eq:r_def}
-  r_{[\bm{A},s]}(\bm{v})(\bm{x}) = \sqrt{p(\bm{x}; \text{Exp}_{[\bm{A},s]}(\bm{v}))}.
+  r_{[\bm{A},s]}(\bm{v})(\bm{x}) = 
+  \sqrt{p(\bm{x}; \text{Exp}_{[\bm{A},s]}(\bm{v}))}.
 \end{equation}
 
 \begin{theorem}\label{thm:DQM}
@@ -1044,7 +1125,7 @@ is smooth in both $\bm{h}$ and $\bm{v}$
 and \eqref{eq:r_L2norm}
 shows that $\|D_{\bm{h}}r_{[\bm{A},s]}(\bm{v});L^2(\mathbb{R}^p)	\|$
 is smooth in both $\bm{h}$ and $\bm{v}$.
-Combine the two facts, we see that 
+Scheffé's lemma shows that
 $D_{\bm{h}}r_{[\bm{A},s]}(\bm{v})$, as a map to $L^2(\mathbb{R}^p)$,
 is continuous in $\bm{h}$ and in $\bm{v}$.
 The integrand inside \eqref{eq:int_sup_u}
@@ -1113,15 +1194,39 @@ and is indeed given by \eqref{eq:score}.
 The Fisher information operator \eqref{eq:G_def} is obtained 
 by taking $\bm{v} = \bm{0}$ in \eqref{eq:fisher_computation}.
 To show that $G_{[\bm{A},s]}$ is positive definite,
-suppose that $\bm{h} \in T_{[\bm{A},s]}M$
-is such that $G_{[\bm{A},s]}(\bm{h},\bm{h})=0$.
-\eqref{eq:G_def} then reads that 
+let $\bm{h} \in T_{[\bm{A},s]}M$ be given.
+We show that $G_{[\bm{A},s]}(\bm{h},\bm{h}) \geqslant 0$
+and equality holds only when $\bm{h} = \bm{0}$.
+The non-negative part is clear from \eqref{eq:G_def}
+\eqref{eq:G_def}:
 
 \begin{equation*}
-  \tr \curly{ \squared{\bracket{\bm{\Sigma}([\bm{A},s])}^{-1}
-  D_{\bm{h}}\bm{\Sigma}([\bm{A},s])}^2 } = 0.
+  G_{[\bm{A},s]}(\bm{h},\bm{h}) = 
+  \frac{1}{2}\tr \curly{ \squared{\bracket{\bm{\Sigma}([\bm{A},s])}^{-1}
+  D_{\bm{h}}\bm{\Sigma}([\bm{A},s])}^2 } \geqslant 0.
 \end{equation*}
-Therefore, $D_{\bm{h}}\bm{\Sigma}([\bm{A},s]) = \bm{0}$.
+Assume from now on that the equality holds.
+A slight annoyance here is that the product of
+two symmetric matrices is not necessarily symmetric
+and we cannot immediately conclude that 
+$D_{\bm{h}}\bm{\Sigma}([\bm{A},s]) = \bm{0}$.
+We easily overcome this difficulty 
+by using the cyclic property of the trace 
+to get a symmetric matrix 
+
+\begin{equation*}
+  \bm{N} := \bracket{\bm{\Sigma}([\bm{A},s])}^{-\frac{1}{2}}
+  D_{\bm{h}}\bm{\Sigma}([\bm{A},s]) 
+  \bracket{\bm{\Sigma}([\bm{A},s])}^{-\frac{1}{2}}
+\end{equation*}
+such that 
+
+\begin{equation*}
+  0=G_{[\bm{A},s]}(\bm{h},\bm{h}) = 
+  \frac{1}{2}\tr(\bm{N}^2).
+\end{equation*}
+Therefore, $\bm{N} = \bm{0}$
+and $D_{\bm{h}}\bm{\Sigma}([\bm{A},s]) = \bm{0}$.
 Now \eqref{eq:Sigma_directional}
 reads the same as \eqref{eq:ker_Phi_equation}
 in the proof of Proposition~\ref{thm:horizontal_verticle}.
@@ -1129,6 +1234,7 @@ We therefore get $(\bm{U},b) \in \ker(d\Phi_{(\bm{A},s)}) = V_{(\bm{A},s)}$.
 However, being lifted from $\bm{h}$,
 $(\bm{U},b)$ must also be a horizontal vector.
 Therefore, $\bm{h} = \bm{0}$.
+We have proven that $G_{[\bm{A},s]}$ is positive definite.
 \end{proof}
 
 \begin{proposition}\label{thm:LAN}
