@@ -1,9 +1,16 @@
-\begin{thebibliography}{12}
+\begin{thebibliography}{14}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Chen et~al.(2021)Chen, Chi, Fan, and Ma]{Chen_et_al_2021}
+Yuxin Chen, Yuejie Chi, Jianqing Fan, and Cong Ma.
+\newblock \emph{Spectral Methods for Data Science: A Statistical Perspective},
+  volume~14 of \emph{Foundations and Trends in Machine Learning}.
+\newblock Now Publishers, Boston, 2021.
+\newblock \doi{10.1561/2200000079}.
 
 \bibitem[Datta(2026)]{Datta_2026}
 Arghya Datta.
@@ -31,6 +38,14 @@ Roger~A. Horn and Charles~R. Johnson.
 \newblock \emph{Matrix Analysis}.
 \newblock Cambridge University Press, Cambridge, second edition, 2013.
 \newblock ISBN 978-0-521-83940-2.
+
+\bibitem[Kato(1995)]{Kato_1995}
+Tosio Kato.
+\newblock \emph{Perturbation Theory for Linear Operators}.
+\newblock Classics in Mathematics. Springer-Verlag, Berlin, 1995.
+\newblock ISBN 3-540-58661-X.
+\newblock Reprint of the 1980 corrected printing of the second edition;
+  originally Volume 132 of the Grundlehren der mathematischen Wissenschaften.
 
 \bibitem[Lee(2013)]{Lee_2013}
 John~M. Lee.
