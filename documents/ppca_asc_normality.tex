@@ -440,8 +440,8 @@ The proof is complete.
 
 We now move to compute the exponential map 
 and the logarithmic map.
-We first collect two lemmas that 
-work out an orthogonal matrix based on given points in $M$.
+The following lemma is crucial 
+for computing the orthogonal matrix based on given points in $M$.
 
 \begin{lemma}\label{thm:q_classification}
 If $\bm{L}$ is an invertible $q \times q$ matrix
@@ -644,9 +644,9 @@ then
 Therefore,
 the same compuatation will show that 
 \eqref{eq:logarithmic_def} is indeed well-defined.
-Also, $\bm{B}\bm{Q}(\bm{A},\bm{B})$ is independent of 
-the choice of representative and 
-the set defined by \eqref{eq:U_A_s_def} makes sense.
+Also, the contents of the inequality \eqref{eq:U_A_s_def} 
+is independent of representatives and the description of 
+the set $U_{[\bm{A},s]}$ makes sense.
 
 A well-known property of 
 geodesics in case of Riemannian submersion (see for example 
@@ -686,7 +686,7 @@ The first fact can be quickly settled.
 Let $\bm{v} \in \mathcal{E}_{[\bm{A},s]}$
 with horizontal lift $(\bm{V},c)$ to $(\bm{A},s)$ be given.
 As proved in Proposition~\ref{thm:horizontal_verticle},
-$\bm{V}^T\bm{A} = \bm{A}^T\bm{V}$ and 
+$\bm{V}^T\bm{A} = \bm{A}^T\bm{V}$ and thus
 $\bm{A}^T(\bm{A}+\bm{V})$ is symmetric.
 If $\bm{x} \in \mathbb{R}^q$ is any unit vector, then 
 
@@ -696,7 +696,7 @@ If $\bm{x} \in \mathbb{R}^q$ is any unit vector, then
   \geqslant \abs{\bm{A}\bm{x}}(\abs{\bm{A}\bm{x}}-\abs{\bm{V}\bm{x}})
   \geqslant \sigma_{\min}(\bm{A})(\sigma_{\min}(\bm{A})-	\|\bm{V}	\|_F) > 0
 \end{equation*}
-because $\sigma_{\min}(\bm{A}) >	\|\bm{V}\|_F$.
+because $\sigma_{\min}(\bm{A}) >	\abs{\bm{v}} \geqslant \|\bm{V}\|_F$.
 
 The second fact has a longer proof.
 Being a well-defined exponential map,
@@ -710,7 +710,7 @@ exists. Once this is done,
 we prove that $U_{[\bm{A},s]}$ is open and 
 that $\text{Exp}^{-1}_{[\bm{A},s]}$ 
 is smooth in one shot 
-by proving that 
+by proving that its differential
 $\mathrm{d} \bracket{\text{Exp}_{[\bm{A},s]}}_{\bm{v}}$
 is an isomorphism for every given $\bm{v} \in \mathcal{E}_{[\bm{A},s]}$.
 
@@ -806,7 +806,8 @@ Given that $\bm{A}^T(\bm{A}+\bm{V})$ is positive definite,
 this forces $\bm{P}^T\bm{\Omega}\bm{P} = \bm{0}$
 and hence $\bm{\Omega} = \bm{0}$.
 We have proven that $\text{Exp}_{[\bm{A},s]}$
-is a diffeomorphism in $\mathcal{E}_{[\bm{A},s]}$.
+is a diffeomorphism in $\mathcal{E}_{[\bm{A},s]}$
+and that $U_{[\bm{A},s]}$ is an open subset of $M$.
 
 Now that the logarithmic map
 $\text{Exp}^{-1}_{[\bm{A},s]}:U_{[\bm{A},s]} \to \mathcal{E}_{[\bm{A},s]}$
@@ -861,13 +862,14 @@ In the above proof,
 it might seem that
 the proof of
 \eqref{eq:logarithmic_def}
-is trivialized because 
+is trivialized while
 the amazing matrix
 \eqref{eq:Q_A_B_def} 
 seems to come from nowhere.
 This is not at all the case.
 The matrix $\bm{Q}(\bm{A},\bm{B})$ comes from 
-considering the cases for a generic representative that
+considering the cases for a generic representative whose matrix 
+$\bm{A}^T\bm{B}$
 is only invertible, but not necessarily symmetric or positive definite.
 Given
 $[\bm{B},t] \in U_{[\bm{A},s]}$,
@@ -886,17 +888,24 @@ there exists $\bm{R} \in O(q)$, $\bm{P} \in O(q)$
 such that
 $\bm{A}^T\bm{B} = \bm{R}\bm{S}\bm{P}^T$
 and $\bm{Q} = \bm{P}\bm{D}\bm{R}^T$.
-Then, by continuity of the logarithmic map,
-if $[\bm{B},t] \to [\bm{A},s]$,
+Thus, by continuity of the logarithmic map,
+if $[\bm{B},t] \to [\bm{A},s]$ and for some 
+representative 
+$(\bm{B},t) \to (\bm{A},s)$,
+then
 it must be the case that $\bm{B}\bm{Q}-\bm{A} \to \bm{0}$
 or equivalently $\bm{Q} \to \bm{I}_q$.
-Therefore, the only reasonable choice of 
+Therefore, heurestically, the only reasonable choice of 
 $\bm{D}$ is $\bm{I}_q$.
-This argument is not discarded: it is 
-in the proof of the injectivity of the exponential map.
+This argument is not discarded: it is still
+in the proof of the injectivity of the exponential map
+but simplified by symmetric positive definiteness.
 So $\bm{Q} = \bm{P}\bm{R}^T$.
 This value is actually uniquely determined 
-by $\bm{A}$ and $\bm{B}$ and gives exactly \eqref{eq:Q_A_B_def},
+by $\bm{A}$ and $\bm{B}$ and gives exactly 
+$\bm{Q} = \bm{Q}(\bm{A},\bm{B})$
+with $\bm{Q}(\bm{A},\bm{B})$ as in
+\eqref{eq:Q_A_B_def},
 despite that neither $\bm{P}$ nor $\bm{R}$ is unique.
 This is shown in the following lemma:
 \end{remark}
@@ -909,9 +918,8 @@ then
 \begin{equation*}
   \bm{P}\bm{R}^T = (\bm{L}^T \bm{L})^{-\frac{1}{2}}\bm{L}^T.
 \end{equation*}
-This means, although neither $\bm{P}$ nor $\bm{R}$ is uniquely determined,
-$\bm{P}\bm{R}^T$ is uniquely determined.
 \end{lemma}
+
 \begin{proof}
 Given that
 
@@ -1676,10 +1684,133 @@ with the remainder of the second order Taylor exapnsion satisfying
 
 \begin{proof}
 One should immediately recognize that 
-$L(\bm{v})$ is the Kullback-Leibler divergence of the true model 
+$L(\bm{0})-L(\bm{v})$ equals to the Kullback-Leibler divergence of the true model 
 $N_p(\bm{0}, \bm{\Sigma}_0)$
 with respect to the 
 model $N_p \bracket{\bm{0}, \bm{\Sigma} \bracket{\text{Exp}_{[\bm{W}_0, \sigma_0^2]}(\bm{v})}}$.
+Therefore, $L(\bm{v})$ is maximized at all $\bm{v}$
+with $\bm{\Sigma} \bracket{\text{Exp}_{[\bm{W}_0, \sigma_0^2]}(\bm{v})} = \bm{\Sigma}_0$.
+Given that $\bm{\Sigma}$ is injective and that we have proven 
+in Proposition~\ref{thm:exponential_map} that
+$\text{Exp}_{[\bm{W}_0, \sigma_0^2]}$ is injective in $\mathcal{E}_{[\bm{W}_0, \sigma_0^2]}$,
+this only happens when $\bm{v} = \bm{0}$ and $\bm{0}$ is the unique maximizer of $L$.
+
+To obtain the Taylor expansion, we basically have to repeat 
+the computation part in the proof of Proposition~\ref{thm:DQM} on a slightly 
+different problem with the second derivative at $\bm{0}$ being computed as well.
+The first order derivative at $\bm{0}$ is automatically $0$ because $\bm{0}$ is the maximizer.
+
+Let $\bm{h} \in T_{[\bm{W}_0, \sigma_0^2]}M$ be given.
+We can easily compute that
+
+\begin{equation*}
+  L(t \bm{h}) = - \frac{p}{2} \log(2\pi) - \frac{1}{2}\log\bracket{\det \bracket{\bm{\Sigma}\bracket{\text{Exp}_{[\bm{W}_0, \sigma_0^2]}(t\bm{h})}}}
+  - \frac{1}{2} \tr\curly{
+  \bracket{\bm{\Sigma}\bracket{\text{Exp}_{[\bm{W}_0, \sigma_0^2]}(t\bm{h})}}^{-1} \bm{\Sigma}_0}.
+\end{equation*}
+Suppose that $\bm{h}$ lifts to $(\bm{U},b)$ at $(\bm{W}_0,\sigma_0^2)$.
+\eqref{eq:Sigma_derivative} immediately shows that
+\begin{equation*}
+  \frac{d^2}{dt^2}\bigg|_{t=0} \bracket{\bm{\Sigma}\bracket{\text{Exp}_{[\bm{W}_0, \sigma_0^2]}(t\bm{h})}}
+  = 2 \bm{U}\bm{U}^T.
+\end{equation*}
+We now compute the second derivative $L$ term by term.
+For the log determinant term, we have
+
+\begin{equation*}
+  \frac{d}{dt} \bracket{- \frac{1}{2} \log\bracket{\det \bracket{\bm{\Sigma}\bracket{\text{Exp}_{[\bm{W}_0, \sigma_0^2]}(t\bm{h})}}}}
+  = - \frac{1}{2} \tr \squared{\bracket{\bm{\Sigma}\bracket{\text{Exp}_{[\bm{W}_0, \sigma_0^2]}(t\bm{h})}}^{-1}
+  \frac{d}{dt} \bracket{\bm{\Sigma}\bracket{\text{Exp}_{[\bm{W}_0, \sigma_0^2]}(t\bm{h})}}},
+\end{equation*}
+\begin{equation*}
+  \begin{split}
+  & \tab[0.4cm]\frac{d^2}{dt^2} \bracket{- \frac{1}{2} \log\bracket{\det \bracket{\bm{\Sigma}\bracket{\text{Exp}_{[\bm{W}_0, \sigma_0^2]}(t\bm{h})}}}}
+  = - \frac{1}{2}  \frac{d}{dt} \tr \squared{\bracket{\bm{\Sigma}\bracket{\text{Exp}_{[\bm{W}_0, \sigma_0^2]}(t\bm{h})}}^{-1}
+  \frac{d}{dt} \bracket{\bm{\Sigma}\bracket{\text{Exp}_{[\bm{W}_0, \sigma_0^2]}(t\bm{h})}}}
+  \\ & = - \frac{1}{2} \tr \curly{\bracket{\bm{\Sigma}\bracket{\text{Exp}_{[\bm{W}_0, \sigma_0^2]}(t\bm{h})}}^{-1}
+  \frac{d^2}{dt^2} \bracket{\bm{\Sigma}\bracket{\text{Exp}_{[\bm{W}_0, \sigma_0^2]}(t\bm{h})}}}
+  \\ & + \frac{1}{2} \tr \curly{\squared{\bracket{\bm{\Sigma}\bracket{\text{Exp}_{[\bm{W}_0, \sigma_0^2]}(t\bm{h})}}^{-1}
+  \frac{d}{dt} \bracket{\bm{\Sigma}\bracket{\text{Exp}_{[\bm{W}_0, \sigma_0^2]}(t\bm{h})}}}^2 },
+  \end{split}
+\end{equation*}
+and therefore 
+\begin{equation*}
+\frac{d^2}{dt^2}\bigg|_{t=0} 
+  \bracket{- \frac{1}{2} \log\bracket{\det \bracket{\bm{\Sigma}\bracket{\text{Exp}_{[\bm{W}_0, \sigma_0^2]}(t\bm{h})}}}}
+  = -  \tr \curly{\bm{\Sigma}_0^{-1}\bm{U}\bm{U}^T}
+  + \frac{1}{2} \tr \curly{ \squared{\bm{\Sigma}_0^{-1}
+  D_{\bm{h}} \bm{\Sigma}([\bm{W}_0, \sigma_0^2])}^2}.
+\end{equation*}
+Next, for the trace term, we have
+\begin{equation*}
+  \begin{split}
+  & \tab[0.4cm] \frac{d}{dt} \bracket{- \frac{1}{2} \tr\curly{
+  \bracket{\bm{\Sigma}\bracket{\text{Exp}_{[\bm{W}_0, \sigma_0^2]}(t\bm{h})}}^{-1} \bm{\Sigma}_0}}
+  \\ & = \frac{1}{2} \tr \curly{\bracket{\bm{\Sigma}\bracket{\text{Exp}_{[\bm{W}_0, \sigma_0^2]}(t\bm{h})}}^{-1}
+  \frac{d}{dt} \bracket{\bm{\Sigma}\bracket{\text{Exp}_{[\bm{W}_0, \sigma_0^2]}(t\bm{h})}}
+  \bracket{\bm{\Sigma}\bracket{\text{Exp}_{[\bm{W}_0, \sigma_0^2]}(t\bm{h})}}^{-1}\bm{\Sigma}_0},
+  \end{split}
+\end{equation*}
+\begin{equation*}
+  \begin{split}
+  & \tab[0.4cm] \frac{d^2}{dt^2} \bracket{- \frac{1}{2} \tr\curly{
+  \bracket{\bm{\Sigma}\bracket{\text{Exp}_{[\bm{W}_0, \sigma_0^2]}(t\bm{h})}}^{-1} \bm{\Sigma}_0}}
+  \\ & = 
+  \frac{1}{2} \tr 
+  \biggr \{-2
+  \biggr \{ \bracket{\bm{\Sigma}\bracket{\text{Exp}_{[\bm{W}_0, \sigma_0^2]}(t\bm{h})}}^{-1}
+  \frac{d}{dt} \bracket{\bm{\Sigma}\bracket{\text{Exp}_{[\bm{W}_0, \sigma_0^2]}(t\bm{h})}}
+  \bracket{\bm{\Sigma}\bracket{\text{Exp}_{[\bm{W}_0, \sigma_0^2]}(t\bm{h})}}^{-1}
+  \\ & \frac{d}{dt} \bracket{\bm{\Sigma}\bracket{\text{Exp}_{[\bm{W}_0, \sigma_0^2]}(t\bm{h})}}
+  \bracket{\bm{\Sigma}\bracket{\text{Exp}_{[\bm{W}_0, \sigma_0^2]}(t\bm{h})}}^{-1}\bm{\Sigma}_0
+  \biggr \} \biggr \} \\ & +
+  \frac{1}{2} \tr 
+  \curly{\bracket{\bm{\Sigma}\bracket{\text{Exp}_{[\bm{W}_0, \sigma_0^2]}(t\bm{h})}}^{-1}
+  \frac{d^2}{dt^2} \bracket{\bm{\Sigma}\bracket{\text{Exp}_{[\bm{W}_0, \sigma_0^2]}(t\bm{h})}}
+  \bracket{\bm{\Sigma}\bracket{\text{Exp}_{[\bm{W}_0, \sigma_0^2]}(t\bm{h})}}^{-1}\bm{\Sigma}_0},
+  \end{split}
+\end{equation*}
+and therefore
+\begin{equation*}
+  \frac{d^2}{dt^2}\bigg|_{t=0} \bracket{- \frac{1}{2} \tr\curly{
+  \bracket{\bm{\Sigma}\bracket{\text{Exp}_{[\bm{W}_0, \sigma_0^2]}(t\bm{h})}}^{-1} \bm{\Sigma}_0}}
+  = - \tr \curly{\squared{\bm{\Sigma}_0^{-1}D_{\bm{h}} \bm{\Sigma}([\bm{W}_0, \sigma_0^2])}^2}
+  + \tr \bracket{\bm{\Sigma}_0^{-1} \bm{U}\bm{U}^T}.
+\end{equation*}
+We end up the negative of the Fisher information operator, as computed in \eqref{eq:G_def}.
+
+\begin{equation*}
+  \frac{d^2}{dt^2}\bigg|_{t=0} L(t \bm{h}) = - \frac{1}{2}
+  \tr \curly{\squared{\bm{\Sigma}_0^{-1}D_{\bm{h}} \bm{\Sigma}([\bm{W}_0, \sigma_0^2])}^2}
+  = - G_{[\bm{W}_0, \sigma_0^2]}(\bm{h}, \bm{h}).
+\end{equation*}
+This completes the proof.
+\end{proof}
+
+\begin{lemma}
+Fix a $g_{[\bm{W}_0, \sigma_0^2]}$ orthonormal basis $\bm{e}_1, \ldots, \bm{e}_d$
+of $T_{[\bm{W}_0, \sigma_0^2]}M$.
+We identify $T_{[\bm{W}_0, \sigma_0^2]}M$ canonically as $\mathbb{R}^d$
+through this basis.
+For $i$, $j \in \{1, \ldots, d\}$, define the matrix version $\bm{G} \in \mathbb{R}^{d \times d} $
+of the bilinear form $G_{[\bm{W}_0, \sigma_0^2]}$ by setting
+$\bm{G}_{ij} = G_{[\bm{W}_0, \sigma_0^2]}(\bm{e}_i, \bm{e}_j)$
+and the gradient version $\nabla l(\bm{x}; [\bm{W}_0, \sigma_0^2]) \in \mathbb{R}^d$
+of the score by setting $(\nabla l(\bm{x}; [\bm{W}_0, \sigma_0^2]))_i = s(\bm{X}_i; [\bm{W}_0, \sigma_0^2])(\bm{e}_i)$.
+Then 
+
+\begin{equation*}
+  \sqrt{n} \text{Exp}^{-1}_{[\bm{W}_0, \sigma_0^2]}\bracket{\squared{\hat{\bm{W}}_n,\hat{\sigma}_n^2}}
+  - \frac{1}{\sqrt{n}} \sum_{i=1}^n \bm{G}^{-1} \nabla l(\bm{x}; [\bm{W}_0, \sigma_0^2]) \to 0
+\end{equation*}
+in probability as $n \to \infty$.
+In particular, $\sqrt{n} \text{Exp}^{-1}_{[\bm{W}_0, \sigma_0^2]}\bracket{\squared{\hat{\bm{W}}_n,\hat{\sigma}_n^2}}$
+converges in distribution to $N_d(\bm{0}, \bm{G}^{-1})$ as $n \to \infty$.
+\end{lemma}
+
+\begin{proof}
+This is immdiate from Theorem 5.23 in \cite{van_der_Vaart_1998}
+because the two previous lemmas filled all the requirements of the theorem.
 \end{proof}
 
 
