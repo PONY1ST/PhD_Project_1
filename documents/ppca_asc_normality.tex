@@ -8,8 +8,12 @@
 \usepackage{subfiles} 
 \usepackage{times} %Times New Roman font
 
+%References:
+\usepackage[round]{natbib} %author-year citations, loaded before hyperref
+
 %Make title, table of contents
 \usepackage{hyperref} %necessay for maketitle to work
+\hypersetup{colorlinks=true, allcolors=blue} %all links and citations in blue
 \usepackage{datetime2} %for the dtmnow command
 
 \title{Casual Document for Probabilistic Principal Component Analysis MLE Asymptotic Normality}
@@ -191,8 +195,13 @@ $[\bm{A},s] = \{(\bm{A}\bm{Q},s) \mid \bm{Q} \in O(q)\}$.
 Therefore, $M := \Theta / \sim$ can be identified as the orbits 
 of the right action of $O(q)$ on $\Theta$
 and, given that this Lie group action is smooth, proper, and free,
-the quotient manifold theorem (see \cite{Lee_2013}, Theorem 21.10) shows that there is a unique smooth 
-structure making $M$ a manifold of dimension $pq+1-\frac{q(q-1)}{2}$ and 
+the quotient manifold theorem (see \citealp{Lee_2013}, Theorem 21.10) shows that there is a unique smooth 
+structure making $M$ a manifold of dimension 
+
+\begin{equation}\label{eq:d_def}
+  d = pq+1-\frac{q(q-1)}{2}
+\end{equation} 
+and 
 the map $\pi: \Theta \to M$ 
 defined by
 
@@ -204,7 +213,7 @@ Moreover, this action is verticle, transitive on fibers
 and is isomertic with respect to the Euclidean metric.
 Thus, there exists a unique metric $g$ on $M$ making
 $(M,g)$ a Riemannian manifold and $\pi$ a Riemannian submersion
-(see \cite{Lee_2018}, Theorem 2.28).
+(see \citealp{Lee_2018}, Theorem 2.28).
 In more concrete terms, 
 if $g^{\Theta}$ is the standard Euclidean metric given by 
 \begin{equation}\label{eq:euclidean_metric}
@@ -238,13 +247,26 @@ gives the covariance matrix.
 and this is the identifiable model we shall work with.
 
 Finally, thoughout the entire document,
-$	\|\bm{A}\|$ will denote the spectral norm 
-of a matrix $\bm{A}$,
-which is defined as the largest singular value:
-the largest eigenvalue 
-of $(\bm{A}^T\bm{A})^{\frac{1}{2}}$.
-On the other hand, the smallest singular value of 
-$\bm{A}$ will be denoted by $\sigma_{\min}(\bm{A})$.
+our default norm for a matrix $\bm{A}$
+will be the spectral norm, denoted by $\|\bm{A}\|$.
+We will also make use of the 
+Frobenius norm $\|\bm{A}\|_F$ as well.
+The eigenvalues and the singular values of a matrix 
+will always be labelled in decreasing order.
+In symbols, if $\bm{A}$ is a matrix of size $p \times q$,
+then we denote its $q$ singular values as 
+
+\begin{equation*}
+  \|\bm{A}\| = \sigma_1(\bm{A}) \geqslant \sigma_2(\bm{A}) \geqslant \cdots \geqslant 
+  \sigma_q(\bm{A}) = \sigma_{\min}(\bm{A}) \geqslant 0
+\end{equation*}
+and, if $\bm{S}$ is a symmetric matrix of size $p \times p$,
+then we denote its $p$ eigenvalues as 
+
+\begin{equation*}
+  \lambda_1(\bm{S}) \geqslant \lambda_2(\bm{S}) 
+  \geqslant \cdots \geqslant \lambda_p(\bm{S}).
+\end{equation*}
 
 \section{Basic Facts about $(M,g)$}
 
@@ -261,7 +283,7 @@ is a smooth injective immersion.
   the verticle tangent space 
 
   \begin{equation}\label{eq:verticle_space}
-  V_{(\bm{A},s)} :=\ker(d\pi_{(\bm{A},s)}) = \ker(d\Phi_{(\bm{A},s)})
+  V_{(\bm{A},s)} :=\ker(\mathrm{d}\pi_{(\bm{A},s)}) = \ker(\mathrm{d}\Phi_{(\bm{A},s)})
   \end{equation}
   equals to the collection of all tangent vectors 
 of the form $(\bm{A} \bm{\Omega}, 0) \in T_{(\bm{A},s)}\Theta$,
@@ -280,7 +302,7 @@ satisfying $\bm{V}^T \bm{A} = \bm{A}^T \bm{V}$.
 Fix a point $(\bm{A},s) \in \Theta$
 throughout this proof.
 Before we start the proof,
-let us first study the set $\ker(d\Phi_{(\bm{A},s)})$,
+let us first study the set $\ker(\mathrm{d}\Phi_{(\bm{A},s)})$,
 where $\Phi$ is given in \eqref{eq:Sigma_Phi_def}.
 For $(\bm{V}, c) \in T_{(\bm{A},s)}\Theta$, 
 define a curve $\gamma : (-\epsilon, \epsilon) \to \Theta$
@@ -288,7 +310,8 @@ by setting $\gamma(t) = (\bm{A}+t\bm{V}, s + tc)$.
 Then:
 
 \begin{equation*}
-  d \Phi_{(\bm{A},s)} ((\bm{V}, c)) = \frac{d}{dt} \bigg|_{t = 0} \Phi(\gamma(t)) = \bm{A}\bm{V}^T + \bm{V} \bm{A}^T + c\bm{I}_p.
+  \mathrm{d} \Phi_{(\bm{A},s)} ((\bm{V}, c)) = 
+  \frac{d}{dt} \bigg|_{t = 0} \Phi(\gamma(t)) = \bm{A}\bm{V}^T + \bm{V} \bm{A}^T + c\bm{I}_p.
 \end{equation*}
 If $(\bm{V}, c) \in \ker(d\Phi_{(\bm{A},s)})$,
 then
@@ -337,7 +360,7 @@ Therefore, $\bm{\Omega}$ is skew-symmetric.
 Conversely, \eqref{eq:ker_Phi_equation_reduced} 
 is satisfied by $\bm{V}=\bm{A} \bm{\Omega}$
 with any skew-symmetric matrix $\bm{\Omega}$.
-We have proven that $\ker(d\Phi_{(\bm{A},s)})$
+We have proven that $\ker(\mathrm{d}\Phi_{(\bm{A},s)})$
 equals to the collection of all tangent vectors 
 of the form $(\bm{A} \bm{\Omega}, 0) \in T_{(\bm{A},s)}\Theta$,
 with $\bm{\Omega}$ ranged over all $q \times q$ skew symmetric matrices.
@@ -348,28 +371,28 @@ Clearly, $\bm{\Sigma}$ is well-defined
 and is injective.
 The smoothness of $\bm{\Sigma}$
 is guaranteed by relation $\bm{\Sigma} \circ \pi = \Phi$
-(see for example \cite{Lee_2013} Theorem 4.29).
+(see for example \citealp{Lee_2013}, Theorem 4.29).
 By the chain rule, we have 
 
 \begin{equation} \label{eq:differential_Phi}
-  d \Phi_{(\bm{A},s)} = d \bm{\Sigma}_{[\bm{A},s]} \circ d \pi_{(\bm{A},s)}.
+  \mathrm{d} \Phi_{(\bm{A},s)} = \mathrm{d} \bm{\Sigma}_{[\bm{A},s]} \circ \mathrm{d} \pi_{(\bm{A},s)}.
 \end{equation}
 It follows immediately that 
-$\ker(d\pi_{(\bm{A},s)}) \subseteq \ker(d\Phi_{(\bm{A},s)})$.
+$\ker(\mathrm{d}\pi_{(\bm{A},s)}) \subseteq \ker(\mathrm{d}\Phi_{(\bm{A},s)})$.
 The other direction will follow if we can prove that 
-$d \bm{\Sigma}_{[\bm{A},s]}$ is injective.
+$\mathrm{d} \bm{\Sigma}_{[\bm{A},s]}$ is injective.
 
 Suppose that $\bm{v} \in T_{[\bm{A},s]}M$ is 
-such that $d \bm{\Sigma}_{[\bm{A},s]} (\bm{v}) = 0$.
+such that $\mathrm{d} \bm{\Sigma}_{[\bm{A},s]} (\bm{v}) = 0$.
 We prove that $\bm{v} = \bm{0}$.
 Let $(\bm{V},c) \in T_{(\bm{A},s)}\Theta$ 
 be the horizontal lift of $\bm{v}$ at $(\bm{A},s)$,
 meaning that $(\bm{V},c)$ is the 
 unique horizontal tangent vector at $(\bm{A},s)$
 such that
- $\bm{v} = d \pi_{(\bm{A},s)}((\bm{V},c))$.
+ $\bm{v} = \mathrm{d} \pi_{(\bm{A},s)}((\bm{V},c))$.
 \eqref{eq:differential_Phi} then implies that 
-$(\bm{V},c) \in \ker(d \Phi_{(\bm{A},s)})$
+$(\bm{V},c) \in \ker(\mathrm{d} \Phi_{(\bm{A},s)})$
 and the proceeding discussion shows that 
 $c = 0$ and $\bm{V} = \bm{A} \bm{\Omega}$ 
 for some skew-symmetric $\bm{\Omega}$.
@@ -385,11 +408,11 @@ We have
 
 \begin{equation*}
   \bm{v} =
-  d \pi_{(\bm{A},s)}((\bm{A} \bm{\Omega}, 0)) = 
-  d \pi_{(\bm{A},s)} (\gamma'(0)) = \frac{d}{dt} \bigg|_{t=0} \pi(\gamma(t)) = \bm{0} \in T_{[\bm{A},s]}M.
+  \mathrm{d} \pi_{(\bm{A},s)}((\bm{A} \bm{\Omega}, 0)) = 
+  \mathrm{d} \pi_{(\bm{A},s)} (\gamma'(0)) = \frac{d}{dt} \bigg|_{t=0} \pi(\gamma(t)) = \bm{0} \in T_{[\bm{A},s]}M.
 \end{equation*}
-Therefore, $d \bm{\Sigma}_{[\bm{A},s]}$ is injective and
-the verticle tangent space is the same as $\ker(d\Phi_{(\bm{A},s)})$.
+Therefore, $\mathrm{d} \bm{\Sigma}_{[\bm{A},s]}$ is injective and
+the verticle tangent space is the same as $\ker(\mathrm{d}\Phi_{(\bm{A},s)})$.
 Since $[\bm{A},s]$ is arbitrary, $\bm{\Sigma}$ is an immersion.
 
 To compute the horizontal tangent space, any $(\bm{V}, c) \in V_{(\bm{A},s)}^{\perp}$ 
@@ -415,65 +438,9 @@ Conversely, any $\bm{V}$ such that $\bm{A}^T \bm{V}$ is symmetric will satisfy
 The proof is complete.
 \end{proof}
 
-\begin{proposition}\label{thm:exponential_map}
-Given $[\bm{A},s] \in M$ and $\bm{v} \in T_{[\bm{A},s]}M$, 
-geodesics in $M$ starting at $[\bm{A},s]$ with initial velocity 
-$\bm{v}$ takes the format of curves 
-$\gamma: I \to M$, where $I$ is an open interval containing $0$,
-defined by $\gamma(t) = [\bm{A} + t\bm{V}, s + tc]$,
-where $(\bm{V},c) \in H_{(\bm{A},s)}$ is the horizontal lift 
-of $\bm{v}$ at $ (\bm{A},s)$.
-Consequently, the exponential map 
-is computed as $\text{Exp}_{[\bm{A},s]}(\bm{v}) = [\bm{A} + \bm{V}, s + c]$,
-at least well-defined over an open ball $\mathcal{E}_{[\bm{A},s]}$
-of $\bm{0} \in T_{[\bm{A},s]}M \cong \mathbb{R}^{pq+1-\frac{q(q-1)}{2}}$ 
-of radius $\min(\sigma_{\text{min}}(\bm{A}),s)$.
-\end{proposition}
-
-\begin{proof}
-First of all, let us quickly check that the curve $\gamma$ is well defined.
-Indeed, if $(\bm{A}\bm{Q},s)$, where $\bm{Q} \in O(q)$, is another representative of $[\bm{A},s]$,
-let $(\bm{V}',c')$ be the horizontal lift of $\bm{v}$ to $(\bm{A}\bm{Q},s)$.
-With the function $R_{\bm{Q}}: \Theta \to \Theta$ defined by $R_{\bm{Q}}((\bm{A},s)) = (\bm{A}\bm{Q},s)$,
-we have 
-
-\begin{equation*}
-  \bm{v} = d\pi_{(\bm{A},s)} (\bm{V},c) = d(\pi \circ R_{\bm{Q}})_{(\bm{A},s)} (\bm{V},c)
-  = d \pi_{(\bm{A}\bm{Q},s)} (dR_{\bm{Q}})_{(\bm{A},s)}(\bm{V},c)
-  = d \pi_{(\bm{A}\bm{Q},s)} (\bm{V}\bm{Q},c).
-\end{equation*}
-Thus, $\bm{V}' = \bm{V}\bm{Q}$ and $c'=c$.
-Substitute this into the definition of $\gamma$ 
-will yield the exact same curve.
-
-A well-known property of 
-geodesics in case of Riemannian submersion (see for example 
-\cite{O_neill_1967} Section 2 Corollary 2 or \cite{Valencia_2021} Theorem 3.6)
-is that any geodesic $c$ in $\Theta$ with initial velocity being horizontal 
-will always have horizontal velocities and 
-$\gamma = \pi \circ c$
-will remain a geodesic in $M$.
-Therefore, $\text{Exp}_{[\bm{A},s]}(\bm{v}) = [\bm{A} + \bm{V}, s + c]$
-is well defined for all vectors $\bm{v} \in T_{[\bm{A},s]}M$
-of small enough norm
-making sure that $(\bm{A} + \bm{V}, s + c) \in \Theta$.
-To have a quantified upper bound of the norm,
-we cite
-Weyl's perturbation inequality (Chapter 7.3 Problem 16 equation (7.3.15) of \cite{Horn_Johnson_2013})
-to get
-
-\begin{equation*}
-  \sigma_{\text{min}}(\bm{A} + \bm{V}) \geqslant \sigma_{\text{min}}(\bm{A}) - \|\bm{V}\|
-  \geqslant \sigma_{\text{min}}(\bm{A}) - \abs{\bm{v}} > 0,
-\end{equation*}
-whenever $\abs{\bm{v}} < \min(\sigma_{\text{min}}(\bm{A}),s)$.
-The last inequality is because the spectral norm of $\bm{V}$ is always smaller than 
-the Euclidean norm (Frobenius norm) of $\bm{V}$ and hence norm of $\bm{v}$.
-Thus, for all $\bm{v} \in \mathcal{E}_{[\bm{A},s]}$, $\rank(\bm{A} + \bm{V}) = q$
-and the exponential map is well-defined.
-\end{proof}
-
-To compute the logarithmic map, we need first preparatory lemmas that 
+We now move to compute the exponential map 
+and the logarithmic map.
+We first collect two lemmas that 
 work out an orthogonal matrix based on given points in $M$.
 
 \begin{lemma}\label{thm:q_classification}
@@ -481,16 +448,27 @@ If $\bm{L}$ is an invertible $q \times q$ matrix
 and $\bm{Q} \in O(q)$ are such that $\bm{L}\bm{Q}$ is symmetric,
 then there exists matrices $\bm{R}\in O(q)$, $\bm{P} \in O(q)$, 
 a $q \times q$ diagonal matrix $\bm{D}$ whose diagonal entries are $1$ or $-1$,
-and a $q \times q$ diagonal matrix $\bm{S}$ containing the singular values 
-of $\bm{L}$ in increasing order 
+and a $q \times q$ diagonal matrix $\bm{S}$ with diagonal entries 
+$\sigma_1(\bm{L}) \geqslant \cdots \geqslant \sigma_q(\bm{L})>0$
 such that $\bm{L} = \bm{R}\bm{S}\bm{P}^T$
 and $\bm{Q} = \bm{P}\bm{D}\bm{R}^T$.
+
+If we add furthermore the assumption that 
+$\bm{L}$ is symmetric positive definite,
+then we can achieve the results mentioned above with $\bm{P} = \bm{R}$.
+In particular, this implies 
+$\bm{Q} = \bm{Q}^T$ and $\|\bm{Q}-\bm{I}_q\| = \|\bm{D}-\bm{I}_q\|$
+can take only $0$ or $2$ as values.
 \end{lemma}
 
 \begin{proof}
 Let us start by applying the singular value decomposition 
 of $\bm{L}$ to get matrices $\bm{R}'\in O(q)$, $\bm{P}' \in O(q)$
-and $\bm{S}$ such that $\bm{L} = \bm{R}'\bm{S}(\bm{P}')^T$.
+and a diagonal matrix $\bm{S}$ with diagonal entries 
+$\sigma_1(\bm{L}) \geqslant \cdots \geqslant \sigma_q(\bm{L})>0$ 
+such that $\bm{L} = \bm{R}'\bm{S}(\bm{P}')^T$.
+Note that all singular values are positive because 
+$\bm{L}$ is invertible.
 Substituting the given condition that $\bm{L}\bm{Q}$ is symmetric will yield that
 $\bm{S}\bm{J} = \bm{J}^T\bm{S}$, where $\bm{J} := (\bm{P}')^T \bm{Q} \bm{R}'$.
 
@@ -505,29 +483,29 @@ shows that
 \begin{equation*}
   \bm{J}\bm{S}^2=\bm{S}^2\bm{J}.
 \end{equation*}
-Looking at each entry of both size,
+Looking at each entry of both side,
 we end up with 
 \begin{equation*}
-  \bm{J}_{ij}(\bm{S}_{jj}^2-\bm{S}_{ii}^2) = 0
+  \bm{J}_{ij}(\sigma_j(\bm{L})^2-\sigma_i(\bm{L})^2) = 0
 \end{equation*}
 for $i,j = 1, \ldots q$.
-Given that $\bm{L}$ is invertible, its singular values are all strictly positive.
-Therefore, in fact we have 
+Given that all singular values are positive,
+we in fact have
 \begin{equation}\label{eq:j_s_equation}
-  \bm{J}_{ij}(\bm{S}_{jj}-\bm{S}_{ii}) = 0
+  \bm{J}_{ij}(\sigma_j(\bm{L})-\sigma_i(\bm{L})) = 0
 \end{equation}
 for all $i$ and all $j$ so that $\bm{J}\bm{S}=\bm{S}\bm{J}=\bm{J}^T\bm{S}$.
-Invert $\bm{S}$ yields that $\bm{J}$ is actually symmetric.
+Inverting $\bm{S}$ yields that $\bm{J}$ is actually symmetric.
 Being a symmetric orthogonal matrix, $\bm{J}^2 = \bm{I}_q$ and the eigenvalues of $\bm{J}$ 
 must be $1$ or $-1$.
 Another look at \eqref{eq:j_s_equation} shows that $\bm{J}$ is 
 a block-diagonal matrix, diagonal if and only if
-all diagonal entries of $\bm{S}$ are distinct.
+all singular values are distinct.
 Furthermore, each block of $\bm{J}$ must still be orthogonal and symmetric.
 
 We now diagonalize $\bm{J}$ based on the above information.
 Suppose that $\bm{S} = \oplus_{i=1}^k \bm{s}_i\bm{I}_{m_i}$,
-where $\bm{s}_1 < \ldots < \bm{s}_k$ are the unique diagonal entries of 
+where $\bm{s}_1 > \ldots > \bm{s}_k$ are the unique diagonal entries of 
 $\bm{S}$ and each repeats for $m_i$ times.
 Thus, $\bm{J}$ has $k$ blocks.
 Write the $i$th block by $\bm{J}_i$ so that
@@ -536,8 +514,9 @@ The spectral theorem then allows us to orthogonally diagonalize
 $\bm{J}_i = \bm{K}_i\bm{D}_i\bm{K}_i^T$,
 where 
 $\bm{K}_i \in O(m_i)$ and
-$\bm{D}_i$ is an $m_i \times m_i$ diagonal matrix with $1$ or $-1$ diagonal 
-entry. Put $\bm{K} = \oplus_{i=1}^k \bm{K}_i$
+$\bm{D}_i$ is an $m_i \times m_i$ diagonal matrix with 
+all diagonal entries being $1$ or $-1$. 
+Put $\bm{K} = \oplus_{i=1}^k \bm{K}_i$
 and $\bm{D} = \oplus_{i=1}^k \bm{D}_i$.
 Then $\bm{K} \in O(q)$, $\bm{D}$ is a $q \times q$ diagonal matrix 
 with $1$ or $-1$ diagonal entry, and $\bm{J} = \bm{K}\bm{D}\bm{K}^T$.
@@ -562,9 +541,367 @@ and
   = \bm{R}'\bm{S} (\bm{P}')^T =\bm{L}.
 \end{equation*}
 This completes the proof.
+
+Finally, let us just note that, in case 
+$\bm{L}$ is symmetric positive definite,
+the spectral theorem allows us to take $\bm{R}'=\bm{P}'$ from the start 
+and it will yield in the end 
+$\bm{L} = \bm{P}\bm{S}\bm{P}^T$
+and $\bm{Q} = \bm{P}\bm{D}\bm{P}^T$.
+It then follows easily that $\bm{Q}^2 = \bm{I}_q$
+and $\bm{Q}^T = \bm{Q}$. If $\bm{D} = \bm{I}_q$,
+then $\|\bm{Q}-\bm{I}_q\| = \|\bm{D}-\bm{I}_q\|=0$.
+If any entry of $\bm{D}$ is $-1$, $\|\bm{D}-\bm{I}_q\| = 2$.
 \end{proof}
 
-\begin{lemma}\label{thm:singular_PR}
+We now state and prove all the results about 
+the exponential and the logarithmic map 
+in one single proposition.
+
+\begin{proposition}\label{thm:exponential_map}
+Given $[\bm{A},s] \in M$ and $\bm{v} \in T_{[\bm{A},s]}M$, 
+geodesics in $M$ starting at $[\bm{A},s]$ with initial velocity 
+$\bm{v}$ takes the format of curves 
+$\gamma: I \to M$, where $I$ is an open interval containing $0$,
+defined by $\gamma(t) = [\bm{A} + t\bm{V}, s + tc]$,
+where $(\bm{V},c) \in H_{(\bm{A},s)}$ is the horizontal lift 
+of $\bm{v}$ at $ (\bm{A},s)$.
+Consequently,
+the exponential map 
+is computed as 
+
+\begin{equation}\label{eq:exponential_map}
+  \text{Exp}_{[\bm{A},s]}(\bm{v}) = [\bm{A} + \bm{V}, s + c].
+\end{equation}
+
+Let us use $\mathcal{E}_{[\bm{A},s]}$
+to denote the open ball in $T_{[\bm{A},s]}M \cong \mathbb{R}^{d}$
+centred at $\bm{0}$ of radius $\min(\sigma_{\text{min}}(\bm{A}),s)$.
+Given that \eqref{eq:exponential_map} is well-defined 
+at least
+over all $\bm{v} \in \mathcal{E}_{[\bm{A},s]}$,
+we from now on treat $\mathcal{E}_{[\bm{A},s]}$
+as the domain of the exponential map.
+That is, $\text{Exp}_{[\bm{A},s]}: \mathcal{E}_{[\bm{A},s]} \to U_{[\bm{A},s]}$,
+where $U_{[\bm{A},s]} := \text{Exp}_{[\bm{A},s]}(\mathcal{E}_{[\bm{A},s]})$ is an 
+open subset of $M$,
+is defined by \eqref{eq:exponential_map}.
+Note the following facts:
+
+\begin{enumerate}
+  \item For every $\bm{v} \in \mathcal{E}_{[\bm{A},s]}$,
+  $\bm{A}^T(\bm{A}+\bm{V})$ is symmetric positive definite.
+  \item $\text{Exp}_{[\bm{A},s]}$ is a diffeomorphism.
+  \item If $[\bm{B},t] \in U_{[\bm{A},s]}$, then for every representative $(\bm{A},s)$ of $[\bm{A},s]$
+  and every representative $(\bm{B},t)$ of $[\bm{B},t]$, the matrix $\bm{A}^T \bm{B}$ will 
+  always be invertible. Given representative $(\bm{A},s)$ of $[\bm{A},s]$,
+  \textit{some} representative $(\bm{B},t)$ of $[\bm{B},t]$ will furthermore 
+  make $\bm{A}^T \bm{B}$ symmetric positive definite.
+  \item The logarithmic map $\text{Exp}^{-1}_{[\bm{A},s]}:U_{[\bm{A},s]} \to \mathcal{E}_{[\bm{A},s]}$
+  is computed as follows:
+  for every $[\bm{B},t] \in U_{[\bm{A},s]}$,
+  \begin{equation}\label{eq:logarithmic_def}
+    \text{Exp}^{-1}_{[\bm{A},s]}([\bm{B},t]) 
+    = \mathrm{d} \pi_{(\bm{A},s)}((\bm{B}\bm{Q}(\bm{A},\bm{B})-\bm{A}, t-s)),
+  \end{equation}
+  where 
+
+  \begin{equation}\label{eq:Q_A_B_def}
+    \bm{Q}(\bm{A},\bm{B}) 
+    = (\bm{B}^T \bm{A} \bm{A}^T \bm{B})^{- \frac{1}{2}} \bm{B}^T \bm{A} \in O(q).
+  \end{equation}
+  \item $U_{[\bm{A},s]}$ equals to the set of all $[\bm{B},t] \in M$ such that 
+  \begin{equation}\label{eq:U_A_s_def}
+    \|\bm{B}\bm{Q}(\bm{A},\bm{B})-\bm{A}\|_F^2 + (t-s)^2
+    < \min\bracket{\sigma_{\min}(\bm{A}),s}^2.
+  \end{equation}
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Before we start the proof, let us first check that all the 
+statements are indeed well-defined.
+First of all, the curve $\gamma$ is well defined. 
+If $(\bm{A}\bm{Q},s)$, where $\bm{Q} \in O(q)$, is another representative of $[\bm{A},s]$,
+let $(\bm{V}',c')$ be the horizontal lift of $\bm{v}$ to $(\bm{A}\bm{Q},s)$.
+With the function $R_{\bm{Q}}: \Theta \to \Theta$ defined by $R_{\bm{Q}}((\bm{A},s)) = (\bm{A}\bm{Q},s)$,
+we have 
+
+\begin{equation*}
+  \bm{v} = \mathrm{d}\pi_{(\bm{A},s)} (\bm{V},c) = \mathrm{d}(\pi \circ R_{\bm{Q}})_{(\bm{A},s)} (\bm{V},c)
+  = \mathrm{d} \pi_{(\bm{A}\bm{Q},s)} (dR_{\bm{Q}})_{(\bm{A},s)}(\bm{V},c)
+  = \mathrm{d} \pi_{(\bm{A}\bm{Q},s)} (\bm{V}\bm{Q},c).
+\end{equation*}
+Thus, $\bm{V}' = \bm{V}\bm{Q}$ and $c'=c$.
+Substitute this into the definition of $\gamma$ 
+will yield the exact same curve.
+Secondly, 
+if $\bm{R} \in O(q)$ and $\bm{P} \in O(q)$,
+then 
+\begin{equation}\label{eq:Q_A_B_RP}
+  \bm{Q}(\bm{A}\bm{P},\bm{B}\bm{R}) = \bm{R}^T\bm{Q}(\bm{A},\bm{B})\bm{P}.
+\end{equation}
+Therefore,
+the same compuatation will show that 
+\eqref{eq:logarithmic_def} is indeed well-defined.
+Also, $\bm{B}\bm{Q}(\bm{A},\bm{B})$ is independent of 
+the choice of representative and 
+the set defined by \eqref{eq:U_A_s_def} makes sense.
+
+A well-known property of 
+geodesics in case of Riemannian submersion (see for example 
+\citealp{O_neill_1967}, Section 2 Corollary 2 or \citealp{Valencia_2021}, Theorem 3.6)
+is that any geodesic $c$ in $\Theta$ with initial velocity being horizontal 
+will always have horizontal velocities and 
+$\gamma = \pi \circ c$
+will remain a geodesic in $M$.
+Therefore, \eqref{eq:exponential_map}
+is valid for all vectors $\bm{v} \in T_{[\bm{A},s]}M$
+of small enough norm
+making sure that $(\bm{A} + \bm{V}, s + c) \in \Theta$.
+To have a quantified upper bound of the norm,
+we use the classical result of
+Weyl's perturbation inequality 
+(see for example Chapter 7.3 Problem 16 equation (7.3.15) of \citealp{Horn_Johnson_2013})
+to get
+
+\begin{equation*}
+  \sigma_{\text{min}}(\bm{A} + \bm{V}) \geqslant \sigma_{\text{min}}(\bm{A}) - \|\bm{V}\|
+  \geqslant \sigma_{\text{min}}(\bm{A}) - \|\bm{V}\|_F \geqslant \sigma_{\text{min}}(\bm{A}) - \abs{\bm{v}} > 0,
+\end{equation*}
+whenever $\abs{\bm{v}} < \min(\sigma_{\text{min}}(\bm{A}),s)$
+or equivalently $\bm{v} \in \mathcal{E}_{[\bm{A},s]}$.
+We have made use of the two facts that 
+$\|\bm{V}\| \leqslant \|\bm{V}\|_F$
+for any matrix $\bm{V}$
+and that $\abs{\bm{v}}=\sqrt{\|\bm{V}\|_F^2+c^2}$
+by isometry.
+Thus, for all $\bm{v} \in \mathcal{E}_{[\bm{A},s]}$, $\rank(\bm{A} + \bm{V}) = q$
+and the exponential map is well-defined.
+
+We now start the proof of the five facts 
+of the function $\text{Exp}_{[\bm{A},s]}: \mathcal{E}_{[\bm{A},s]} \to U_{[\bm{A},s]}$.
+
+The first fact can be quickly settled.
+Let $\bm{v} \in \mathcal{E}_{[\bm{A},s]}$
+with horizontal lift $(\bm{V},c)$ to $(\bm{A},s)$ be given.
+As proved in Proposition~\ref{thm:horizontal_verticle},
+$\bm{V}^T\bm{A} = \bm{A}^T\bm{V}$ and 
+$\bm{A}^T(\bm{A}+\bm{V})$ is symmetric.
+If $\bm{x} \in \mathbb{R}^q$ is any unit vector, then 
+
+\begin{equation*}
+  \bm{x}^T \bm{A}^T(\bm{A}+\bm{V}) \bm{x}
+  = \abs{\bm{A}\bm{x}}^2 + \bracket{\bm{A}\bm{x}}^T \bm{V}\bm{x}
+  \geqslant \abs{\bm{A}\bm{x}}(\abs{\bm{A}\bm{x}}-\abs{\bm{V}\bm{x}})
+  \geqslant \sigma_{\min}(\bm{A})(\sigma_{\min}(\bm{A})-	\|\bm{V}	\|_F) > 0
+\end{equation*}
+because $\sigma_{\min}(\bm{A}) >	\|\bm{V}\|_F$.
+
+The second fact has a longer proof.
+Being a well-defined exponential map,
+$\text{Exp}_{[\bm{A},s]}$ is automatically a smooth map.
+To prove that it is actually a diffeomorphism 
+in $\mathcal{E}_{[\bm{A},s]}$,
+we must first show that it is injective in 
+$\mathcal{E}_{[\bm{A},s]}$ so that 
+the inverse function, the logarithmic map $\text{Exp}^{-1}_{[\bm{A},s]}$,
+exists. Once this is done, 
+we prove that $U_{[\bm{A},s]}$ is open and 
+that $\text{Exp}^{-1}_{[\bm{A},s]}$ 
+is smooth in one shot 
+by proving that 
+$\mathrm{d} \bracket{\text{Exp}_{[\bm{A},s]}}_{\bm{v}}$
+is an isomorphism for every given $\bm{v} \in \mathcal{E}_{[\bm{A},s]}$.
+
+We thus move to show that $\text{Exp}_{[\bm{A},s]}$
+is injective in $\mathcal{E}_{[\bm{A},s]}$.
+Suppose that $\bm{v}_1$ and $\bm{v}_2$
+are two vectors in $\mathcal{E}_{[\bm{A},s]}$
+who lifts to $(\bm{V}_1,c_1)$ and $(\bm{V}_2,c_2)$
+respectively 
+at $(\bm{A},s)$
+such that $\text{Exp}_{[\bm{A},s]}(\bm{v}_1) = \text{Exp}_{[\bm{A},s]}(\bm{v}_2)$.
+We prove that $\bm{v}_1=\bm{v}_2$.
+\eqref{eq:exponential_map} immediately
+shows that $c_1=c_2$ and 
+
+\begin{equation*}
+  \bm{A} + \bm{V}_1 = (\bm{A} + \bm{V}_2)\bm{Q}
+\end{equation*}
+for some $\bm{Q} \in O(q)$.
+Lemma~\ref{thm:q_classification}
+with the symmetric positive definite matrix $\bm{L} = \bm{A}^T (\bm{A} + \bm{V}_2)$
+shows that $\|\bm{Q} - \bm{I}_q\|$ can only equal to $0$ or $2$.
+Given that
+
+\begin{equation*}
+  \sigma_{\min}(\bm{A})\|\bm{Q} - \bm{I}_q\| \leqslant 
+  \|\bm{A}\bm{Q} - \bm{A}\| = \|\bm{V}_1 - \bm{V}_2\bm{Q}\|
+  \leqslant \|\bm{V}_1\| + \| \bm{V}_2\| < 2\sigma_{\min}(\bm{A}),
+\end{equation*}
+we have proved that $\|\bm{Q} - \bm{I}_q\| < 2$ and $\bm{Q} = \bm{I}_q$.
+Therefore, $\bm{V}_1 =\bm{V}_2$ and $\bm{v}_1=\bm{v}_2$.
+The exponential map is indeed injective in $\mathcal{E}_{[\bm{A},s]}$.
+
+Next, let $\bm{v} \in \mathcal{E}_{[\bm{A},s]}$
+be given. We prove that $\mathrm{d} \bracket{\text{Exp}_{[\bm{A},s]}}_{\bm{v}}$
+is an isomorphism because $\ker \bracket{\mathrm{d} \bracket{\text{Exp}_{[\bm{A},s]}}_{\bm{v}}}$
+consists only of the zero vector.
+Suppose that $\bm{v}$ lifts to $(\bm{V},c)$ at $(\bm{A},s)$.
+To make the task notationally feasible, we 
+implicitly canonically identify the Euclidean spaces together.
+Let us write $l: T_{[\bm{A},s]}M \to H_{(\bm{A},s)}$ 
+for the horizontal lift map: $l(\bm{v}) = (\bm{V},c)$,
+which is a linear isometry.
+Define a map $F: l(\mathcal{E}_{[\bm{A},s]}) \to M$
+by setting, for 
+any $(\bm{U},b) \in l(\mathcal{E}_{[\bm{A},s]}) \subseteq H_{(\bm{A},s)}$,
+that $F((\bm{U},b)) = \pi((\bm{A}+\bm{U}, s + b))$.
+In this notation, $\text{Exp}_{[\bm{A},s]} = F \circ l$
+and the chain rule shows that 
+
+\begin{equation*}
+  \mathrm{d} \bracket{\text{Exp}_{[\bm{A},s]}}_{\bm{v}} = 
+  \mathrm{d} F_{(\bm{V},c)} \circ \mathrm{d} l_{\bm{v}}.
+\end{equation*}
+Therefore, the only thing left to show is that 
+$\ker \bracket{\mathrm{d} F_{(\bm{V},c)}}$ contains only the zero vector.
+For any $(\bm{U},b) \in l(\mathcal{E}_{[\bm{A},s]})$,
+we always have 
+
+\begin{equation*}
+  \mathrm{d} F_{(\bm{V},c)} ((\bm{U},b))
+  = \frac{d}{dt}\bigg|_{t=0} \pi((\bm{A}+\bm{V}+t\bm{U}, s+c+tb))
+  = \mathrm{d} \pi_{(\bm{A}+\bm{V}, s+c)}((\bm{U},b)).
+\end{equation*}
+Therefore, if $(\bm{U},b) \in \ker \bracket{\mathrm{d} F_{(\bm{V},c)}}$,
+then $(\bm{U},b) \in V_{(\bm{A}+\bm{V}, s+c)}$
+so that $b = 0$ and $\bm{U} = (\bm{A}+\bm{V})\bm{\Omega}$
+for some $q \times q$ skew-symmetric matrix $\bm{\Omega}$.
+But $(\bm{U},b) \in H_{(\bm{A}, s)}$ as well.
+Thus, $\bm{A}^T(\bm{A}+\bm{V})\bm{\Omega} = \bm{\Omega}^T (\bm{A}+\bm{V})^T \bm{A}$.
+Given that $\bm{A}^T(\bm{A}+\bm{V})$ is also symmetric,
+we arrive at 
+
+\begin{equation*}
+  \bm{A}^T(\bm{A}+\bm{V})\bm{\Omega} + \bm{\Omega} \bm{A}^T(\bm{A}+\bm{V}) =\bm{0}.
+\end{equation*}
+By the spectral theorem, choose $\bm{P} \in O(q)$ 
+such that $\bm{A}^T(\bm{A}+\bm{V}) = \bm{P}\bm{S} \bm{P}^T$
+where $\bm{S}$ is the $q \times q$ diagonal matrix with diagonal 
+entries $\lambda_1(\bm{A}^T(\bm{A}+\bm{V})), \ldots, \lambda_q(\bm{A}^T(\bm{A}+\bm{V}))$.
+Substitute this yields 
+
+\begin{equation*}
+  \bm{S} (\bm{P}^T\bm{\Omega}\bm{P}) + (\bm{P}^T\bm{\Omega}\bm{P}) \bm{S} =\bm{0}.
+\end{equation*}
+Looking at each entry to get 
+\begin{equation*}
+  (\lambda_i(\bm{A}^T(\bm{A}+\bm{V})) + \lambda_j(\bm{A}^T(\bm{A}+\bm{V})))
+  (\bm{P}^T\bm{\Omega}\bm{P})_{ij} = 0,
+\end{equation*}
+for all $i$ and all $j \in \{1, \ldots, q\}$.
+Given that $\bm{A}^T(\bm{A}+\bm{V})$ is positive definite,
+this forces $\bm{P}^T\bm{\Omega}\bm{P} = \bm{0}$
+and hence $\bm{\Omega} = \bm{0}$.
+We have proven that $\text{Exp}_{[\bm{A},s]}$
+is a diffeomorphism in $\mathcal{E}_{[\bm{A},s]}$.
+
+Now that the logarithmic map
+$\text{Exp}^{-1}_{[\bm{A},s]}:U_{[\bm{A},s]} \to \mathcal{E}_{[\bm{A},s]}$
+is well-defined and is smooth,
+we will compute it and 
+show the three last facts 
+in one shot.
+Let $[\bm{B},t] \in U_{[\bm{A},s]}$ be given.
+By \eqref{eq:exponential_map},
+$[\bm{B},t] = [\bm{A} + \bm{V},s+c]$,
+where $(\bm{V}, c)$ is the horizontal lift of 
+$\bm{v} = \text{Exp}^{-1}_{[\bm{A},s]}([\bm{B},t])$ to $(\bm{A}, s)$.
+It immediately follows that $c = t - s$.
+The first fact shows that, with $\bm{B}_0 := \bm{A} + \bm{V}$,
+$\bm{A}^T\bm{B}_0$
+is symmetric positive definite.
+Given that the value 
+of $\det(\bm{A}^T\bm{B})$
+is independent of representatives,
+$\bm{A}^T\bm{B}$ is always invertible 
+for any representative.
+The third fact is therefore established.
+Given that $\bm{Q}(\bm{A},\bm{B}_0) = \bm{I}_q$,
+we immediately see that \eqref{eq:logarithmic_def} 
+holds with $\bm{B}_0$ 
+in place of $\bm{B}$.
+However, \eqref{eq:logarithmic_def} is independent 
+of representatives so it is valid for every representative $\bm{B}$.
+Finally, 
+let us write $C$ for the set of all points $[\bm{B},t] \in M$
+satisfying \eqref{eq:U_A_s_def}.
+By using $\bm{B}_0$ 
+in place of $\bm{B}$ in \eqref{eq:U_A_s_def},
+it is clear that
+$U_{[\bm{A},s]} \subseteq C$.
+Conversely, let $[\bm{B},t] \in C$ be given.
+Put $\bm{B}_0:=\bm{B}\bm{Q}(\bm{A}, \bm{B})$.
+Then $\bm{A}^T\bm{B}_0$ is again symmetric 
+positive definite.
+In particular, $\bm{A}^T(\bm{B}_0-\bm{A})$
+is symmetric and $(\bm{V}, c) := (\bm{B}_0-\bm{A}, t-s)$
+is a horizontal vector at $(\bm{A},s)$.
+If $\bm{v} := \mathrm{d} \pi_{(\bm{A},s)}((\bm{V}, c))$,
+then \eqref{eq:U_A_s_def} shows that $\bm{v} \in \mathcal{E}_{[\bm{A},s]}$
+and $[\bm{B},t] \in U_{[\bm{A},s]}$.
+We conclude that $U_{[\bm{A},s]} = C$.
+The proof is complete.
+\end{proof}
+
+\begin{remark}
+In the above proof,
+it might seem that
+the proof of
+\eqref{eq:logarithmic_def}
+is trivialized because 
+the amazing matrix
+\eqref{eq:Q_A_B_def} 
+seems to come from nowhere.
+This is not at all the case.
+The matrix $\bm{Q}(\bm{A},\bm{B})$ comes from 
+considering the cases for a generic representative that
+is only invertible, but not necessarily symmetric or positive definite.
+Given
+$[\bm{B},t] \in U_{[\bm{A},s]}$,
+\eqref{eq:exponential_map} 
+shows that 
+\begin{equation*}
+    \text{Exp}^{-1}_{[\bm{A},s]}([\bm{B},t]) 
+    = \mathrm{d} \pi_{(\bm{A},s)}((\bm{B}\bm{Q}-\bm{A}, t-s))
+  \end{equation*}
+for some $\bm{Q}\in O(q)$.
+Given that $\bm{A}^T(\bm{B}\bm{Q}-\bm{A})$ is symmetric,
+it follows that $\bm{A}^T\bm{B}\bm{Q}$
+is symmetric and Lemma~\ref{thm:q_classification}
+shows that 
+there exists $\bm{R} \in O(q)$, $\bm{P} \in O(q)$
+such that
+$\bm{A}^T\bm{B} = \bm{R}\bm{S}\bm{P}^T$
+and $\bm{Q} = \bm{P}\bm{D}\bm{R}^T$.
+Then, by continuity of the logarithmic map,
+if $[\bm{B},t] \to [\bm{A},s]$,
+it must be the case that $\bm{B}\bm{Q}-\bm{A} \to \bm{0}$
+or equivalently $\bm{Q} \to \bm{I}_q$.
+Therefore, the only reasonable choice of 
+$\bm{D}$ is $\bm{I}_q$.
+This argument is not discarded: it is 
+in the proof of the injectivity of the exponential map.
+So $\bm{Q} = \bm{P}\bm{R}^T$.
+This value is actually uniquely determined 
+by $\bm{A}$ and $\bm{B}$ and gives exactly \eqref{eq:Q_A_B_def},
+despite that neither $\bm{P}$ nor $\bm{R}$ is unique.
+This is shown in the following lemma:
+\end{remark}
+
+\begin{lemma}
 If $\bm{L}$ is an invertible $q \times q$ matrix
 with singular value decomposition $\bm{L} = \bm{R}\bm{S}\bm{P}^T$,
 then 
@@ -592,255 +929,78 @@ Therefore:
 The result follows from inverting $(\bm{L}^T \bm{L})^{\frac{1}{2}}$ and take transpose.
 \end{proof}
 
-\begin{proposition}\label{thm:logarithmic_map}
-For every $[\bm{A},s] \in M$ there exists an open
-neighborhood $U \subset M$ containing $[\bm{A},s]$ such that
+We end this section with a result concerning the limit of a sequence.
 
-\begin{enumerate}
-  \item For every $[\bm{B},t] \in U$, $\bm{A}^T\bm{B}$ is invertible.
-  \item The logarithmic map $\text{Exp}^{-1}_{[\bm{A},s]}:U \to T_{[\bm{A},s]}M$ 
-  is well-defined and is smooth in $U$. In fact:
+\begin{proposition}\label{thm:quotient_limit}
+Given a sequence 
+$\{\bm{A}_n\}_{n=1}^{\infty}$
+of real $p \times q$ matrices
+with the property $\bm{A}_n\bm{A}_n^T \to \bm{A}\bm{A}^T$
+as $n \to \infty$
+for a $p \times q$ matrix $\bm{A}$
+with $\text{rank}(\bm{A}) = q$, 
+then 
 
-  \begin{equation}\label{eq:logarithmic_def}
-    \text{Exp}^{-1}_{[\bm{A},s]}([\bm{B},t]) 
-    = d \pi_{(\bm{A},s)}((\bm{B}\bm{Q}(\bm{A},\bm{B})-\bm{A}, t-s)),
-  \end{equation}
-  where 
+\begin{equation*}
+  \lim_{n \to \infty} \min_{\bm{Q} \in O(q)} \|\bm{A}_n\bm{Q}- \bm{A}\|_F = 0.
+\end{equation*}
 
-  \begin{equation}\label{eq:Q_A_B_def}
-    \bm{Q}(\bm{A},\bm{B}) 
-    = (\bm{B}^T \bm{A} \bm{A}^T \bm{B})^{- \frac{1}{2}} \bm{B}^T \bm{A} \in O(q).
-  \end{equation}
-\end{enumerate}
+In partciular, if $\{(\bm{A}_n, s_n)\}_{n=1}^{\infty}$
+is a sequence in $\Theta$ 
+such that, for some $(\bm{A}, s) \in \Theta$,
+we have both $s_n \to s$ and 
+$\Phi((\bm{A}_n, s_n)) 
+\to \Phi((\bm{A}, s))$ as $n \to \infty$,
+then $[\bm{A}_n, s_n] \to [\bm{A}, s]$ in $M$ as $n \to \infty$.
 \end{proposition}
 
 \begin{proof}
-First of all, 
-if $\bm{R} \in O(q)$ and $\bm{P} \in O(q)$,
-then $\bm{Q}(\bm{A}\bm{P},\bm{B}\bm{R}) = \bm{R}^T\bm{Q}(\bm{A},\bm{B})\bm{P}$
-and the same computation as in the proof of 
-Proposition~\ref{thm:exponential_map}
-shows that \eqref{eq:logarithmic_def} is indeed well-defined.
-
-It is a well-known fact that $\text{Exp}_{[\bm{A},s]}$ 
-is a local diffeomorphism 
-and thus there exists an open neighborhood containing $[\bm{A},s]$
-in which the logarithmic map $\text{Exp}^{-1}_{[\bm{A},s]}$
-is well-defined and is smooth.
-Given that $\text{Exp}^{-1}_{[\bm{A},s]}([\bm{A},s]) = \bm{0}$,
-we shall only take 
-an open subset $U_1$ of this open neighborhood
-such that, whenever $[\bm{B},t] \in U_1$
-and $\bm{v} = \text{Exp}^{-1}_{[\bm{A},s]}([\bm{B},t])$,
-we always have $\abs{\bm{v}} < \epsilon$,
-where 
-\begin{equation*}
-  \epsilon \in \bracket{0, \min\bracket{\sigma_{\min}(\bm{A}), 2\squared{\frac{2}{\sigma_{\min}(\bm{A})}+1}^{-1}}}
-\end{equation*}
-is a fixed constant.
-
-Next, let $U^{\Theta} \subset \Theta$
-be the collection of all $(\bm{B},t) \in \Theta$
-such that $	\|\bm{A}-\bm{B}	\| < \epsilon$.
-Then $U^{\Theta}$ is an open neighborhood of $(\bm{A},s)$
-and any $(\bm{B},t) \in U_{\Theta}$
-has the property that $\bm{A}^T\bm{B}$ is invertible
-thanks to the condition that $\epsilon < \sigma_{\min}(\bm{A})$.
-To see this, suppose for the sake of contradiction 
-that there exists a unit vector $\bm{x} \in \mathbb{R}^q$
-with $\bm{A}^T\bm{B} \bm{x} = \bm{0}$.
-Then 
-\begin{equation*}
-  \abs{\bm{A} \bm{x}}^2 = \bm{x}^T \bm{A}^T\bm{ A}  \bm{x}
-  = -\bm{x}^T \bm{A}^T(\bm{B}-\bm{A})  \bm{x} \leqslant \abs{\bm{A} \bm{x}} \|\bm{B}-\bm{A}	\| \cdot 1 
-\end{equation*}
-and 
-$\|\bm{B}-\bm{A}	\| \geqslant \abs{\bm{A} \bm{x}} \geqslant \sigma_{\min}(\bm{A})$,
-a contradiction.
-The fact that $\bm{A}^T\bm{B}$ is invertible
-guarantees that the matrix $\bm{Q}(\bm{A}, \bm{B})$
-given at
-\eqref{eq:Q_A_B_def}
-is well defined for any $(\bm{B},t) \in U_{\Theta}$
-and, by continuity of $\bm{Q}(\bm{A}, \bm{B})$
-and the fact that $\bm{Q}(\bm{A}, \bm{A}) = \bm{I}_q$,
-we can shrink $U^{\Theta}$ to also guarantee
-that $\|\bm{Q}(\bm{A}, \bm{B})-\bm{I}_q	\| < \epsilon$
-whenever $(\bm{B},t) \in U_{\Theta}$.
-We define $U_2 := \pi(U^{\Theta})$.
-Given that $\pi$ is an open map, $U_2$ is an open neighborhood of $[\bm{A},s]$.
-If $[\bm{B},t] \in U_2$, then \textit{every} representative 
-$(\bm{B},t)$ of $[\bm{B},t]$ will have $\bm{A}^T \bm{B}$
-being invertible because $\det(\bm{A}^T \bm{B} \bm{R}) = \det(\bm{A}^T \bm{B}) \neq 0$
-for every $\bm{R} \in O(q)$,
-although only \textit{some} representatives $(\bm{B},t)$
-will satisfy both $\|\bm{A}-\bm{B}	\| < \epsilon$
-and $\|\bm{Q}(\bm{A}, \bm{B})-\bm{I}_q	\| < \epsilon$.
-Given that our results do not depend on representatives,
-we shall always choose a representative $(\bm{B},t)$
-such that this is the case.
-
-We now compute $\text{Exp}^{-1}_{[\bm{A},s]}$
-for $[\bm{B},t] \in U := U_1 \cap U_2$.
-By Proposition~\ref{thm:exponential_map},
-$[\bm{B},t] = [\bm{A} + \bm{V},s+c]$,
-where $(\bm{V}, c)$ is the horizontal lift of 
-$\bm{v} = \text{Exp}^{-1}_{[\bm{A},s]}([\bm{B},t])$ to $(\bm{A}, s)$.
-It follows that $c = t-s$ and that
-there exists a $\bm{Q} \in O(q)$
-such that $\bm{V} = \bm{B}\bm{Q}-A$.
-Or equivalently:
-
-\begin{equation}\label{eq:logarithmic_general_in_proof}
-  \text{Exp}^{-1}_{[\bm{A},s]}([\bm{B},t]) 
-    = d \pi_{(\bm{A},s)}((\bm{B}\bm{Q}-\bm{A}, t-s)).
-\end{equation}
-Given that $(\bm{V}, c)$ is a horizontal tangent vector, 
-Proposition~\ref{thm:horizontal_verticle} shows that 
+Assume, for the sake of contradiction,
+that there exists an $\epsilon > 0$ and a subsequence $\{n_k\}_{k=1}^{\infty}$
+such that, for all $k$,
 
 \begin{equation*}
-  \bm{A}^T(\bm{B}\bm{Q}-\bm{A}) = (\bm{B}\bm{Q}-\bm{A})^T \bm{A}
+  \min_{\bm{Q} \in O(q)} \|\bm{A}_{n_k}\bm{Q}- \bm{A}\|_F \geqslant \epsilon.
 \end{equation*}
-and consequently $\bm{A}^T \bm{B}\bm{Q}$ is symmetric.
-Lemma~\ref{thm:q_classification} with $\bm{L} = \bm{A}^T \bm{B}$
-shows the existence of $\bm{R}$, $\bm{P} \in O(q)$,
-a diagonal matrix $\bm{S}$ with the singular values of $\bm{A}^T \bm{B}$
-in increasing order, and a $q \times q$ diagonal matrix $\bm{D}$
-with diagonal entries $1$ or $-1$
-such that $\bm{A}^T \bm{B} = \bm{R}\bm{S}\bm{P}^T$
-and $\bm{Q} = \bm{P}\bm{D}\bm{R}^T$.
-\eqref{eq:logarithmic_general_in_proof} now becomes
-\begin{equation}\label{eq:logarithmic_PR_in_proof}
-  \text{Exp}^{-1}_{[\bm{A},s]}([\bm{B},t]) 
-    = d \pi_{(\bm{A},s)}((\bm{B}\bm{P}\bm{D}\bm{R}^T-\bm{A}, t-s)).
-\end{equation}
-Now, given that Lemma~\ref{thm:singular_PR}
-shows that $\bm{Q}(\bm{A}, \bm{B}) = \bm{P}\bm{R}^T$,
-the only thing remaining is 
-to rule out all $\bm{D} \neq \bm{I}_q$.
-We achieve this by comparing the two matrices directly:
-
-\begin{equation*}
-  	\|\bm{Q}-	\bm{Q}(\bm{A},\bm{B})\|
-    = \|\bm{Q}\bm{Q}(\bm{A},\bm{B})^T-\bm{I}_q \|
-    = \|\bm{P}\bm{D}\bm{P}^T-\bm{I}_q \|
-    = \|\bm{D}-\bm{I}_q \|.
-\end{equation*}
-Thus, $\|\bm{Q}-	\bm{Q}(\bm{A},\bm{B})\|$
-equals to either $0$ or $2$ 
-and takes no other values.
-It suffices to bound it away from $2$.
+Given that $\|\bm{A}_{n}\|_F^2 = \tr(\bm{A}_{n}\bm{A}_{n}^T)$
+is convergent, in particular bounded, 
+choose subsubsequence $\{n_{k_l}\}_{l=1}^{\infty}$
+such that $\bm{A}_{n_{k_l}} \to \bm{B}$ as $l \to \infty$
+for some $p \times q$ matrix $\bm{B}$.
+It follows that $\bm{B}\bm{B}^T = \bm{A}\bm{A}^T$.
+Therefore, $\text{rank}(\bm{A}) = \text{rank}(\bm{B}) = q$
+and $\bm{B} = \bm{A}\bm{P}$ for some $\bm{P} \in O(q)$.
 We have 
+\begin{equation*}
+  \min_{\bm{Q} \in O(q)} \|\bm{A}_{n_{k_l}}\bm{Q}- \bm{A}\|_F \leqslant 
+  \|\bm{A}_{n_{k_l}}\bm{P}^T- \bm{A}\|_F = \|\bm{A}_{n_{k_l}}\bm{P}^T- \bm{B}\bm{P}^T\|_F
+  = \|\bm{A}_{n_{k_l}}- \bm{B}\|_F \to 0
+\end{equation*}
+as $l \to \infty$, a contradiction.
+
+Now suppose that $\{(\bm{A}_n, s_n)\}_{n=1}^{\infty}$
+is a sequence in $\Theta$ such that, 
+for some $(\bm{A}, s) \in \Theta$,
+we have both $s_n \to s$ and 
+$\Phi((\bm{A}_n, s_n)) 
+\to \Phi((\bm{A}, s))$ as $n \to \infty$.
+It follows that $\bm{A}_n\bm{A}_n^T \to \bm{A}\bm{A}^T$
+and the previous paragraph shows that 
+there exists a sequence $\{\bm{Q}_n\}_{n=1}^{\infty}$
+of $q \times q$ orthogonal matrices 
+such that $\bm{A}_n \bm{Q}_n \to \bm{A}$ 
+as $n \to \infty$.
+Thus,
 
 \begin{equation*}
-  \begin{split}
-    & \tab[0.4cm] \|\bm{Q}\bm{Q}(\bm{A},\bm{B})^T-\bm{I}_q \|
-    \leqslant \|\bracket{\bm{Q}-\bm{I}_q}\bm{Q}(\bm{A},\bm{B})^T
-  + \bracket{\bm{Q}(\bm{A},\bm{B})^T - \bm{I}_q} \|
-  \leqslant \|\bm{Q}(\bm{A},\bm{B})^T - \bm{I}_q \| +\|\bm{Q}-\bm{I}_q\| 
-  \\ &  < \epsilon + 
-  \frac{1}{\sigma_{\min}(\bm{A})} \|\bm{A}\bm{Q}-\bm{A}\| 
-  \leqslant \epsilon + 
-  \frac{1}{\sigma_{\min}(\bm{A})} \|\bm{A}\bm{Q}-\bm{B}\bm{Q}+\bm{V}\|
-   \leqslant \epsilon + 
-  \frac{1}{\sigma_{\min}(\bm{A})} \bracket{\|\bm{A}-\bm{B}\| + \|\bm{V}\|}
-  \\ & \leqslant \epsilon + \frac{2\epsilon}{\sigma_{\min}(\bm{A})} < 2.
-  \end{split}
+  \lim_{n \to \infty} \squared{\bm{A}_n, s_n}
+  = \lim_{n \to \infty} \pi((\bm{A}_n\bm{Q}_n, s_n))
+  = \pi((\bm{A}, s)) = \squared{\bm{A}, s}.
 \end{equation*}
-This completes the proof.
+The proof is complete.
 \end{proof}
 
-\begin{remark}
-Unfortunately, the logarithmic map is not globally defined
-in the standard way
-even over all $[\bm{B},t]$ such that $\bm{A}^T\bm{B}$ is invertible.
-For a counterexample, take $p = 2$, $q = 1$,
-$\bm{A} = [1,0]^T$, $\bm{B} = [1,1]^T$ and $s = t = 1$.
-In this case, $O(1) = \{1,-1\}$. Then, 
-although $\bm{A}^T\bm{B} = 1$ is invertible,
-we still have 
-
-\begin{equation*}
-  \text{Exp}_{[\bm{A},s]}\bracket{d\pi_{(\bm{A},s)}((\bm{B}-\bm{A},0))}
-  = [\bm{B},1] = [-\bm{B},1]
-  = \text{Exp}_{[\bm{A},s]}\bracket{d\pi_{(\bm{A},s)}((-\bm{B}-\bm{A},0))}.
-\end{equation*}
-The reason is that,
-even when we assume $\bm{A}^T \bm{B}$ is invertible, 
-deducing $\bm{D} = \bm{I}_q$ 
-relies on the local smoothness of the logarithmic map and the 
-procedure of letting $[\bm{B},t] \to [\bm{A},s]$.
-If $[\bm{B},t]$ is far away from $[\bm{A},s]$,
-then $\bm{Q} = \bm{P}\bm{D}\bm{R}^T$ with some $\bm{D} \neq \bm{I}_q$
-can still produce a valid horizontal vector whose image under
-$\text{Exp}_{[\bm{A},s]}$ is $[\bm{B},t]$,
-so that $\text{Exp}_{[\bm{A},s]}$ fails to be injective
-and admits no globally defined inverse.
-
-Nevertheless, the choice $\bm{D} = \bm{I}_q$ has an interesting 
-property of selecting the geodesic of minimal speed
-and length when $[\bm{B},t]$ is any point 
-such that $\bm{A}^T \bm{B}$ is invertible.
-To see this, 
-consider a general candidate $\bm{Q} = \bm{P}\bm{D}\bm{R}^T$ and
-suppose that $\bm{v} = d\pi_{(\bm{A},s)}((\bm{B}\bm{Q}-\bm{A}, t-s))$
-satisfies $\text{Exp}_{[\bm{A},s]}(\bm{v}) = [\bm{B},t]$.
-Given that 
-so that $(\bm{B}\bm{Q}-\bm{A}, t-s)$ is the horizontal lift of $\bm{v}$
-at $(\bm{A},s)$,
-we can compute the squared norm of $\bm{v}$:
-
-\begin{align*}
-  & \tab[0.4cm] g_{[\bm{A},s]}(\bm{v}, \bm{v})
-  = g_{(\bm{A},s)}^{\Theta}\bracket{(\bm{B}\bm{Q}-\bm{A}, t-s), (\bm{B}\bm{Q}-\bm{A}, t-s)} \\
-  &= \tr\bracket{(\bm{B}\bm{Q}-\bm{A})(\bm{B}\bm{Q}-\bm{A})^T} + (t-s)^2 
-  = \tr(\bm{B}\bm{B}^T) + \tr(\bm{A}\bm{A}^T) - 2\tr(\bm{S}\bm{D}) + (t-s)^2,
-\end{align*}
-where the last equality substituted
-$\bm{A}^T\bm{B}\bm{Q} = \bm{R}\bm{S}\bm{P}^T\bm{P}\bm{D}\bm{R}^T = \bm{R}\bm{S}\bm{D}\bm{R}^T$
-and used the cyclic property of the trace.
-The fact that
-the diagonal entries of $\bm{S}$ are strictly positive
-show that
-$g_{[\bm{A},s]}(\bm{v}, \bm{v})$ is minimized precisely when $\bm{D} = \bm{I}_q$.
-Given that the geodesic starting at $[\bm{A},s]$
-with initial velocity $\bm{v}$ reaches $[\bm{B},t]$ at time $1$ with constant speed
-$\sqrt{g_{[\bm{A},s]}(\bm{v}, \bm{v})}$, its length is $\sqrt{g_{[\bm{A},s]}(\bm{v}, \bm{v})}$.
-The choice $\bm{D} = \bm{I}_q$ gives the slowest and hence shortest geodesic.
-To illustrate,
-let us go back to the counterexample in the previous paragraph.
-Put $\bm{v}_{\pm} := d\pi_{(\bm{A},s)}((\pm\bm{B}-\bm{A},0))$.
-Direct computation shows $g_{[\bm{A},s]}(\bm{v}_+,\bm{v}_+) = 1$ and $g_{[\bm{A},s]}(\bm{v}_-,\bm{v}_-) = 5$
-so that the option corresponding to $\bm{D} = \bm{I}_1=1$
-gives the slowest speed.
-Therefore, it is actually possible to define 
-$\text{Exp}^{-1}_{[\bm{A},s]}$
-over all $[\bm{B},t]$ such that $\bm{A}^T \bm{B}$ is invertible
-by manually asking it to output the minimal speed candidate 
-and this definition will yield the same $\bm{Q}(\bm{A},\bm{B})$
-formula. 
-
-However, the situation totally breaks down 
-in case $\bm{A}^T \bm{B}$ is not invertible.
-Consider again $p =2$, $q=1$, $\bm{A} = [1,0]^T$, $s = t = 1$,
-but this time $\bm{B} = [0,1]^T$.
-Then $g_{[\bm{A},s]}(\bm{v}_+,\bm{v}_+) = g_{[\bm{A},s]}(\bm{v}_-,\bm{v}_-) = 2$
-and there are two distinct geodesics of the same speed 
-so $\text{Exp}^{-1}_{[\bm{A},s]}([\bm{B},t])$
-cannot be well-defined.
-
-(Picture: there is a hole at $[0,0]^T$. 
-Starting $\bm{A}= [1,0]^T$, as $\bm{B}= [0,1]^T$ is glued to $[0,-1]^2$,
-$\bm{v}_+$ points from $[1,0]^T$ to $[0,1]^T$,
-$\bm{v}_-$ points from $[1,0]^T$ to $[0,-1]^T$)
-
-Given the above situation and (the expectation that) 
-our work should not require a global definition,
-we stick to the standard definition of logarithmic map
-only defined locally around $[\bm{A},s]$.
-\end{remark}
-
-\section{Properties of the Probabilistic Principal Component Analysis Model}
+\section{Properties of the Probabilistic Principal Component Analysis Model}\label{sec:PPCA_properties}
 We now show that the statistical model $\mathcal{P}$ 
 given by \eqref{eq:quotient_model}
 is \textit{differentiable in quadratic mean}
@@ -849,55 +1009,55 @@ in the sense developed in \cite{Sun_Lin_Liu_2026}, definition
 III.1 and III.2.
 
 Let us introduce a few notations.
-For each $[\bm{A},s] \in M$,
+For each $[\bm{W},\sigma^2] \in M$,
 let
 
 \begin{equation}\label{eq:p_def}
-  p(\bm{x}; [\bm{A},s])
-  = (2\pi)^{-\frac{p}{2}} \text{det}^{-\frac{1}{2}}(\bm{\Sigma}([\bm{A},s])) \exp \bracket{- 
-  \frac{1}{2}\bm{x}^T(\bm{\Sigma}([\bm{A},s]))^{-1}\bm{x}}
+  p(\bm{x}; [\bm{W},\sigma^2])
+  = (2\pi)^{-\frac{p}{2}} \text{det}^{-\frac{1}{2}}(\bm{\Sigma}([\bm{W},\sigma^2])) \exp \bracket{- 
+  \frac{1}{2}\bm{x}^T(\bm{\Sigma}([\bm{W},\sigma^2]))^{-1}\bm{x}}
 \end{equation}
-be the density of $N_p(\bm{0}, \bm{\Sigma}([\bm{A},s]))$.
-For $\bm{v} \in \mathcal{E}_{[\bm{A},s]} \subset T_{[\bm{A},s]}M \cong \mathbb{R}^{pq+1-\frac{q(q-1)}{2}}$,
-write $l_{[\bm{A},s]}(\bm{v})$
+be the density of $N_p(\bm{0}, \bm{\Sigma}([\bm{W},\sigma^2]))$.
+For $\bm{v} \in \mathcal{E}_{[\bm{W},\sigma^2]} \subset T_{[\bm{W},\sigma^2]}M \cong \mathbb{R}^{d}$,
+write $l_{[\bm{W},\sigma^2]}(\bm{v})$
 for the log-likelihood function of the local experiment
 \begin{equation}\label{eq:l_def}
-  l_{[\bm{A},s]}(\bm{v})(\bm{x}) = \log 
-  \bracket{p(\bm{x}; \text{Exp}_{[\bm{A},s]}(\bm{v}))}.
+  l_{[\bm{W},\sigma^2]}(\bm{v})(\bm{x}) = \log 
+  \bracket{p(\bm{x}; \text{Exp}_{[\bm{W},\sigma^2]}(\bm{v}))}.
 \end{equation}
-Define the square root likelihood function $r_{[\bm{A},s]} : 
-\mathcal{E}_{[\bm{A},s]} \to L^2(\mathbb{R}^p)$
-by setting, for all $\bm{v} \in \mathcal{E}_{[\bm{A},s]}$,
+Define the square root likelihood function $r_{[\bm{W},\sigma^2]} : 
+\mathcal{E}_{[\bm{W},\sigma^2]} \to L^2(\mathbb{R}^p)$
+by setting, for all $\bm{v} \in \mathcal{E}_{[\bm{W},\sigma^2]}$,
 that 
 \begin{equation}\label{eq:r_def}
-  r_{[\bm{A},s]}(\bm{v})(\bm{x}) = 
-  \sqrt{p(\bm{x}; \text{Exp}_{[\bm{A},s]}(\bm{v}))}.
+  r_{[\bm{W},\sigma^2]}(\bm{v})(\bm{x}) = 
+  \sqrt{p(\bm{x}; \text{Exp}_{[\bm{W},\sigma^2]}(\bm{v}))}.
 \end{equation}
 
 \begin{theorem}\label{thm:DQM}
-$r_{[\bm{A},s]}$ is Fréchet differentiable at any $\bm{v} \in \mathcal{E}_{[\bm{A},s]}$.
+$r_{[\bm{W},\sigma^2]}$ is Fréchet differentiable at any $\bm{v} \in \mathcal{E}_{[\bm{W},\sigma^2]}$.
 In particular, $\mathcal{P}$ is differentiable in quadratic mean with score
 \begin{equation}\label{eq:score}
-  s(\bm{x}; [\bm{A},s])(\bm{h})
-  = \frac{1}{2}\tr \curly{\bracket{\bm{\Sigma}([\bm{A},s])}^{-1}
-  \squared{\bm{x}\bm{x}^T - \bracket{\bm{\Sigma}([\bm{A},s])}}
-  \bracket{\bm{\Sigma}([\bm{A},s])}^{-1} \bracket{D_{\bm{h}}\bm{\Sigma}([\bm{A},s])}},
+  s(\bm{x}; [\bm{W},\sigma^2])(\bm{h})
+  = \frac{1}{2}\tr \curly{\bracket{\bm{\Sigma}([\bm{W},\sigma^2])}^{-1}
+  \squared{\bm{x}\bm{x}^T - \bracket{\bm{\Sigma}([\bm{W},\sigma^2])}}
+  \bracket{\bm{\Sigma}([\bm{W},\sigma^2])}^{-1} \bracket{D_{\bm{h}}\bm{\Sigma}([\bm{W},\sigma^2])}},
 \end{equation}
 where
 \begin{equation}\label{eq:Sigma_directional}
-  D_{\bm{h}}\bm{\Sigma}([\bm{A},s])
-  := \frac{d}{dt}\bigg|_{t=0} \bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(t\bm{h}))
-  = \bm{U}\bm{A}^T + \bm{A}\bm{U}^T + b  \bm{I}_p,
+  D_{\bm{h}}\bm{\Sigma}([\bm{W},\sigma^2])
+  := \frac{d}{dt}\bigg|_{t=0} \bm{\Sigma}(\text{Exp}_{[\bm{W},\sigma^2]}(t\bm{h}))
+  = \bm{U}\bm{W}^T + \bm{W}\bm{U}^T + b  \bm{I}_p,
 \end{equation}
-if $\bm{h}\in T_{[\bm{A},s]}M$ lifts to $(\bm{U},b)$ at $(\bm{A},s)$.
+if $\bm{h}\in T_{[\bm{W},\sigma^2]}M$ lifts to $(\bm{U},b)$ at $(\bm{W},\sigma^2)$.
 Furthermore, $\mathcal{P}$ is a regular model in the sense that
 the Fisher information operator
 \begin{equation}\label{eq:G_def}
-  G_{[\bm{A},s]} (\bm{h}_1,\bm{h}_2)
-  = \frac{1}{2}\tr \curly{\bracket{\bm{\Sigma}([\bm{A},s])}^{-1}
-  D_{\bm{h}_1}\bm{\Sigma}([\bm{A},s])
-  \bracket{\bm{\Sigma}([\bm{A},s])}^{-1}
-  D_{\bm{h}_2}\bm{\Sigma}([\bm{A},s])}
+  G_{[\bm{W},\sigma^2]} (\bm{h}_1,\bm{h}_2)
+  = \frac{1}{2}\tr \curly{\bracket{\bm{\Sigma}([\bm{W},\sigma^2])}^{-1}
+  D_{\bm{h}_1}\bm{\Sigma}([\bm{W},\sigma^2])
+  \bracket{\bm{\Sigma}([\bm{W},\sigma^2])}^{-1}
+  D_{\bm{h}_2}\bm{\Sigma}([\bm{W},\sigma^2])}
 \end{equation}
  is positive definite.
 \end{theorem}
@@ -906,8 +1066,8 @@ the Fisher information operator
 The proof for the Fréchet differentiability
 is long but routine.
 We compute the Gâteaux derivative
-of $r_{[\bm{A},s]}$ at $\bm{v} \in \mathcal{E}_{[\bm{A},s]}$
-in a given direction $\bm{h} \in T_{[\bm{A},s]}M$
+of $r_{[\bm{W},\sigma^2]}$ at $\bm{v} \in \mathcal{E}_{[\bm{W},\sigma^2]}$
+in a given direction $\bm{h} \in T_{[\bm{W},\sigma^2]}M$
 and show that the Gâteaux derivative is the Fréchet derivative 
 by a direct analysis of the remainder term.
 At the very end, we specialize our computations to 
@@ -916,68 +1076,70 @@ and \eqref{eq:G_def}.
 
 Given $\bm{v}$ and $\bm{h}$,
 there exists an $\epsilon > 0$ such that
-$\bm{v} + t\bm{h} \in \mathcal{E}_{[\bm{A},s]}$
+$\bm{v} + t\bm{h} \in \mathcal{E}_{[\bm{W},\sigma^2]}$
 whenever $t \in (-\epsilon, \epsilon)$.
 If they respectively lift to $(\bm{V},c)$
-and $(\bm{U},b)$ at $(\bm{A},s)$,
+and $(\bm{U},b)$ at $(\bm{W},\sigma^2)$,
 then $\bm{v} + t\bm{h}$ lifts to $(\bm{V} + t\bm{U},c+tb)$
-at $(\bm{A},s)$.
+at $(\bm{W},\sigma^2)$.
 First of all:
 
 \begin{equation}\label{eq:Sigma_derivative}
   \begin{split}
-  D_{\bm{h}}\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v})) & :=
-  \frac{d}{dt}\bigg|_{t=0} \bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v} + t\bm{h}))
-  \\ & = \frac{d}{dt}\bigg|_{t=0} \curly{(\bm{A}+\bm{V} + t\bm{U})(\bm{A}+\bm{V} + t\bm{U})^T + (s+c+tb) \bm{I}_p}
+  D_{\bm{h}}\bm{\Sigma}(\text{Exp}_{[\bm{W},\sigma^2]}(\bm{v})) & :=
+  \frac{d}{dt}\bigg|_{t=0} \bm{\Sigma}(\text{Exp}_{[\bm{W},\sigma^2]}(\bm{v} + t\bm{h}))
+  \\ & = \frac{d}{dt}\bigg|_{t=0} \curly{(\bm{W}+\bm{V} + t\bm{U})(\bm{W}+\bm{V} + t\bm{U})^T + (\sigma^2+c+tb) \bm{I}_p}
   \\ & 
-  = \bm{U}\bm{V}^T + \bm{V}\bm{U}^T + \bm{U}\bm{A}^T + \bm{A}\bm{U}^T + b  \bm{I}_p,
+  = \bm{U}\bm{V}^T + \bm{V}\bm{U}^T + \bm{U}\bm{W}^T + \bm{W}\bm{U}^T + b  \bm{I}_p,
   \end{split}
 \end{equation}
 proving \eqref{eq:Sigma_directional} with special case $\bm{v}=\bm{0}$.
 Secondly, for all $\bm{x} \in \mathbb{R}^p$:
 \begin{equation}\label{eq:l_derivative}
   \begin{split}
-  & \tab[0.4cm] D_{\bm{h}}l_{[\bm{A},s]}(\bm{v})(\bm{x}) :=
-  \frac{d}{dt}\bigg|_{t=0} l_{[\bm{A},s]}(\bm{v} + t\bm{h})(\bm{x})
+  & \tab[0.4cm] D_{\bm{h}}l_{[\bm{W},\sigma^2]}(\bm{v})(\bm{x}) :=
+  \frac{d}{dt}\bigg|_{t=0} l_{[\bm{W},\sigma^2]}(\bm{v} + t\bm{h})(\bm{x})
   \\ & = \frac{d}{dt}\bigg|_{t=0} \curly{-\frac{p}{2}\log(2\pi) 
-  -\frac{1}{2}\log \det\bracket{\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v} + t\bm{h}))}
-  - \frac{1}{2}\bm{x}^T\bracket{\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v} + t\bm{h}))}^{-1}\bm{x} }
+  -\frac{1}{2}\log \det\bracket{\bm{\Sigma}(\text{Exp}_{[\bm{W},\sigma^2]}(\bm{v} + t\bm{h}))}
+  - \frac{1}{2}\bm{x}^T\bracket{\bm{\Sigma}(\text{Exp}_{[\bm{W},\sigma^2]}(\bm{v} + t\bm{h}))}^{-1}\bm{x} }
   \\ & =
   -\frac{1}{2}\tr 
-  \squared{\bracket{\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}^{-1}
-  \bracket{\frac{d}{dt}\bigg|_{t=0}\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v} + t\bm{h})) }}
-  \\ & + \frac{1}{2}\bm{x}^T\bracket{\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}^{-1}
-  \bracket{\frac{d}{dt}\bigg|_{t=0}\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v} + t\bm{h}))}
-  \bracket{\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}^{-1}\bm{x}
+  \squared{\bracket{\bm{\Sigma}(\text{Exp}_{[\bm{W},\sigma^2]}(\bm{v}))}^{-1}
+  \bracket{\frac{d}{dt}\bigg|_{t=0}\bm{\Sigma}(\text{Exp}_{[\bm{W},\sigma^2]}(\bm{v} + t\bm{h})) }}
+  \\ & + \frac{1}{2}\bm{x}^T\bracket{\bm{\Sigma}(\text{Exp}_{[\bm{W},\sigma^2]}(\bm{v}))}^{-1}
+  \bracket{\frac{d}{dt}\bigg|_{t=0}\bm{\Sigma}(\text{Exp}_{[\bm{W},\sigma^2]}(\bm{v} + t\bm{h}))}
+  \bracket{\bm{\Sigma}(\text{Exp}_{[\bm{W},\sigma^2]}(\bm{v}))}^{-1}\bm{x}
   \\ & =
   -\frac{1}{2} \tr 
-  \squared{\bracket{\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}^{-1}
-  \bracket{D_{\bm{h}}\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v})) }}
-  \\ & + \frac{1}{2}\bm{x}^T\bracket{\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}^{-1}
-  \bracket{D_{\bm{h}}\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}
-  \bracket{\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}^{-1}\bm{x}
-  \\ & = \frac{1}{2} \tr \curly{\bracket{\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}^{-1}
-  \squared{\bm{x}\bm{x}^T - \bracket{\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}}
-  \bracket{\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}^{-1} \bracket{D_{\bm{h}}\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}}.
+  \squared{\bracket{\bm{\Sigma}(\text{Exp}_{[\bm{W},\sigma^2]}(\bm{v}))}^{-1}
+  \bracket{D_{\bm{h}}\bm{\Sigma}(\text{Exp}_{[\bm{W},\sigma^2]}(\bm{v})) }}
+  \\ & + \frac{1}{2}\bm{x}^T\bracket{\bm{\Sigma}(\text{Exp}_{[\bm{W},\sigma^2]}(\bm{v}))}^{-1}
+  \bracket{D_{\bm{h}}\bm{\Sigma}(\text{Exp}_{[\bm{W},\sigma^2]}(\bm{v}))}
+  \bracket{\bm{\Sigma}(\text{Exp}_{[\bm{W},\sigma^2]}(\bm{v}))}^{-1}\bm{x}
+  \\ & = \frac{1}{2} \tr \curly{\bracket{\bm{\Sigma}(\text{Exp}_{[\bm{W},\sigma^2]}(\bm{v}))}^{-1}
+  \squared{\bm{x}\bm{x}^T - \bracket{\bm{\Sigma}(\text{Exp}_{[\bm{W},\sigma^2]}(\bm{v}))}}
+  \bracket{\bm{\Sigma}(\text{Exp}_{[\bm{W},\sigma^2]}(\bm{v}))}^{-1} 
+  \bracket{D_{\bm{h}}\bm{\Sigma}(\text{Exp}_{[\bm{W},\sigma^2]}(\bm{v}))}}.
   \end{split}
 \end{equation}
 Finally:
 \begin{equation}\label{eq:r_derivative}
   \begin{split}
-  D_{\bm{h}}r_{[\bm{A},s]}(\bm{v})(\bm{x})
-  & = D_{\bm{h}} \exp \bracket{\frac{1}{2}l_{[\bm{A},s]}(\bm{v})(\bm{x})}
-  = \frac{1}{2} \exp \bracket{\frac{1}{2}l_{[\bm{A},s]}(\bm{v})(\bm{x})} D_{\bm{h}}l_{[\bm{A},s]}(\bm{v})(\bm{x})
-  \\ & = \frac{1}{2} r_{[\bm{A},s]}(\bm{v})(\bm{x}) D_{\bm{h}}l_{[\bm{A},s]}(\bm{v})(\bm{x}).
+  D_{\bm{h}}r_{[\bm{W},\sigma^2]}(\bm{v})(\bm{x})
+  & = D_{\bm{h}} \exp \bracket{\frac{1}{2}l_{[\bm{W},\sigma^2]}(\bm{v})(\bm{x})}
+  = \frac{1}{2} \exp \bracket{\frac{1}{2}l_{[\bm{W},\sigma^2]}(\bm{v})(\bm{x})} D_{\bm{h}}l_{[\bm{W},\sigma^2]}(\bm{v})(\bm{x})
+  \\ & = \frac{1}{2} r_{[\bm{W},\sigma^2]}(\bm{v})(\bm{x}) D_{\bm{h}}l_{[\bm{W},\sigma^2]}(\bm{v})(\bm{x}).
   \end{split}
 \end{equation}
 To prove that \eqref{eq:r_derivative}
 indeed defines a valid Gâteaux derivative,
-we must prove that $D_{\bm{h}}r_{[\bm{A},s]}(\bm{v}) \in L^2(\mathbb{R}^p)$.
+we must prove that $D_{\bm{h}}r_{[\bm{W},\sigma^2]}(\bm{v}) \in L^2(\mathbb{R}^p)$.
 Luckily, the expectation and covariance of normal 
 quadratic forms have already been very well studied in 
 \cite{Gupta_Nagar_2000}.
 For $\bm{X} \sim N_p(\bm{0}, \bm{\Sigma})$,
-Theorem 7.7.1(i) 
+Theorem 7.7.1(i) in 
+\cite{Gupta_Nagar_2000}
 states that 
 \begin{equation*}
   \mathbb{E} \squared{\bm{X}^T \bm{Z} \bm{X}}
@@ -985,7 +1147,8 @@ states that
 \end{equation*}
 for any $p \times p$ matrix $\bm{Z}$
 and 
-Theorem 7.7.2 states that 
+Theorem 7.7.2 in 
+\cite{Gupta_Nagar_2000} states that 
 \begin{equation*}
   \text{Cov} \bracket{\bm{X}^T \bm{Z} \bm{X}, \bm{X}^T \bm{Y} \bm{X}}
   = \tr(\bm{Z}\bm{\Sigma}\bm{Y}^T\bm{\Sigma}) + \tr(\bm{Z}^T\bm{\Sigma}\bm{Y}^T\bm{\Sigma})
@@ -995,53 +1158,53 @@ Therefore,
 we can confirm without effort that the expectation of derivative of log density is zero:
 \begin{equation*}
   \begin{split}
-  & \tab[0.4cm] \int_{\mathbb{R}^p} D_{\bm{h}}l_{[\bm{A},s]}(\bm{v})(\bm{x})
-  p(\bm{x}; \bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v})))\mathrm{d} \bm{x}
+  & \tab[0.4cm] \int_{\mathbb{R}^p} D_{\bm{h}}l_{[\bm{W},\sigma^2]}(\bm{v})(\bm{x})
+  p(\bm{x}; \bm{\Sigma}(\text{Exp}_{[\bm{W},\sigma^2]}(\bm{v})))\mathrm{d} \bm{x}
    \\ & = -\frac{1}{2} \tr 
-  \squared{\bracket{\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}^{-1}
-  \bracket{D_{\bm{h}}\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v})) }}
-  \\ & + \frac{1}{2}\int_{\mathbb{R}^p}\squared{\bm{x}^T\bracket{\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}^{-1}
-  \bracket{D_{\bm{h}}\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}
-  \bracket{\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}^{-1}\bm{x}} 
-  p(\bm{x}; \bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v})))\mathrm{d} \bm{x} = 0
+  \squared{\bracket{\bm{\Sigma}(\text{Exp}_{[\bm{W},\sigma^2]}(\bm{v}))}^{-1}
+  \bracket{D_{\bm{h}}\bm{\Sigma}(\text{Exp}_{[\bm{W},\sigma^2]}(\bm{v})) }}
+  \\ & + \frac{1}{2}\int_{\mathbb{R}^p}\squared{\bm{x}^T\bracket{\bm{\Sigma}(\text{Exp}_{[\bm{W},\sigma^2]}(\bm{v}))}^{-1}
+  \bracket{D_{\bm{h}}\bm{\Sigma}(\text{Exp}_{[\bm{W},\sigma^2]}(\bm{v}))}
+  \bracket{\bm{\Sigma}(\text{Exp}_{[\bm{W},\sigma^2]}(\bm{v}))}^{-1}\bm{x}} 
+  p(\bm{x}; \bm{\Sigma}(\text{Exp}_{[\bm{W},\sigma^2]}(\bm{v})))\mathrm{d} \bm{x} = 0
   \end{split}
 \end{equation*} 
-and, whenever $\bm{h}_1$ and $\bm{h}_2 \in T_{[\bm{A},s]}M$:
+and, whenever $\bm{h}_1$ and $\bm{h}_2 \in T_{[\bm{W},\sigma^2]}M$:
 \begin{equation}\label{eq:fisher_computation}
   \begin{split}
   & \tab[0.4cm] 	
-   \int_{\mathbb{R}^p} D_{\bm{h}_1}l_{[\bm{A},s]}(\bm{v})(\bm{x})
-   D_{\bm{h}_2}l_{[\bm{A},s]}(\bm{v})(\bm{x})
-  p(\bm{x}; \bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v})))\mathrm{d} \bm{x}
+   \int_{\mathbb{R}^p} D_{\bm{h}_1}l_{[\bm{W},\sigma^2]}(\bm{v})(\bm{x})
+   D_{\bm{h}_2}l_{[\bm{W},\sigma^2]}(\bm{v})(\bm{x})
+  p(\bm{x}; \bm{\Sigma}(\text{Exp}_{[\bm{W},\sigma^2]}(\bm{v})))\mathrm{d} \bm{x}
   \\ & = \frac{1}{4}\text{Cov}\bracket{\bm{X}^T\bm{Z}_1\bm{X}, \, \bm{X}^T\bm{Z}_2\bm{X}}
-  = \frac{1}{4} \cdot 2 \tr \bracket{\bm{Z}_1 \bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))
-  \bm{Z}_2 \bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}
-  \\ & = \frac{1}{2}\tr \curly{\bracket{\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}^{-1}
-  D_{\bm{h}_1}\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))
-  \bracket{\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}^{-1}
-  D_{\bm{h}_2}\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))},
+  = \frac{1}{4} \cdot 2 \tr \bracket{\bm{Z}_1 \bm{\Sigma}(\text{Exp}_{[\bm{W},\sigma^2]}(\bm{v}))
+  \bm{Z}_2 \bm{\Sigma}(\text{Exp}_{[\bm{W},\sigma^2]}(\bm{v}))}
+  \\ & = \frac{1}{2}\tr \curly{\bracket{\bm{\Sigma}(\text{Exp}_{[\bm{W},\sigma^2]}(\bm{v}))}^{-1}
+  D_{\bm{h}_1}\bm{\Sigma}(\text{Exp}_{[\bm{W},\sigma^2]}(\bm{v}))
+  \bracket{\bm{\Sigma}(\text{Exp}_{[\bm{W},\sigma^2]}(\bm{v}))}^{-1}
+  D_{\bm{h}_2}\bm{\Sigma}(\text{Exp}_{[\bm{W},\sigma^2]}(\bm{v}))},
   \end{split}
 \end{equation}
-where $\bm{X} \sim N_p(\bm{0}, \bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v})))$ and
+where $\bm{X} \sim N_p(\bm{0}, \bm{\Sigma}(\text{Exp}_{[\bm{W},\sigma^2]}(\bm{v})))$ and
 \begin{equation}\label{eq:Z_j_def}
-  \bm{Z}_j := \bracket{\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}^{-1}
-  \bracket{D_{\bm{h}_j}\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}
-  \bracket{\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}^{-1}
+  \bm{Z}_j := \bracket{\bm{\Sigma}(\text{Exp}_{[\bm{W},\sigma^2]}(\bm{v}))}^{-1}
+  \bracket{D_{\bm{h}_j}\bm{\Sigma}(\text{Exp}_{[\bm{W},\sigma^2]}(\bm{v}))}
+  \bracket{\bm{\Sigma}(\text{Exp}_{[\bm{W},\sigma^2]}(\bm{v}))}^{-1}
 \end{equation}
 is symmetric for $j=1,2$, so that the two terms in Theorem 7.7.2
 of \cite{Gupta_Nagar_2000} coincide.
 Thus, in the particular case $\bm{h} = \bm{h}_1 = \bm{h}_2$:
 \begin{equation}\label{eq:r_L2norm}
   \begin{split}
-  & \tab[0.4cm] 	\|D_{\bm{h}}r_{[\bm{A},s]}(\bm{v});L^2(\mathbb{R}^p)	\|^{2} =
-  \int_{\mathbb{R}^p} \squared{D_{\bm{h}}r_{[\bm{A},s]}(\bm{v})(\bm{x})}^2 \mathrm{d} \bm{x}
-   \\ & = \frac{1}{4}\int_{\mathbb{R}^p} \bracket{D_{\bm{h}}l_{[\bm{A},s]}(\bm{v})(\bm{x})}^2
-  p(\bm{x}; \bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v})))\mathrm{d} \bm{x}
-  = \frac{1}{8} \tr \curly{\squared{\bracket{\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}^{-1}
-  D_{\bm{h}}\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))}^2}.
+  & \tab[0.4cm] 	\|D_{\bm{h}}r_{[\bm{W},\sigma^2]}(\bm{v});L^2(\mathbb{R}^p)	\|^{2} =
+  \int_{\mathbb{R}^p} \squared{D_{\bm{h}}r_{[\bm{W},\sigma^2]}(\bm{v})(\bm{x})}^2 \mathrm{d} \bm{x}
+   \\ & = \frac{1}{4}\int_{\mathbb{R}^p} \bracket{D_{\bm{h}}l_{[\bm{W},\sigma^2]}(\bm{v})(\bm{x})}^2
+  p(\bm{x}; \bm{\Sigma}(\text{Exp}_{[\bm{W},\sigma^2]}(\bm{v})))\mathrm{d} \bm{x}
+  = \frac{1}{8} \tr \curly{\squared{\bracket{\bm{\Sigma}(\text{Exp}_{[\bm{W},\sigma^2]}(\bm{v}))}^{-1}
+  D_{\bm{h}}\bm{\Sigma}(\text{Exp}_{[\bm{W},\sigma^2]}(\bm{v}))}^2}.
   \end{split}
 \end{equation} 
-Therefore, $D_{\bm{h}}r_{[\bm{A},s]}(\bm{v}) \in L^2(\mathbb{R}^p)$
+Therefore, $D_{\bm{h}}r_{[\bm{W},\sigma^2]}(\bm{v}) \in L^2(\mathbb{R}^p)$
 and \eqref{eq:r_derivative} is indeed a 
 valid Gâteaux derivative at $\bm{v}$ in the direction $\bm{h}$.
 
@@ -1050,8 +1213,8 @@ let us look at the remainder term:
 
 \begin{equation*}
   R(\bm{v}, \bm{h})(\bm{x}) := 
-  r_{[\bm{A},s]}(\bm{v}+\bm{h})(\bm{x}) - 
-  r_{[\bm{A},s]}(\bm{v})(\bm{x}) - D_{\bm{h}}r_{[\bm{A},s]}(\bm{v})(\bm{x}) 
+  r_{[\bm{W},\sigma^2]}(\bm{v}+\bm{h})(\bm{x}) - 
+  r_{[\bm{W},\sigma^2]}(\bm{v})(\bm{x}) - D_{\bm{h}}r_{[\bm{W},\sigma^2]}(\bm{v})(\bm{x}) 
 \end{equation*}
 and prove that 
 \begin{equation*}
@@ -1062,28 +1225,28 @@ To start, the fundamental theorem of calculus shows that
 
 \begin{equation*}
   \begin{split}
-  & \tab[0.4cm] r_{[\bm{A},s]}(\bm{v}+\bm{h})(\bm{x}) - 
-  r_{[\bm{A},s]}(\bm{v})(\bm{x}) 
-  = \int_{0}^1 \frac{d}{dt} r_{[\bm{A},s]}(\bm{v}+t\bm{h})(\bm{x}) \mathrm{d} t 
-  \\ & = \int_{0}^1 \lim_{s \to 0} \frac{r_{[\bm{A},s]}(\bm{v}+(t+s)\bm{h})(\bm{x})
-  - r_{[\bm{A},s]}(\bm{v}+t\bm{h})(\bm{x})}{s} \mathrm{d} t 
-  = \int_{0}^1 D_{\bm{h}}r_{[\bm{A},s]}(\bm{v}+t\bm{h})(\bm{x}) \mathrm{d} t.
+  & \tab[0.4cm] r_{[\bm{W},\sigma^2]}(\bm{v}+\bm{h})(\bm{x}) - 
+  r_{[\bm{W},\sigma^2]}(\bm{v})(\bm{x}) 
+  = \int_{0}^1 \frac{d}{dt} r_{[\bm{W},\sigma^2]}(\bm{v}+t\bm{h})(\bm{x}) \mathrm{d} t 
+  \\ & = \int_{0}^1 \lim_{s \to 0} \frac{r_{[\bm{W},\sigma^2]}(\bm{v}+(t+s)\bm{h})(\bm{x})
+  - r_{[\bm{W},\sigma^2]}(\bm{v}+t\bm{h})(\bm{x})}{s} \mathrm{d} t 
+  = \int_{0}^1 D_{\bm{h}}r_{[\bm{W},\sigma^2]}(\bm{v}+t\bm{h})(\bm{x}) \mathrm{d} t.
   \end{split}
 \end{equation*}
 Therefore,
-by Minkowski's integral inequality and the linearity of $D_{\bm{h}}r_{[\bm{A},s]}(\bm{v})$
+by Minkowski's integral inequality and the linearity of $D_{\bm{h}}r_{[\bm{W},\sigma^2]}(\bm{v})$
 in $\bm{h}$, we have
 \begin{equation*}
   \begin{split}
   & \tab[0.4cm] 
   \|R(\bm{v}, \bm{h});L^2(\mathbb{R}^p)	\|
-  = \|\int_{0}^1 \bracket{D_{\bm{h}}r_{[\bm{A},s]}(\bm{v}+t\bm{h})(\bm{x})- D_{\bm{h}}r_{[\bm{A},s]}(\bm{v})(\bm{x})} 
+  = \|\int_{0}^1 \bracket{D_{\bm{h}}r_{[\bm{W},\sigma^2]}(\bm{v}+t\bm{h})(\bm{x})- D_{\bm{h}}r_{[\bm{W},\sigma^2]}(\bm{v})(\bm{x})} 
   \mathrm{d} t;L^2(\mathbb{R}^p)	\|
   \\ & \leqslant \int_{0}^1 
-  \|D_{\bm{h}}r_{[\bm{A},s]}(\bm{v}+t\bm{h})- D_{\bm{h}}r_{[\bm{A},s]}(\bm{v})
+  \|D_{\bm{h}}r_{[\bm{W},\sigma^2]}(\bm{v}+t\bm{h})- D_{\bm{h}}r_{[\bm{W},\sigma^2]}(\bm{v})
   ;L^2(\mathbb{R}^p)	\| \mathrm{d} t
   = \abs{\bm{h}} \int_{0}^1 
-  \|D_{\frac{\bm{h}}{\abs{\bm{h}}}}r_{[\bm{A},s]}(\bm{v}+t\bm{h})- D_{\frac{\bm{h}}{\abs{\bm{h}}}}r_{[\bm{A},s]}(\bm{v})
+  \|D_{\frac{\bm{h}}{\abs{\bm{h}}}}r_{[\bm{W},\sigma^2]}(\bm{v}+t\bm{h})- D_{\frac{\bm{h}}{\abs{\bm{h}}}}r_{[\bm{W},\sigma^2]}(\bm{v})
   ;L^2(\mathbb{R}^p)	\| \mathrm{d} t
   \end{split}
 \end{equation*}
@@ -1093,11 +1256,11 @@ and
   & \tab[0.4cm] \frac{1}{\abs{\bm{h}}^2}
   \|R(\bm{v}, \bm{h});L^2(\mathbb{R}^p)	\|^2 \leqslant
   \curly{\int_{0}^1 
-  \|D_{\frac{\bm{h}}{\abs{\bm{h}}}}r_{[\bm{A},s]}(\bm{v}+t\bm{h})- D_{\frac{\bm{h}}{\abs{\bm{h}}}}r_{[\bm{A},s]}(\bm{v})
+  \|D_{\frac{\bm{h}}{\abs{\bm{h}}}}r_{[\bm{W},\sigma^2]}(\bm{v}+t\bm{h})- D_{\frac{\bm{h}}{\abs{\bm{h}}}}r_{[\bm{W},\sigma^2]}(\bm{v})
   ;L^2(\mathbb{R}^p)	\| \mathrm{d} t}^2
   \\ & \leqslant 
   \curly{\int_{0}^1 \sup_{\abs{\bm{u}} = 1}
-  \|D_{\bm{u}}r_{[\bm{A},s]}(\bm{v}+t\bm{h})- D_{\bm{u}}r_{[\bm{A},s]}(\bm{v})
+  \|D_{\bm{u}}r_{[\bm{W},\sigma^2]}(\bm{v}+t\bm{h})- D_{\bm{u}}r_{[\bm{W},\sigma^2]}(\bm{v})
   ;L^2(\mathbb{R}^p)	\| \mathrm{d} t}^2.
   \end{split}
 \end{equation*}
@@ -1106,23 +1269,23 @@ The proof will be complete once we can show that
 \begin{equation}\label{eq:int_sup_u}
   \lim_{\bm{h} \to \bm{0}} 
   \int_{0}^1 \sup_{\abs{\bm{u}} = 1}
-  \|D_{\bm{u}}r_{[\bm{A},s]}(\bm{v}+t\bm{h})- D_{\bm{u}}r_{[\bm{A},s]}(\bm{v})
+  \|D_{\bm{u}}r_{[\bm{W},\sigma^2]}(\bm{v}+t\bm{h})- D_{\bm{u}}r_{[\bm{W},\sigma^2]}(\bm{v})
   ;L^2(\mathbb{R}^p)	\| \mathrm{d} t = 0.
 \end{equation}
-We mus therefore examine the continuity of $D_{\bm{h}}r_{[\bm{A},s]}(\bm{v})$,
+We mus therefore examine the continuity of $D_{\bm{h}}r_{[\bm{W},\sigma^2]}(\bm{v})$,
 which is easy to see if we revisit the formulas.
-\eqref{eq:Sigma_derivative} shows that $ D_{\bm{h}}\bm{\Sigma}(\text{Exp}_{[\bm{A},s]}(\bm{v}))$
+\eqref{eq:Sigma_derivative} shows that $ D_{\bm{h}}\bm{\Sigma}(\text{Exp}_{[\bm{W},\sigma^2]}(\bm{v}))$
 is smooth in both $\bm{h}$ and $\bm{v}$.
 Thus,
 \eqref{eq:r_derivative} shows that,
 for each fixed $\bm{x} \in \mathbb{R}^p$,
-$D_{\bm{h}}r_{[\bm{A},s]}(\bm{v})(\bm{x})$ 
+$D_{\bm{h}}r_{[\bm{W},\sigma^2]}(\bm{v})(\bm{x})$ 
 is smooth in both $\bm{h}$ and $\bm{v}$
 and \eqref{eq:r_L2norm}
-shows that $\|D_{\bm{h}}r_{[\bm{A},s]}(\bm{v});L^2(\mathbb{R}^p)	\|$
+shows that $\|D_{\bm{h}}r_{[\bm{W},\sigma^2]}(\bm{v});L^2(\mathbb{R}^p)	\|$
 is smooth in both $\bm{h}$ and $\bm{v}$.
 Scheffé's lemma shows that
-$D_{\bm{h}}r_{[\bm{A},s]}(\bm{v})$, as a map to $L^2(\mathbb{R}^p)$,
+$D_{\bm{h}}r_{[\bm{W},\sigma^2]}(\bm{v})$, as a map to $L^2(\mathbb{R}^p)$,
 is continuous in $\bm{h}$ and in $\bm{v}$.
 The integrand inside \eqref{eq:int_sup_u}
 is thus bounded uniformly 
@@ -1133,38 +1296,37 @@ that, for every $t \in [0,1]$, that
 \begin{equation}\label{eq:lim_sup_u}
   \lim_{\bm{h} \to \bm{0}} 
   \sup_{\abs{\bm{u}} = 1}
-  \|D_{\bm{u}}r_{[\bm{A},s]}(\bm{v}+t\bm{h})- D_{\bm{u}}r_{[\bm{A},s]}(\bm{v})
+  \|D_{\bm{u}}r_{[\bm{W},\sigma^2]}(\bm{v}+t\bm{h})- D_{\bm{u}}r_{[\bm{W},\sigma^2]}(\bm{v})
   ;L^2(\mathbb{R}^p)	\|  = 0,
 \end{equation}
 thanks to the bounded convergence theorem.
 To prove \eqref{eq:lim_sup_u}, 
 let $\bm{e}_1, \ldots, \bm{e}_d$ 
-be a $g_{[\bm{A},s]}$ orthonormal basis
-where $d = pq+1-\frac{q(q-1)}{2}$.
+be a $g_{[\bm{W},\sigma^2]}$ orthonormal basis.
 Every unit vector $\bm{u}$ can be 
 expressed as $\bm{u} = \sum_{i=1}^d u_i \bm{e}_i$
 with $\sum_{i=1}^d u_i^2 = 1$.
-By linearity of $D_{\bm{h}}r_{[\bm{A},s]}(\bm{v})$ in $\bm{h}$, 
+By linearity of $D_{\bm{h}}r_{[\bm{W},\sigma^2]}(\bm{v})$ in $\bm{h}$, 
 we have 
 \begin{equation*}
   \begin{split}
-  & \tab[0.4cm] \|D_{\bm{u}}r_{[\bm{A},s]}(\bm{v}+t\bm{h}) - D_{\bm{u}}r_{[\bm{A},s]}(\bm{v});L^2(\mathbb{R}^p)	\| 
-  \leqslant \sum_{i=1}^d \abs{u_i}\|D_{\bm{e}_i}r_{[\bm{A},s]}(\bm{v}+t\bm{h}) - 
-  D_{\bm{e}_i}r_{[\bm{A},s]}(\bm{v});L^2(\mathbb{R}^p)	\|
-  \\ & \leqslant \sqrt{d} \max_{i=1, \ldots, d} \|D_{\bm{e}_i}r_{[\bm{A},s]}(\bm{v}+t\bm{h}) - 
-  D_{\bm{e}_i}r_{[\bm{A},s]}(\bm{v});L^2(\mathbb{R}^p)	\|.
+  & \tab[0.4cm] \|D_{\bm{u}}r_{[\bm{W},\sigma^2]}(\bm{v}+t\bm{h}) - D_{\bm{u}}r_{[\bm{W},\sigma^2]}(\bm{v});L^2(\mathbb{R}^p)	\| 
+  \leqslant \sum_{i=1}^d \abs{u_i}\|D_{\bm{e}_i}r_{[\bm{W},\sigma^2]}(\bm{v}+t\bm{h}) - 
+  D_{\bm{e}_i}r_{[\bm{W},\sigma^2]}(\bm{v});L^2(\mathbb{R}^p)	\|
+  \\ & \leqslant \sqrt{d} \max_{i=1, \ldots, d} \|D_{\bm{e}_i}r_{[\bm{W},\sigma^2]}(\bm{v}+t\bm{h}) - 
+  D_{\bm{e}_i}r_{[\bm{W},\sigma^2]}(\bm{v});L^2(\mathbb{R}^p)	\|.
   \end{split}
 \end{equation*}
 Taking supremum yields
 \begin{equation*}
   \sup_{\abs{\bm{u}} = 1}
-  \|D_{\bm{u}}r_{[\bm{A},s]}(\bm{v}+t\bm{h})- D_{\bm{u}}r_{[\bm{A},s]}(\bm{v})
+  \|D_{\bm{u}}r_{[\bm{W},\sigma^2]}(\bm{v}+t\bm{h})- D_{\bm{u}}r_{[\bm{W},\sigma^2]}(\bm{v})
   ;L^2(\mathbb{R}^p)	\|  \leqslant 
-  \sqrt{d} \max_{i=1, \ldots, d} \|D_{\bm{e}_i}r_{[\bm{A},s]}(\bm{v}+t\bm{h}) - 
-  D_{\bm{e}_i}r_{[\bm{A},s]}(\bm{v});L^2(\mathbb{R}^p)	\|.
+  \sqrt{d} \max_{i=1, \ldots, d} \|D_{\bm{e}_i}r_{[\bm{W},\sigma^2]}(\bm{v}+t\bm{h}) - 
+  D_{\bm{e}_i}r_{[\bm{W},\sigma^2]}(\bm{v});L^2(\mathbb{R}^p)	\|.
 \end{equation*}
-Given that $D_{\bm{e}_i}r_{[\bm{A},s]}(\bm{v}+t\bm{h}) 
-\to D_{\bm{e}_i}r_{[\bm{A},s]}(\bm{v})$
+Given that $D_{\bm{e}_i}r_{[\bm{W},\sigma^2]}(\bm{v}+t\bm{h}) 
+\to D_{\bm{e}_i}r_{[\bm{W},\sigma^2]}(\bm{v})$
 in $L^2(\mathbb{R}^p)$
 as $\bm{h} \to \bm{0}$
 for every $i$, every $t$, and every $\bm{v}$,
@@ -1173,81 +1335,80 @@ the proof of Fréchet differentiability is complete.
 Finally,
 the formulas \eqref{eq:Sigma_derivative}, \eqref{eq:l_derivative},
 and \eqref{eq:r_derivative}
-simplifies greatly when $\bm{v} = \bm{0}$:
+simplifies when $\bm{v} = \bm{0}$:
 \begin{equation*}
   \begin{split}
-  & \tab[0.4cm] D_{\bm{h}}r_{[\bm{A},s]}(\bm{0})(\bm{x})
-  = \frac{1}{2} r_{[\bm{A},s]}(\bm{0})(\bm{x}) D_{\bm{h}}l_{[\bm{A},s]}(\bm{0})(\bm{x})
-  \\ & = \frac{1}{4} \sqrt{p(\bm{x}; [\bm{A},s])}
-  \tr \curly{\bracket{\bm{\Sigma}([\bm{A},s])}^{-1}
-  \squared{\bm{x}\bm{x}^T - \bracket{\bm{\Sigma}([\bm{A},s])}}
-  \bracket{\bm{\Sigma}([\bm{A},s])}^{-1} \bracket{D_{\bm{h}}\bm{\Sigma}([\bm{A},s])}}.
+  & \tab[0.4cm] D_{\bm{h}}r_{[\bm{W},\sigma^2]}(\bm{0})(\bm{x})
+  = \frac{1}{2} r_{[\bm{W},\sigma^2]}(\bm{0})(\bm{x}) D_{\bm{h}}l_{[\bm{W},\sigma^2]}(\bm{0})(\bm{x})
+  \\ & = \frac{1}{4} \sqrt{p(\bm{x}; [\bm{W},\sigma^2])}
+  \tr \curly{\bracket{\bm{\Sigma}([\bm{W},\sigma^2])}^{-1}
+  \squared{\bm{x}\bm{x}^T - \bracket{\bm{\Sigma}([\bm{W},\sigma^2])}}
+  \bracket{\bm{\Sigma}([\bm{W},\sigma^2])}^{-1} \bracket{D_{\bm{h}}\bm{\Sigma}([\bm{W},\sigma^2])}}.
   \end{split}
 \end{equation*}
-The score $s(\bm{x}; [\bm{A},s])(\bm{h})$
-therefore equals to $D_{\bm{h}}l_{[\bm{A},s]}(\bm{0})(\bm{x})$
+The score $s(\bm{x}; [\bm{W},\sigma^2])(\bm{h})$
+therefore equals to $D_{\bm{h}}l_{[\bm{W},\sigma^2]}(\bm{0})(\bm{x})$
 and is indeed given by \eqref{eq:score}.
 The Fisher information operator \eqref{eq:G_def} is obtained 
 by taking $\bm{v} = \bm{0}$ in \eqref{eq:fisher_computation}.
-To show that $G_{[\bm{A},s]}$ is positive definite,
-let $\bm{h} \in T_{[\bm{A},s]}M$ be given.
-We show that $G_{[\bm{A},s]}(\bm{h},\bm{h}) \geqslant 0$
+To show that $G_{[\bm{W},\sigma^2]}$ is positive definite,
+let $\bm{h} \in T_{[\bm{W},\sigma^2]}M$ be given.
+We show that $G_{[\bm{W},\sigma^2]}(\bm{h},\bm{h}) \geqslant 0$
 and equality holds only when $\bm{h} = \bm{0}$.
-The non-negative part is clear from \eqref{eq:G_def}
-\eqref{eq:G_def}:
+The non-negative part is clear from \eqref{eq:G_def}:
 
 \begin{equation*}
-  G_{[\bm{A},s]}(\bm{h},\bm{h}) = 
-  \frac{1}{2}\tr \curly{ \squared{\bracket{\bm{\Sigma}([\bm{A},s])}^{-1}
-  D_{\bm{h}}\bm{\Sigma}([\bm{A},s])}^2 } \geqslant 0.
+  G_{[\bm{W},\sigma^2]}(\bm{h},\bm{h}) = 
+  \frac{1}{2}\tr \curly{ \squared{\bracket{\bm{\Sigma}([\bm{W},\sigma^2])}^{-1}
+  D_{\bm{h}}\bm{\Sigma}([\bm{W},\sigma^2])}^2 } \geqslant 0.
 \end{equation*}
 Assume from now on that the equality holds.
 A slight annoyance here is that the product of
 two symmetric matrices is not necessarily symmetric
 and we cannot immediately conclude that 
-$D_{\bm{h}}\bm{\Sigma}([\bm{A},s]) = \bm{0}$.
+$D_{\bm{h}}\bm{\Sigma}([\bm{W},\sigma^2]) = \bm{0}$.
 We easily overcome this difficulty 
 by using the cyclic property of the trace 
 to get a symmetric matrix 
 
 \begin{equation*}
-  \bm{N} := \bracket{\bm{\Sigma}([\bm{A},s])}^{-\frac{1}{2}}
-  D_{\bm{h}}\bm{\Sigma}([\bm{A},s]) 
-  \bracket{\bm{\Sigma}([\bm{A},s])}^{-\frac{1}{2}}
+  \bm{N} := \bracket{\bm{\Sigma}([\bm{W},\sigma^2])}^{-\frac{1}{2}}
+  D_{\bm{h}}\bm{\Sigma}([\bm{W},\sigma^2]) 
+  \bracket{\bm{\Sigma}([\bm{W},\sigma^2])}^{-\frac{1}{2}}
 \end{equation*}
 such that 
 
 \begin{equation*}
-  0=G_{[\bm{A},s]}(\bm{h},\bm{h}) = 
+  0=G_{[\bm{W},\sigma^2]}(\bm{h},\bm{h}) = 
   \frac{1}{2}\tr(\bm{N}^2).
 \end{equation*}
 Therefore, $\bm{N} = \bm{0}$
-and $D_{\bm{h}}\bm{\Sigma}([\bm{A},s]) = \bm{0}$.
+and $D_{\bm{h}}\bm{\Sigma}([\bm{W},\sigma^2]) = \bm{0}$.
 Now \eqref{eq:Sigma_directional}
 reads the same as \eqref{eq:ker_Phi_equation}
 in the proof of Proposition~\ref{thm:horizontal_verticle}.
-We therefore get $(\bm{U},b) \in \ker(d\Phi_{(\bm{A},s)}) = V_{(\bm{A},s)}$.
+We therefore get $(\bm{U},b) \in \ker(d\Phi_{(\bm{W},\sigma^2)}) = V_{(\bm{W},\sigma^2)}$.
 However, being lifted from $\bm{h}$,
 $(\bm{U},b)$ must also be a horizontal vector.
 Therefore, $\bm{h} = \bm{0}$.
-We have proven that $G_{[\bm{A},s]}$ is positive definite.
+We have proven that $G_{[\bm{W},\sigma^2]}$ is positive definite.
 \end{proof}
 
 \begin{proposition}\label{thm:LAN}
-Suppose that $[\bm{A},s] \in M$ is the true parameter
-so that each $\bm{X}_i$ has density $p(\, \cdot \,; [\bm{A},s])$ as in \eqref{eq:p_def}.
+Suppose that $[\bm{W},\sigma^2] \in M$ is the true parameter
+so that each $\bm{X}_i$ has density $p(\, \cdot \,; [\bm{W},\sigma^2])$ as in \eqref{eq:p_def}.
 We have the local asymptotic normality expansion
 \begin{equation}\label{eq:LAN_expansion}
-  \sum_{i=1}^n \log \frac{p\bracket{\bm{X}_i; \text{Exp}_{[\bm{A},s]}\bracket{\frac{\bm{h}}{\sqrt{n}}}}}{p(\bm{X}_i; [\bm{A},s])}
-  = \sum_{i=1}^n s(\bm{X}_i;[\bm{A},s])\bracket{\frac{\bm{h}}{\sqrt{n}}}
-  - \frac{1}{2} G_{[\bm{A},s]}(\bm{h},\bm{h}) + o_{\mathbb{P}}(1)
+  \sum_{i=1}^n \log \frac{p\bracket{\bm{X}_i; \text{Exp}_{[\bm{W},\sigma^2]}\bracket{\frac{\bm{h}}{\sqrt{n}}}}}{p(\bm{X}_i; [\bm{W},\sigma^2])}
+  = \sum_{i=1}^n s(\bm{X}_i;[\bm{W},\sigma^2])\bracket{\frac{\bm{h}}{\sqrt{n}}}
+  - \frac{1}{2} G_{[\bm{W},\sigma^2]}(\bm{h},\bm{h}) + o_{\mathbb{P}}(1)
 \end{equation}
 whenever $n$ large enough that
-$\frac{\bm{h}}{\sqrt{n}} \in \mathcal{E}_{[\bm{A},s]}$.
+$\frac{\bm{h}}{\sqrt{n}} \in \mathcal{E}_{[\bm{W},\sigma^2]}$.
 In particular,
 \begin{equation}\label{eq:LAN_weak_convergence}
-  \sum_{i=1}^n \log \frac{p\bracket{\bm{X}_i; \text{Exp}_{[\bm{A},s]}\bracket{\frac{\bm{h}}{\sqrt{n}}}}}{p(\bm{X}_i; [\bm{A},s])}
-  \to N \bracket{-\frac{1}{2}G_{[\bm{A},s]}(\bm{h},\bm{h}), \, G_{[\bm{A},s]}(\bm{h},\bm{h})}
+  \sum_{i=1}^n \log \frac{p\bracket{\bm{X}_i; \text{Exp}_{[\bm{W},\sigma^2]}\bracket{\frac{\bm{h}}{\sqrt{n}}}}}{p(\bm{X}_i; [\bm{W},\sigma^2])}
+  \to N \bracket{-\frac{1}{2}G_{[\bm{W},\sigma^2]}(\bm{h},\bm{h}), \, G_{[\bm{W},\sigma^2]}(\bm{h},\bm{h})}
 \end{equation}
 in distribution as $n \to \infty$.
 \end{proposition}
@@ -1259,7 +1420,269 @@ this follows from Proposition III.1 in \cite{Sun_Lin_Liu_2026}.
 \end{proof}
 
 \section{Properties of the Maximum Likelihood Estimator of $\mathcal{P}$}\label{sec:MLE}
-We now move to the core of the subject.
+
+In this section, we assume that 
+there is a true parameter $[\bm{W}_0, \sigma_0^2] \in M$
+for the model $\mathcal{P}$ given in \eqref{eq:quotient_model}
+and we investigate the consistency and asymptotic normality
+of the maximum likelihood estimator towards this true parameter.
+
+More concretely,
+given data points $\bm{x}_1, \ldots, \bm{x}_n \in \mathbb{R}^p$,
+we consider them as realizations of independent 
+identically distributed random 
+variables $\bm{X}_1, \ldots, \bm{X}_n$
+whose true density is $p(\bm{x}; [\bm{W}_0, \sigma_0^2])$,
+where $p$ is given in \eqref{eq:p_def}.
+In what follows, 
+we denote the true covariance 
+matrix by 
+\begin{equation}
+  \bm{\Sigma}_0 := \bm{\Sigma}([\bm{W}_0, \sigma_0^2])
+= \bm{W}_0\bm{W}_0^T + \sigma_0^2\bm{I}_p.
+\end{equation}
+The eigenvalues of the true covariance matrix are
+
+\begin{equation}\label{eq:lambda_j_Sigma_0}
+  \lambda_j(\bm{\Sigma}_0)
+  = 
+  \begin{cases}
+    \sigma_j(\bm{W}_0)^2 + \sigma_0^2 \tab[4.0cm] j = 1, \ldots, q \\
+    \sigma_0^2                        \tab[6.0cm] j = q+1, \ldots, p.
+  \end{cases}
+\end{equation}
+The sample covariance matrix is defined by 
+
+\begin{equation}
+  \bm{S}_n = \frac{1}{n} \sum_{i=1}^n \bm{x}_i\bm{x}_i^T.
+\end{equation}
+Given that we will discuss $\bm{S}_n$ a lot, 
+we shall write $\lambda_j$ in place of $\lambda_j(\bm{S}_n)$.
+We need also to fix one choice of 
+orthonormal basis of eigenvectors $\bm{v}_1, \ldots, \bm{v}_p$
+where $\bm{v}_j = \bm{v}_j(\bm{S}_n)$ corresponds to the eigenvalue $\lambda_j$.
+The facts we will use 
+repeatedly is that, when $p$ and $q$ are both fixed,
+$\bm{S}_n \to \bm{\Sigma}_0$ almost surely as $n \to \infty$
+and, due to the fact that eigenvalues depends continuously 
+on the matrices, $\lambda_j \to \lambda_j(\bm{\Sigma}_0)$
+almost surely as $n \to \infty$.
+
+We now formulate the maximum likelihood estimator as 
+computed 
+in \cite{Tipping_Bishop_1999}.
+Put $\bm{U} = [\bm{v}_1, \ldots, \bm{v}_q]$, a $p \times q$ matrix, and 
+$\Delta_q$ to be a $q \times q$ diagonal matrix with diagonal entries $\lambda_1,
+\ldots, \lambda_q$.
+Then, the collection of all choices 
+of $(\hat{\bm{W}}_n, \hat{\sigma}_n^2)$ maximizing the likelihood 
+is given by
+
+\begin{equation}
+  \hat{\bm{W}}_n = \bm{U} \bracket{\Delta_q - \hat{\sigma}_n^2\bm{I}_q}^{\frac{1}{2}}\bm{R}
+\end{equation}
+and 
+\begin{equation}
+  \hat{\sigma}_n^2 = \frac{1}{p-q} \sum_{j=q+1}^p\lambda_j,
+\end{equation}
+ranged over all rotation matrices $\bm{R} \in O(q)$.
+
+It is immediately clear from \eqref{eq:lambda_j_Sigma_0}
+that, almost surely, for all sufficiently large $n$,
+$\lambda_j > 0$ for all $j$ and $\hat{\sigma}_n^2 > 0$
+so that $\hat{\sigma}_n^2$ is well-defined.
+Also, $\hat{\sigma}_n^2 \to \hat{\sigma}_0^2$
+almost surely as $n \to \infty$.
+Another look at \eqref{eq:lambda_j_Sigma_0}
+shows that, almost surely, for all sufficiently large $n$, 
+$\lambda_j - \hat{\sigma}_n^2 > 0$
+for all $j \in \{1, \ldots, q\}$
+and $\text{rank}(\hat{\bm{W}}_n) = q$
+so that $\hat{\bm{W}}_n$ is well-defined.
+Thus, almost surely, for all sufficiently large $n$, 
+the same model parametrized by $M$
+has a unique maximum likelihood estimator 
+$\squared{\hat{\bm{W}}_n,\hat{\sigma}_n^2}$.
+
+First of all, I would like to argue that 
+this quotient manifold parameter space allows 
+us to settle consistency in an (arguably more straightforward) 
+way that does not use
+\cite{Datta_Chakrabarty_2023}
+or \cite{Redner_1981}.
+
+\begin{theorem}
+The maximum likelihood estimator is consistent.
+That is,
+$\squared{\hat{\bm{W}}_n,\hat{\sigma}_n^2} \to \squared{\bm{W}_0,\sigma_0^2}$
+almost surely as $n \to \infty$.
+\end{theorem}
+\begin{proof}
+Put
+
+\begin{equation}
+  \hat{\bm{\Sigma}}_n := \bm{\Sigma}\bracket{ \squared{\hat{\bm{W}}_n,\hat{\sigma}_n^2}}
+  = \hat{\bm{W}}_n\hat{\bm{W}}_n^T + \hat{\sigma}_n^2\bm{I}_p.
+\end{equation}
+In light of 
+Proposition~\ref{thm:quotient_limit}
+and the fact that $\hat{\sigma}_n^2$ is consistent,
+it suffices to prove that 
+$\hat{\bm{\Sigma}}_n \to \bm{\Sigma}_0$
+almost surely as $n \to \infty$.
+The fact that $\sum_{j=1}^p \bm{v}_j\bm{v}_j^T = \bm{I}_p$
+allows us to write
+
+\begin{equation*}
+\hat{\bm{\Sigma}}_n =   \bm{U} \bracket{\Delta_q - \hat{\sigma}_n^2\bm{I}_q}\bm{U}^T + \hat{\sigma}_n^2 \bm{I}_p
+= \sum_{j=1}^q (\lambda_j-\hat{\sigma}_n^2)\bm{v}_j\bm{v}_j^T + \hat{\sigma}_n^2 \bm{I}_p
+= \sum_{j=1}^q \lambda_j\bm{v}_j\bm{v}_j^T + \hat{\sigma}_n^2 \sum_{j=q+1}^p \bm{v}_j\bm{v}_j^T
+\end{equation*}
+and 
+\begin{equation*}
+\bm{S}_n = \bm{S}_n \sum_{j=1}^p \bm{v}_j\bm{v}_j^T = \sum_{j=1}^p \lambda_j\bm{v}_j\bm{v}_j^T.
+\end{equation*}
+Thus, 
+\begin{equation*}
+\hat{\bm{\Sigma}}_n-\bm{S}_n = \sum_{j=q+1}^p \bracket{\hat{\sigma}_n^2-\lambda_j} \bm{v}_j\bm{v}_j^T
+\end{equation*}
+and 
+\begin{equation*}
+	\|\hat{\bm{\Sigma}}_n-\bm{S}_n	\| \leqslant \sum_{j=q+1}^p \abs{\hat{\sigma}_n^2-\lambda_j} \|\bm{v}_j\bm{v}_j^T\| = 
+  \sum_{j=q+1}^p \abs{\hat{\sigma}_n^2-\lambda_j}.
+\end{equation*}
+Therefore, given that both $\hat{\sigma}_n^2$ and $\lambda_j$ 
+will converge almost surely to $\sigma_0^2$ when $j \in \{q+1,\ldots,p\}$,
+ $\|\hat{\bm{\Sigma}}_n-\bm{S}_n	\| \to 0 $ almost surely as $n \to \infty$.
+The proof is complete.
+\end{proof}
+
+We now move to prove that,
+locally at the true parameter, 
+the maximum likelihood estimator 
+is asymptotically normal in the tangent space 
+of the true parameter by local linearity.
+Given that the manifold is locally Euclidean,
+this result can be attacked 
+with 
+the classical approach,
+namely by verifying conditions of 
+Theorem 5.23 in \cite{van_der_Vaart_1998},
+without too much 
+use of geometric analysis.
+We start with computational lemmas.
+
+\begin{lemma}
+Given $[\bm{W}, \sigma^2] \in M$,
+there exists a function $m: \mathbb{R}^p \to \mathbb{R}$
+such that, whenever 
+$\bm{v}_1$, $\bm{v}_2 \in \mathcal{E}_{[\bm{W}, \sigma^2]}$
+and $\bm{x} \in \mathbb{R}^p$, we always have 
+
+\begin{equation*}
+  \abs{l_{[\bm{W}, \sigma^2]}(\bm{v}_1)(\bm{x})-l_{[\bm{W}, \sigma^2]}(\bm{v}_2)(\bm{x})} 
+  \leqslant m(\bm{x}) \abs{\bm{v}_1-\bm{v}_2}.
+\end{equation*}
+This $m$ has its second moment 
+under any distribution $\mu$ on $\mathbb{R}^p$ that 
+has the fourth moment.
+That is,
+
+\begin{equation*}
+  \int_{\mathbb{R}^p} (m(\bm{x}))^2 \mathrm{d} \mu(\bm{x}) < \infty
+\end{equation*}
+whenever 
+\begin{equation*}
+  \int_{\mathbb{R}^p} \abs{\bm{x}}^4 \mathrm{d} \mu(\bm{x}) < \infty.
+\end{equation*}
+\end{lemma}
+\begin{proof}
+Given $[\bm{W}, \sigma^2] \in M$,
+the result will follow by the mean value inequality 
+if we can find a function $m$ such that 
+
+\begin{equation*}
+  \abs{D_{\bm{h}}l_{[\bm{W}, \sigma^2]}(\bm{v})(\bm{x})} \leqslant m(\bm{x})
+\end{equation*}
+for all unit vector $\bm{h} \in T_{[\bm{W}, \sigma^2]}M$,
+all $\bm{v} \in \mathcal{E}_{[\bm{W}, \sigma^2]}$,
+and all $\bm{x} \in \mathbb{R}^p$.
+Given that we have proved in Proposition~\ref{thm:DQM}
+that $\bracket{\bm{\Sigma}(\text{Exp}_{[\bm{W},\sigma^2]}(\bm{v}))}^{-1}$
+is continuous in $\bm{v}$ 
+and that $D_{\bm{h}}\bm{\Sigma}(\text{Exp}_{[\bm{W},\sigma^2]}(\bm{v}))$
+is continuous in both $\bm{h}$ and $\bm{v}$,
+we choose constants $C_1 \in (0, \infty)$ and $C_2 \in (0, \infty)$
+such that 
+
+\begin{equation*}
+  \frac{1}{2}\left \|\bracket{\bm{\Sigma}(\text{Exp}_{[\bm{W},\sigma^2]}(\bm{v}))}^{-1}
+  \bracket{D_{\bm{h}}\bm{\Sigma}(\text{Exp}_{[\bm{W},\sigma^2]}(\bm{v}))}
+  \bracket{\bm{\Sigma}(\text{Exp}_{[\bm{W},\sigma^2]}(\bm{v}))}^{-1} \right \|_F
+  \leqslant C_1
+\end{equation*}
+and 
+\begin{equation*}
+  \frac{1}{2}\left \|\bracket{\bm{\Sigma}(\text{Exp}_{[\bm{W},\sigma^2]}(\bm{v}))}^{-1}
+  \bracket{D_{\bm{h}}\bm{\Sigma}(\text{Exp}_{[\bm{W},\sigma^2]}(\bm{v}))} \right \|_F
+  \leqslant C_2
+\end{equation*}
+for all all unit vector $\bm{h} \in T_{[\bm{W}, \sigma^2]}M$ and
+all $\bm{v} \in \mathcal{E}_{[\bm{W}, \sigma^2]}$,
+thanks to the fact that $\abs{\bm{v}} < \min(\sigma_{\text{min}}(\bm{W}),\sigma^2)$
+for all $\bm{v} \in \mathcal{E}_{[\bm{W}, \sigma^2]}$
+from Proposition~\ref{thm:exponential_map}.
+By \eqref{eq:l_derivative},
+we have 
+
+\begin{equation*}
+  \begin{split}
+  \abs{D_{\bm{h}}l_{[\bm{W}, \sigma^2]}(\bm{v})(\bm{x})} & 
+  \leqslant \frac{1}{2} 	\|\bm{x}\bm{x}^T\|_F 
+  \left \|\bracket{\bm{\Sigma}(\text{Exp}_{[\bm{W},\sigma^2]}(\bm{v}))}^{-1}
+  \bracket{D_{\bm{h}}\bm{\Sigma}(\text{Exp}_{[\bm{W},\sigma^2]}(\bm{v}))}
+  \bracket{\bm{\Sigma}(\text{Exp}_{[\bm{W},\sigma^2]}(\bm{v}))}^{-1} \right \|_F
+  \\ & + \frac{1}{2}
+  \left \|\bracket{\bm{\Sigma}(\text{Exp}_{[\bm{W},\sigma^2]}(\bm{v}))}^{-1}
+  \bracket{D_{\bm{h}}\bm{\Sigma}(\text{Exp}_{[\bm{W},\sigma^2]}(\bm{v}))} \right \|_F
+  \leqslant C_1 	\bm{x}^T\bm{x}
+  + C_2
+  \end{split}
+\end{equation*}
+Setting $m(\bm{x}) = C_1 	\bm{x}^T\bm{x}
+  + C_2$ will finish the proof.
+\end{proof}
+
+\begin{lemma}
+Define function $L:\mathcal{E}_{[\bm{W}_0, \sigma_0^2]}\to \mathbb{R}$
+by setting, for all $\bm{v} \in \mathcal{E}_{[\bm{W}_0, \sigma_0^2]}$,
+
+\begin{equation*}
+  L(\bm{v}) = \int_{\mathbb{R}^p} l_{[\bm{W}_0, \sigma_0^2]}(\bm{v})(\bm{x})
+  p(\bm{x}; \bm{\Sigma}_0) \mathrm{d} \bm{x}.
+\end{equation*}
+Then $\bm{0}$ is the unique maximizer of $L$ and,
+for all $\bm{v} \in \mathcal{E}_{[\bm{W}_0, \sigma_0^2]}$:
+
+\begin{equation*}
+  L(\bm{v}) = L(\bm{0}) - \frac{1}{2} G_{[\bm{W}_0, \sigma_0^2]}(\bm{v},\bm{v}) + R(\bm{v})
+\end{equation*}
+with the remainder of the second order Taylor exapnsion satisfying
+
+\begin{equation*}
+  \lim_{\abs{\bm{v}} \to 0} \frac{R(\bm{v})}{\abs{\bm{v}}^2} = 0.
+\end{equation*}
+\end{lemma}
+
+\begin{proof}
+One should immediately recognize that 
+$L(\bm{v})$ is the Kullback-Leibler divergence of the true model 
+$N_p(\bm{0}, \bm{\Sigma}_0)$
+with respect to the 
+model $N_p \bracket{\bm{0}, \bm{\Sigma} \bracket{\text{Exp}_{[\bm{W}_0, \sigma_0^2]}(\bm{v})}}$.
+\end{proof}
+
+
 
 \chapter{Draft}
 
@@ -1452,7 +1875,7 @@ of $E_1, \ldots, E_r$; two orthonormal bases of the same $m_k$-dimensional
 space differ precisely by right multiplication by an element of $O(m_k)$.
 
 2. This is the Courant--Fischer min-max theorem
-(\cite{Horn_Johnson_2013}, Section 4.2).
+(\citealp{Horn_Johnson_2013}, Section 4.2).
 The convexity of $\lambda_1$ and the concavity of $\lambda_p$ follow
 because $\bm{S} \mapsto \bm{v}^T\bm{S}\bm{v}$ is linear for each fixed
 $\bm{v}$, and a pointwise supremum, respectively infimum, of linear
@@ -1552,7 +1975,7 @@ $\bm{S}_n$ be as in \eqref{eq:Sigma_0_def}.
   \item $n\bm{S}_n$ follows the Wishart law $W_p(n, \bm{\Sigma}_0)$, and
   for $n \geqslant p$ its distribution has a density with respect to the
   Lebesgue measure of $\text{Sym}(p)$
-  (\cite{Gupta_Nagar_2000}, Chapter 3).
+  (\citealp{Gupta_Nagar_2000}, Chapter 3).
   \item $\bm{S}_n$ is an unbiased estimator of $\bm{\Sigma}_0$, and for
   all $\bm{B}, \bm{C} \in \text{Sym}(p)$ and all
   $i,j,k,l \in \{1,\ldots,p\}$,
@@ -1659,7 +2082,7 @@ only through $\bm{s}_n$.
 Gaussian variables, hence integrable with finite second moments, so the
 strong law of large numbers applied to each of the finitely many entries
 gives $\bm{S}_n \to \bm{\Sigma}_0$ almost surely, and the multivariate
-central limit theorem (\cite{van_der_Vaart_1998}, Chapter 2) applied to
+central limit theorem (\citealp{van_der_Vaart_1998}, Chapter 2) applied to
 the independent and identically distributed random elements
 $\bm{X}_i\bm{X}_i^T$ of the $\frac{p(p+1)}{2}$-dimensional Euclidean space
 $\text{Sym}(p)$ gives \eqref{eq:S_n_CLT}, the covariance of the limit
@@ -2487,7 +2910,7 @@ $\bm{H} \mapsto \frac{1}{n}(\bm{H}^T\bm{Y} + \bm{Y}^T\bm{H})$,
 which is onto $\text{Sym}(p)$: given $\bm{B} \in \text{Sym}(p)$,
 the choice $\bm{H} = \frac{n}{2}\bm{Y}^{-T}\bm{B}$ returns $\bm{B}$.
 Thus $T$ is a smooth submersion, and by the rank theorem
-(\cite{Lee_2013}, Theorem 4.12) every point has a neighbourhood on which
+(\citealp{Lee_2013}, Theorem 4.12) every point has a neighbourhood on which
 $T$ is, up to diffeomorphisms, a linear projection
 $\mathbb{R}^{p^2} \to \mathbb{R}^{\frac{p(p+1)}{2}}$.
 Since preimages of Lebesgue null sets under such projections are
@@ -3806,7 +4229,7 @@ linear sequences, gives $\bm{C}\bm{G} = \bm{I}_d$, that is
 $\bm{C} = \bm{G}^{-1}$.
 \end{proof}
 
-\begin{remark}
+\begin{remark}\label{rmk:MLE_CLT_comments}
 Three comments on the content of Theorem~\ref{thm:MLE_CLT}.
 
 First, \eqref{eq:MLE_CLT_procrustes} is the well posed replacement of the
@@ -4000,7 +4423,7 @@ $\Theta$ projecting to $\gamma$.
 Because $\pi$ is a Riemannian submersion, the horizontal lift of the
 covariant derivative $D_t\bm{x}$ along $\gamma$ is the horizontal part of
 the covariant derivative of the lift along $c$
-(\cite{O_neill_1967}, Section 2; \cite{Valencia_2021}, Section 3).
+(\citealp{O_neill_1967}, Section 2; \citealp{Valencia_2021}, Section 3).
 The statement there is for basic vector fields, and it extends to fields
 along a curve because both sides of the identity are $\mathbb{R}$-linear,
 satisfy the Leibniz rule in the scalar factor, and agree on fields that
@@ -4044,7 +4467,7 @@ $\bm{X}(t)$, with coefficients smooth in $t$ and in
 $(\bm{A},\bm{V},c)$ by part 1; solutions therefore exist on all of $[0,1]$
 and depend smoothly on the initial condition and on the parameters, by the
 standard theory of linear systems and smooth dependence
-(\cite{Lee_2013}, Theorem D.1 and Theorem D.6).
+(\citealp{Lee_2013}, Theorem D.1 and Theorem D.6).
 For the preservation of horizontality, let $\bm{X}$ solve
 \eqref{eq:transport_ODE} and put again
 $\bm{S}(t) := \bm{A}_t^T\bm{X}(t) - \bm{X}(t)^T\bm{A}_t$.
@@ -4148,7 +4571,7 @@ $\mathcal{N}\ni(\theta_0,\bm{0})$ in $\mathcal{E}$ and
 $\mathcal{D}\ni(\theta_0,\theta_0)$ in $M\times M$ such that
 $E:\mathcal{N}\to\mathcal{D}$ is a diffeomorphism.
 This is the standard construction of uniformly normal neighbourhoods
-(\cite{Lee_2018}, Theorem 5.14 and its proof); note that completeness of
+(\citealp{Lee_2018}, Theorem 5.14 and its proof); note that completeness of
 $M$, which fails here, is nowhere used, only the openness of the domain
 $\mathcal{E}$ of $\text{Exp}$.
 Writing $E^{-1}(x,y) = (x, \Xi(x,y))$, the map $\Xi$ is smooth on
@@ -4973,6 +5396,207 @@ Proposition~\ref{thm:LAN} as stated does not provide; we do not need it
 anywhere.
 \end{remark}
 
+The last consequence records what all of this says about the object the
+model is really about, namely the fitted covariance matrix.
+It is the analogue of Corollary 5.5 of the companion draft.
+Recall from \eqref{eq:Sigma_directional} that
+\begin{equation}\label{eq:D_0_def}
+  \mathcal{D}_0 : T_{\theta_0}M \longrightarrow \text{Sym}(p),
+  \qquad
+  \mathcal{D}_0(\bm{h}) := D_{\bm{h}}\bm{\Sigma}(\theta_0)
+  = \bm{U}_{\bm{h}}\bm{W}_0^T + \bm{W}_0\bm{U}_{\bm{h}}^T
+  + b_{\bm{h}}\bm{I}_p
+\end{equation}
+is linear; it is the differential $d\bm{\Sigma}_{\theta_0}$ of the map
+$\bm{\Sigma}$ of \eqref{eq:Sigma_Phi_def}, read through the exponential
+chart.
+We write $\hat{\bm{\Sigma}}_n := \bm{\Sigma}(\hat{\theta}_n)
+= \hat{\bm{W}}_n\hat{\bm{W}}_n^T + \hat{\sigma}_n^2\bm{I}_p$ for the
+fitted covariance matrix, which unlike $\hat{\theta}_n$ itself is an
+honest element of the fixed vector space $\text{Sym}(p)$.
+
+\begin{corollary}[Covariance level central limit theorem]\label{thm:Sigma_CLT}
+Let $1\leqslant q<p$ and $\theta_0 \in M$.
+\begin{enumerate}
+  \item Under $\mathbb{P}^n_{\theta_0}$ the fitted covariance matrix is
+  asymptotically linear in $\text{Sym}(p)$ with influence function
+  $\mathcal{D}_0\circ\text{IF}$,
+  \begin{equation}\label{eq:Sigma_linear}
+    \sqrt{n}\bracket{\hat{\bm{\Sigma}}_n - \bm{\Sigma}_0}
+    = \frac{1}{\sqrt{n}}\sum_{i=1}^n
+    \mathcal{D}_0\bracket{\text{IF}(\bm{X}_i)} + o_{\mathbb{P}}(1),
+  \end{equation}
+  and consequently
+  \begin{equation}\label{eq:Sigma_CLT}
+    \sqrt{n}\bracket{\hat{\bm{\Sigma}}_n - \bm{\Sigma}_0}
+    \rightsquigarrow \mathcal{D}_0(\bm{Z}),
+    \qquad \bm{Z} \sim N\bracket{\bm{0},G^{-1}_{\theta_0}}
+    \text{ on } T_{\theta_0}M .
+  \end{equation}
+  The limit is a centred Gaussian law on $\text{Sym}(p)$ carried by the
+  $d$-dimensional subspace $\mathcal{D}_0(T_{\theta_0}M)$, the tangent
+  space at $\bm{\Sigma}_0$ to the immersed submanifold
+  $\bm{\Sigma}(M)$ of Proposition~\ref{thm:horizontal_verticle}; it is
+  degenerate in $\text{Sym}(p)$ exactly when $p - q \geqslant 2$, the
+  codimension being
+  \begin{equation}\label{eq:Sigma_codim}
+    \frac{p(p+1)}{2} - d = \frac{(p-q+2)(p-q-1)}{2} .
+  \end{equation}
+  \item The convergence \eqref{eq:Sigma_CLT} is locally regular: for
+  every $\bm{h} \in T_{\theta_0}M$,
+  \begin{equation}\label{eq:Sigma_regular}
+    \sqrt{n}\bracket{\hat{\bm{\Sigma}}_n
+    - \bm{\Sigma}\bracket{\theta_{n,\bm{h}}}}
+    \rightsquigarrow \mathcal{D}_0(\bm{Z})
+    \qquad \text{under } \mathbb{P}^n_{\theta_{n,\bm{h}}},
+  \end{equation}
+  with the same limit law, free of $\bm{h}$.
+\end{enumerate}
+Explicitly, $\hat{\bm{\Sigma}}_n$ retains the $q$ leading eigenpairs of
+$\bm{S}_n$ and replaces the trailing $p-q$ eigenvalues by their average,
+by \eqref{eq:fitted_covariance}, and the blocks of $\mathcal{D}_0(\bm{Z})$
+in the singular basis of $\bm{W}_0$ are computed in
+Theorem~\ref{thm:MLE_CLT_coordinates} and
+Remark~\ref{rmk:IF_vs_S_n}.
+\end{corollary}
+
+\begin{proof}
+\textbf{1.}
+On $\mathcal{A}_n$ we have $\hat{\theta}_n
+= \text{Exp}_{\theta_0}(\hat{\bm{u}}_n)$, so
+\eqref{eq:Sigma_u_quadratic} applied at $\bm{u} = \hat{\bm{u}}_n$ is the
+\textit{exact} identity
+\begin{equation}\label{eq:Sigma_hat_exact}
+  \hat{\bm{\Sigma}}_n - \bm{\Sigma}_0
+  = \mathcal{D}_0(\hat{\bm{u}}_n)
+  + \bm{U}_{\hat{\bm{u}}_n}\bm{U}_{\hat{\bm{u}}_n}^T
+  \qquad \text{on } \mathcal{A}_n ,
+\end{equation}
+with no remainder, because $\text{Exp}_{\theta_0}$ is affine in the
+horizontal lift by Proposition~\ref{thm:exponential_map}.
+Since $\iota$ is a linear isometry,
+$\|\bm{U}_{\hat{\bm{u}}_n}\bm{U}_{\hat{\bm{u}}_n}^T\|_F
+\leqslant \|\bm{U}_{\hat{\bm{u}}_n}\|_F^2
+\leqslant \abs{\hat{\bm{u}}_n}^2$, and
+$\abs{\hat{\bm{u}}_n} = O_{\mathbb{P}}(n^{-\frac{1}{2}})$ by
+\eqref{eq:MLE_CLT}; hence
+$\sqrt{n}\|\bm{U}_{\hat{\bm{u}}_n}\bm{U}_{\hat{\bm{u}}_n}^T\|_F
+= O_{\mathbb{P}}(n^{-\frac{1}{2}}) = o_{\mathbb{P}}(1)$.
+Multiplying \eqref{eq:Sigma_hat_exact} by $\sqrt{n}$ therefore gives
+\begin{equation}\label{eq:Sigma_delta}
+  \sqrt{n}\bracket{\hat{\bm{\Sigma}}_n - \bm{\Sigma}_0}
+  = \mathcal{D}_0\bracket{\sqrt{n}\,\hat{\bm{u}}_n} + o_{\mathbb{P}}(1)
+  \qquad \text{on } \mathcal{A}_n ,
+\end{equation}
+and the restriction to $\mathcal{A}_n$ is harmless: the two sides of
+\eqref{eq:Sigma_delta} differ only on $\mathcal{A}_n^c$, whose
+probability tends to zero by Proposition~\ref{thm:error_welldefined}, so
+their difference is $o_{\mathbb{P}}(1)$ and they have the same weak
+limits, exactly as in Step 7 of the proof of
+Theorem~\ref{thm:MLE_CLT}.
+Now \eqref{eq:Sigma_linear} follows from \eqref{eq:MLE_linear} and the
+linearity of $\mathcal{D}_0$, and \eqref{eq:Sigma_CLT} from
+\eqref{eq:MLE_CLT}, Slutsky's lemma and the continuous mapping theorem
+applied to the linear, hence continuous, map $\mathcal{D}_0$.
+
+The map $\mathcal{D}_0$ is injective: if $\mathcal{D}_0(\bm{h}) = \bm{0}$
+then $G_{\theta_0}(\bm{h},\bm{h}) = 0$ by \eqref{eq:G_def}, whence
+$\bm{h} = \bm{0}$ by Theorem~\ref{thm:DQM}.
+Its image is therefore a $d$-dimensional subspace of $\text{Sym}(p)$, and
+it is the image of $d\bm{\Sigma}_{\theta_0}$ because
+$\mathcal{D}_0(\bm{h}) = \frac{d}{dt}\big|_{t=0}
+\bm{\Sigma}(\text{Exp}_{\theta_0}(t\bm{h}))$ by
+\eqref{eq:Sigma_directional} and $t\mapsto\text{Exp}_{\theta_0}(t\bm{h})$
+has velocity $\bm{h}$ at $t=0$.
+Finally, by \eqref{eq:Sigma_0_def},
+\begin{equation*}
+  \frac{p(p+1)}{2} - d
+  = \frac{p(p+1)}{2} - pq - 1 + \frac{q(q-1)}{2}
+  = \frac{(p-q)^2 + (p-q) - 2}{2}
+  = \frac{(p-q+2)(p-q-1)}{2},
+\end{equation*}
+which vanishes if and only if $p-q = 1$, since $p-q+2 \geqslant 3$.
+
+\textbf{2.}
+Fix $\bm{h}$ and work under $\mathbb{P}^n_{\theta_{n,\bm{h}}}$, which is
+contiguous to $\mathbb{P}^n_{\theta_0}$ by
+Lemma~\ref{thm:contiguity}; in particular
+$\mathbb{P}^n_{\theta_{n,\bm{h}}}(\mathcal{A}_n) \to 1$ and the
+$O_{\mathbb{P}}$ statements above persist, as in the proof of
+Corollary~\ref{thm:confidence}.
+Applying \eqref{eq:Sigma_u_quadratic} at
+$\bm{u} = \bm{h}/\sqrt{n}$ gives the second exact identity
+\begin{equation*}
+  \bm{\Sigma}\bracket{\theta_{n,\bm{h}}} - \bm{\Sigma}_0
+  = \frac{1}{\sqrt{n}}\mathcal{D}_0(\bm{h})
+  + \frac{1}{n}\bm{U}_{\bm{h}}\bm{U}_{\bm{h}}^T ,
+\end{equation*}
+so subtracting it from \eqref{eq:Sigma_hat_exact} and multiplying by
+$\sqrt{n}$,
+\begin{equation*}
+  \sqrt{n}\bracket{\hat{\bm{\Sigma}}_n - \bm{\Sigma}(\theta_{n,\bm{h}})}
+  = \mathcal{D}_0\bracket{\sqrt{n}\hat{\bm{u}}_n - \bm{h}}
+  + \sqrt{n}\,\bm{U}_{\hat{\bm{u}}_n}\bm{U}_{\hat{\bm{u}}_n}^T
+  - \frac{1}{\sqrt{n}}\bm{U}_{\bm{h}}\bm{U}_{\bm{h}}^T
+  \qquad \text{on } \mathcal{A}_n .
+\end{equation*}
+The last term is deterministic and $O(n^{-\frac{1}{2}})$.
+By \eqref{eq:third_lemma_conclusion} in the proof of
+Theorem~\ref{thm:MLE_regular},
+$\sqrt{n}\hat{\bm{u}}_n - \bm{h}\rightsquigarrow N(\bm{0},\bm{G}^{-1})$
+under $\mathbb{P}^n_{\theta_{n,\bm{h}}}$; in particular
+$\sqrt{n}\hat{\bm{u}}_n = O_{\mathbb{P}}(1)$ there, so the middle term is
+again $O_{\mathbb{P}}(n^{-\frac{1}{2}})$ by the bound of part 1.
+The continuous mapping theorem applied to $\mathcal{D}_0$ now gives
+\eqref{eq:Sigma_regular}, the limit being the image of
+$N(\bm{0},\bm{G}^{-1})$, that is $\mathcal{D}_0(\bm{Z})$, and free of
+$\bm{h}$.
+\end{proof}
+
+\begin{remark}[What part 1 does and does not use]\label{rmk:Sigma_CLT_regularity}
+Part 1 of Corollary~\ref{thm:Sigma_CLT} uses nothing from this section.
+Its proof invokes Theorem~\ref{thm:MLE_CLT}, the exact expansion
+\eqref{eq:Sigma_u_quadratic}, Proposition~\ref{thm:error_welldefined} and
+the continuous mapping theorem, and no more; neither the parallel
+transport of Proposition~\ref{thm:parallel_transport}, nor the transport
+comparison of Lemma~\ref{thm:transport_comparison}, nor the contiguity of
+Lemma~\ref{thm:contiguity}, nor the local regularity of
+Theorem~\ref{thm:MLE_regular} appears anywhere in it.
+It could have been stated at the end of Section~\ref{sec:MLE}; it is
+placed here only because part 2 belongs here, and because it is the
+covariance level reading of the whole chapter.
+
+The reason no transport is needed is worth isolating, because it is the
+converse of the phenomenon that made this section necessary in the first
+place.
+The intrinsic error $\text{Exp}^{-1}_{\theta_{n,\bm{h}}}(\hat{\theta}_n)$
+of Definition~\ref{def:regular} lives in
+$T_{\theta_{n,\bm{h}}}M$, a vector space that \textit{moves with $n$},
+which is exactly why $\Gamma_{\bm{h}/\sqrt{n}}$ has to be inserted before
+any limit can be taken.
+The covariance level error
+$\hat{\bm{\Sigma}}_n - \bm{\Sigma}(\theta)$, by contrast, is a difference
+of two elements of the single fixed vector space $\text{Sym}(p)$, for
+every $\theta$ at once; there is nothing to transport, and the delta
+method applies verbatim.
+Curvature is invisible at the covariance level because
+$\bm{\Sigma}(M) \subseteq \text{Sym}(p)$ is being viewed extrinsically.
+
+What part 2 costs is correspondingly small: given
+\eqref{eq:third_lemma_conclusion}, which is the substance of
+Theorem~\ref{thm:MLE_regular} and does use
+Lemma~\ref{thm:contiguity} and Le Cam's third lemma, the passage to
+\eqref{eq:Sigma_regular} is three lines of exact algebra.
+One should resist reading more into part 2 than it says: it asserts that
+the \textit{maximum likelihood} fitted covariance is locally regular as
+an estimator of $\bm{\Sigma}(\theta)$, and nothing about other
+estimators.
+The corresponding lower bound would require the convolution theorem for
+the differentiable functional $\theta\mapsto\bm{\Sigma}(\theta)$, which
+is Theorem IV.1 of \cite{Sun_Lin_Liu_2026} rather than
+Theorem~\ref{thm:convolution}, and which we do not develop.
+\end{remark}
+
 \begin{remark}\label{rmk:what_is_added}
 It may be useful to summarize what Section~\ref{sec:regularity} adds to
 Theorem~\ref{thm:MLE_CLT}, since the three groups of results answer three
@@ -5023,6 +5647,883 @@ because Lemma~\ref{thm:transport_comparison} makes the reduction exact
 and because it isolates precisely where the curvature of $M$ is felt:
 in the $O(\abs{\bm{u}}\abs{\bm{w}-\bm{u}})$ term of
 \eqref{eq:transport_comparison}, and nowhere else.
+\end{remark}
+
+
+\section{The Fisher Information Operator in Closed Form}\label{sec:fisher_explicit}
+
+Theorem~\ref{thm:MLE_CLT} identifies the limiting covariance of the
+maximum likelihood estimator as $G^{-1}_{\theta_0}$, and
+Theorems~\ref{thm:convolution} and \ref{thm:LAM} identify the same
+operator as the efficiency bound; but nothing so far says what
+$G^{-1}_{\theta_0}$ \textit{is}.
+This section computes it.
+The only inputs are \eqref{eq:Sigma_directional}, \eqref{eq:score} and
+\eqref{eq:G_def} of Section~\ref{sec:PPCA_properties}, the spectral
+decomposition \eqref{eq:Sigma_0_diagonalization} of
+Lemma~\ref{thm:Sigma_0_spectrum}, and the description
+\eqref{eq:lift_def} of the horizontal lift; no asymptotics are used until
+Theorem~\ref{thm:MLE_CLT_coordinates}, which merely reads
+Theorem~\ref{thm:MLE_CLT} in the coordinates constructed here.
+The computation follows Section 4 of the companion draft.
+
+Two features of the answer deserve to be announced.
+First, the whole calculation is a $2\times 2$ block computation in the
+singular basis of $\bm{W}_0$, and it produces a set of coordinates in
+which $G_{\theta_0}$ is block diagonal with blocks of size $1$, $1$ and
+$q+1$; the only genuinely coupled block is the one that mixes the
+$q$ leading directions with the noise variance, and it is inverted by a
+one-line Schur complement.
+Second, no assumption whatsoever is made on the multiplicities of the
+singular values of $\bm{W}_0$: the formulas below are valid when
+$\sigma_1(\bm{W}_0) = \cdots = \sigma_q(\bm{W}_0)$, a case in which
+individual eigenvectors of $\bm{S}_n$ are not asymptotically normal at
+all.
+This is the quantitative form of the third comment of
+Remark~\ref{rmk:MLE_CLT_comments}.
+
+\subsection*{Block coordinates at the true parameter}
+
+Throughout this section we keep the notation \eqref{eq:theta_notation},
+we fix the singular value decomposition
+$\bm{W}_0 = \bm{U}_0\bm{D}_0\bm{V}_0^T$ of
+Lemma~\ref{thm:Sigma_0_spectrum}, and we complete $\bm{U}_0$ to an
+orthogonal matrix: we let
+$\bm{U}_0^{\perp} \in \mathbb{R}^{p\times(p-q)}$ have orthonormal columns
+spanning the orthogonal complement of the column space of $\bm{W}_0$, so
+that
+
+\begin{equation}\label{eq:J_0_def}
+  \bm{J}_0 := \squared{\bm{U}_0 \ \ \bm{U}_0^{\perp}} \in O(p),
+  \qquad
+  \bm{I}_p - \bm{P}_0 = \bm{U}_0^{\perp}\bracket{\bm{U}_0^{\perp}}^T .
+\end{equation}
+We abbreviate the eigenvalues of $\bm{\Sigma}_0$ supplied by
+Lemma~\ref{thm:Sigma_0_spectrum} as
+
+\begin{equation}\label{eq:tau_def}
+  \tau_j := \lambda_j(\bm{\Sigma}_0) = \sigma_j(\bm{W}_0)^2 + \sigma_0^2
+  > \sigma_0^2 \qquad (j = 1,\ldots,q),
+  \qquad
+  \bm{T}_0 := \bm{D}_0^2 + \sigma_0^2\bm{I}_q
+  = \text{diag}(\tau_1,\ldots,\tau_q).
+\end{equation}
+The letters $\bm{B}$, $\bm{C}$, $\bm{\Psi}$, $\bm{y}$, $\bm{z}$,
+$\bm{J}_0$, $\bm{T}_0$, $\tau_j$, $\kappa$ and $\mathcal{G}$ are local to
+this section.
+
+\begin{lemma}[Block form of the differential]\label{thm:block_form}
+Let $\bm{h} \in T_{\theta_0}M$ have horizontal lift
+$\iota(\bm{h}) = (\bm{U}_{\bm{h}}, b_{\bm{h}})$ as in
+\eqref{eq:lift_def}, and set
+
+\begin{equation}\label{eq:B_C_Psi_def}
+  \bm{B} := \bm{U}_0^T\bm{U}_{\bm{h}}\bm{V}_0 \in \mathbb{R}^{q\times q},
+  \qquad
+  \bm{C} := \bracket{\bm{U}_0^{\perp}}^T\bm{U}_{\bm{h}}\bm{V}_0
+  \in \mathbb{R}^{(p-q)\times q},
+  \qquad
+  \bm{\Psi} := \frac{1}{2}\bracket{\bm{B}\bm{D}_0 + \bm{D}_0\bm{B}^T}
+  \in \text{Sym}(q).
+\end{equation}
+Then:
+\begin{enumerate}
+  \item $\bm{J}_0^T\bm{\Sigma}_0\bm{J}_0
+  = \begin{pmatrix} \bm{T}_0 & \bm{0}\\ \bm{0} & \sigma_0^2\bm{I}_{p-q}\end{pmatrix}$
+  and
+  $\bm{J}_0^T\bm{\Sigma}_0^{-1}\bm{J}_0
+  = \begin{pmatrix} \bm{T}_0^{-1} & \bm{0}\\ \bm{0} & \sigma_0^{-2}\bm{I}_{p-q}\end{pmatrix}$.
+  \item $\bm{U}_{\bm{h}}
+  = \bm{U}_0\bm{B}\bm{V}_0^T + \bm{U}_0^{\perp}\bm{C}\bm{V}_0^T$
+  and
+  $\abs{\bm{h}}^2
+  = \|\bm{B}\|_F^2 + \|\bm{C}\|_F^2 + b_{\bm{h}}^2$.
+  \item $\bm{D}_0\bm{B} \in \text{Sym}(q)$; conversely every triple
+  $(\bm{B},\bm{C},b)$ with $\bm{D}_0\bm{B}$ symmetric arises from exactly
+  one $\bm{h} \in T_{\theta_0}M$.
+  \item In the basis \eqref{eq:J_0_def},
+  \begin{equation}\label{eq:Dh_blocks}
+    \bm{J}_0^T\, D_{\bm{h}}\bm{\Sigma}(\theta_0)\, \bm{J}_0
+    = \begin{pmatrix}
+      2\bm{\Psi} + b_{\bm{h}}\bm{I}_q & \bm{D}_0\bm{C}^T \\
+      \bm{C}\bm{D}_0 & b_{\bm{h}}\bm{I}_{p-q}
+    \end{pmatrix}.
+  \end{equation}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+1. Substitute $\bm{P}_0 = \bm{U}_0\bm{U}_0^T$ and
+$\bm{I}_p - \bm{P}_0 = \bm{U}_0^{\perp}(\bm{U}_0^{\perp})^T$ into
+\eqref{eq:Sigma_0_diagonalization} and use
+$\bm{U}_0^T\bm{U}_0 = \bm{I}_q$,
+$(\bm{U}_0^{\perp})^T\bm{U}_0^{\perp} = \bm{I}_{p-q}$,
+$\bm{U}_0^T\bm{U}_0^{\perp} = \bm{0}$.
+
+2. Since $\bm{J}_0 \in O(p)$ and $\bm{V}_0 \in O(q)$, the matrix
+$\bm{J}_0^T\bm{U}_{\bm{h}}\bm{V}_0$ has blocks $\bm{B}$ and $\bm{C}$
+stacked, which is the first identity; the Frobenius norm is invariant
+under multiplication by orthogonal matrices on either side, so
+$\|\bm{U}_{\bm{h}}\|_F^2 = \|\bm{B}\|_F^2 + \|\bm{C}\|_F^2$, and the
+second identity is \eqref{eq:lift_def}.
+
+3. By part 3 of Proposition~\ref{thm:horizontal_verticle} the pair
+$(\bm{U}_{\bm{h}},b_{\bm{h}})$ is horizontal at $(\bm{W}_0,\sigma_0^2)$
+if and only if $\bm{U}_{\bm{h}}^T\bm{W}_0 = \bm{W}_0^T\bm{U}_{\bm{h}}$.
+Using part 2 and $\bm{W}_0 = \bm{U}_0\bm{D}_0\bm{V}_0^T$,
+\begin{equation*}
+  \bm{W}_0^T\bm{U}_{\bm{h}}
+  = \bm{V}_0\bm{D}_0\bm{U}_0^T
+  \bracket{\bm{U}_0\bm{B}\bm{V}_0^T + \bm{U}_0^{\perp}\bm{C}\bm{V}_0^T}
+  = \bm{V}_0\bracket{\bm{D}_0\bm{B}}\bm{V}_0^T,
+\end{equation*}
+which is symmetric if and only if $\bm{D}_0\bm{B}$ is.
+Conversely, given such a triple, part 2 defines $\bm{U}_{\bm{h}}$, the
+displayed identity makes $(\bm{U}_{\bm{h}},b)$ horizontal, and
+$\bm{h} := d\pi_{(\bm{W}_0,\sigma_0^2)}(\bm{U}_{\bm{h}},b)$ is the unique
+preimage because $\iota$ is a bijection onto
+$H_{(\bm{W}_0,\sigma_0^2)}$.
+
+4. By \eqref{eq:Sigma_directional},
+$D_{\bm{h}}\bm{\Sigma}(\theta_0)
+= \bm{U}_{\bm{h}}\bm{W}_0^T + \bm{W}_0\bm{U}_{\bm{h}}^T
++ b_{\bm{h}}\bm{I}_p$.
+By part 2,
+\begin{equation*}
+  \bm{U}_{\bm{h}}\bm{W}_0^T
+  = \bracket{\bm{U}_0\bm{B}\bm{V}_0^T + \bm{U}_0^{\perp}\bm{C}\bm{V}_0^T}
+  \bm{V}_0\bm{D}_0\bm{U}_0^T
+  = \bm{U}_0\bm{B}\bm{D}_0\bm{U}_0^T
+  + \bm{U}_0^{\perp}\bm{C}\bm{D}_0\bm{U}_0^T,
+\end{equation*}
+so that
+$\bm{J}_0^T\bm{U}_{\bm{h}}\bm{W}_0^T\bm{J}_0
+= \begin{pmatrix} \bm{B}\bm{D}_0 & \bm{0}\\
+\bm{C}\bm{D}_0 & \bm{0}\end{pmatrix}$.
+Adding the transpose of this matrix and $b_{\bm{h}}\bm{I}_p$, and using
+$\bm{B}\bm{D}_0 + \bracket{\bm{B}\bm{D}_0}^T = 2\bm{\Psi}$, gives
+\eqref{eq:Dh_blocks}.
+\end{proof}
+
+The three blocks have direct meanings, and it is worth recording them
+before any computation.
+By \eqref{eq:Dh_blocks} the matrix $2\bm{\Psi} + b_{\bm{h}}\bm{I}_q$ is
+the first order change of $\bm{\Sigma}$ inside the signal block, the
+matrix $\bm{C}\bm{D}_0$ is its change in the signal--noise block, and
+$b_{\bm{h}}\bm{I}_{p-q}$ is its change in the noise block --- where the
+model forces the change to be a \textit{multiple of the identity},
+which is the whole source of the efficiency gain computed below.
+Note also that $\bm{\Psi}$, not $\bm{B}$, is the natural unknown: the
+map $\bm{B}\mapsto\bm{\Psi}$ is exactly the operation that quotients out
+the $\frac{q(q-1)}{2}$ directions along which $\bm{\Sigma}$ does not
+move.
+
+\begin{lemma}[Linear coordinates on $T_{\theta_0}M$]\label{thm:block_coords}
+The map
+\begin{equation}\label{eq:kappa_def}
+  \kappa : T_{\theta_0}M \longrightarrow
+  \text{Sym}(q) \times \mathbb{R}^{(p-q)\times q}\times\mathbb{R},
+  \qquad
+  \kappa(\bm{h}) := \bracket{\bm{\Psi}, \bm{C}, b_{\bm{h}}}
+\end{equation}
+of \eqref{eq:B_C_Psi_def} is a linear isomorphism.
+\end{lemma}
+
+\begin{proof}
+Linearity is clear: $\iota$ is linear by \eqref{eq:lift_def}, and
+$\bm{U}_{\bm{h}}\mapsto(\bm{B},\bm{C})\mapsto\bm{\Psi}$ is a composition
+of linear maps.
+
+For injectivity, suppose $\kappa(\bm{h}) = \bm{0}$.
+Then $b_{\bm{h}} = 0$ and $\bm{C} = \bm{0}$, and $\bm{\Psi} = \bm{0}$
+reads $\bm{B}\bm{D}_0 = -\bm{D}_0\bm{B}^T$.
+Since $\rank(\bm{W}_0) = q$, all $\sigma_j(\bm{W}_0)$ are strictly
+positive and $\bm{D}_0$ is invertible, so part 3 of
+Lemma~\ref{thm:block_form}, that is $\bm{D}_0\bm{B} = \bm{B}^T\bm{D}_0$,
+gives $\bm{B}^T = \bm{D}_0\bm{B}\bm{D}_0^{-1}$.
+Substituting this into $\bm{B}\bm{D}_0 = -\bm{D}_0\bm{B}^T$ yields
+$\bm{B}\bm{D}_0 = -\bm{D}_0^2\bm{B}\bm{D}_0^{-1}$, and multiplying on the
+right by $\bm{D}_0$,
+\begin{equation*}
+  \bm{B}\bm{D}_0^2 + \bm{D}_0^2\bm{B} = \bm{0}.
+\end{equation*}
+Both $\bm{D}_0^2$ factors are diagonal, so the $(i,j)$ entry of the left
+hand side is
+$\bracket{\sigma_i(\bm{W}_0)^2 + \sigma_j(\bm{W}_0)^2}\bm{B}_{ij}$,
+and the bracket is strictly positive; hence $\bm{B} = \bm{0}$.
+By part 2 of Lemma~\ref{thm:block_form} this forces
+$\bm{U}_{\bm{h}} = \bm{0}$, so $\iota(\bm{h}) = (\bm{0},0)$ and
+$\bm{h} = \bm{0}$.
+
+For surjectivity it suffices to compare dimensions, since $\kappa$ is
+injective and linear:
+\begin{equation*}
+  \dim\bracket{\text{Sym}(q)\times\mathbb{R}^{(p-q)\times q}\times\mathbb{R}}
+  = \frac{q(q+1)}{2} + (p-q)q + 1
+  = pq + 1 - \frac{q(q-1)}{2}
+  = d
+\end{equation*}
+by \eqref{eq:Sigma_0_def}.
+\end{proof}
+
+Lemma~\ref{thm:block_coords} lets us treat
+$(\bm{\Psi},\bm{C},b)$ as coordinates on $T_{\theta_0}M$.
+We use throughout the \textit{scalar} coordinates
+\begin{equation}\label{eq:scalar_coords}
+  \bracket{\bm{\Psi}_{ij}}_{1\leqslant i \leqslant j \leqslant q},
+  \qquad
+  \bracket{\bm{C}_{ki}}_{1\leqslant k \leqslant p-q,\ 1\leqslant i \leqslant q},
+  \qquad
+  b ,
+\end{equation}
+which identify the target of $\kappa$ with $\mathbb{R}^d$, and we let
+$\mathcal{G}$ denote the $d\times d$ symmetric matrix representing the
+Fisher form in them, that is
+
+\begin{equation}\label{eq:Gcal_def}
+  G_{\theta_0}(\bm{h}_1,\bm{h}_2)
+  = \kappa(\bm{h}_1)^T\,\mathcal{G}\,\kappa(\bm{h}_2)
+  \qquad \text{for all } \bm{h}_1,\bm{h}_2 \in T_{\theta_0}M .
+\end{equation}
+Note that $\kappa$ is \textit{not} a $g_{\theta_0}$-isometry, so
+$\mathcal{G}$ is not the matrix $\bm{G}$ of Step 1 of the proof of
+Theorem~\ref{thm:MLE_CLT}; the relation between the two is recorded in
+the proof of Theorem~\ref{thm:MLE_CLT_coordinates} and is the only place
+where it is needed.
+
+\subsection*{The Fisher form and its inverse}
+
+\begin{proposition}[Explicit Fisher form]\label{thm:G_explicit}
+For every $\bm{h} \in T_{\theta_0}M$, in the notation
+\eqref{eq:B_C_Psi_def},
+
+\begin{equation}\label{eq:G_blocks}
+  G_{\theta_0}(\bm{h},\bm{h})
+  = \frac{1}{2}\tr\squared{\bracket{\bm{T}_0^{-1}
+  \bracket{2\bm{\Psi}+b_{\bm{h}}\bm{I}_q}}^2}
+  + \frac{1}{\sigma_0^2}\tr\bracket{\bm{T}_0^{-1}\bm{D}_0^2\bm{C}^T\bm{C}}
+  + \frac{(p-q)\,b_{\bm{h}}^2}{2\sigma_0^4},
+\end{equation}
+and, in the scalar coordinates \eqref{eq:scalar_coords},
+
+\begin{equation}\label{eq:G_scalar}
+  G_{\theta_0}(\bm{h},\bm{h})
+  = \underbrace{\sum_{i=1}^q \frac{\bracket{2\bm{\Psi}_{ii}+b_{\bm{h}}}^2}{2\tau_i^2}
+  + \frac{(p-q)b_{\bm{h}}^2}{2\sigma_0^4}}_{\text{coupled block}}
+  \ + \underbrace{\sum_{1\leqslant i<j\leqslant q}\frac{4\bm{\Psi}_{ij}^2}{\tau_i\tau_j}}_{\bm{\Psi}\text{ off-diagonal}}
+  \ + \underbrace{\sum_{i=1}^q\bracket{\frac{1}{\sigma_0^2}-\frac{1}{\tau_i}}
+  \|\bm{C}\bm{e}_i\|^2}_{\bm{C}\text{-block}} .
+\end{equation}
+In particular $\mathcal{G}$ is block diagonal with respect to the
+partition of \eqref{eq:scalar_coords} into the three groups
+$\curly{\bm{\Psi}_{ij}}_{i<j}$, $\curly{\bm{C}_{ki}}$ and
+$\bracket{\bm{\Psi}_{11},\ldots,\bm{\Psi}_{qq},b}$, with
+
+\begin{equation}\label{eq:Gcal_blocks}
+  \mathcal{G}_{\bm{\Psi}_{ij}\bm{\Psi}_{ij}} = \frac{4}{\tau_i\tau_j}
+  \quad (i<j),
+  \qquad
+  \mathcal{G}_{\bm{C}_{ki}\bm{C}_{ki}} = \frac{1}{\sigma_0^2}-\frac{1}{\tau_i}
+  = \frac{\sigma_i(\bm{W}_0)^2}{\sigma_0^2\tau_i},
+  \qquad
+  \mathcal{G}_{\text{c}}
+  = \begin{pmatrix}
+  \text{diag}\bracket{2\tau_i^{-2}} & \bm{v} \\
+  \bm{v}^T & \gamma
+  \end{pmatrix},
+\end{equation}
+the last being the coupled block in the ordering
+$(\bm{\Psi}_{11},\ldots,\bm{\Psi}_{qq},b)$, where
+
+\begin{equation}\label{eq:v_gamma_def}
+  \bm{v} := \bracket{\tau_1^{-2},\ldots,\tau_q^{-2}}^T \in \mathbb{R}^q,
+  \qquad
+  \gamma := \frac{1}{2}\sum_{i=1}^q\frac{1}{\tau_i^2}
+  + \frac{p-q}{2\sigma_0^4} .
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Write $\bm{M} := 2\bm{\Psi}+b_{\bm{h}}\bm{I}_q$ and $b := b_{\bm{h}}$.
+Conjugating by $\bm{J}_0$ does not change traces, so by
+\eqref{eq:G_def} with $\bm{h}_1 = \bm{h}_2 = \bm{h}$ it suffices to
+compute the trace of the square of
+$\bm{J}_0^T\bm{\Sigma}_0^{-1}D_{\bm{h}}\bm{\Sigma}(\theta_0)\bm{J}_0$.
+Multiplying the two matrices of Lemma~\ref{thm:block_form},
+
+\begin{equation}\label{eq:Sigma_inv_Dh}
+  \bm{J}_0^T\bm{\Sigma}_0^{-1}D_{\bm{h}}\bm{\Sigma}(\theta_0)\bm{J}_0
+  = \begin{pmatrix}
+    \bm{T}_0^{-1}\bm{M} & \bm{T}_0^{-1}\bm{D}_0\bm{C}^T \\
+    \sigma_0^{-2}\bm{C}\bm{D}_0 & \sigma_0^{-2}b\,\bm{I}_{p-q}
+  \end{pmatrix}.
+\end{equation}
+The two diagonal blocks of the square of \eqref{eq:Sigma_inv_Dh} are
+\begin{equation*}
+  \bracket{\bm{T}_0^{-1}\bm{M}}^2
+  + \sigma_0^{-2}\bm{T}_0^{-1}\bm{D}_0\bm{C}^T\bm{C}\bm{D}_0
+  \qquad \text{and} \qquad
+  \sigma_0^{-2}\bm{C}\bm{D}_0\bm{T}_0^{-1}\bm{D}_0\bm{C}^T
+  + \sigma_0^{-4}b^2\bm{I}_{p-q},
+\end{equation*}
+so, using the cyclic property of the trace and the fact that the
+diagonal matrices $\bm{T}_0$ and $\bm{D}_0$ commute,
+\begin{equation*}
+  \tr\squared{\bracket{\bm{\Sigma}_0^{-1}D_{\bm{h}}\bm{\Sigma}(\theta_0)}^2}
+  = \tr\squared{\bracket{\bm{T}_0^{-1}\bm{M}}^2}
+  + \frac{2}{\sigma_0^2}\tr\bracket{\bm{T}_0^{-1}\bm{D}_0^2\bm{C}^T\bm{C}}
+  + \frac{(p-q)b^2}{\sigma_0^4} .
+\end{equation*}
+Halving gives \eqref{eq:G_blocks}.
+
+For \eqref{eq:G_scalar}, both $\bm{T}_0^{-1}$ and $\bm{D}_0^2$ are
+diagonal.
+Hence
+$\tr(\bm{T}_0^{-1}\bm{D}_0^2\bm{C}^T\bm{C})
+= \sum_{i=1}^q \frac{\sigma_i(\bm{W}_0)^2}{\tau_i}
+\bracket{\bm{C}^T\bm{C}}_{ii}
+= \sum_{i=1}^q\frac{\sigma_i(\bm{W}_0)^2}{\tau_i}\|\bm{C}\bm{e}_i\|^2$,
+and $\frac{\sigma_i(\bm{W}_0)^2}{\sigma_0^2\tau_i}
+= \frac{\tau_i - \sigma_0^2}{\sigma_0^2\tau_i}
+= \frac{1}{\sigma_0^2}-\frac{1}{\tau_i}$ by \eqref{eq:tau_def}.
+For the first term, $\bm{M}$ is symmetric, so
+\begin{equation*}
+  \tr\squared{\bracket{\bm{T}_0^{-1}\bm{M}}^2}
+  = \sum_{i,j=1}^q\frac{\bm{M}_{ij}\bm{M}_{ji}}{\tau_i\tau_j}
+  = \sum_{i=1}^q\frac{\bm{M}_{ii}^2}{\tau_i^2}
+  + 2\sum_{i<j}\frac{\bm{M}_{ij}^2}{\tau_i\tau_j},
+\end{equation*}
+and $\bm{M}_{ii} = 2\bm{\Psi}_{ii}+b$, $\bm{M}_{ij} = 2\bm{\Psi}_{ij}$
+for $i\neq j$; halving gives the first two groups of terms in
+\eqref{eq:G_scalar}.
+
+Finally, \eqref{eq:G_scalar} is a sum of three quadratic forms in
+\textit{disjoint} sets of the scalar coordinates
+\eqref{eq:scalar_coords}, which is exactly the assertion of block
+diagonality; reading off the coefficients gives the first two entries of
+\eqref{eq:Gcal_blocks}.
+For the third, expanding the coupled part of \eqref{eq:G_scalar},
+\begin{equation*}
+  \sum_{i}\frac{\bracket{2\bm{\Psi}_{ii}+b}^2}{2\tau_i^2}
+  + \frac{(p-q)b^2}{2\sigma_0^4}
+  = \sum_i \frac{2\bm{\Psi}_{ii}^2}{\tau_i^2}
+  + 2b\sum_i\frac{\bm{\Psi}_{ii}}{\tau_i^2}
+  + b^2\bracket{\frac{1}{2}\sum_i\frac{1}{\tau_i^2}
+  + \frac{p-q}{2\sigma_0^4}},
+\end{equation*}
+whose matrix in the ordering $(\bm{\Psi}_{11},\ldots,\bm{\Psi}_{qq},b)$
+is $\mathcal{G}_{\text{c}}$ of \eqref{eq:Gcal_blocks}: the coefficient of
+$\bm{\Psi}_{ii}^2$ is $2\tau_i^{-2}$, that of $b\,\bm{\Psi}_{ii}$ is
+$2\tau_i^{-2} = 2\bm{v}_i$, and that of $b^2$ is $\gamma$.
+\end{proof}
+
+\begin{proposition}[Explicit inverse]\label{thm:G_inverse_explicit}
+The matrix $\mathcal{G}$ of \eqref{eq:Gcal_def} is invertible, and
+$\mathcal{G}^{-1}$ is block diagonal with respect to the same partition,
+with
+
+\begin{equation}\label{eq:Ginv_diagonal}
+  \bracket{\mathcal{G}^{-1}}_{\bm{\Psi}_{ij}\bm{\Psi}_{ij}}
+  = \frac{\tau_i\tau_j}{4} \quad (i<j),
+  \qquad
+  \bracket{\mathcal{G}^{-1}}_{\bm{C}_{ki}\bm{C}_{ki}}
+  = \frac{\sigma_0^2\tau_i}{\sigma_i(\bm{W}_0)^2}
+  = \bracket{\frac{1}{\sigma_0^2}-\frac{1}{\tau_i}}^{-1},
+\end{equation}
+these two groups being diagonal, and, on the coupled block,
+
+\begin{equation}\label{eq:Ginv_coupled}
+  \bracket{\mathcal{G}^{-1}}_{bb} = \frac{2\sigma_0^4}{p-q},
+  \qquad
+  \bracket{\mathcal{G}^{-1}}_{\bm{\Psi}_{ii}b} = -\frac{\sigma_0^4}{p-q},
+  \qquad
+  \bracket{\mathcal{G}^{-1}}_{\bm{\Psi}_{ii}\bm{\Psi}_{jj}}
+  = \delta_{ij}\frac{\tau_i^2}{2} + \frac{\sigma_0^4}{2(p-q)} .
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+$\mathcal{G}$ is positive definite because $G_{\theta_0}$ is, by
+Theorem~\ref{thm:DQM}, and $\kappa$ is a bijection; so it is invertible,
+and the inverse of a block diagonal matrix is block diagonal with the
+inverted blocks.
+The first two groups are diagonal by \eqref{eq:Gcal_blocks}, and their
+inverses are the reciprocals, which is \eqref{eq:Ginv_diagonal}.
+
+For the coupled block write
+$\mathcal{G}_{\text{c}}
+= \begin{pmatrix}\bm{P} & \bm{v}\\ \bm{v}^T & \gamma\end{pmatrix}$
+with $\bm{P} := \text{diag}(2\tau_i^{-2})$ as in
+\eqref{eq:Gcal_blocks}.
+Then $\bm{P}^{-1} = \text{diag}(\tau_i^2/2)$ and
+\begin{equation}\label{eq:Pinv_v}
+  \bm{P}^{-1}\bm{v}
+  = \bracket{\frac{\tau_i^2}{2}\cdot\frac{1}{\tau_i^2}}_{i=1}^q
+  = \frac{1}{2}\bm{1}_q ,
+\end{equation}
+so the Schur complement of $\bm{P}$ in $\mathcal{G}_{\text{c}}$ is
+\begin{equation}\label{eq:schur}
+  \varsigma := \gamma - \bm{v}^T\bm{P}^{-1}\bm{v}
+  = \gamma - \frac{1}{2}\sum_{i=1}^q\frac{1}{\tau_i^2}
+  = \frac{p-q}{2\sigma_0^4}
+\end{equation}
+by \eqref{eq:v_gamma_def}; it is strictly positive because $q<p$, which
+is where the standing assumption $q<p$ enters the inversion.
+The standard block inversion formula
+\begin{equation*}
+  \begin{pmatrix}\bm{P} & \bm{v}\\ \bm{v}^T & \gamma\end{pmatrix}^{-1}
+  = \begin{pmatrix}
+  \bm{P}^{-1} + \varsigma^{-1}\bm{P}^{-1}\bm{v}\bm{v}^T\bm{P}^{-1}
+  & -\varsigma^{-1}\bm{P}^{-1}\bm{v} \\
+  -\varsigma^{-1}\bm{v}^T\bm{P}^{-1} & \varsigma^{-1}
+  \end{pmatrix}
+\end{equation*}
+together with \eqref{eq:Pinv_v} and \eqref{eq:schur} gives
+$\varsigma^{-1} = \frac{2\sigma_0^4}{p-q}$, then
+$-\varsigma^{-1}\bracket{\bm{P}^{-1}\bm{v}}_i
+= -\frac{2\sigma_0^4}{p-q}\cdot\frac{1}{2}
+= -\frac{\sigma_0^4}{p-q}$, and finally
+\begin{equation*}
+  \bracket{\bm{P}^{-1}}_{ij}
+  + \varsigma^{-1}\bracket{\bm{P}^{-1}\bm{v}}_i\bracket{\bm{P}^{-1}\bm{v}}_j
+  = \delta_{ij}\frac{\tau_i^2}{2}
+  + \frac{2\sigma_0^4}{p-q}\cdot\frac{1}{2}\cdot\frac{1}{2}
+  = \delta_{ij}\frac{\tau_i^2}{2} + \frac{\sigma_0^4}{2(p-q)},
+\end{equation*}
+which is \eqref{eq:Ginv_coupled}.
+\end{proof}
+
+\begin{theorem}[Theorem~\ref{thm:MLE_CLT} in block coordinates]\label{thm:MLE_CLT_coordinates}
+Let $1\leqslant q<p$ and $\theta_0 = [\bm{W}_0,\sigma_0^2] \in M$.
+Define, on the event $\mathcal{A}_n$ of \eqref{eq:e_n_def}, the aligned
+error blocks
+
+\begin{equation}\label{eq:error_blocks}
+  \begin{gathered}
+  \bm{B}_n := \bm{U}_0^T\bracket{\hat{\bm{W}}_n\bm{Q}_n - \bm{W}_0}\bm{V}_0,
+  \qquad
+  \bm{C}_n := \bracket{\bm{U}_0^{\perp}}^T
+  \bracket{\hat{\bm{W}}_n\bm{Q}_n - \bm{W}_0}\bm{V}_0,
+  \\
+  \bm{\Psi}_n := \frac{1}{2}\bracket{\bm{B}_n\bm{D}_0+\bm{D}_0\bm{B}_n^T},
+  \qquad
+  b_n := \hat{\sigma}_n^2 - \sigma_0^2,
+  \end{gathered}
+\end{equation}
+and $(\bm{\Psi}_n,\bm{C}_n,b_n) := (\bm{0},\bm{0},0)$ off
+$\mathcal{A}_n$.
+Then
+
+\begin{equation}\label{eq:CLT_coordinates}
+  \sqrt{n}\bracket{\bm{\Psi}_n, \bm{C}_n, b_n}
+  \rightsquigarrow N\bracket{\bm{0}, \mathcal{G}^{-1}}
+  \qquad \text{in } \text{Sym}(q)\times\mathbb{R}^{(p-q)\times q}\times\mathbb{R},
+\end{equation}
+with $\mathcal{G}^{-1}$ given by Proposition~\ref{thm:G_inverse_explicit}.
+Explicitly, writing
+$\bm{Z} = (\bm{Z}_{\bm{\Psi}},\bm{Z}_{\bm{C}},Z_b)$ for the limit:
+\begin{enumerate}
+  \item the $(p-q)q$ entries of $\bm{Z}_{\bm{C}}$ are mutually
+  independent, independent of $(\bm{Z}_{\bm{\Psi}},Z_b)$, and
+  $\text{Var}\bracket{(\bm{Z}_{\bm{C}})_{ki}}
+  = \frac{\sigma_0^2\tau_i}{\sigma_i(\bm{W}_0)^2}$;
+  \item the $\frac{q(q-1)}{2}$ strictly upper triangular entries of
+  $\bm{Z}_{\bm{\Psi}}$ are mutually independent, independent of
+  everything else, and
+  $\text{Var}\bracket{(\bm{Z}_{\bm{\Psi}})_{ij}} = \frac{\tau_i\tau_j}{4}$
+  for $i<j$;
+  \item the remaining $q+1$ coordinates
+  $\bracket{(\bm{Z}_{\bm{\Psi}})_{11},\ldots,(\bm{Z}_{\bm{\Psi}})_{qq},Z_b}$
+  are jointly Gaussian with the covariances \eqref{eq:Ginv_coupled}; in
+  particular
+  \begin{equation}\label{eq:sigma2_CLT}
+    \sqrt{n}\bracket{\hat{\sigma}_n^2 - \sigma_0^2}
+    \rightsquigarrow N\bracket{0, \frac{2\sigma_0^4}{p-q}} .
+  \end{equation}
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+By Proposition~\ref{thm:error_welldefined} we have
+$\iota(\hat{\bm{u}}_n) = \bm{e}_n
+= (\hat{\bm{W}}_n\bm{Q}_n-\bm{W}_0,\ \hat{\sigma}_n^2-\sigma_0^2)$ on
+$\mathcal{A}_n$, so by \eqref{eq:B_C_Psi_def} the triple
+$(\bm{\Psi}_n,\bm{C}_n,b_n)$ of \eqref{eq:error_blocks} is exactly
+$\kappa(\hat{\bm{u}}_n)$ there, and both vanish off $\mathcal{A}_n$
+because $\hat{\bm{u}}_n = \bm{0}$ there by \eqref{eq:e_n_def}.
+Hence $(\bm{\Psi}_n,\bm{C}_n,b_n) = \kappa(\hat{\bm{u}}_n)$ identically.
+
+Let $\bm{K}$ denote the matrix of $\kappa$ with respect to the
+$g_{\theta_0}$-orthonormal basis $\bm{e}_1,\ldots,\bm{e}_d$ of Step 1 of
+the proof of Theorem~\ref{thm:MLE_CLT} on the source and the scalar
+coordinates \eqref{eq:scalar_coords} on the target.
+Comparing \eqref{eq:Gcal_def} with $\bm{G}_{jk} = G_{\theta_0}(\bm{e}_j,\bm{e}_k)$
+gives $\bm{G} = \bm{K}^T\mathcal{G}\bm{K}$, so
+\begin{equation}\label{eq:pushforward}
+  \bm{K}\bm{G}^{-1}\bm{K}^T
+  = \bm{K}\bracket{\bm{K}^T\mathcal{G}\bm{K}}^{-1}\bm{K}^T
+  = \bm{K}\bm{K}^{-1}\mathcal{G}^{-1}\bm{K}^{-T}\bm{K}^T
+  = \mathcal{G}^{-1} .
+\end{equation}
+By \eqref{eq:MLE_CLT} we have
+$\sqrt{n}\hat{\bm{u}}_n \rightsquigarrow N(\bm{0},\bm{G}^{-1})$ in the
+coordinates of that basis, so the continuous mapping theorem applied to
+the linear map $\bm{K}$ and \eqref{eq:pushforward} give
+\eqref{eq:CLT_coordinates}.
+
+The three assertions are then read off
+Proposition~\ref{thm:G_inverse_explicit}: a Gaussian vector whose
+covariance matrix is block diagonal has independent blocks, and within
+the first two groups the blocks are diagonal, so the coordinates are
+mutually independent.
+Statement \eqref{eq:sigma2_CLT} is the $(b,b)$ entry of
+\eqref{eq:Ginv_coupled} together with $b_n = \hat{\sigma}_n^2-\sigma_0^2$.
+\end{proof}
+
+\subsection*{The score and the influence function in coordinates}
+
+The same block decomposition makes the score \eqref{eq:score} and the
+influence operator \eqref{eq:IF_def} completely explicit.
+Throughout, for $\bm{x}\in\mathbb{R}^p$ we write
+
+\begin{equation}\label{eq:y_z_def}
+  \bm{y} := \bm{U}_0^T\bm{x} \in \mathbb{R}^q,
+  \qquad
+  \bm{z} := \bracket{\bm{U}_0^{\perp}}^T\bm{x} \in \mathbb{R}^{p-q},
+\end{equation}
+so that, by part 1 of Lemma~\ref{thm:block_form}, when
+$\bm{X}\sim N_p(\bm{0},\bm{\Sigma}_0)$ the vectors
+$\bm{y} = \bm{U}_0^T\bm{X}$ and $\bm{z} = (\bm{U}_0^{\perp})^T\bm{X}$ are
+independent, $\bm{y}\sim N_q(\bm{0},\bm{T}_0)$ and
+$\bm{z}\sim N_{p-q}(\bm{0},\sigma_0^2\bm{I}_{p-q})$.
+
+\begin{proposition}[Score and influence function in coordinates]\label{thm:score_coords}
+Let $\bm{s}(\bm{x}) \in \mathbb{R}^d$ be the coordinate vector of the
+score, defined by
+$s(\bm{x};\theta_0)(\bm{h}) = \bm{s}(\bm{x})^T\kappa(\bm{h})$ for all
+$\bm{h}\in T_{\theta_0}M$.
+Then, in the scalar coordinates \eqref{eq:scalar_coords},
+
+\begin{equation}\label{eq:score_coords}
+  \bm{s}_{\bm{\Psi}_{ii}} = \frac{\bm{y}_i^2-\tau_i}{\tau_i^2},
+  \qquad
+  \bm{s}_{\bm{\Psi}_{ij}} = \frac{2\bm{y}_i\bm{y}_j}{\tau_i\tau_j}
+  \quad (i<j),
+  \qquad
+  \bm{s}_{\bm{C}_{ki}} = \frac{\sigma_i(\bm{W}_0)\,\bm{y}_i\bm{z}_k}{\sigma_0^2\tau_i},
+\end{equation}
+\begin{equation}\label{eq:score_b}
+  \bm{s}_b = \frac{1}{2}\squared{
+  \sum_{i=1}^q\frac{\bm{y}_i^2-\tau_i}{\tau_i^2}
+  + \frac{\|\bm{z}\|^2-(p-q)\sigma_0^2}{\sigma_0^4}} .
+\end{equation}
+Moreover $\mathbb{E}[\bm{s}(\bm{X})] = \bm{0}$ and
+$\mathbb{E}[\bm{s}(\bm{X})\bm{s}(\bm{X})^T] = \mathcal{G}$, the influence
+operator \eqref{eq:IF_def} has coordinate vector
+$\kappa(\text{IF}(\bm{x})) = \mathcal{G}^{-1}\bm{s}(\bm{x})$, and
+explicitly
+
+\begin{equation}\label{eq:IF_coords}
+  \text{IF}_b(\bm{x})
+  = \frac{\bm{x}^T\bracket{\bm{I}_p-\bm{P}_0}\bm{x} - (p-q)\sigma_0^2}{p-q},
+  \qquad
+  \text{IF}_{\bm{C}_{ki}}(\bm{x}) = \frac{\bm{y}_i\bm{z}_k}{\sigma_i(\bm{W}_0)},
+\end{equation}
+\begin{equation}\label{eq:IF_Psi}
+  \text{IF}_{\bm{\Psi}_{ij}}(\bm{x}) = \frac{\bm{y}_i\bm{y}_j}{2}
+  \quad (i<j),
+  \qquad
+  \text{IF}_{\bm{\Psi}_{ii}}(\bm{x})
+  = \frac{1}{2}\squared{\bm{y}_i^2 - \tau_i - \text{IF}_b(\bm{x})} .
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Abbreviate $\bm{E} := \bm{\Sigma}_0^{-1}
+\squared{\bm{x}\bm{x}^T-\bm{\Sigma}_0}\bm{\Sigma}_0^{-1}$, so that
+\eqref{eq:score} reads
+$s(\bm{x};\theta_0)(\bm{h}) = \frac{1}{2}\tr\curly{\bm{E}
+D_{\bm{h}}\bm{\Sigma}(\theta_0)}$.
+Since $\bm{J}_0^T\bm{x} = (\bm{y}^T,\bm{z}^T)^T$ by
+\eqref{eq:y_z_def}, part 1 of Lemma~\ref{thm:block_form} gives
+\begin{equation}\label{eq:E_blocks}
+  \bm{J}_0^T\bm{E}\bm{J}_0
+  = \begin{pmatrix}
+    \bm{T}_0^{-1}\bracket{\bm{y}\bm{y}^T-\bm{T}_0}\bm{T}_0^{-1}
+    & \sigma_0^{-2}\bm{T}_0^{-1}\bm{y}\bm{z}^T \\
+    \sigma_0^{-2}\bm{z}\bm{y}^T\bm{T}_0^{-1}
+    & \sigma_0^{-4}\bracket{\bm{z}\bm{z}^T-\sigma_0^2\bm{I}_{p-q}}
+  \end{pmatrix}
+  =: \begin{pmatrix}\bm{E}_{11} & \bm{E}_{12}\\
+  \bm{E}_{12}^T & \bm{E}_{22}\end{pmatrix}.
+\end{equation}
+Pairing \eqref{eq:E_blocks} with \eqref{eq:Dh_blocks}, the two
+off-diagonal contributions to the trace are equal, because
+$\tr(\bm{E}_{12}^T\bm{D}_0\bm{C}^T)
+= \tr\bracket{\bracket{\bm{E}_{12}^T\bm{D}_0\bm{C}^T}^T}
+= \tr\bracket{\bm{C}\bm{D}_0\bm{E}_{12}}
+= \tr\bracket{\bm{E}_{12}\bm{C}\bm{D}_0}$, and therefore
+\begin{equation}\label{eq:score_expanded}
+  2\,s(\bm{x};\theta_0)(\bm{h})
+  = \tr\bracket{\bm{E}_{11}\squared{2\bm{\Psi}+b_{\bm{h}}\bm{I}_q}}
+  + \frac{2}{\sigma_0^2}\,\bm{z}^T\bm{C}\bm{D}_0\bm{T}_0^{-1}\bm{y}
+  + b_{\bm{h}}\tr\bm{E}_{22} .
+\end{equation}
+Now read off the coefficient of each scalar coordinate.
+The matrix $\bm{\Psi}$ is symmetric, so
+$\tr(\bm{E}_{11}\bm{\Psi}) = \sum_i (\bm{E}_{11})_{ii}\bm{\Psi}_{ii}
++ 2\sum_{i<j}(\bm{E}_{11})_{ij}\bm{\Psi}_{ij}$, while
+$(\bm{E}_{11})_{ii} = \frac{\bm{y}_i^2-\tau_i}{\tau_i^2}$ and
+$(\bm{E}_{11})_{ij} = \frac{\bm{y}_i\bm{y}_j}{\tau_i\tau_j}$ for
+$i\neq j$; dividing the resulting $2\tr(\bm{E}_{11}\bm{\Psi})$ by the
+factor $2$ in \eqref{eq:score_expanded} gives the first two formulas of
+\eqref{eq:score_coords}.
+The second term of \eqref{eq:score_expanded} equals
+$\frac{2}{\sigma_0^2}\sum_{k,i}\bm{C}_{ki}\bm{z}_k
+\frac{\sigma_i(\bm{W}_0)\bm{y}_i}{\tau_i}$, which after division by $2$
+gives the third formula of \eqref{eq:score_coords}.
+The coefficient of $b_{\bm{h}}$ is
+$\frac{1}{2}\squared{\tr\bm{E}_{11}+\tr\bm{E}_{22}}$, which is
+\eqref{eq:score_b}.
+
+The identities $\mathbb{E}[\bm{s}]=\bm{0}$ and
+$\mathbb{E}[\bm{s}\bm{s}^T]=\mathcal{G}$ are Theorem~\ref{thm:DQM} read
+through \eqref{eq:Gcal_def}, since for all
+$\bm{h}_1,\bm{h}_2 \in T_{\theta_0}M$
+\begin{equation*}
+  \mathbb{E}\squared{s(\bm{X};\theta_0)(\bm{h}_1)\,s(\bm{X};\theta_0)(\bm{h}_2)}
+  = G_{\theta_0}(\bm{h}_1,\bm{h}_2)
+  = \kappa(\bm{h}_1)^T\mathcal{G}\kappa(\bm{h}_2)
+\end{equation*}
+and $\kappa$ is onto.
+(They can also be checked directly from \eqref{eq:score_coords}: with
+$\bm{y}$ and $\bm{z}$ independent centred Gaussians,
+$\mathbb{E}[\bm{s}_{\bm{\Psi}_{ii}}^2] = \text{Var}(\bm{y}_i^2)/\tau_i^4
+= 2/\tau_i^2$,
+$\mathbb{E}[\bm{s}_{\bm{\Psi}_{ij}}^2] = 4/(\tau_i\tau_j)$,
+$\mathbb{E}[\bm{s}_{\bm{C}_{ki}}^2]
+= \sigma_i(\bm{W}_0)^2\tau_i\sigma_0^2/(\sigma_0^4\tau_i^2)
+= \sigma_i(\bm{W}_0)^2/(\sigma_0^2\tau_i)$,
+$\mathbb{E}[\bm{s}_{\bm{\Psi}_{ii}}\bm{s}_b] = 1/\tau_i^2$ and
+$\mathbb{E}[\bm{s}_b^2] = \gamma$, every product containing an odd power
+of a coordinate of $\bm{z}$ having mean zero; these are exactly the
+entries \eqref{eq:Gcal_blocks}.)
+
+By \eqref{eq:G_inverse_def} the vector $\text{IF}(\bm{x})$ is
+characterized by
+$G_{\theta_0}(\text{IF}(\bm{x}),\bm{h}) = s(\bm{x};\theta_0)(\bm{h})$
+for all $\bm{h}$, that is, by \eqref{eq:Gcal_def},
+$\kappa(\text{IF}(\bm{x}))^T\mathcal{G}\kappa(\bm{h})
+= \bm{s}(\bm{x})^T\kappa(\bm{h})$ for all $\bm{h}$; since $\kappa$ is
+onto, $\mathcal{G}\kappa(\text{IF}(\bm{x})) = \bm{s}(\bm{x})$.
+
+It remains to compute $\mathcal{G}^{-1}\bm{s}$ block by block.
+For $i<j$, by \eqref{eq:Ginv_diagonal},
+$\text{IF}_{\bm{\Psi}_{ij}}
+= \frac{\tau_i\tau_j}{4}\cdot\frac{2\bm{y}_i\bm{y}_j}{\tau_i\tau_j}
+= \frac{\bm{y}_i\bm{y}_j}{2}$, and
+$\text{IF}_{\bm{C}_{ki}}
+= \frac{\sigma_0^2\tau_i}{\sigma_i(\bm{W}_0)^2}
+\cdot\frac{\sigma_i(\bm{W}_0)\bm{y}_i\bm{z}_k}{\sigma_0^2\tau_i}
+= \frac{\bm{y}_i\bm{z}_k}{\sigma_i(\bm{W}_0)}$, which are the second
+formula of \eqref{eq:IF_coords} and the first of \eqref{eq:IF_Psi}.
+On the coupled block, \eqref{eq:Ginv_coupled} and \eqref{eq:score_b}
+give
+\begin{equation*}
+  \begin{split}
+  \text{IF}_b
+  & = \frac{2\sigma_0^4}{p-q}\,\bm{s}_b
+  - \frac{\sigma_0^4}{p-q}\sum_{i=1}^q \bm{s}_{\bm{\Psi}_{ii}}
+  \\ & = \frac{\sigma_0^4}{p-q}\sum_{i=1}^q\frac{\bm{y}_i^2-\tau_i}{\tau_i^2}
+  + \frac{\|\bm{z}\|^2-(p-q)\sigma_0^2}{p-q}
+  - \frac{\sigma_0^4}{p-q}\sum_{i=1}^q\frac{\bm{y}_i^2-\tau_i}{\tau_i^2}
+  = \frac{\|\bm{z}\|^2-(p-q)\sigma_0^2}{p-q},
+  \end{split}
+\end{equation*}
+the $\bm{y}$ terms cancelling identically; since
+$\|\bm{z}\|^2 = \bm{x}^T\bm{U}_0^{\perp}(\bm{U}_0^{\perp})^T\bm{x}
+= \bm{x}^T(\bm{I}_p-\bm{P}_0)\bm{x}$ by \eqref{eq:J_0_def}, this is the
+first formula of \eqref{eq:IF_coords}.
+Similarly
+\begin{equation*}
+  \begin{split}
+  \text{IF}_{\bm{\Psi}_{ii}}
+  & = \sum_{j=1}^q\squared{\delta_{ij}\frac{\tau_i^2}{2}
+  + \frac{\sigma_0^4}{2(p-q)}}\bm{s}_{\bm{\Psi}_{jj}}
+  - \frac{\sigma_0^4}{p-q}\,\bm{s}_b
+  \\ & = \frac{\bm{y}_i^2-\tau_i}{2}
+  + \frac{\sigma_0^4}{2(p-q)}\sum_{j=1}^q\frac{\bm{y}_j^2-\tau_j}{\tau_j^2}
+  - \frac{\sigma_0^4}{2(p-q)}\sum_{j=1}^q\frac{\bm{y}_j^2-\tau_j}{\tau_j^2}
+  - \frac{\|\bm{z}\|^2-(p-q)\sigma_0^2}{2(p-q)},
+  \end{split}
+\end{equation*}
+which is the second formula of \eqref{eq:IF_Psi}.
+\end{proof}
+
+\begin{corollary}[The noise variance]\label{thm:sigma2_summary}
+The maximum likelihood estimator of the noise variance satisfies
+\eqref{eq:sigma2_CLT}, and it is asymptotically linear with influence
+function
+
+\begin{equation}\label{eq:IF_sigma2}
+  \text{IF}_{\sigma^2}(\bm{x})
+  = \frac{\bm{x}^T\bracket{\bm{I}_p-\bm{P}_0}\bm{x} - (p-q)\sigma_0^2}{p-q},
+  \qquad
+  \mathbb{E}\squared{\text{IF}_{\sigma^2}(\bm{X})} = 0,
+  \qquad
+  \mathbb{E}\squared{\text{IF}_{\sigma^2}(\bm{X})^2}
+  = \frac{2\sigma_0^4}{p-q}.
+\end{equation}
+Consequently $\frac{2\sigma_0^4}{p-q}$ cannot be improved: by
+Theorem~\ref{thm:convolution} the limit law of any locally regular
+estimator sequence of $\theta_0$ is
+$N\bracket{\bm{0},G^{-1}_{\theta_0}}*\Lambda$, so the noise variance
+component of such a sequence has limit law
+$N\bracket{0,\frac{2\sigma_0^4}{p-q}}*\Lambda_b$ for some probability
+measure $\Lambda_b$ on $\mathbb{R}$.
+\end{corollary}
+
+\begin{proof}
+The weak limit is \eqref{eq:sigma2_CLT}.
+The influence function is the first formula of \eqref{eq:IF_coords},
+because $b_n = \hat{\sigma}_n^2-\sigma_0^2$ is the $b$ coordinate of
+$\kappa(\hat{\bm{u}}_n)$ by \eqref{eq:error_blocks}, so that the
+$b$ coordinate of \eqref{eq:MLE_linear} reads
+$\sqrt{n}(\hat{\sigma}_n^2-\sigma_0^2)
+= n^{-\frac{1}{2}}\sum_{i=1}^n \text{IF}_b(\bm{X}_i)+o_{\mathbb{P}}(1)$.
+For the moments, $\bm{z}\sim N_{p-q}(\bm{0},\sigma_0^2\bm{I}_{p-q})$ gives
+$\mathbb{E}\|\bm{z}\|^2 = (p-q)\sigma_0^2$ and
+$\text{Var}(\|\bm{z}\|^2) = 2(p-q)\sigma_0^4$, whence
+$\mathbb{E}[\text{IF}_{\sigma^2}^2]
+= \frac{2(p-q)\sigma_0^4}{(p-q)^2} = \frac{2\sigma_0^4}{p-q}$,
+consistent with \eqref{eq:sigma2_CLT} as it must be, since the asymptotic
+covariance of an asymptotically linear sequence is the covariance of its
+influence function.
+For the last assertion, a linear map carries a convolution of two laws
+to the convolution of their images, so it suffices to push
+$L = N(\bm{0},G^{-1}_{\theta_0})*\Lambda$ forward by the linear map
+$\bm{h}\mapsto b_{\bm{h}}$, which by \eqref{eq:pushforward} sends
+$N(\bm{0},G^{-1}_{\theta_0})$ to
+$N\bracket{0,(\mathcal{G}^{-1})_{bb}}
+= N\bracket{0,\frac{2\sigma_0^4}{p-q}}$ by \eqref{eq:Ginv_coupled}.
+\end{proof}
+
+\begin{remark}[Where the model helps, and where it does not]\label{rmk:IF_vs_S_n}
+Formulas \eqref{eq:IF_coords}--\eqref{eq:IF_Psi} answer a question the
+asymptotic theory alone does not: in which directions is the constrained
+estimator $\hat{\bm{\Sigma}}_n
+:= \bm{\Sigma}([\hat{\bm{W}}_n,\hat{\sigma}_n^2])$ actually better than
+the sample covariance matrix $\bm{S}_n$?
+The answer is: in exactly one block, and the reason is
+Proposition~\ref{thm:fitted_covariance}.
+
+By \eqref{eq:Sigma_u_quadratic} the quadratic term of
+$\bm{\Sigma}_{\bm{u}}-\bm{\Sigma}_0$ is $O_{\mathbb{P}}(n^{-1})$ under
+Theorem~\ref{thm:MLE_CLT}, so
+$\sqrt{n}\bracket{\hat{\bm{\Sigma}}_n-\bm{\Sigma}_0}
+= \sqrt{n}D_{\hat{\bm{u}}_n}\bm{\Sigma}(\theta_0)+o_{\mathbb{P}}(1)$ and
+the influence function of $\hat{\bm{\Sigma}}_n$ is, by
+\eqref{eq:Dh_blocks}, the matrix with blocks
+$2\text{IF}_{\bm{\Psi}}+\text{IF}_b\bm{I}_q$,
+$\text{IF}_{\bm{C}}\bm{D}_0$ and $\text{IF}_b\bm{I}_{p-q}$.
+By \eqref{eq:IF_coords}--\eqref{eq:IF_Psi} these are
+\begin{equation}\label{eq:IF_Sigma_blocks}
+  \bracket{2\text{IF}_{\bm{\Psi}}+\text{IF}_b\bm{I}_q}_{ij}
+  = \bm{y}_i\bm{y}_j - \delta_{ij}\tau_i,
+  \qquad
+  \bracket{\text{IF}_{\bm{C}}\bm{D}_0}_{ki}
+  = \sigma_i(\bm{W}_0)\frac{\bm{y}_i\bm{z}_k}{\sigma_i(\bm{W}_0)}
+  = \bm{z}_k\bm{y}_i,
+  \qquad
+  \text{IF}_b\bm{I}_{p-q},
+\end{equation}
+the diagonal case of the first identity being exactly the cancellation
+of $\text{IF}_b$ in the second formula of \eqref{eq:IF_Psi}.
+Now the influence function of $\bm{S}_n$, read in the same basis
+\eqref{eq:J_0_def}, is $\bm{J}_0^T(\bm{x}\bm{x}^T-\bm{\Sigma}_0)\bm{J}_0$,
+whose blocks are
+$\bm{y}\bm{y}^T-\bm{T}_0$, $\bm{z}\bm{y}^T$ and
+$\bm{z}\bm{z}^T-\sigma_0^2\bm{I}_{p-q}$.
+The first two coincide with \eqref{eq:IF_Sigma_blocks}: \textit{to first
+order the maximum likelihood fit reproduces the sample covariance matrix
+in the signal block and in the signal--noise block, and gains nothing
+there}.
+Only the trailing block differs, where $\bm{z}\bm{z}^T-\sigma_0^2\bm{I}$
+is replaced by its average
+$\frac{\tr(\bm{z}\bm{z}^T-\sigma_0^2\bm{I})}{p-q}\bm{I}_{p-q}
+= \text{IF}_b\bm{I}_{p-q}$: the isotropy constraint of the model averages
+the $p-q$ noise directions, dividing the variance by $p-q$.
+This is the infinitesimal shadow of the exact identity
+\eqref{eq:fitted_covariance} of
+Proposition~\ref{thm:fitted_covariance}, which says the same thing
+non-asymptotically: $\hat{\bm{\Sigma}}$ differs from $\bm{S}$ only
+through the trailing eigenvalues, which it replaces by their mean.
+It also explains why the leading block cannot be improved: by
+Proposition~\ref{thm:least_squares} the model imposes no constraint
+there at all.
+\end{remark}
+
+\begin{remark}[Cross-checks against classical principal component
+analysis]\label{rmk:pca_crosschecks}
+Three consistency checks, each of which recovers a classical formula and
+none of which is used elsewhere.
+
+\textbf{1. Pooled noise eigenvalues.}
+The variance $\frac{2\sigma_0^4}{p-q}$ of \eqref{eq:sigma2_CLT} is the
+classical asymptotic variance of the average of the $p-q$ sample
+eigenvalues attached to a population eigenvalue of multiplicity $p-q$;
+indeed $\hat{\sigma}_n^2 = \frac{1}{p-q}\sum_{j>q}\lambda_j(\bm{S}_n)$
+exactly, by \eqref{eq:TB_formula}, and
+$\sum_{j>q}\lambda_j(\bm{S}_n)
+= \tr\bracket{\bracket{\bm{I}_p-\bm{P}_q(\bm{S}_n)}\bm{S}_n}$,
+in which $\bm{P}_q(\bm{S}_n)$ may be replaced by $\bm{P}_0$ at a cost of
+$O_{\mathbb{P}}(n^{-1})$, by Lemma~\ref{thm:riesz} and part 5 of
+Lemma~\ref{thm:S_n_properties}; the statistic that remains is
+$\frac{1}{p-q}\tr\bracket{\bracket{\bm{I}_p-\bm{P}_0}\bm{S}_n}$, whose
+centred and $\sqrt{n}$-scaled version is exactly the average of the
+influence functions \eqref{eq:IF_sigma2}.
+
+\textbf{2. The leading block is not improved.}
+By \eqref{eq:Ginv_coupled},
+\begin{equation*}
+  \text{Var}\bracket{2(\bm{Z}_{\bm{\Psi}})_{ii}+Z_b}
+  = 4\squared{\frac{\tau_i^2}{2}+\frac{\sigma_0^4}{2(p-q)}}
+  + 4\squared{-\frac{\sigma_0^4}{p-q}} + \frac{2\sigma_0^4}{p-q}
+  = 2\tau_i^2
+  = \text{Var}\bracket{\bracket{\bm{U}_0^T\bm{X}}_i^2},
+\end{equation*}
+and likewise
+$\text{Var}(2(\bm{Z}_{\bm{\Psi}})_{ij}) = \tau_i\tau_j
+= \text{Var}(\bm{y}_i\bm{y}_j)$ for $i<j$ --- the sample covariance
+variances for those coordinates, as Remark~\ref{rmk:IF_vs_S_n} requires.
+
+\textbf{3. Anderson's eigenvector variances.}
+Suppose the $\sigma_i(\bm{W}_0)$ are simple.
+By part 2 of Lemma~\ref{thm:block_form}, the component of the aligned
+loading error orthogonal to the column space of $\bm{W}_0$ is
+$\bm{U}_0^{\perp}\bm{C}_n\bm{V}_0^T$, so the tilt of the estimated
+$i$-th direction out of the signal subspace is
+$\bm{U}_0^{\perp}\bm{C}_n\bm{e}_i/\sigma_i(\bm{W}_0)$, with limiting
+per-coordinate variance
+\begin{equation*}
+  \frac{1}{\sigma_i(\bm{W}_0)^2}\cdot
+  \frac{\sigma_0^2\tau_i}{\sigma_i(\bm{W}_0)^2}
+  = \frac{\sigma_0^2\tau_i}{\bracket{\tau_i-\sigma_0^2}^2}
+  = \frac{\lambda_i(\bm{\Sigma}_0)\lambda_j(\bm{\Sigma}_0)}
+  {\bracket{\lambda_i(\bm{\Sigma}_0)-\lambda_j(\bm{\Sigma}_0)}^2}
+  \quad \text{for } j>q,
+\end{equation*}
+which is Anderson's formula for the noise directions.
+When the $\sigma_i(\bm{W}_0)$ are repeated this eigenvector-by-eigenvector
+reading breaks down --- individual eigenvectors are then not
+asymptotically normal --- but nothing in
+Propositions~\ref{thm:G_explicit} and \ref{thm:G_inverse_explicit} is
+affected: no formula in this section divides by a difference of singular
+values, and the only inverted quantities are $\tau_i$, $\sigma_0^2$,
+$\sigma_i(\bm{W}_0)$ and $p-q$, all strictly positive under the standing
+assumptions $\rank(\bm{W}_0)=q$, $\sigma_0^2>0$ and $q<p$.
+This is the promised quantitative form of the third comment of
+Remark~\ref{rmk:MLE_CLT_comments}.
 \end{remark}
 
 \bibliographystyle{plainnat}

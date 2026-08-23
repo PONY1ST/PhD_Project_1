@@ -1,4 +1,4 @@
-\begin{thebibliography}{14}
+\begin{thebibliography}{15}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -73,6 +73,13 @@ Boris~S. Mityagin.
 Barrett O'Neill.
 \newblock Submersions and geodesics.
 \newblock \emph{Duke Math. J.}, 34:\penalty0 363--373, 1967.
+
+\bibitem[Redner(1981)]{Redner_1981}
+Richard Redner.
+\newblock Note on the consistency of the maximum likelihood estimate for
+  nonidentifiable distributions.
+\newblock \emph{The Annals of Statistics}, 9\penalty0 (1):\penalty0 225--228,
+  1981.
 
 \bibitem[Sun et~al.(2026)Sun, Lin, and Liu]{Sun_Lin_Liu_2026}
 Lvfang Sun, Zhenhua Lin, and Lin Liu.
