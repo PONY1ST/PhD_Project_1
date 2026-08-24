@@ -1,4 +1,4 @@
-\begin{thebibliography}{15}
+\begin{thebibliography}{13}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -11,13 +11,6 @@ Yuxin Chen, Yuejie Chi, Jianqing Fan, and Cong Ma.
   volume~14 of \emph{Foundations and Trends in Machine Learning}.
 \newblock Now Publishers, Boston, 2021.
 \newblock \doi{10.1561/2200000079}.
-
-\bibitem[Datta(2026)]{Datta_2026}
-Arghya Datta.
-\newblock \emph{Modern statistical inference in non-identifiable models: the
-  case of probabilistic {PCA}}.
-\newblock PhD thesis, Universit\'e de Montr\'eal, Montr\'eal, April 2026.
-\newblock D\'epartement de math\'ematiques et de statistique.
 
 \bibitem[Datta and Chakrabarty(2023)]{Datta_Chakrabarty_2023}
 Arghya Datta and Sayak Chakrabarty.
@@ -62,12 +55,6 @@ John~M. Lee.
 \newblock Springer International Publishing, second edition, 2018.
 \newblock ISBN 978-3-319-91754-2.
 \newblock \doi{10.1007/978-3-319-91755-9}.
-
-\bibitem[Mityagin(2020)]{Mityagin_2020}
-Boris~S. Mityagin.
-\newblock The zero set of a real analytic function.
-\newblock \emph{Mathematical Notes}, 107\penalty0 (3):\penalty0 529--530, 2020.
-\newblock \doi{10.1134/S0001434620030189}.
 
 \bibitem[O'Neill(1967)]{O_neill_1967}
 Barrett O'Neill.
