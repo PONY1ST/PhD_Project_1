@@ -229,6 +229,8 @@ then
 \end{equation}
 whenever $\bm{v}$, $\bm{h} \in T_{[\bm{A},s]}M$
 lifting to $(\bm{V},c)$ and $(\bm{U},b)$ respectively.
+A standard fact is that $\Theta$ is connected.
+Consequently, $M$ is also connected.
 For later convenience,
 let us define two functions $\Phi: \Theta \to \mathbb{R}^{p \times p}$
 and $\bm{\Sigma}: M \to \mathbb{R}^{p \times p}$
@@ -438,9 +440,111 @@ Conversely, any $\bm{V}$ such that $\bm{A}^T \bm{V}$ is symmetric will satisfy
 The proof is complete.
 \end{proof}
 
+We record a proposition about lifting curves.
+
+\begin{proposition}\label{thm:curve_lift}
+Given a smooth curve $\gamma : (a,b) \to M$, 
+a point $t_0 \in (a,b)$, and a representative $(\bm{A},s)$
+of $\gamma(t_0)$, there exists a unique smooth curve $c: (a,b) \to \Theta$,
+which we refer to as the horizontal lift of of $\gamma$ at $t_0$ and 
+representative $(\bm{A},s)$,
+such that $c(t_0) = (\bm{A},s)$ and, for all $t \in (a,b)$,
+$\pi(c(t)) = \gamma(t)$, $c'(t) \in H_{c(t)}$, and $\mathrm{d} \pi_{c(t)}(c'(t)) = \gamma(t)$.
+\end{proposition}
+
+\begin{proof}
+This result is immediate from Theorem 17.8 and 17.9 from \citealp{Michor_2008}.
+
+Given that the notations and language are slightly different in \citealp{Michor_2008},
+we provide a bit more explanation for convenience. 
+We apply the two theorems for the fiber bundle $(E, p, M, S)$ with $E = \Theta$, $p = \pi$, $S = O(q)$,
+and $M$ is just our $M$. 
+The map $\Phi$ mentioned in their text (called the Ehresmann connection),
+merely assigns each $\theta \in \Theta$ 
+the linear projection map $\Phi_{\theta}:T_{\theta}\Theta \to T_{\theta}\Theta$
+onto the subspace $V_{\theta}$.
+Given the smooth curve $\gamma$ in the statement of our proposition,
+Theorem 17.8 implemented with $x = \gamma(t_0)$ and $u_x = (\bm{A},s)$
+produces a map $\text{Pt}_{\gamma}$.
+We set $c(t) = \text{Pt}_{\gamma}((\bm{A},s),t)$, which is a smooth curve.
+Property (1) of Theorem 17.8 shows that $c(t_0) = (\bm{A},s)$
+and $\pi(c(t)) = \gamma(t)$ for all $t$ such that $c$ is well-defined.
+Property (2) of Theorem 17.8 shows that $c'(t) \in H_{c(t)}$ 
+for all $t$ such that $c$ is well-defined.
+Given that $S = O(q)$ is compact, Theorem 17.9
+shows that $c$ is defined on the entire $(a,b)$.
+An application of chain rule from $\pi \circ c = \gamma$
+shows that $\mathrm{d} \pi_{c(t)}(c'(t)) = \gamma(t)$
+for all $t \in (a,b)$.
+Finally, as pointed out in the first proof of Theorem 17.8,
+$\text{Pt}_{\gamma}$ is unique, or equivalently $c$ is unique.
+\end{proof}
+
+Here is a basic geodesic classification result.
+
+\begin{proposition}\label{thm:geodesic_classification}
+Given $[\bm{A},s] \in M$ and $\bm{v} \in T_{[\bm{A},s]}M$, 
+all geodesics in $M$ starting at $[\bm{A},s]$ with initial velocity 
+$\bm{v}$ takes the format of curves 
+$\gamma: I \to M$, where $I$ is an interval containing $0$ in its interior,
+defined by 
+\begin{equation}\label{eq:geodesic_gamma}
+  \gamma(t) = [\bm{A} + t\bm{V}, s + tc],
+\end{equation}
+where $(\bm{V},c) \in H_{(\bm{A},s)}$ is the horizontal lift 
+of $\bm{v}$ at $ (\bm{A},s)$.
+\end{proposition}
+
+\begin{proof}
+First of all, the curve $\gamma$ given by \eqref{eq:geodesic_gamma} is well defined. 
+If $(\bm{A}\bm{Q},s)$, where $\bm{Q} \in O(q)$, is another representative of $[\bm{A},s]$,
+let $(\bm{V}',c')$ be the horizontal lift of $\bm{v}$ to $(\bm{A}\bm{Q},s)$.
+With the function $R_{\bm{Q}}: \Theta \to \Theta$ defined by $R_{\bm{Q}}((\bm{A},s)) = (\bm{A}\bm{Q},s)$,
+we have 
+
+\begin{equation*}
+  \bm{v} = \mathrm{d}\pi_{(\bm{A},s)} (\bm{V},c) = \mathrm{d}(\pi \circ R_{\bm{Q}})_{(\bm{A},s)} (\bm{V},c)
+  = \mathrm{d} \pi_{(\bm{A}\bm{Q},s)} (dR_{\bm{Q}})_{(\bm{A},s)}(\bm{V},c)
+  = \mathrm{d} \pi_{(\bm{A}\bm{Q},s)} (\bm{V}\bm{Q},c).
+\end{equation*}
+Thus, $\bm{V}' = \bm{V}\bm{Q}$ and $c'=c$.
+Substitute this into the definition of $\gamma$ 
+will yield the exact same curve.
+
+Given that $\gamma$ is well-defined, 
+it must be that $(\bm{A} + t\bm{V}, s + tc) \in \Theta$ for all $t \in I$.
+The curve $c:I \to \Theta$
+with 
+
+\begin{equation}\label{eq:geodesic_c}
+  c(t) = (\bm{A} + t\bm{V}, s + tc)
+\end{equation}
+for all $t \in I$
+is then well-defined. Being a straight line 
+in Euclidean space, $c$ is a geodesic.
+Moreover, it has horizontal initial velocity and satisfies 
+$\pi \circ c = \gamma$. 
+By Corollary 26.12 from \citealp{Michor_2008},
+$\gamma$ must be a geodesic.
+Conversely, suppose that $\gamma: I \to M$ is a geodesic in $M$
+starting at
+$[\bm{A},s]$ with initial velocity 
+$\bm{v}$. 
+Let $c$ be the horizontal lift of $\gamma$  at $0$ and representative 
+$ (\bm{A},s)$
+given by Proposition~\ref{thm:curve_lift}.
+Then $c$ starts at $ (\bm{A},s)$ and has its initial velocity 
+$(\bm{V},c)$ being the horizontal lift of $\bm{v}$ at $ (\bm{A},s)$.
+Lemma 26.11 in \citealp{Michor_2008}
+shows that $c$ is a geodesic in $\Theta$.
+Given that straight lines are the only geodesics in Euclidean spaces,
+$c$ must be defined by \eqref{eq:geodesic_c} for all $t \in I$
+and $\gamma = \pi \circ c$ must take the format \eqref{eq:geodesic_gamma}.
+\end{proof}
+
 We now move to compute the exponential map 
 and the logarithmic map.
-The following lemma is crucial 
+The following two lemmas are crucial 
 for computing the orthogonal matrix based on given points in $M$.
 
 \begin{lemma}\label{thm:q_classification}
@@ -554,25 +658,46 @@ then $\|\bm{Q}-\bm{I}_q\| = \|\bm{D}-\bm{I}_q\|=0$.
 If any entry of $\bm{D}$ is $-1$, $\|\bm{D}-\bm{I}_q\| = 2$.
 \end{proof}
 
+\begin{lemma}\label{thm:unique_P_R}
+If $\bm{L}$ is an invertible $q \times q$ matrix
+with singular value decomposition $\bm{L} = \bm{R}\bm{S}\bm{P}^T$,
+then 
+
+\begin{equation*}
+  \bm{P}\bm{R}^T = (\bm{L}^T \bm{L})^{-\frac{1}{2}}\bm{L}^T.
+\end{equation*}
+\end{lemma}
+
+\begin{proof}
+Given that
+
+\begin{equation*}
+  \bm{L}^T\bm{L} = \bm{P}\bm{S}^2\bm{P}^T,
+\end{equation*}
+we have
+\begin{equation*}
+  (\bm{L}^T \bm{L})^{\frac{1}{2}} = \bm{P}\bm{S}\bm{P}^T.
+\end{equation*}
+Therefore:
+\begin{equation*}
+  \bm{L} = \bm{R}\bm{P}^T\bm{P}\bm{S}\bm{P}^T = \bm{R}\bm{P}^T (\bm{L}^T \bm{L})^{\frac{1}{2}}.
+\end{equation*}
+The result follows from inverting $(\bm{L}^T \bm{L})^{\frac{1}{2}}$ and take transpose.
+\end{proof}
+
 We now state and prove all the results about 
 the exponential and the logarithmic map 
 in one single proposition.
 
 \begin{proposition}\label{thm:exponential_map}
-Given $[\bm{A},s] \in M$ and $\bm{v} \in T_{[\bm{A},s]}M$, 
-geodesics in $M$ starting at $[\bm{A},s]$ with initial velocity 
-$\bm{v}$ takes the format of curves 
-$\gamma: I \to M$, where $I$ is an open interval containing $0$,
-defined by $\gamma(t) = [\bm{A} + t\bm{V}, s + tc]$,
-where $(\bm{V},c) \in H_{(\bm{A},s)}$ is the horizontal lift 
-of $\bm{v}$ at $ (\bm{A},s)$.
-Consequently,
-the exponential map 
+The exponential map 
 is computed as 
 
 \begin{equation}\label{eq:exponential_map}
-  \text{Exp}_{[\bm{A},s]}(\bm{v}) = [\bm{A} + \bm{V}, s + c].
+  \text{Exp}_{[\bm{A},s]}(\bm{v}) = [\bm{A} + \bm{V}, s + c],
 \end{equation}
+where $[\bm{A},s] \in M$, $\bm{v} \in T_{[\bm{A},s]}M$,
+and $(\bm{V},c)$ is the horizontal lift of $\bm{v}$ at $(\bm{A},s)$.
 
 Let us use $\mathcal{E}_{[\bm{A},s]}$
 to denote the open ball in $T_{[\bm{A},s]}M \cong \mathbb{R}^{d}$
@@ -582,9 +707,9 @@ at least
 over all $\bm{v} \in \mathcal{E}_{[\bm{A},s]}$,
 we from now on treat $\mathcal{E}_{[\bm{A},s]}$
 as the domain of the exponential map.
-That is, $\text{Exp}_{[\bm{A},s]}: \mathcal{E}_{[\bm{A},s]} \to U_{[\bm{A},s]}$,
+That is, the function $\text{Exp}_{[\bm{A},s]}: \mathcal{E}_{[\bm{A},s]} \to U_{[\bm{A},s]}$,
 where $U_{[\bm{A},s]} := \text{Exp}_{[\bm{A},s]}(\mathcal{E}_{[\bm{A},s]})$ is an 
-open subset of $M$,
+open subset of $M$ known as a geodesic ball,
 is defined by \eqref{eq:exponential_map}.
 Note the following facts:
 
@@ -610,56 +735,46 @@ Note the following facts:
     \bm{Q}(\bm{A},\bm{B}) 
     = (\bm{B}^T \bm{A} \bm{A}^T \bm{B})^{- \frac{1}{2}} \bm{B}^T \bm{A} \in O(q).
   \end{equation}
-  \item $U_{[\bm{A},s]}$ equals to the set of all $[\bm{B},t] \in M$ such that 
+  \item The geodesic ball $U_{[\bm{A},s]}$ equals to the set of all $[\bm{B},t] \in M$ such that 
   $\bm{A}^T\bm{B}$ is invertible and
   \begin{equation}\label{eq:U_A_s_def}
     \|\bm{B}\bm{Q}(\bm{A},\bm{B})-\bm{A}\|_F^2 + (t-s)^2
     < \min\bracket{\sigma_{\min}(\bm{A}),s}^2.
   \end{equation}
+  \item If $[\bm{B},t] \in U_{[\bm{A},s]}$, then the Riemannian distance between 
+  $[\bm{A},s]$ and $[\bm{B},t]$ equals to 
+
+  \begin{equation}\label{eq:Riemannian_distance}
+    \abs{\text{Exp}^{-1}_{[\bm{A},s]}([\bm{B},t])} = \sqrt{\|\bm{B}\bm{Q}(\bm{A},\bm{B})-\bm{A}\|_F^2 + (t-s)^2},
+  \end{equation}
+  which is realized by the geodesic $\gamma: [0,1] \to M$ defined by, for all $t \in [0,1]$:
+  \begin{equation*}
+    \gamma(t) = \text{Exp}_{[\bm{A},s]}(t \text{Exp}^{-1}_{[\bm{A},s]}([\bm{B},t])).
+  \end{equation*}
 \end{enumerate}
 \end{proposition}
 
 \begin{proof}
 Before we start the proof, let us first check that all the 
 statements are indeed well-defined.
-First of all, the curve $\gamma$ is well defined. 
-If $(\bm{A}\bm{Q},s)$, where $\bm{Q} \in O(q)$, is another representative of $[\bm{A},s]$,
-let $(\bm{V}',c')$ be the horizontal lift of $\bm{v}$ to $(\bm{A}\bm{Q},s)$.
-With the function $R_{\bm{Q}}: \Theta \to \Theta$ defined by $R_{\bm{Q}}((\bm{A},s)) = (\bm{A}\bm{Q},s)$,
-we have 
-
-\begin{equation*}
-  \bm{v} = \mathrm{d}\pi_{(\bm{A},s)} (\bm{V},c) = \mathrm{d}(\pi \circ R_{\bm{Q}})_{(\bm{A},s)} (\bm{V},c)
-  = \mathrm{d} \pi_{(\bm{A}\bm{Q},s)} (dR_{\bm{Q}})_{(\bm{A},s)}(\bm{V},c)
-  = \mathrm{d} \pi_{(\bm{A}\bm{Q},s)} (\bm{V}\bm{Q},c).
-\end{equation*}
-Thus, $\bm{V}' = \bm{V}\bm{Q}$ and $c'=c$.
-Substitute this into the definition of $\gamma$ 
-will yield the exact same curve.
-Secondly, 
-if $\bm{R} \in O(q)$ and $\bm{P} \in O(q)$,
+If $\bm{R} \in O(q)$ and $\bm{P} \in O(q)$,
 then 
 \begin{equation}\label{eq:Q_A_B_RP}
   \bm{Q}(\bm{A}\bm{P},\bm{B}\bm{R}) = \bm{R}^T\bm{Q}(\bm{A},\bm{B})\bm{P}.
 \end{equation}
 Therefore,
-the same computation will show that 
+the same computation as in the proof of Proposition~\ref{thm:geodesic_classification} will show that 
 \eqref{eq:logarithmic_def} is indeed well-defined.
 Also, the contents of the inequality \eqref{eq:U_A_s_def} 
-is independent of representatives and the description of 
+and the expression \eqref{eq:Riemannian_distance}
+are independent of representatives and the description of 
 the set $U_{[\bm{A},s]}$ makes sense.
 
-A well-known property of 
-geodesics in case of Riemannian submersion (see for example 
-\citealp{O_neill_1967}, Section 2 Corollary 2 or \citealp{Valencia_2021}, Theorem 3.6)
-is that any geodesic $c$ in $\Theta$ with initial velocity being horizontal 
-will always have horizontal velocities and 
-$\gamma = \pi \circ c$
-will remain a geodesic in $M$.
-Therefore, \eqref{eq:exponential_map}
-is valid for all vectors $\bm{v} \in T_{[\bm{A},s]}M$
-of small enough norm
-making sure that $(\bm{A} + \bm{V}, s + c) \in \Theta$.
+Proposition~\ref{thm:geodesic_classification} already shows 
+that the computation of the exponential map is valid as long as 
+$(\bm{A} + \bm{V}, s + c) \in \Theta$.
+Therefore, the exponential map is certainly well-defined 
+over all $\bm{v}$ with small enough norm.
 To have a quantified upper bound of the norm,
 we use the classical result of
 Weyl's perturbation inequality 
@@ -678,7 +793,7 @@ for any matrix $\bm{V}$
 and that $\abs{\bm{v}}=\sqrt{\|\bm{V}\|_F^2+c^2}$
 by isometry.
 Thus, for all $\bm{v} \in \mathcal{E}_{[\bm{A},s]}$, $\rank(\bm{A} + \bm{V}) = q$
-and the exponential map is well-defined.
+and the exponential map is well-defined in $\mathcal{E}_{[\bm{A},s]}$.
 
 We now start the proof of the five facts 
 of the function $\text{Exp}_{[\bm{A},s]}: \mathcal{E}_{[\bm{A},s]} \to U_{[\bm{A},s]}$.
@@ -814,7 +929,7 @@ Now that the logarithmic map
 $\text{Exp}^{-1}_{[\bm{A},s]}:U_{[\bm{A},s]} \to \mathcal{E}_{[\bm{A},s]}$
 is well-defined and is smooth,
 we will compute it and 
-show the three last facts 
+show the next three facts 
 in one shot.
 Let $[\bm{B},t] \in U_{[\bm{A},s]}$ be given.
 By \eqref{eq:exponential_map},
@@ -856,6 +971,48 @@ If $\bm{v} := \mathrm{d} \pi_{(\bm{A},s)}((\bm{V}, c))$,
 then \eqref{eq:U_A_s_def} shows that $\bm{v} \in \mathcal{E}_{[\bm{A},s]}$
 and $[\bm{B},t] \in U_{[\bm{A},s]}$.
 We conclude that $U_{[\bm{A},s]} = C$.
+
+Finally, let us calculate the Riemannian distance 
+between $[\bm{B},t] \in U_{[\bm{A},s]}$ and $[\bm{A},s]$.
+Proposition 6.11 in \cite{Lee_2018} shows that
+the Riemannian distance between points in a geodesic ball is indeed attained 
+by exactly one geodesic.
+It suffices to find a geodesic minimizing the Riemannian distance 
+among all geodesics.
+By Proposition~\ref{thm:geodesic_classification},
+all geodesics connecting $[\bm{A},s]$ to $[\bm{B},t]$
+takes the form $\gamma(t)=[\bm{A}+t\bm{V},s+tc]$,
+where $(\bm{V},c)$ is the horizontal lift of some 
+vector $\bm{v} \in T_{[\bm{A},s]}M$.
+It is clear that $c = t-s$ and $\bm{V} = \bm{B}\bm{Q}-\bm{A}$
+for some $\bm{Q} \in O(q)$.
+Given that the endpoints are fixed,
+the time is fixed,
+and $\gamma$ has constant speed $\abs{\bm{v}}$,
+the choice of $\bm{v}$ with minimal speed 
+will give the smallest arclength and hence the smallest Riemannian distance.
+To carry out this minimization,
+Lemma~\ref{thm:q_classification} shows that
+there exists $\bm{R} \in O(q)$, $\bm{P} \in O(q)$
+such that
+$\bm{A}^T\bm{B} = \bm{R}\bm{S}\bm{P}^T$
+and $\bm{Q} = \bm{P}\bm{D}\bm{R}^T$.
+Let us compute the norm of $\bm{v}$:
+\begin{align*}
+  & \tab[0.4cm] g_{[\bm{A},s]}(v, v)
+  = g_{(\bm{A},s)}^{\Theta}\bracket{(\bm{B}\bm{Q}-\bm{A}, t-s), (\bm{B}\bm{Q}-\bm{A}, t-s)} \\
+  &= \tr\bracket{(\bm{B}\bm{Q}-\bm{A})(\bm{B}\bm{Q}-\bm{A})^T} + (t-s)^2 
+  = \tr(\bm{B}\bm{B}^T) + \tr(\bm{A}\bm{A}^T) - 2\tr(\bm{S}\bm{D}) + (t-s)^2,
+\end{align*}
+where the last equality substituted
+$\bm{A}^T\bm{B}\bm{Q}' = \bm{R}\bm{S}\bm{P}^T\bm{P}\bm{D}\bm{R}^T = \bm{R}\bm{S}\bm{D}\bm{R}^T$.
+The fact that
+the diagonal entries of $\bm{S}$ are strictly positive
+show that
+$g_{[\bm{A},s]}(v, v)$ is minimized precisely when $\bm{D} = \bm{I}_q$.
+By Lemma~\ref{thm:unique_P_R},
+it must be that $\bm{Q} = \bm{P}\bm{R}^T = \bm{Q}(\bm{A}, \bm{B})$
+and the last fact holds.
 The proof is complete.
 \end{proof}
 
@@ -869,7 +1026,8 @@ the amazing matrix
 \eqref{eq:Q_A_B_def} 
 seems to come from nowhere.
 This is not at all the case.
-The matrix $\bm{Q}(\bm{A},\bm{B})$ comes from 
+Originally,
+the matrix $\bm{Q}(\bm{A},\bm{B})$ comes from 
 considering the cases for a generic representative whose matrix 
 $\bm{A}^T\bm{B}$
 is only invertible, but not necessarily symmetric or positive definite.
@@ -899,45 +1057,19 @@ it must be the case that $\bm{B}\bm{Q}-\bm{A} \to \bm{0}$
 or equivalently $\bm{Q} \to \bm{I}_q$.
 Therefore, heurestically, the only reasonable choice of 
 $\bm{D}$ is $\bm{I}_q$.
-This argument is not discarded: it is still
-in the proof of the injectivity of the exponential map
-but simplified by symmetric positive definiteness.
 So $\bm{Q} = \bm{P}\bm{R}^T$.
 This value is actually uniquely determined 
 by $\bm{A}$ and $\bm{B}$ and gives exactly 
-$\bm{Q} = \bm{Q}(\bm{A},\bm{B})$
-with $\bm{Q}(\bm{A},\bm{B})$ as in
-\eqref{eq:Q_A_B_def},
+$\bm{Q} = \bm{Q}(\bm{A},\bm{B})$, as shown in
+Lemma~\ref{thm:unique_P_R},
 despite that neither $\bm{P}$ nor $\bm{R}$ is unique.
-This is shown in the following lemma:
+This argument is not discarded.
+In the proof of injectivity of the exponential map,
+the argument is present but simplified by symmetric positive definiteness.
+The problem of calculating the Riemannian distance actually makes us
+show a stronger result that minimizing the norm of $\bm{B}\bm{Q}-\bm{A}$
+with fixed $\bm{A}$ and $\bm{B}$ will already lead to $\bm{Q} = \bm{Q}(\bm{A},\bm{B})$.
 \end{remark}
-
-\begin{lemma}
-If $\bm{L}$ is an invertible $q \times q$ matrix
-with singular value decomposition $\bm{L} = \bm{R}\bm{S}\bm{P}^T$,
-then 
-
-\begin{equation*}
-  \bm{P}\bm{R}^T = (\bm{L}^T \bm{L})^{-\frac{1}{2}}\bm{L}^T.
-\end{equation*}
-\end{lemma}
-
-\begin{proof}
-Given that
-
-\begin{equation*}
-  \bm{L}^T\bm{L} = \bm{P}\bm{S}^2\bm{P}^T,
-\end{equation*}
-we have
-\begin{equation*}
-  (\bm{L}^T \bm{L})^{\frac{1}{2}} = \bm{P}\bm{S}\bm{P}^T.
-\end{equation*}
-Therefore:
-\begin{equation*}
-  \bm{L} = \bm{R}\bm{P}^T\bm{P}\bm{S}\bm{P}^T = \bm{R}\bm{P}^T (\bm{L}^T \bm{L})^{\frac{1}{2}}.
-\end{equation*}
-The result follows from inverting $(\bm{L}^T \bm{L})^{\frac{1}{2}}$ and take transpose.
-\end{proof}
 
 We end this section with a result concerning the limit of a sequence.
 
@@ -2031,31 +2163,18 @@ the object we need --- the map written $\Pi_{x_1}^{x_2}$ in Section II of
 The two are reconciled in the way that paper prescribes: between two
 points close enough to each other, transport is taken along the unique
 distance minimizing geodesic joining them.
-The distance in question is the Riemannian distance of $(M,g)$,
-
-\begin{equation}\label{eq:d_M_def}
-  d_M(x,y) := \inf\curly{\int_a^b \abs{\dot{c}(\tau)}\,\mathrm{d}\tau
-  \ : \ c : [a,b] \to M \text{ piecewise smooth},\ c(a) = x,\ c(b) = y},
-\end{equation}
-the infimum of the $g$-lengths of the curves joining $x$ to $y$
-(\citealp{Lee_2018}, Chapter 2).
-That this infimum is taken over a nonempty set, so that $d_M$ is finite
-on all of $M \times M$, is a global property of $M$; it is proved in
-Lemma~\ref{thm:M_connected} and is needed only there.
-Nothing in the present section uses it, because the joining curve will be
-exhibited and the infimum computed by hand, and what makes that possible
-is that Proposition~\ref{thm:exponential_map} has already produced the
-geodesic balls of $M$.
-Indeed, that proposition makes $\text{Exp}_{[\bm{A},s]}$ a diffeomorphism
-of the ball $\mathcal{E}_{[\bm{A},s]}$ of radius
-$\min\bracket{\sigma_{\min}(\bm{A}),s}$ in $T_{[\bm{A},s]}M$ onto the open
-set $U_{[\bm{A},s]} \subseteq M$, which is precisely what it means for
-$U_{[\bm{A},s]}$ to be a \textit{geodesic ball} centred at $[\bm{A},s]$
-(\citealp{Lee_2018}, Chapter 6), and \eqref{eq:logarithmic_def} writes in
-closed form the radial geodesic reaching any prescribed point of it.
-Proposition~\ref{thm:parallel_transport} assembles the two ingredients
-into a single statement: the minimizing geodesic between two points, and
-the transport along it.
+That geodesic has already been supplied.
+Writing $d_M$ for the Riemannian distance of $(M,g)$, the infimum of the
+$g$-lengths of the piecewise smooth curves joining two points
+(\citealp{Lee_2018}, Chapter 2),
+Proposition~\ref{thm:geodesic_classification} classifies the geodesics of
+$M$, Proposition~\ref{thm:curve_lift} lifts them horizontally,
+Proposition~\ref{thm:exponential_map} exhibits $U_{[\bm{A},s]}$ as a
+geodesic ball, and part 6 of that proposition computes $d_M$ inside the
+ball together with the geodesic realizing it.
+Proposition~\ref{thm:parallel_transport} below has therefore only to
+restate that geodesic in the notation used here, and then to transport
+along it.
 
 Two preliminaries are needed.
 The first makes the orthogonal splitting
@@ -2205,7 +2324,7 @@ Put
 with $\bm{Q}(\, \cdot \,,\, \cdot \,)$ the orthogonal matrix
 \eqref{eq:Q_A_B_def}, and let
 
-\begin{equation}\label{eq:geodesic_gamma}
+\begin{equation}\label{eq:gamma_def}
   \gamma(\tau) := \squared{\bm{A}_{\tau},\ s+\tau c} \in M,
   \qquad
   \tilde{\gamma}(\tau) := \bracket{\bm{A}_{\tau},\ s+\tau c} \in \Theta,
@@ -2214,29 +2333,23 @@ with $\bm{Q}(\, \cdot \,,\, \cdot \,)$ the orthogonal matrix
 
 \begin{enumerate}
   \item \textbf{The curve.}
-  Neither $\gamma$ nor its length depends on the representatives chosen
-  for $[\bm{A},s]$ and for $[\bm{B},t]$.
-  The curve $\gamma$ is the geodesic of
-  Proposition~\ref{thm:exponential_map} issued from
-  $\gamma(0) = [\bm{A},s]$ with initial velocity
+  Put $\bm{v} := \text{Exp}^{-1}_{[\bm{A},s]}\bracket{[\bm{B},t]}
+  \in \mathcal{E}_{[\bm{A},s]}$, so that
+  $\iota_{(\bm{A},s)}(\bm{v}) = (\bm{V},c)$ and
+  $\gamma(\tau) = \text{Exp}_{[\bm{A},s]}(\tau\bm{v})$.
+  Then $\gamma$ is the geodesic of
+  Proposition~\ref{thm:geodesic_classification} issued from
+  $\gamma(0) = [\bm{A},s]$ with velocity $\bm{v}$; it ends at
+  $\gamma(1) = [\bm{B},t]$; it has constant speed $\abs{\bm{v}}$; and
+  $\tilde{\gamma}$ is its horizontal lift at $0$ and representative
+  $(\bm{A},s)$, in the sense of Proposition~\ref{thm:curve_lift}, with
+  constant velocity $(\bm{V},c) \in H_{\tilde{\gamma}(\tau)}$.
+  Its length is the Riemannian distance \eqref{eq:Riemannian_distance} of
+  part 6 of Proposition~\ref{thm:exponential_map},
 
-  \begin{equation}\label{eq:gamma_velocity}
-    \bm{v} := \text{Exp}^{-1}_{[\bm{A},s]}\bracket{[\bm{B},t]}
-    \in \mathcal{E}_{[\bm{A},s]},
-    \qquad
-    \iota_{(\bm{A},s)}(\bm{v}) = (\bm{V},c);
-  \end{equation}
-  it has constant speed $\abs{\bm{v}}$ and ends at
-  $\gamma(1) = [\bm{B},t]$, and $\tilde{\gamma}$ is its horizontal lift
-  through $(\bm{A},s)$, a straight line of constant horizontal velocity
-  $(\bm{V},c)$.
-  Its length realizes the Riemannian distance \eqref{eq:d_M_def}:
-
-  \begin{equation}\label{eq:d_M_formula}
-    d_M\bracket{[\bm{A},s],\ [\bm{B},t]}
-    = \abs{\bm{v}}
-    = \sqrt{\|\bm{B}\bm{Q}(\bm{A},\bm{B})-\bm{A}\|_F^2+(t-s)^2},
-  \end{equation}
+  \begin{equation*}
+    d_M\bracket{[\bm{A},s],\ [\bm{B},t]} = \abs{\bm{v}},
+  \end{equation*}
   and, if $[\bm{B},t] \neq [\bm{A},s]$, then $\gamma$ is, up to
   reparametrization, the \textit{only} curve in $M$ from $[\bm{A},s]$ to
   $[\bm{B},t]$ of that length.
@@ -2335,56 +2448,37 @@ with $\bm{Q}(\, \cdot \,,\, \cdot \,)$ the orthogonal matrix
 \end{proposition}
 
 \begin{proof}
-\textbf{1.} Since $[\bm{B},t] \in U_{[\bm{A},s]}$, part 4 of
-Proposition~\ref{thm:exponential_map} gives
-$\bm{v} = \mathrm{d}\pi_{(\bm{A},s)}\bracket{(\bm{V},c)}$ with
-$(\bm{V},c)$ as in \eqref{eq:geodesic_data}, and part 1 of the same
-proposition, applied to $\bm{v}$, makes
-$\bm{A}^T\bracket{\bm{A}+\bm{V}} = \bm{A}^T\bm{B}\bm{Q}$ symmetric; hence
+\textbf{1.} Part 4 of Proposition~\ref{thm:exponential_map} gives
+$\bm{v} = \mathrm{d}\pi_{(\bm{A},s)}\bracket{(\bm{V},c)}$ with $(\bm{V},c)$
+as in \eqref{eq:geodesic_data}, and part 1 of that proposition makes
+$\bm{A}^T\bracket{\bm{A}+\bm{V}} = \bm{A}^T\bm{B}\bm{Q}$ symmetric, so
 $\bm{A}^T\bm{V}$ is symmetric and $(\bm{V},c)$ is horizontal at
-$(\bm{A},s)$ by part 3 of Proposition~\ref{thm:horizontal_vertical}.
-This is \eqref{eq:gamma_velocity}, and
-Proposition~\ref{thm:exponential_map} then identifies
-$\gamma(\tau) = \text{Exp}_{[\bm{A},s]}(\tau\bm{v})$ as the geodesic
-issued from $[\bm{A},s]$ with velocity $\bm{v}$, with
-$\gamma(1) = \squared{\bm{A}+\bm{V},\ s+c} = [\bm{B}\bm{Q},t] = [\bm{B},t]$
-because $\bm{Q} \in O(q)$.
-Both $\text{Exp}_{[\bm{A},s]}$ and $\bm{v}$ are defined without reference
-to representatives, so $\gamma$ is too.
-Since $\bm{A}_{\tau}^T\bm{V} = \bm{A}^T\bm{V}+\tau\bm{V}^T\bm{V}$ is
-symmetric for every $\tau$, the constant velocity $(\bm{V},c)$ of the
-straight line $\tilde{\gamma}$ is horizontal at every time, and
-$\pi \circ \tilde{\gamma} = \gamma$; so $\tilde{\gamma}$ is the horizontal
-lift of $\gamma$ through $(\bm{A},s)$ and, $\pi$ being a Riemannian
-submersion, $\abs{\dot{\gamma}(\tau)} = \abs{\bm{v}}$ for every $\tau$ and
-$\gamma$ has $g$-length $\abs{\bm{v}}$.
+$(\bm{A},s)$ by part 3 of Proposition~\ref{thm:horizontal_vertical};
+hence $\iota_{(\bm{A},s)}(\bm{v}) = (\bm{V},c)$, and
+\eqref{eq:exponential_map} applied to $\tau\bm{v}$ gives
+$\gamma(\tau) = \text{Exp}_{[\bm{A},s]}(\tau\bm{v})$, with
+$\gamma(1) = [\bm{B}\bm{Q},t] = [\bm{B},t]$ because $\bm{Q} \in O(q)$.
+Everything else in the first two sentences of part 1 is
+Proposition~\ref{thm:geodesic_classification} and its proof, which
+identifies $\gamma$ as a geodesic and $\tilde{\gamma}$, the straight line
+of constant horizontal velocity $(\bm{V},c)$, as the horizontal lift
+supplied by Proposition~\ref{thm:curve_lift}; geodesics have constant
+speed, and that speed is $\abs{\dot{\gamma}(0)} = \abs{\bm{v}}$, so the
+$g$-length of $\gamma$ is $\abs{\bm{v}}$.
 
-By part 2 of Proposition~\ref{thm:exponential_map} the map
-$\text{Exp}_{[\bm{A},s]}$ is a diffeomorphism of the ball
-$\mathcal{E}_{[\bm{A},s]}$ onto the open set $U_{[\bm{A},s]}$, so
-$U_{[\bm{A},s]}$ is a geodesic ball centred at $[\bm{A},s]$ and $\gamma$
-is the radial geodesic of that ball reaching $[\bm{B},t]$.
-Proposition 6.11 of \cite{Lee_2018} therefore says that, for
-$[\bm{B},t] \neq [\bm{A},s]$, the curve $\gamma$ is, up to
-reparametrization, the unique curve of least length in $M$ joining the two
-points.
-In particular every competitor in \eqref{eq:d_M_def} is at least as long
-as $\gamma$, so the infimum is attained at $\gamma$ and equals
-$\abs{\bm{v}} = \sqrt{\|\bm{V}\|_F^2+c^2}$, the horizontal lift
-$\iota_{(\bm{A},s)}$ being a linear isometry for the Euclidean metric
-\eqref{eq:euclidean_metric}; this is \eqref{eq:d_M_formula}, and no global
-property of $M$ was used to obtain it.
-When $[\bm{B},t] = [\bm{A},s]$ one has $\bm{Q} = \bm{I}_q$,
-$(\bm{V},c) = (\bm{0},0)$ and $\gamma$ constant, and
-\eqref{eq:d_M_formula} holds trivially.
+The distance statement is part 6 of
+Proposition~\ref{thm:exponential_map}, whose realizing geodesic is
+$\gamma$.
+For the uniqueness clause, $U_{[\bm{A},s]}$ is a geodesic ball centred at
+$[\bm{A},s]$ and $\gamma$ is its radial geodesic reaching $[\bm{B},t]$,
+both by Proposition~\ref{thm:exponential_map}, so Proposition 6.11 of
+\cite{Lee_2018} applies.
 
-Finally $\|\bm{V}\| \leqslant \|\bm{V}\|_F \leqslant \abs{\bm{v}}
-< \min\bracket{\sigma_{\min}(\bm{A}),s}$, so Weyl's perturbation
-inequality, as quoted in the proof of
-Proposition~\ref{thm:exponential_map}, gives
-$\sigma_{\min}(\bm{A}_{\tau}) \geqslant \sigma_{\min}(\bm{A})
-- \tau\|\bm{V}\| > 0$ for $\tau \in [0,1]$; hence $\bm{A}_{\tau}$ has
-rank $q$.
+Finally $\abs{\tau\bm{v}} \leqslant \abs{\bm{v}}$ puts $\tau\bm{v}$ in
+$\mathcal{E}_{[\bm{A},s]}$ for every $\tau \in [0,1]$, and part 1 of
+Proposition~\ref{thm:exponential_map}, applied to $\tau\bm{v}$, makes
+$\bm{A}^T\bm{A}_{\tau}$ positive definite, hence invertible; therefore
+$\bm{A}_{\tau}$ has rank $q$.
 
 \textbf{2.} By part 1 of Lemma~\ref{thm:lyapunov_lemma} the right hand
 side of \eqref{eq:transport_ODE} is linear in $(\bm{X},\beta)$, with
@@ -2529,7 +2623,8 @@ $\bm{A}_{\sigma}^T\bm{A}_{\sigma}$, solving \eqref{eq:lyapunov} divides
 the $(i,j)$ entry by
 $p_i+p_j \geqslant 2\sigma_{\min}(\bm{A}_{\sigma})^2$.
 So $\bm{X}(0)$ differs from $\bm{Y}$ by a quantity of the order of
-$\|\bm{V}\|_F \leqslant d_M\bracket{[\bm{A},s],[\bm{B},t]}$: parallel
+$\|\bm{V}\|_F \leqslant d_M\bracket{[\bm{A},s],[\bm{B},t]}$ by
+\eqref{eq:Riemannian_distance}: parallel
 transport departs from the naive identification of the two horizontal
 spaces by a term of the order of the distance travelled.
 Controlling that term is the entire business of the next subsection.
@@ -2544,8 +2639,8 @@ For $\bm{u} \in B_{\rho}$ we write
 for the map \eqref{eq:Pi_def} of
 Proposition~\ref{thm:parallel_transport}, applied with
 $[\bm{A},s] = \theta_0$ and $[\bm{B},t] = \text{Exp}_{\theta_0}(\bm{u})$.
-By part 1 of that proposition the curve along which the transport is
-taken is the radial geodesic
+By part 6 of Proposition~\ref{thm:exponential_map} the curve along which
+the transport is taken is the radial geodesic
 $\tau \mapsto \text{Exp}_{\theta_0}(\tau\bm{u})$ of the normal chart, and
 it is the unique minimizing one; the subscript $\bm{u}$ therefore records
 the second point through that chart rather than directly, which is the
@@ -2666,9 +2761,10 @@ of part 1 of Lemma~\ref{thm:uniform_chart} agrees with the logarithmic map
 being inverses of the injective map $\text{Exp}_{\theta_0}$ on $B_{\rho}$;
 no ambiguity can therefore arise from the notation.
 Part 1 of the lemma says exactly that $y \in U_x$ whenever
-$x,y \in \mathcal{V}^{\sharp}$, so part 1 of
-Proposition~\ref{thm:parallel_transport} applies to every such pair: any
-two points of $\mathcal{V}^{\sharp}$ are joined by a unique minimizing
+$x,y \in \mathcal{V}^{\sharp}$, so part 6 of
+Proposition~\ref{thm:exponential_map} and part 1 of
+Proposition~\ref{thm:parallel_transport} apply to every such pair: any two
+points of $\mathcal{V}^{\sharp}$ are joined by a unique minimizing
 geodesic, and the transport $\Pi^x_y$ of \eqref{eq:Pi_def} is defined
 throughout $\mathcal{V}^{\sharp} \times \mathcal{V}^{\sharp}$.
 
