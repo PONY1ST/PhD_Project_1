@@ -2789,6 +2789,63 @@ Definition~\ref{def:transport},
   \bracket{\text{Exp}_{\theta_0}(\bm{w})}} .
 \end{equation}
 
+That $F$ is smooth is a triviality, and it is worth saying once where the
+smoothness comes from, because none of it is particular to $(M,g)$: each
+of the two constituents of $F$ is an instance of the smooth dependence of
+the solutions of an ordinary differential equation on their time, their
+initial data and their parameters (\citealp{Lee_2013}, Theorem D.1 and
+Theorem D.6).
+
+The inner constituent is the two point logarithm
+$(\bm{u},\bm{w}) \mapsto \text{Exp}^{-1}_{\text{Exp}_{\theta_0}(\bm{u})}
+\bracket{\text{Exp}_{\theta_0}(\bm{w})}$.
+On any smooth Riemannian manifold the exponential map is the time one map
+of the geodesic flow, hence is smooth on its open domain in $TM$, and the
+inverse function theorem applied to
+$(x,\bm{v}) \mapsto \bracket{x,\text{Exp}_x(\bm{v})}$ makes the two point
+logarithm smooth on a neighbourhood of the diagonal; this is the standard
+construction of uniformly normal neighbourhoods (\citealp{Lee_2018},
+Chapter 5 and Theorem 5.14; \citealp{Lee_2013}, Theorem D.1 and
+Theorem D.6).
+Lemma~\ref{thm:uniform_chart} is that construction and nothing more, run
+here explicitly only because $M$ is not complete, so that the domain of
+$\text{Exp}$ has to be exhibited as an open subset of $TM$ by hand.
+
+The outer constituent is $\Gamma_{\bm{u}}$.
+On any manifold and for any connection, parallel transport along a smooth
+family of curves is smooth in the parameters of the family and linear in
+the transported vector: read in a local frame it is the flow of a linear
+ordinary differential equation whose coefficients are the connection
+coefficients evaluated along the curve, and these are smooth in every
+datum (\citealp{Lee_2018}, Theorem 4.31 and Theorem 4.32;
+\citealp{Lee_2013}, Theorem D.1 and Theorem D.6; see also
+\citealp{Michor_2008}).
+The family here is the family
+$\tau \mapsto \text{Exp}_{\theta_0}(\tau\bm{u})$ of radial geodesics,
+smooth in $(\tau,\bm{u})$ by the previous paragraph, so
+$(\bm{u},\bm{z}) \mapsto \Gamma_{\bm{u}}(\bm{z})$ is smooth, which is the
+assertion recorded in Definition~\ref{def:transport}.
+Part 3 of Proposition~\ref{thm:parallel_transport} proves the same thing
+by writing that equation out in the horizontal lifts, where it becomes
+\eqref{eq:transport_ODE}; but the smoothness owes nothing to the explicit
+form, and would hold verbatim for a metric admitting no closed form at
+all.
+
+One point in the statement is not generic, and it is a matter of
+bookkeeping rather than of analysis.
+The maps $\Gamma_{\bm{u}}$ have domains
+$T_{\text{Exp}_{\theta_0}(\bm{u})}M$ that move with $\bm{u}$, so
+smoothness in $(\bm{u},\bm{z})$ asserts nothing until those spaces have
+been trivialized, which in general requires a choice of local frame.
+Here no choice is called for: all the horizontal spaces are subspaces of
+the single vector space $\mathbb{R}^{p \times q} \times \mathbb{R}$, the
+horizontal lifts $\iota_{(\bm{A},s)}$ therefore trivialize globally, and
+part 3 of Lemma~\ref{thm:lyapunov_lemma} is exactly the statement that
+they do so smoothly.
+That lemma is the only ingredient below which is specific to the model.
+Composing the two constituents in this trivialization, $F$ is smooth on
+$B_{2r} \times B_{2r}$.
+
 \begin{lemma}[Transport comparison]\label{thm:transport_comparison}
 There is a constant $C < \infty$, depending only on $\theta_0$ and $r$,
 such that
@@ -2801,9 +2858,9 @@ such that
 \end{lemma}
 
 \begin{proof}
-By part 2 of Lemma~\ref{thm:uniform_chart} and
-Definition~\ref{def:transport}, $F$ is smooth on
-$B_{2r} \times B_{2r}$; put
+By part 2 of Lemma~\ref{thm:uniform_chart},
+Definition~\ref{def:transport} and the paragraphs preceding the
+statement, $F$ is smooth on $B_{2r} \times B_{2r}$; put
 
 \begin{equation*}
   R(\bm{u},\bm{w}) := F(\bm{u},\bm{w}) - (\bm{w}-\bm{u}),
@@ -3181,11 +3238,60 @@ $\mathcal{B}_n$,
   = \frac{C\abs{\bm{h}}}{\sqrt{n}}
   \abs{\sqrt{n}\hat{\bm{u}}_n - \bm{h}} .
 \end{equation}
-The right hand side is
-$O_{\mathbb{P}}\bracket{n^{-\frac{1}{2}}} = o_{\mathbb{P}}(1)$ under
-$\mathbb{P}^n_{\theta_{n,\bm{h}}}$, and
-$\mathbb{P}^n_{\theta_{n,\bm{h}}}(\mathcal{B}_n^c) \to 0$, which proves
-\eqref{eq:chart_form}.
+The right hand side is a product of two factors of different natures.
+The first, $\frac{C\abs{\bm{h}}}{\sqrt{n}}$, is \textit{deterministic} and
+tends to zero: the constant $C$ of Lemma~\ref{thm:transport_comparison}
+depends only on $\theta_0$ and $r$, and $\bm{h}$ is fixed throughout the
+proof, so neither varies with $n$.
+The second, $\abs{\sqrt{n}\hat{\bm{u}}_n - \bm{h}}$, is bounded in
+probability under $\mathbb{P}^n_{\theta_{n,\bm{h}}}$, and this is where
+the hypothesis of the lemma and the contiguity are both spent: by the
+triangle inequality
+$\abs{\sqrt{n}\hat{\bm{u}}_n - \bm{h}}
+\leqslant \abs{\sqrt{n}\hat{\bm{u}}_n} + \abs{\bm{h}}$, in which
+$\abs{\bm{h}}$ is a constant and
+$\sqrt{n}\hat{\bm{u}}_n = O_{\mathbb{P}}(1)$ under
+$\mathbb{P}^n_{\theta_0}$ by hypothesis, hence
+$\sqrt{n}\hat{\bm{u}}_n = O_{\mathbb{P}}(1)$ under
+$\mathbb{P}^n_{\theta_{n,\bm{h}}}$ as well, by
+Lemma~\ref{thm:contiguity} as recorded at the beginning of this proof.
+The transfer is not a formality: \eqref{eq:comparison_applied} is applied
+under the alternative, whereas Lemma~\ref{thm:transport_comparison} is a
+deterministic inequality about $(M,g)$ in which no law appears, so the
+only probabilistic input on its right hand side is the size of
+$\hat{\bm{u}}_n$ under the law actually governing the data.
+
+A sequence bounded in probability multiplied by a deterministic sequence
+tending to zero is $o_{\mathbb{P}}(1)$, of the order of that
+deterministic sequence.
+Explicitly, let $\varepsilon,\eta > 0$: boundedness in probability
+supplies $K < \infty$ and $N_1$ with
+$\mathbb{P}^n_{\theta_{n,\bm{h}}}
+\bracket{\abs{\sqrt{n}\hat{\bm{u}}_n-\bm{h}} > K} < \eta$ for every
+$n \geqslant N_1$, and $\frac{C\abs{\bm{h}}K}{\sqrt{n}} < \varepsilon$
+for every $n$ beyond some $N_2$ depending on $\varepsilon$ alone, so that
+for $n \geqslant \max(N_1,N_2)$ the right hand side of
+\eqref{eq:comparison_applied} exceeds $\varepsilon$ with probability less
+than $\eta$.
+This is the assertion that it is
+$O_{\mathbb{P}}\bracket{n^{-\frac{1}{2}}}$, and a fortiori
+$o_{\mathbb{P}}(1)$, under $\mathbb{P}^n_{\theta_{n,\bm{h}}}$.
+The surviving power $n^{-\frac{1}{2}}$ is the one gained from
+Lemma~\ref{thm:transport_comparison}: that estimate contributed the two
+factors $\abs{\bm{u}_n} = \frac{\abs{\bm{h}}}{\sqrt{n}}$, the size of the
+displacement of the base point, and $\abs{\hat{\bm{u}}_n-\bm{u}_n}$, the
+estimation error, and the multiplication by $\sqrt{n}$ carried by
+\eqref{eq:comparison_applied} consumed the second of them only; this is
+the accounting announced in Remark~\ref{rmk:transport_scale}.
+
+Finally, \eqref{eq:comparison_applied} was derived only on
+$\mathcal{B}_n$, and only for $n$ large enough that $\bm{u}_n \in B_r$,
+whereas \eqref{eq:chart_form} is an unconditional statement; the passage
+from one to the other is
+$\mathbb{P}^n_{\theta_{n,\bm{h}}}(\mathcal{B}_n^c) \to 0$, established at
+the beginning of the proof, which makes the event carrying no bound
+negligible in the limit.
+Together these prove \eqref{eq:chart_form}.
 The equivalence of \eqref{eq:regularity} and \eqref{eq:chart_regularity}
 is then Slutsky's lemma.
 
