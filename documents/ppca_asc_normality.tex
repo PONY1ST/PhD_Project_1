@@ -2311,7 +2311,7 @@ The last sentence follows because $\iota_{c(t)}$ is injective and
 $\ker \mathcal{H}_{c(t)} = V_{c(t)}$.
 \end{proof}
 
-\begin{proposition}[The minimizing geodesic and its parallel transport]\label{thm:parallel_transport}
+\begin{proposition}[Parallel transport along the minimizing geodesic]\label{thm:parallel_transport}
 Let $[\bm{A},s] \in M$ and let $[\bm{B},t] \in U_{[\bm{A},s]}$.
 Put
 
@@ -2330,125 +2330,122 @@ with $\bm{Q}(\, \cdot \,,\, \cdot \,)$ the orthogonal matrix
   \tilde{\gamma}(\tau) := \bracket{\bm{A}_{\tau},\ s+\tau c} \in \Theta,
   \qquad \tau \in [0,1].
 \end{equation}
+Write $\bm{v} := \text{Exp}^{-1}_{[\bm{A},s]}\bracket{[\bm{B},t]}
+\in \mathcal{E}_{[\bm{A},s]}$.
+Then $\gamma(\tau) = \text{Exp}_{[\bm{A},s]}(\tau\bm{v})$ is the geodesic
+of Proposition~\ref{thm:geodesic_classification} from $[\bm{A},s]$ to
+$[\bm{B},t]$, and $\tilde{\gamma}$ is its horizontal lift at the
+representative $(\bm{A},s)$, with constant velocity
+$\iota_{(\bm{A},s)}(\bm{v}) = (\bm{V},c) \in H_{\tilde{\gamma}(\tau)}$;
+moreover $\rank(\bm{A}_{\tau}) = q$ for every $\tau \in [0,1]$, so that
+Lemma~\ref{thm:lyapunov_lemma} applies to $\bm{A}_{\tau}$ and we may
+abbreviate $\mathcal{L}_{\tau} := \mathcal{L}_{\bm{A}_{\tau}}$.
 
-\begin{enumerate}
-  \item \textbf{The curve.}
-  Put $\bm{v} := \text{Exp}^{-1}_{[\bm{A},s]}\bracket{[\bm{B},t]}
-  \in \mathcal{E}_{[\bm{A},s]}$, so that
-  $\iota_{(\bm{A},s)}(\bm{v}) = (\bm{V},c)$ and
-  $\gamma(\tau) = \text{Exp}_{[\bm{A},s]}(\tau\bm{v})$.
-  Then $\gamma$ is the geodesic of
-  Proposition~\ref{thm:geodesic_classification} issued from
-  $\gamma(0) = [\bm{A},s]$ with velocity $\bm{v}$; it ends at
-  $\gamma(1) = [\bm{B},t]$; it has constant speed $\abs{\bm{v}}$; and
-  $\tilde{\gamma}$ is its horizontal lift at $0$ and representative
-  $(\bm{A},s)$, in the sense of Proposition~\ref{thm:curve_lift}, with
-  constant velocity $(\bm{V},c) \in H_{\tilde{\gamma}(\tau)}$.
-  Its length is the Riemannian distance \eqref{eq:Riemannian_distance} of
-  part 6 of Proposition~\ref{thm:exponential_map},
+For $\tau_0,\tau_1 \in [0,1]$ write
 
-  \begin{equation*}
-    d_M\bracket{[\bm{A},s],\ [\bm{B},t]} = \abs{\bm{v}},
-  \end{equation*}
-  and, if $[\bm{B},t] \neq [\bm{A},s]$, then $\gamma$ is, up to
-  reparametrization, the \textit{only} curve in $M$ from $[\bm{A},s]$ to
-  $[\bm{B},t]$ of that length.
-  Finally $\rank(\bm{A}_{\tau}) = q$ for every $\tau \in [0,1]$, so
-  Lemma~\ref{thm:lyapunov_lemma} applies to $\bm{A}_{\tau}$; we abbreviate
-  $\mathcal{L}_{\tau} := \mathcal{L}_{\bm{A}_{\tau}}$.
+\begin{equation}\label{eq:Pi_curve}
+  \Pi(\gamma)_{\tau_0}^{\tau_1} :
+  T_{\gamma(\tau_0)}M \longrightarrow T_{\gamma(\tau_1)}M
+\end{equation}
+for the parallel transport of $(M,g)$ along $\gamma$ from time $\tau_0$
+to time $\tau_1$.
+It exists, it is a linear isometry, its inverse is
+$\Pi(\gamma)_{\tau_1}^{\tau_0}$, and, read through the horizontal lifts
+$\iota_{\tilde{\gamma}(\tau)}$, it is the flow of the linear ordinary
+differential equation
 
-  \item \textbf{The transport equation.}
-  Let $\tau_0 \in [0,1]$ and
-  $(\bm{X}_0,\beta_0) \in \mathbb{R}^{p \times q} \times \mathbb{R}$.
-  The linear ordinary differential equation
+\begin{equation}\label{eq:transport_ODE}
+  \dot{\bm{X}}(\tau)
+  = \bm{A}_{\tau}\,\bm{\Omega}(\tau),
+  \qquad
+  \bm{\Omega}(\tau) := \mathcal{L}_{\tau}\bracket{\bm{X}(\tau)^T\bm{V}
+  - \bm{V}^T\bm{X}(\tau)},
+  \qquad
+  \dot{\beta}(\tau) = 0 :
+\end{equation}
+if $(\bm{X},\beta)$ is the solution of \eqref{eq:transport_ODE} on
+$[0,1]$ with $\bracket{\bm{X}(\tau_0),\beta(\tau_0)}
+= (\bm{X}_0,\beta_0) \in H_{\tilde{\gamma}(\tau_0)}$, then
+$\bracket{\bm{X}(\tau_1),\beta(\tau_1)} \in H_{\tilde{\gamma}(\tau_1)}$
+and
 
-  \begin{equation}\label{eq:transport_ODE}
-    \dot{\bm{X}}(\tau)
-    = \bm{A}_{\tau}\,\bm{\Omega}(\tau),
-    \qquad
-    \bm{\Omega}(\tau) := \mathcal{L}_{\tau}\bracket{\bm{X}(\tau)^T\bm{V}
-    - \bm{V}^T\bm{X}(\tau)},
-    \qquad
-    \dot{\beta}(\tau) = 0,
-  \end{equation}
-  has a unique solution on all of $[0,1]$ subject to
-  $\bracket{\bm{X}(\tau_0),\beta(\tau_0)} = (\bm{X}_0,\beta_0)$; it is
-  linear in $(\bm{X}_0,\beta_0)$ and smooth in
-  $\bracket{\tau,\tau_0,\bm{A},\bm{V},\bm{X}_0,\beta_0}$.
-  If moreover $(\bm{X}_0,\beta_0) \in H_{\tilde{\gamma}(\tau_0)}$, then
-  the solution stays horizontal, that is
-  $\bracket{\bm{X}(\tau),\beta(\tau)} \in H_{\tilde{\gamma}(\tau)}$ for
-  every $\tau \in [0,1]$, and it preserves the Euclidean norm:
-  $\|\bm{X}(\tau)\|_F^2+\beta(\tau)^2$ is constant.
+\begin{equation}\label{eq:Pi_flow}
+  \Pi(\gamma)_{\tau_0}^{\tau_1}\bracket{
+  \mathrm{d}\pi_{\tilde{\gamma}(\tau_0)}\bracket{(\bm{X}_0,\beta_0)}}
+  = \mathrm{d}\pi_{\tilde{\gamma}(\tau_1)}
+  \bracket{\bracket{\bm{X}(\tau_1),\beta(\tau_1)}} .
+\end{equation}
+The curve $\gamma$ is determined by its two endpoints alone --- if
+$[\bm{B},t] \neq [\bm{A},s]$, it is, up to reparametrization, the
+\textit{only} curve in $M$ from $[\bm{A},s]$ to $[\bm{B},t]$ of length
+$d_M\bracket{[\bm{A},s],[\bm{B},t]}$ --- and parallel transport is
+unchanged by a reparametrization; the notation
 
-  \item \textbf{The transport map.}
-  For $\tau_0,\tau_1 \in [0,1]$ write
+\begin{equation}\label{eq:Pi_def}
+  \Pi^{[\bm{A},s]}_{[\bm{B},t]} := \Pi(\gamma)_1^0 :
+  T_{[\bm{B},t]}M \longrightarrow T_{[\bm{A},s]}M
+\end{equation}
+is therefore unambiguous, and this is the map $\Pi_{x_1}^{x_2}$ of
+Section II of \cite{Sun_Lin_Liu_2026}.
+Explicitly, let $\bm{z} \in T_{[\bm{B},t]}M$, let
 
-  \begin{equation}\label{eq:Pi_curve}
-    \Pi(\gamma)_{\tau_0}^{\tau_1} :
-    T_{\gamma(\tau_0)}M \longrightarrow T_{\gamma(\tau_1)}M
-  \end{equation}
-  for the parallel transport of $(M,g)$ along $\gamma$ from time $\tau_0$
-  to time $\tau_1$.
-  It exists, it is a linear isometry, its inverse is
-  $\Pi(\gamma)_{\tau_1}^{\tau_0}$, and, read through the horizontal lifts
-  $\iota_{\tilde{\gamma}(\tau)}$, it is the flow of
-  \eqref{eq:transport_ODE}:
+\begin{equation}\label{eq:z_lift}
+  (\bm{Y},\beta) := \iota_{(\bm{B}\bm{Q},\, t)}(\bm{z}),
+  \qquad
+  (\bm{B}\bm{Q},\, t) = \bracket{\bm{A}+\bm{V},\ s+c} = \tilde{\gamma}(1),
+\end{equation}
+be the horizontal lift of $\bm{z}$ at the aligned representative
+$(\bm{B}\bm{Q},t)$ of $[\bm{B},t]$, and let $\bm{X}$ be the unique
+solution on $[0,1]$ of the terminal value problem
 
-  \begin{equation}\label{eq:Pi_flow}
-    \Pi(\gamma)_{\tau_0}^{\tau_1}\bracket{
-    \mathrm{d}\pi_{\tilde{\gamma}(\tau_0)}\bracket{(\bm{X}_0,\beta_0)}}
-    = \mathrm{d}\pi_{\tilde{\gamma}(\tau_1)}
-    \bracket{\bracket{\bm{X}(\tau_1),\beta(\tau_1)}},
-    \qquad (\bm{X}_0,\beta_0) \in H_{\tilde{\gamma}(\tau_0)} .
-  \end{equation}
-  By part 1 the curve $\gamma$ is determined, up to reparametrization, by
-  its two endpoints alone, and parallel transport is unchanged by a
-  reparametrization; the notation
+\begin{equation}\label{eq:transport_backward}
+  \dot{\bm{X}}(\tau) = \bm{A}_{\tau}\,\mathcal{L}_{\tau}
+  \bracket{\bm{X}(\tau)^T\bm{V}-\bm{V}^T\bm{X}(\tau)},
+  \qquad
+  \bm{X}(1) = \bm{Y} .
+\end{equation}
+Then
 
-  \begin{equation}\label{eq:Pi_def}
-    \Pi^{[\bm{A},s]}_{[\bm{B},t]} := \Pi(\gamma)_1^0 :
-    T_{[\bm{B},t]}M \longrightarrow T_{[\bm{A},s]}M
-  \end{equation}
-  is therefore unambiguous, and this is the map $\Pi_{x_1}^{x_2}$ of
-  Section II of \cite{Sun_Lin_Liu_2026}.
-  Explicitly, let $\bm{z} \in T_{[\bm{B},t]}M$, let
+\begin{equation}\label{eq:Pi_formula}
+  \Pi^{[\bm{A},s]}_{[\bm{B},t]}(\bm{z})
+  = \mathrm{d}\pi_{(\bm{A},s)}\bracket{\bracket{\bm{X}(0),\ \beta}},
+  \qquad
+  \abs{\Pi^{[\bm{A},s]}_{[\bm{B},t]}(\bm{z})} = \abs{\bm{z}},
+\end{equation}
+and $\bracket{\bm{A},\bm{V},\bm{Y},\beta} \mapsto
+\bracket{\bm{X}(0),\beta}$ is smooth, and linear in $(\bm{Y},\beta)$.
+In particular $\Pi^{[\bm{A},s]}_{[\bm{A},s]} = \text{id}$; and
+$\bm{X} \equiv \bm{V}$ solves \eqref{eq:transport_backward} for
+$\bm{Y} = \bm{V}$, so that
+$\Pi^{[\bm{A},s]}_{[\bm{B},t]}\bracket{\dot{\gamma}(1)}
+= \dot{\gamma}(0) = \bm{v}$, as a geodesic requires.
 
-  \begin{equation}\label{eq:z_lift}
-    (\bm{Y},\beta) := \iota_{(\bm{B}\bm{Q},\, t)}(\bm{z}),
-    \qquad
-    (\bm{B}\bm{Q},\, t) = \bracket{\bm{A}+\bm{V},\ s+c} = \tilde{\gamma}(1),
-  \end{equation}
-  be the horizontal lift of $\bm{z}$ at the aligned representative
-  $(\bm{B}\bm{Q},t)$ of $[\bm{B},t]$, and let $\bm{X}$ be the unique
-  solution on $[0,1]$ of the terminal value problem
+Finally, and this is the form in which the transport will be used, the
+two base points and the transported vector may be varied together.
+Write
 
-  \begin{equation}\label{eq:transport_backward}
-    \dot{\bm{X}}(\tau) = \bm{A}_{\tau}\,\mathcal{L}_{\tau}
-    \bracket{\bm{X}(\tau)^T\bm{V}-\bm{V}^T\bm{X}(\tau)},
-    \qquad
-    \bm{X}(1) = \bm{Y} .
-  \end{equation}
-  Then
+\begin{equation}\label{eq:transport_domain}
+  \mathcal{D} := \curly{\bracket{[\bm{A},s],\ [\bm{B},t],\ \bm{z}} \ : \
+  [\bm{A},s] \in M, \ [\bm{B},t] \in U_{[\bm{A},s]}, \
+  \bm{z} \in T_{[\bm{B},t]}M},
+\end{equation}
+which is an open subset of $M \times TM$ once the pair
+$\bracket{[\bm{B},t],\bm{z}}$ is read as the point $\bm{z}$ of the
+tangent bundle $TM$.
+Then the map
 
-  \begin{equation}\label{eq:Pi_formula}
-    \Pi^{[\bm{A},s]}_{[\bm{B},t]}(\bm{z})
-    = \mathrm{d}\pi_{(\bm{A},s)}\bracket{\bracket{\bm{X}(0),\ \beta}},
-    \qquad
-    \abs{\Pi^{[\bm{A},s]}_{[\bm{B},t]}(\bm{z})} = \abs{\bm{z}},
-  \end{equation}
-  and $\bracket{\bm{A},\bm{V},\bm{Y},\beta} \mapsto
-  \bracket{\bm{X}(0),\beta}$ is smooth, and linear in $(\bm{Y},\beta)$.
-  In particular $\Pi^{[\bm{A},s]}_{[\bm{A},s]} = \text{id}$; and
-  $\bm{X} \equiv \bm{V}$ solves \eqref{eq:transport_backward} for
-  $\bm{Y} = \bm{V}$, so that
-  $\Pi^{[\bm{A},s]}_{[\bm{B},t]}\bracket{\dot{\gamma}(1)}
-  = \dot{\gamma}(0) = \bm{v}$, as a geodesic requires.
-\end{enumerate}
+\begin{equation}\label{eq:Pi_smooth}
+  \mathcal{D} \longrightarrow TM,
+  \qquad
+  \bracket{[\bm{A},s],\ [\bm{B},t],\ \bm{z}}
+  \longmapsto \Pi^{[\bm{A},s]}_{[\bm{B},t]}(\bm{z}),
+\end{equation}
+is \textit{smooth}.
 \end{proposition}
 
 \begin{proof}
-\textbf{1.} Part 4 of Proposition~\ref{thm:exponential_map} gives
+\textbf{The geodesic.}
+Part 4 of Proposition~\ref{thm:exponential_map} gives
 $\bm{v} = \mathrm{d}\pi_{(\bm{A},s)}\bracket{(\bm{V},c)}$ with $(\bm{V},c)$
 as in \eqref{eq:geodesic_data}, and part 1 of that proposition makes
 $\bm{A}^T\bracket{\bm{A}+\bm{V}} = \bm{A}^T\bm{B}\bm{Q}$ symmetric, so
@@ -2458,33 +2455,47 @@ hence $\iota_{(\bm{A},s)}(\bm{v}) = (\bm{V},c)$, and
 \eqref{eq:exponential_map} applied to $\tau\bm{v}$ gives
 $\gamma(\tau) = \text{Exp}_{[\bm{A},s]}(\tau\bm{v})$, with
 $\gamma(1) = [\bm{B}\bm{Q},t] = [\bm{B},t]$ because $\bm{Q} \in O(q)$.
-Everything else in the first two sentences of part 1 is
-Proposition~\ref{thm:geodesic_classification} and its proof, which
-identifies $\gamma$ as a geodesic and $\tilde{\gamma}$, the straight line
-of constant horizontal velocity $(\bm{V},c)$, as the horizontal lift
-supplied by Proposition~\ref{thm:curve_lift}; geodesics have constant
-speed, and that speed is $\abs{\dot{\gamma}(0)} = \abs{\bm{v}}$, so the
-$g$-length of $\gamma$ is $\abs{\bm{v}}$.
-
-The distance statement is part 6 of
-Proposition~\ref{thm:exponential_map}, whose realizing geodesic is
-$\gamma$.
-For the uniqueness clause, $U_{[\bm{A},s]}$ is a geodesic ball centred at
-$[\bm{A},s]$ and $\gamma$ is its radial geodesic reaching $[\bm{B},t]$,
-both by Proposition~\ref{thm:exponential_map}, so Proposition 6.11 of
-\cite{Lee_2018} applies.
-
+That $\gamma$ is a geodesic, and that $\tilde{\gamma}$, the straight line
+of constant horizontal velocity $(\bm{V},c)$, is the horizontal lift
+supplied by Proposition~\ref{thm:curve_lift}, is
+Proposition~\ref{thm:geodesic_classification} and its proof.
 Finally $\abs{\tau\bm{v}} \leqslant \abs{\bm{v}}$ puts $\tau\bm{v}$ in
 $\mathcal{E}_{[\bm{A},s]}$ for every $\tau \in [0,1]$, and part 1 of
 Proposition~\ref{thm:exponential_map}, applied to $\tau\bm{v}$, makes
 $\bm{A}^T\bm{A}_{\tau}$ positive definite, hence invertible; therefore
 $\bm{A}_{\tau}$ has rank $q$.
 
-\textbf{2.} By part 1 of Lemma~\ref{thm:lyapunov_lemma} the right hand
-side of \eqref{eq:transport_ODE} is linear in $(\bm{X},\beta)$, with
+The uniqueness of $\gamma$ is the only further feature of the geodesic
+that the transport map requires, and it is read off from the same
+proposition.
+Geodesics have constant speed, so the $g$-length of $\gamma$ is
+$\abs{\dot{\gamma}(0)} = \abs{\bm{v}}$, which is
+$d_M\bracket{[\bm{A},s],[\bm{B},t]}$ by part 6 of
+Proposition~\ref{thm:exponential_map}; and $U_{[\bm{A},s]}$ is a geodesic
+ball centred at $[\bm{A},s]$ of which $\gamma$ is the radial geodesic
+reaching $[\bm{B},t]$, again by that proposition, so Proposition 6.11 of
+\cite{Lee_2018} applies and makes $\gamma$ the unique curve of that
+length joining the two points, up to reparametrization.
+
+\textbf{The transport equation.}
+We next record what is needed about \eqref{eq:transport_ODE}.
+Let $\tau_0 \in [0,1]$ and
+$(\bm{X}_0,\beta_0) \in \mathbb{R}^{p \times q} \times \mathbb{R}$.
+The equation has a unique solution on all of $[0,1]$ subject to
+$\bracket{\bm{X}(\tau_0),\beta(\tau_0)} = (\bm{X}_0,\beta_0)$; that
+solution is linear in $(\bm{X}_0,\beta_0)$ and smooth in
+$\bracket{\tau,\tau_0,\bm{A},\bm{V},\bm{X}_0,\beta_0}$; and if moreover
+$(\bm{X}_0,\beta_0) \in H_{\tilde{\gamma}(\tau_0)}$, then it stays
+horizontal, that is
+$\bracket{\bm{X}(\tau),\beta(\tau)} \in H_{\tilde{\gamma}(\tau)}$ for
+every $\tau \in [0,1]$, and it preserves the Euclidean norm:
+$\|\bm{X}(\tau)\|_F^2+\beta(\tau)^2$ is constant.
+
+Indeed, by part 1 of Lemma~\ref{thm:lyapunov_lemma} the right hand side
+of \eqref{eq:transport_ODE} is linear in $(\bm{X},\beta)$, with
 coefficients that are smooth in $\tau$ and in $(\bm{A},\bm{V})$ on the
-open set where $\bm{A}_{\tau}$ has rank $q$, a set which by part 1
-contains $[0,1]$.
+open set where $\bm{A}_{\tau}$ has rank $q$, a set which by the first
+step contains $[0,1]$.
 Linear systems have solutions that exist and are unique on the whole
 interval, whatever the time $\tau_0$ at which the data are prescribed, and
 that depend smoothly on the time and linearly on the data
@@ -2528,11 +2539,12 @@ $\bm{A}_{\tau}^T\bm{X}(\tau)$ symmetric, so
 the last equality because the trace of the product of a symmetric and a
 skew-symmetric matrix vanishes.
 
-\textbf{3.} Let $(\bm{X}_0,\beta_0) \in H_{\tilde{\gamma}(\tau_0)}$ and
-let $(\bm{X},\beta)$ be the solution of \eqref{eq:transport_ODE} it
+\textbf{The transport map.}
+Let $(\bm{X}_0,\beta_0) \in H_{\tilde{\gamma}(\tau_0)}$ and let
+$(\bm{X},\beta)$ be the solution of \eqref{eq:transport_ODE} it
 determines.
-By part 2 the pair $\bracket{\bm{X}(\tau),\beta(\tau)}$ is horizontal at
-$\tilde{\gamma}(\tau)$, hence is the horizontal lift of
+By the second step the pair $\bracket{\bm{X}(\tau),\beta(\tau)}$ is
+horizontal at $\tilde{\gamma}(\tau)$, hence is the horizontal lift of
 
 \begin{equation*}
   \bm{x}(\tau) := \mathrm{d}\pi_{\tilde{\gamma}(\tau)}
@@ -2541,15 +2553,15 @@ $\tilde{\gamma}(\tau)$, hence is the horizontal lift of
 and its derivative $\bracket{\bm{A}_{\tau}\bm{\Omega}(\tau),\,0}$ is
 vertical by Proposition~\ref{thm:horizontal_vertical}, $\bm{\Omega}(\tau)$
 being skew-symmetric.
-The curve $\tilde{\gamma}$ has horizontal velocity at every time by part
-1, so Lemma~\ref{thm:submersion_derivative} applies and gives
+The curve $\tilde{\gamma}$ has horizontal velocity at every time by the
+first step, so Lemma~\ref{thm:submersion_derivative} applies and gives
 $D_{\tau}\bm{x} = 0$: the field $\bm{x}$ is parallel along $\gamma$.
 Existence and uniqueness of the parallel field with a prescribed value at
 $\tau_0$ (\citealp{Lee_2018}, Theorem 4.32) identify $\bm{x}$ with the
 parallel transport of $\bm{x}(\tau_0)$, which is \eqref{eq:Pi_flow}.
 The map $\Pi(\gamma)_{\tau_0}^{\tau_1}$ is linear because
 \eqref{eq:transport_ODE} is; it is an isometry by the conservation of the
-norm in part 2 together with the fact that each
+norm in the second step together with the fact that each
 $\iota_{\tilde{\gamma}(\tau)}$ is one; and
 $\Pi(\gamma)_{\tau_1}^{\tau_0}$ inverts it, by uniqueness.
 
@@ -2565,7 +2577,7 @@ vertical exactly when $\dot{\tilde{\bm{x}}} \circ \phi$ is.
 By the criterion closing Lemma~\ref{thm:submersion_derivative}, the field
 $\bm{x} \circ \phi$ is parallel along $\gamma \circ \phi$ if and only if
 $\bm{x}$ is parallel along $\gamma$.
-Together with the uniqueness statement of part 1, this makes
+Together with the uniqueness statement of the first step, this makes
 $\Pi(\gamma)_1^0$ a function of the pair
 $\bracket{[\bm{A},s],\ [\bm{B},t]}$ alone, so \eqref{eq:Pi_def} is well
 posed.
@@ -2574,9 +2586,9 @@ For \eqref{eq:Pi_formula}, apply the above with $\tau_0 = 1$,
 $\tau_1 = 0$ and $(\bm{X}_0,\beta_0) = (\bm{Y},\beta)$, which is
 horizontal at $\tilde{\gamma}(1)$ by \eqref{eq:z_lift}: the second
 component of \eqref{eq:transport_ODE} stays equal to $\beta$, the first is
-\eqref{eq:transport_backward}, and part 2 supplies existence, uniqueness,
-linearity in $(\bm{Y},\beta)$, smoothness in $(\bm{A},\bm{V})$ and the
-preservation of the norm.
+\eqref{eq:transport_backward}, and the second step supplies existence,
+uniqueness, linearity in $(\bm{Y},\beta)$, smoothness in
+$(\bm{A},\bm{V})$ and the preservation of the norm.
 If $[\bm{B},t] = [\bm{A},s]$, then $\bm{V} = \bm{0}$ and $c = 0$, so
 \eqref{eq:transport_backward} reads $\dot{\bm{X}} = \bm{0}$ and
 $\bm{X}(0) = \bm{Y}$, whence
@@ -2588,6 +2600,81 @@ $\bm{Y} = \bm{V}$; since
 $\iota_{\tilde{\gamma}(1)}\bracket{\dot{\gamma}(1)} = (\bm{V},c)$, this
 gives $\Pi^{[\bm{A},s]}_{[\bm{B},t]}\bracket{\dot{\gamma}(1)}
 = \mathrm{d}\pi_{(\bm{A},s)}\bracket{(\bm{V},c)} = \bm{v}$.
+
+\textbf{Joint smoothness.}
+Both the openness of $\mathcal{D}$ and the smoothness of
+\eqref{eq:Pi_smooth} are proved upstairs, on $\Theta$, and pushed down
+through $\pi$.
+Since $\Theta$ is an open subset of $\mathbb{R}^{pq+1}$ we identify
+$T\Theta = \Theta \times \bracket{\mathbb{R}^{p \times q}\times\mathbb{R}}$
+and consider
+
+\begin{equation}\label{eq:transport_domain_lift}
+  \mathcal{N} := \curly{\bracket{(\bm{A},s),\ (\bm{B},t),\
+  (\bm{Y},\beta)} \in \Theta \times T\Theta \ : \
+  [\bm{B},t] \in U_{[\bm{A},s]}},
+\end{equation}
+the preimage of $\mathcal{D}$ under $\pi \times \mathrm{d}\pi$.
+The latter is a surjective submersion: $\pi$ is one by \eqref{eq:pi_def},
+and in local coordinates in which $\pi$ is a projection so is
+$\mathrm{d}\pi$.
+Consequently a subset of $M \times TM$ is open, and a map out of it is
+smooth, as soon as its preimage under $\pi \times \mathrm{d}\pi$ is
+(\citealp{Lee_2013}, Corollary 4.27 and Theorem 4.29).
+
+For the openness, part 5 of Proposition~\ref{thm:exponential_map}
+describes $\mathcal{N}$ by the two conditions that $\bm{A}^T\bm{B}$ be
+invertible and that the strict inequality \eqref{eq:U_A_s_def} hold.
+The first is an open condition; on the open set it defines both sides of
+\eqref{eq:U_A_s_def} are continuous, the right one because
+$\sigma_{\min}$ is, and the left one because $\bm{Q}(\bm{A},\bm{B})$ is.
+That $\bm{Q}(\bm{A},\bm{B})$ is in fact smooth there, which is needed
+again below, follows from \eqref{eq:Q_A_B_def}: the matrix
+$\bm{B}^T\bm{A}\bm{A}^T\bm{B}
+= \bracket{\bm{A}^T\bm{B}}^T\bracket{\bm{A}^T\bm{B}}$ is positive
+definite as soon as $\bm{A}^T\bm{B}$ is invertible, and the inverse
+square root is a smooth function of a positive definite matrix, the map
+$\bm{S} \mapsto \bm{S}^2$ of the open cone of positive definite matrices
+having at $\bm{S}$ the differential
+$\bm{\Omega} \mapsto \bm{S}\bm{\Omega}+\bm{\Omega}\bm{S}$, invertible by
+part 1 of Lemma~\ref{thm:lyapunov_lemma} applied to $\bm{S}^{1/2}$, so
+that the inverse function theorem applies.
+Hence $\mathcal{N}$ is open, and so is $\mathcal{D}$.
+
+For the smoothness, let $\bracket{(\bm{A},s),(\bm{B},t),(\bm{Y},\beta)}$
+range over $\mathcal{N}$ and put
+$\bm{z} := \mathrm{d}\pi_{(\bm{B},t)}\bracket{(\bm{Y},\beta)}$, so that
+$\bracket{[\bm{A},s],[\bm{B},t],\bm{z}}$ ranges over $\mathcal{D}$.
+The right action of $\bm{Q} := \bm{Q}(\bm{A},\bm{B}) \in O(q)$ carries
+$(\bm{B},t)$ to the aligned representative $(\bm{B}\bm{Q},t)$ and is
+linear, so it carries $(\bm{Y},\beta)$ to $(\bm{Y}\bm{Q},\beta)$; since
+$\pi$ is invariant under that action,
+$\mathrm{d}\pi_{(\bm{B}\bm{Q},t)}\bracket{(\bm{Y}\bm{Q},\beta)} = \bm{z}$,
+and part 3 of Lemma~\ref{thm:lyapunov_lemma} identifies the horizontal
+lift \eqref{eq:z_lift} of $\bm{z}$ as
+
+\begin{equation*}
+  \iota_{(\bm{B}\bm{Q},\, t)}(\bm{z})
+  = \mathcal{H}_{(\bm{B}\bm{Q},\, t)}\bracket{(\bm{Y}\bm{Q},\ \beta)},
+\end{equation*}
+a smooth function on $\mathcal{N}$ by \eqref{eq:horizontal_projection} and
+the smoothness of $\bm{Q}(\bm{A},\bm{B})$ just established.
+So are $\bm{A}$ and $\bm{V} = \bm{B}\bm{Q}-\bm{A}$, and therefore, by the
+smoothness recorded in the second step, so is the value at $\tau = 0$ of
+the solution of \eqref{eq:transport_backward}.
+Composing with the smooth map $\mathrm{d}\pi$ and reading
+\eqref{eq:Pi_formula} backwards,
+
+\begin{equation*}
+  \bracket{(\bm{A},s),\ (\bm{B},t),\ (\bm{Y},\beta)} \longmapsto
+  \mathrm{d}\pi_{(\bm{A},s)}\bracket{\bracket{\bm{X}(0),\beta}}
+  = \Pi^{[\bm{A},s]}_{[\bm{B},t]}(\bm{z})
+\end{equation*}
+is a smooth map from $\mathcal{N}$ to $TM$.
+Its value depends on $\bracket{[\bm{A},s],[\bm{B},t],\bm{z}}$ alone,
+because \eqref{eq:Pi_def} is well posed; that is, it is constant on the
+fibres of $\pi \times \mathrm{d}\pi$, and it therefore descends to a
+smooth map on $\mathcal{D}$, which is \eqref{eq:Pi_smooth}.
 \end{proof}
 
 Three features of \eqref{eq:Pi_formula} deserve to be isolated.
@@ -2667,7 +2754,9 @@ $(\bm{u},\bm{z}) \mapsto \Gamma_{\bm{u}}(\bm{z})$ is smooth on
 $B_{\rho} \times \bracket{\mathbb{R}^{p \times q}\times\mathbb{R}}$,
 because $\bm{u} \mapsto \bracket{\bm{U}_{\bm{u}},b_{\bm{u}}}$ is linear
 and $\bracket{\bm{A},\bm{V},\bm{Y},\beta} \mapsto
-\bracket{\bm{X}(0),\beta}$ is smooth by part 3 of that proposition.
+\bracket{\bm{X}(0),\beta}$ is smooth by that proposition; equivalently, it
+is \eqref{eq:Pi_smooth} at $[\bm{A},s] = \theta_0$, composed with the
+normal chart $\bm{u} \mapsto \text{Exp}_{\theta_0}(\bm{u})$.
 \end{definition}
 
 \subsection*{The transport comparison}
@@ -2762,7 +2851,7 @@ being inverses of the injective map $\text{Exp}_{\theta_0}$ on $B_{\rho}$;
 no ambiguity can therefore arise from the notation.
 Part 1 of the lemma says exactly that $y \in U_x$ whenever
 $x,y \in \mathcal{V}^{\sharp}$, so part 6 of
-Proposition~\ref{thm:exponential_map} and part 1 of
+Proposition~\ref{thm:exponential_map} and
 Proposition~\ref{thm:parallel_transport} apply to every such pair: any two
 points of $\mathcal{V}^{\sharp}$ are joined by a unique minimizing
 geodesic, and the transport $\Pi^x_y$ of \eqref{eq:Pi_def} is defined
@@ -2825,8 +2914,9 @@ $\tau \mapsto \text{Exp}_{\theta_0}(\tau\bm{u})$ of radial geodesics,
 smooth in $(\tau,\bm{u})$ by the previous paragraph, so
 $(\bm{u},\bm{z}) \mapsto \Gamma_{\bm{u}}(\bm{z})$ is smooth, which is the
 assertion recorded in Definition~\ref{def:transport}.
-Part 3 of Proposition~\ref{thm:parallel_transport} proves the same thing
-by writing that equation out in the horizontal lifts, where it becomes
+Proposition~\ref{thm:parallel_transport} proves the same thing, in the
+stronger form \eqref{eq:Pi_smooth} in which both base points vary, by
+writing that equation out in the horizontal lifts, where it becomes
 \eqref{eq:transport_ODE}; but the smoothness owes nothing to the explicit
 form, and would hold verbatim for a metric admitting no closed form at
 all.
