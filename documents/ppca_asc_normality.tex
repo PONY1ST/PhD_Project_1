@@ -2174,7 +2174,8 @@ geodesic ball, and part 6 of that proposition computes $d_M$ inside the
 ball together with the geodesic realizing it.
 Proposition~\ref{thm:parallel_transport} below has therefore only to
 restate that geodesic in the notation used here, and then to transport
-along it.
+along it, the transport itself being solved beforehand, in
+Proposition~\ref{thm:transport_equation}, for an arbitrary curve.
 
 Two preliminaries are needed.
 The first makes the orthogonal splitting
@@ -2310,6 +2311,342 @@ which is \eqref{eq:submersion_derivative}.
 The last sentence follows because $\iota_{c(t)}$ is injective and
 $\ker \mathcal{H}_{c(t)} = V_{c(t)}$.
 \end{proof}
+
+Both lemmas are statements about a single time.
+Parallel transport is what they combine into, and it is solved here
+directly, in the form in which the question is posed.
+Given a smooth curve $\gamma : I \to M$, a time $t_1 \in I$ and a vector
+$\bm{w} \in T_{\gamma(t_1)}M$, find the vector field $\bm{x}$ along
+$\gamma$ which is parallel and takes the value $\bm{w}$ at $t_1$:
+
+\begin{equation}\label{eq:transport_problem}
+  D_t\bm{x}(t) = 0 \quad \text{for every } t \in I,
+  \qquad
+  \bm{x}(t_1) = \bm{w} .
+\end{equation}
+The curve is arbitrary at this stage; the geodesic \eqref{eq:gamma_def}
+is substituted only afterwards, in
+Proposition~\ref{thm:parallel_transport}, where $I = [0,1]$ and the
+vector is prescribed at the far end $t_1 = 1$, the transport being read
+from $[\bm{B},t]$ back to $[\bm{A},s]$.
+Keeping the curve arbitrary costs nothing and makes plain which features
+of the answer come from the submersion alone and which from the geodesic.
+
+The method is the one the two lemmas prepare.
+Lift $\gamma$ to a curve $c$ in $\Theta$ with $\pi \circ c = \gamma$,
+lift $\bm{x}$ to a vector field $\bm{X}$ along $c$, and observe that
+$\mathrm{d}\pi$ carries the ordinary derivative of $\bm{X}$ to the
+covariant derivative of $\bm{x}$, so that
+$\mathrm{d}\pi_{c(t)}\bracket{\dot{\bm{X}}(t)} = D_t\bm{x}(t) = 0$ is
+what \eqref{eq:transport_problem} becomes upstairs.
+Now $\Theta$ is flat, and one might hope that this forces
+$\dot{\bm{X}}(t) = \bm{0}$, a constant lift, hence a constant field
+downstairs.
+It does not: the kernel of $\mathrm{d}\pi_{c(t)}$ is the vertical space,
+not the origin, and all that is forced is that $\dot{\bm{X}}(t)$ be
+vertical.
+That residue is exactly the failure of parallel transport in $M$ to be
+the identity, and computing it is the content of the next proposition:
+the residue is $\dot{\bm{X}} = \dot{P}\bm{X}$, where $P(t)$ denotes the
+orthogonal projection onto the horizontal space at $c(t)$.
+The lift is dragged by the rotation of the horizontal space, and by
+nothing else.
+
+\begin{proposition}[The transport equation along a curve]\label{thm:transport_equation}
+Let $\gamma : I \to M$ be a smooth curve and let $c : I \to \Theta$ be a
+horizontal lift of it, as supplied by Proposition~\ref{thm:curve_lift}:
+a smooth curve with
+
+\begin{equation}\label{eq:lift_curve}
+  \pi \circ c = \gamma,
+  \qquad
+  \dot{c}(t) \in H_{c(t)},
+  \qquad
+  c(t) =: \bracket{\bm{A}(t),\ s(t)} \in \Theta,
+  \qquad t \in I .
+\end{equation}
+Write $P(t) := \mathcal{H}_{c(t)}$ for the orthogonal projection of
+$T_{c(t)}\Theta$ onto the horizontal space $H_{c(t)}$, an operator which
+by \eqref{eq:horizontal_projection} is given on
+$(\bm{Z},\beta) \in \mathbb{R}^{p \times q}\times\mathbb{R}$ by
+
+\begin{equation}\label{eq:P_def}
+  P(t)\bracket{(\bm{Z},\beta)}
+  = \bracket{\bm{Z}-\bm{A}(t)\,\bm{\Omega}_{\bm{Z}}(t),\ \beta},
+  \qquad
+  \bm{\Omega}_{\bm{Z}}(t) := \mathcal{L}_{\bm{A}(t)}
+  \bracket{\bm{A}(t)^T\bm{Z}-\bm{Z}^T\bm{A}(t)} ;
+\end{equation}
+the letter $P$ is reserved for this operator throughout, and is not to be
+confused with the $q \times q$ matrix
+$\bm{P}_{\bm{A}} = \bm{A}^T\bm{A}$ of Lemma~\ref{thm:lyapunov_lemma}.
+Let $\bm{x}$ be a smooth vector field along $\gamma$ and let
+
+\begin{equation}\label{eq:field_lift}
+  \bracket{\bm{X}(t),\beta(t)} := \iota_{c(t)}\bracket{\bm{x}(t)}
+  \in H_{c(t)}
+\end{equation}
+be its horizontal lift, in the notation \eqref{eq:lift_def}.
+Then the following hold.
+\begin{enumerate}
+  \item The derivative of the lift projects to the covariant derivative
+  of the field:
+
+  \begin{equation}\label{eq:dpi_derivative}
+    \mathrm{d}\pi_{c(t)}\bracket{\frac{d}{dt}
+    \bracket{\bm{X}(t),\beta(t)}} = D_t\bm{x}(t),
+    \qquad t \in I .
+  \end{equation}
+  Consequently $\bm{x}$ is parallel along $\gamma$ if and only if
+  $\frac{d}{dt}\bracket{\bm{X},\beta}$ is \textit{vertical} at every
+  time, which does not make it zero.
+  \item $\bm{x}$ is parallel along $\gamma$ if and only if its lift
+  solves the linear ordinary differential equation
+
+  \begin{equation}\label{eq:transport_ODE_curve}
+    \dot{\bm{X}}(t) = \bm{A}(t)\,\bm{\Omega}(t),
+    \qquad
+    \bm{\Omega}(t) := \mathcal{L}_{\bm{A}(t)}\bracket{
+    \bm{X}(t)^T\dot{\bm{A}}(t)-\dot{\bm{A}}(t)^T\bm{X}(t)},
+    \qquad
+    \dot{\beta}(t) = 0 .
+  \end{equation}
+  In particular the scalar component is transported trivially along any
+  curve whatsoever, and $\bm{X}$ is constant precisely when
+  $\bm{\Omega}$ vanishes identically, that is when
+  $\bm{X}(t)^T\dot{\bm{A}}(t)$ is symmetric at every time.
+  \item Equation \eqref{eq:transport_ODE_curve} is the equation
+
+  \begin{equation}\label{eq:kato}
+    \frac{d}{dt}\bracket{\bm{X}(t),\beta(t)}
+    = \dot{P}(t)\bracket{\bracket{\bm{X}(t),\beta(t)}} ,
+  \end{equation}
+  in which $\dot{P}(t)$ is the derivative of the operator valued map
+  $t \mapsto P(t)$, given at a fixed
+  $(\bm{Z},\beta) \in \mathbb{R}^{p \times q}\times\mathbb{R}$ by
+
+  \begin{equation}\label{eq:P_dot}
+    \dot{P}(t)\bracket{(\bm{Z},\beta)}
+    = -\bracket{\dot{\bm{A}}\,\bm{\Omega}_{\bm{Z}}
+    + \bm{A}\,\dot{\bm{\Omega}}_{\bm{Z}},\ 0},
+  \end{equation}
+
+  \begin{equation}\label{eq:Omega_Z_dot}
+    \dot{\bm{\Omega}}_{\bm{Z}} = \mathcal{L}_{\bm{A}}\bracket{
+    \dot{\bm{A}}^T\bm{Z}-\bm{Z}^T\dot{\bm{A}}
+    - \dot{\bm{P}}_{\bm{A}}\bm{\Omega}_{\bm{Z}}
+    - \bm{\Omega}_{\bm{Z}}\dot{\bm{P}}_{\bm{A}}},
+    \qquad
+    \dot{\bm{P}}_{\bm{A}} := \frac{d}{dt}\bracket{\bm{A}^T\bm{A}}
+    = \dot{\bm{A}}^T\bm{A}+\bm{A}^T\dot{\bm{A}},
+  \end{equation}
+  the argument $t$ being omitted from $\bm{A}$, $\dot{\bm{A}}$ and
+  $\bm{\Omega}_{\bm{Z}}$; and on a vector $(\bm{Z},\beta)$ which is
+  horizontal at $c(t)$ the two displays collapse to
+
+  \begin{equation}\label{eq:P_dot_horizontal}
+    \dot{P}(t)\bracket{(\bm{Z},\beta)}
+    = \bracket{\bm{A}(t)\,\mathcal{L}_{\bm{A}(t)}\bracket{
+    \bm{Z}^T\dot{\bm{A}}(t)-\dot{\bm{A}}(t)^T\bm{Z}},\ 0} .
+  \end{equation}
+  \item For every $t_1 \in I$ and every $\bm{w} \in T_{\gamma(t_1)}M$ the
+  problem \eqref{eq:transport_problem} has exactly one solution; it is
+  defined on all of $I$ and depends linearly on $\bm{w}$.
+  A solution of \eqref{eq:kato} whose value at one time is horizontal is
+  horizontal at every time, and its Euclidean norm is constant; hence
+  $\abs{\bm{x}(t)} = \abs{\bm{w}}$ for every $t \in I$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+\textbf{The curve is lifted.}
+Proposition~\ref{thm:curve_lift} supplies $c$, and every $\bm{A}(t)$ has
+rank $q$ because $c(t)$ lies in $\Theta$; so
+Lemma~\ref{thm:lyapunov_lemma} applies at every time and, by part 1 of
+it, $t \mapsto \mathcal{L}_{\bm{A}(t)}$ is smooth.
+The lift \eqref{eq:field_lift} is smooth in $t$ as well, the horizontal
+lift $\iota$ depending smoothly on its base point by part 3 of the same
+lemma.
+
+\textbf{The derivative of the lift is pushed down.}
+The curve $c$ has horizontal velocity at every time by
+\eqref{eq:lift_curve}, so Lemma~\ref{thm:submersion_derivative} applies
+and gives $\iota_{c(t)}\bracket{D_t\bm{x}}
+= \mathcal{H}_{c(t)}\bracket{\frac{d}{dt}(\bm{X},\beta)}$.
+Apply $\mathrm{d}\pi_{c(t)}$ to both sides.
+On the left it undoes $\iota_{c(t)}$, which is by definition
+\eqref{eq:lift_def} the inverse of
+$\mathrm{d}\pi_{c(t)}\big|_{H_{c(t)}}$, and returns $D_t\bm{x}$; on the
+right it does not see $\mathcal{H}_{c(t)}$ at all, a vector and its
+horizontal part differing by an element of
+$V_{c(t)} = \ker\mathrm{d}\pi_{c(t)}$.
+This is \eqref{eq:dpi_derivative}.
+In particular $D_t\bm{x} = 0$ if and only if
+$\frac{d}{dt}(\bm{X},\beta) \in \ker \mathrm{d}\pi_{c(t)} = V_{c(t)}$,
+by \eqref{eq:vertical_space}, which is strictly weaker than
+$\frac{d}{dt}(\bm{X},\beta) = 0$; the two agree only when the vertical
+vector computed in the next step happens to vanish.
+
+\textbf{The verticality condition is solved.}
+By part 2 of Proposition~\ref{thm:horizontal_vertical} the vertical space
+at $c(t) = \bracket{\bm{A}(t),s(t)}$ consists of the pairs
+$\bracket{\bm{A}(t)\bm{\Omega},0}$ with $\bm{\Omega}$ skew-symmetric, and
+$\bm{\Omega}$ is determined by such a pair because $\bm{A}(t)$ has rank
+$q$.
+The conclusion of the previous step therefore reads
+
+\begin{equation}\label{eq:vertical_derivative}
+  \dot{\bm{X}}(t) = \bm{A}(t)\bm{\Omega}(t)
+  \quad \text{with } \bm{\Omega}(t)^T = -\bm{\Omega}(t),
+  \qquad
+  \dot{\beta}(t) = 0 ,
+\end{equation}
+and it remains to identify $\bm{\Omega}(t)$.
+That is done by the one piece of information not yet used: the lift
+\eqref{eq:field_lift} is horizontal at \textit{every} time, so that, by
+part 3 of Proposition~\ref{thm:horizontal_vertical}, the matrix
+$\bm{S}(t) := \bm{A}(t)^T\bm{X}(t)-\bm{X}(t)^T\bm{A}(t)$ vanishes
+identically, and so does its derivative.
+Substituting \eqref{eq:vertical_derivative} and
+$\bm{\Omega}^T = -\bm{\Omega}$ into that derivative, and omitting the
+argument $t$,
+
+\begin{equation}\label{eq:S_dot_curve}
+  \bm{0} = \dot{\bm{S}}
+  = \dot{\bm{A}}^T\bm{X} + \bm{A}^T\bm{A}\bm{\Omega}
+  - \bm{\Omega}^T\bm{A}^T\bm{A} - \bm{X}^T\dot{\bm{A}}
+  = \bracket{\bm{P}_{\bm{A}}\bm{\Omega}+\bm{\Omega}\bm{P}_{\bm{A}}}
+  - \bracket{\bm{X}^T\dot{\bm{A}}-\dot{\bm{A}}^T\bm{X}} .
+\end{equation}
+This is the Lyapunov equation \eqref{eq:lyapunov} with the
+skew-symmetric right hand side
+$\bm{K} = \bm{X}^T\dot{\bm{A}}-\dot{\bm{A}}^T\bm{X}$, so part 1 of
+Lemma~\ref{thm:lyapunov_lemma} identifies
+$\bm{\Omega} = \mathcal{L}_{\bm{A}}(\bm{K})$ and confirms that it is
+skew-symmetric, as \eqref{eq:vertical_derivative} requires.
+A parallel $\bm{x}$ has therefore a lift solving
+\eqref{eq:transport_ODE_curve}.
+Conversely, if the lift solves \eqref{eq:transport_ODE_curve}, then
+$\frac{d}{dt}(\bm{X},\beta) = \bracket{\bm{A}\bm{\Omega},0}$ is vertical,
+$\bm{\Omega}$ being skew-symmetric by the same lemma, and the second step
+gives $D_t\bm{x} = 0$.
+This is part 2, and part 1 was the second step.
+
+\textbf{The equation is the derivative of the projection.}
+Fix $(\bm{Z},\beta)$, not depending on $t$, and read \eqref{eq:P_def}:
+the vertical part subtracted there is
+$\bm{A}(t)\bm{\Omega}_{\bm{Z}}(t)$, with $\bm{\Omega}_{\bm{Z}}$ the
+solution of
+
+\begin{equation}\label{eq:Omega_Z_lyapunov}
+  \bm{P}_{\bm{A}}\bm{\Omega}_{\bm{Z}}
+  + \bm{\Omega}_{\bm{Z}}\bm{P}_{\bm{A}}
+  = \bm{A}^T\bm{Z}-\bm{Z}^T\bm{A} .
+\end{equation}
+Both $\bm{A}$ and $\mathcal{L}_{\bm{A}}$ are smooth in $t$ by the first
+step, so $t \mapsto P(t)$ is a smooth curve of linear operators;
+differentiating \eqref{eq:P_def} gives \eqref{eq:P_dot}, and
+differentiating \eqref{eq:Omega_Z_lyapunov} and solving the resulting
+Lyapunov equation for $\dot{\bm{\Omega}}_{\bm{Z}}$ with part 1 of
+Lemma~\ref{thm:lyapunov_lemma} gives \eqref{eq:Omega_Z_dot}.
+Suppose now that $(\bm{Z},\beta)$ is horizontal at $c(t)$, that is that
+$\bm{A}(t)^T\bm{Z} = \bm{Z}^T\bm{A}(t)$.
+Then the right hand side of \eqref{eq:Omega_Z_lyapunov} vanishes at time
+$t$, so $\bm{\Omega}_{\bm{Z}}(t) = \mathcal{L}_{\bm{A}(t)}(\bm{0})
+= \bm{0}$; the first term of \eqref{eq:P_dot} and the last two terms of
+\eqref{eq:Omega_Z_dot} drop out, and what survives is
+
+\begin{equation*}
+  \dot{P}(t)\bracket{(\bm{Z},\beta)}
+  = -\bracket{\bm{A}\,\mathcal{L}_{\bm{A}}\bracket{
+  \dot{\bm{A}}^T\bm{Z}-\bm{Z}^T\dot{\bm{A}}},\ 0}
+  = \bracket{\bm{A}\,\mathcal{L}_{\bm{A}}\bracket{
+  \bm{Z}^T\dot{\bm{A}}-\dot{\bm{A}}^T\bm{Z}},\ 0},
+\end{equation*}
+which is \eqref{eq:P_dot_horizontal}.
+The lift \eqref{eq:field_lift} is horizontal at $c(t)$ for every $t$, so
+$(\bm{Z},\beta) = \bracket{\bm{X}(t),\beta(t)}$ is an admissible choice
+at each time, and it turns the right hand side of
+\eqref{eq:P_dot_horizontal} into the right hand side of
+\eqref{eq:transport_ODE_curve}.
+The two equations \eqref{eq:kato} and \eqref{eq:transport_ODE_curve}
+therefore say the same thing about a horizontal lift, which is part 3.
+
+\textbf{Existence, horizontality and the norm.}
+Equation \eqref{eq:kato} is linear in $\bracket{\bm{X},\beta}$ with
+coefficients smooth in $t$ on $I$, so for data prescribed at any
+$t_1 \in I$ it has a unique solution, defined on all of $I$ and linear in
+those data (\citealp{Lee_2018}, Theorem 4.31).
+The two remaining properties are formal consequences of $P(t)$ being an
+orthogonal projection and use nothing about $\gamma$.
+Differentiating $P^2 = P$ gives $\dot{P}P+P\dot{P} = \dot{P}$;
+multiplying that identity by $P$ on both sides, and using $P^2 = P$ once
+more, gives
+
+\begin{equation}\label{eq:kato_identity}
+  P(t)\,\dot{P}(t)\,P(t) = 0 .
+\end{equation}
+Let $\bm{\zeta}$ solve \eqref{eq:kato} with
+$\bm{\zeta}(t_1) \in H_{c(t_1)}$, that is with
+$P(t_1)\bm{\zeta}(t_1) = \bm{\zeta}(t_1)$, and put
+$\bm{y} := \bm{\zeta}-P\bm{\zeta}$, which vanishes exactly where
+$\bm{\zeta}$ is horizontal.
+Then, by \eqref{eq:kato}, and then by
+$\bm{\zeta} = P\bm{\zeta}+\bm{y}$ and \eqref{eq:kato_identity},
+
+\begin{equation*}
+  \dot{\bm{y}} = \dot{\bm{\zeta}}-\dot{P}\bm{\zeta}-P\dot{\bm{\zeta}}
+  = \dot{P}\bm{\zeta}-\dot{P}\bm{\zeta}-P\dot{P}\bm{\zeta}
+  = -P\dot{P}\bracket{P\bm{\zeta}+\bm{y}}
+  = -P\dot{P}\bm{y} ,
+\end{equation*}
+a linear equation with $\bm{y}(t_1) = 0$, whence $\bm{y} \equiv 0$: the
+solution stays horizontal.
+For the norm, write $g^{\Theta}$ for the Euclidean metric
+\eqref{eq:euclidean_metric}, which does not depend on the base point and
+for which each $P(t)$ is self-adjoint, being an orthogonal projection.
+Using $\bm{\zeta} = P\bm{\zeta}$ and \eqref{eq:kato_identity} again,
+
+\begin{equation*}
+  \frac{d}{dt}\,g^{\Theta}\bracket{\bm{\zeta},\bm{\zeta}}
+  = 2\,g^{\Theta}\bracket{\bm{\zeta},\dot{P}\bm{\zeta}}
+  = 2\,g^{\Theta}\bracket{P\bm{\zeta},\dot{P}P\bm{\zeta}}
+  = 2\,g^{\Theta}\bracket{\bm{\zeta},P\dot{P}P\bm{\zeta}} = 0 .
+\end{equation*}
+Finally, let $\bm{w} \in T_{\gamma(t_1)}M$ and let $\bm{\zeta}$ be the
+solution of \eqref{eq:kato} with
+$\bm{\zeta}(t_1) = \iota_{c(t_1)}(\bm{w})$, which is horizontal.
+By what precedes $\bm{\zeta}(t)$ is horizontal at $c(t)$ for every $t$,
+hence is the horizontal lift of
+$\bm{x}(t) := \mathrm{d}\pi_{c(t)}\bracket{\bm{\zeta}(t)}$; parts 2 and 3
+make $\bm{x}$ parallel along $\gamma$, and $\bm{x}(t_1) = \bm{w}$.
+Any solution of \eqref{eq:transport_problem} has, by parts 2 and 3, a
+lift solving \eqref{eq:kato} with the same value at $t_1$, so it
+coincides with $\bm{x}$; and the linear dependence on $\bm{w}$ is that of
+\eqref{eq:kato}, together with the linearity of $\iota_{c(t_1)}$ and of
+$\mathrm{d}\pi_{c(t)}$.
+Since each $\iota_{c(t)}$ is a linear isometry, $\abs{\bm{x}(t)}$ is the
+$g^{\Theta}$ norm of $\bm{\zeta}(t)$, just shown to be constant.
+\end{proof}
+
+Two comments on the answer, before it is applied.
+The first is that the hope raised above, that the flatness of $\Theta$
+should make the lifted field constant, is realized in exactly one
+circumstance: by part 2, $\dot{\bm{X}} \equiv \bm{0}$ if and only if
+$\bm{X}(t)^T\dot{\bm{A}}(t)$ is symmetric at every time.
+This is automatic when $q = 1$, all $1 \times 1$ skew-symmetric matrices
+being zero, and it holds for the velocity field of a geodesic, for which
+$\bm{X} = \dot{\bm{A}}$; both cases are taken up again after
+Proposition~\ref{thm:parallel_transport}.
+Otherwise the lifted field turns, and \eqref{eq:transport_ODE_curve}
+measures by how much.
+The second is that \eqref{eq:kato} is the whole answer in one line, and
+an intelligible one: a parallel field is the field whose lift is dragged
+by the moving horizontal space $H_{c(t)}$ and by nothing else, $P$ being
+the record of that motion.
+Only the tilting of $H_{c(t)}$ inside the fixed ambient space
+$\mathbb{R}^{p \times q}\times\mathbb{R}$ enters, which is why the scalar
+direction, along which nothing tilts, is transported trivially.
 
 \begin{proposition}[Parallel transport along the minimizing geodesic]\label{thm:parallel_transport}
 Let $[\bm{A},s] \in M$ and let $[\bm{B},t] \in U_{[\bm{A},s]}$.
@@ -2506,38 +2843,18 @@ which is smooth as well (\citealp{Lee_2013}, Theorem D.1 and Theorem D.6).
 By the same lemma each $\bm{\Omega}(\tau)$ is skew-symmetric, because
 $\bm{X}^T\bm{V}-\bm{V}^T\bm{X}$ is.
 
-For horizontality, put
-$\bm{S}(\tau) := \bm{A}_{\tau}^T\bm{X}(\tau)-\bm{X}(\tau)^T\bm{A}_{\tau}$,
-which by part 3 of Proposition~\ref{thm:horizontal_vertical} vanishes
-precisely when $\bracket{\bm{X}(\tau),\beta(\tau)}$ is horizontal at
-$\tilde{\gamma}(\tau)$.
-Using $\dot{\bm{A}}_{\tau} = \bm{V}$,
-$\dot{\bm{X}} = \bm{A}_{\tau}\bm{\Omega}$ and
-$\bm{\Omega}^T = -\bm{\Omega}$,
-
-\begin{equation}\label{eq:S_dot}
-  \dot{\bm{S}}(\tau)
-  = \bm{V}^T\bm{X} + \bm{A}_{\tau}^T\bm{A}_{\tau}\bm{\Omega}
-  - \bm{\Omega}^T\bm{A}_{\tau}^T\bm{A}_{\tau} - \bm{X}^T\bm{V}
-  = \bracket{\bm{A}_{\tau}^T\bm{A}_{\tau}\bm{\Omega}
-  + \bm{\Omega}\bm{A}_{\tau}^T\bm{A}_{\tau}}
-  - \bracket{\bm{X}^T\bm{V}-\bm{V}^T\bm{X}} = \bm{0},
-\end{equation}
-the last equality being exactly \eqref{eq:lyapunov} for
-$\bm{\Omega} = \bm{\Omega}(\tau)$.
-Since $\bm{S}(\tau_0) = \bm{0}$ by hypothesis, $\bm{S} \equiv \bm{0}$.
-
-For the norm, the horizontality just proved makes
-$\bm{A}_{\tau}^T\bm{X}(\tau)$ symmetric, so
-
-\begin{equation*}
-  \frac{d}{d\tau}\squared{\tr\bracket{\bm{X}\bm{X}^T}+\beta^2}
-  = 2\tr\bracket{\bm{X}^T\dot{\bm{X}}} + 0
-  = 2\tr\bracket{\bm{X}^T\bm{A}_{\tau}\bm{\Omega}}
-  = 2\tr\bracket{\bracket{\bm{A}_{\tau}^T\bm{X}}\bm{\Omega}} = 0,
-\end{equation*}
-the last equality because the trace of the product of a symmetric and a
-skew-symmetric matrix vanishes.
+Horizontality and the norm are already proved.
+Indeed $\tilde{\gamma}$ is by the first step a horizontal lift of
+$\gamma$, and $\dot{\bm{A}}_{\tau} = \bm{V}$, so that
+\eqref{eq:transport_ODE} is verbatim the transport equation
+\eqref{eq:transport_ODE_curve} of
+Proposition~\ref{thm:transport_equation} written for the curve $\gamma$,
+and equivalently, by part 3 of that proposition, the equation
+$\frac{d}{d\tau}(\bm{X},\beta)
+= \dot{P}(\tau)\bracket{(\bm{X},\beta)}$ driven by the orthogonal
+projection $P(\tau) = \mathcal{H}_{\tilde{\gamma}(\tau)}$ onto
+$H_{\tilde{\gamma}(\tau)}$.
+Part 4 of that proposition asserts both properties.
 
 \textbf{The transport map.}
 Let $(\bm{X}_0,\beta_0) \in H_{\tilde{\gamma}(\tau_0)}$ and let
@@ -2550,12 +2867,10 @@ horizontal at $\tilde{\gamma}(\tau)$, hence is the horizontal lift of
   \bm{x}(\tau) := \mathrm{d}\pi_{\tilde{\gamma}(\tau)}
   \bracket{\bracket{\bm{X}(\tau),\beta(\tau)}},
 \end{equation*}
-and its derivative $\bracket{\bm{A}_{\tau}\bm{\Omega}(\tau),\,0}$ is
-vertical by Proposition~\ref{thm:horizontal_vertical}, $\bm{\Omega}(\tau)$
-being skew-symmetric.
-The curve $\tilde{\gamma}$ has horizontal velocity at every time by the
-first step, so Lemma~\ref{thm:submersion_derivative} applies and gives
-$D_{\tau}\bm{x} = 0$: the field $\bm{x}$ is parallel along $\gamma$.
+and part 2 of Proposition~\ref{thm:transport_equation}, applied to
+$\gamma$ and its horizontal lift $\tilde{\gamma}$ as in the second step,
+gives $D_{\tau}\bm{x} = 0$: the field $\bm{x}$ is parallel along
+$\gamma$.
 Existence and uniqueness of the parallel field with a prescribed value at
 $\tau_0$ (\citealp{Lee_2018}, Theorem 4.32) identify $\bm{x}$ with the
 parallel transport of $\bm{x}(\tau_0)$, which is \eqref{eq:Pi_flow}.
