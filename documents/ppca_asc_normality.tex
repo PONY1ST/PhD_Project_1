@@ -270,8 +270,9 @@ then we denote its $p$ eigenvalues as
   \geqslant \cdots \geqslant \lambda_p(\bm{S}).
 \end{equation*}
 
-\section{Basic Facts about $(M,g)$}
+\section{Geometric Facts about $(M,g)$}
 
+\subsection{Horizontal and Verticle Tangent Spaces}
 Working with Riemannian submersion, 
 we shall as usual start with computations regarding the horizontal and vertical 
 tangent spaces.
@@ -411,7 +412,8 @@ We have
 \begin{equation*}
   \bm{v} =
   \mathrm{d} \pi_{(\bm{A},s)}((\bm{A} \bm{\Omega}, 0)) = 
-  \mathrm{d} \pi_{(\bm{A},s)} (\gamma'(0)) = \frac{d}{dt} \bigg|_{t=0} \pi(\gamma(t)) = \bm{0} \in T_{[\bm{A},s]}M.
+  \mathrm{d} \pi_{(\bm{A},s)} (\gamma'(0)) = \frac{\mathrm{d}}{\mathrm{d} t}
+   \bigg|_{t=0} \pi(\gamma(t)) = \bm{0} \in T_{[\bm{A},s]}M.
 \end{equation*}
 Therefore, $\mathrm{d} \bm{\Sigma}_{[\bm{A},s]}$ is injective and
 the vertical tangent space is the same as $\ker(\mathrm{d}\Phi_{(\bm{A},s)})$.
@@ -440,7 +442,117 @@ Conversely, any $\bm{V}$ such that $\bm{A}^T \bm{V}$ is symmetric will satisfy
 The proof is complete.
 \end{proof}
 
-We record a proposition about lifting curves.
+We will need to compute the projection of a tangent 
+vector to horizontal and verticle subspaces.
+
+\begin{lemma}\label{thm:psi_S}
+For any $q \times q$ symmetric invertible matrix $\bm{S}$
+and $q \times q$ matrix $\bm{\Omega}$,
+define 
+
+\begin{equation*}
+  \psi_{\bm{S}}(\bm{\Omega}) = \bm{S} \bm{\Omega} + \bm{\Omega} \bm{S}.
+\end{equation*}
+Then, for each fixed $\bm{S}$, $\psi_{\bm{S}}$ is linear, 
+maps skew-symmetric matrices to skew-symmetric matrices,
+and is invertible. Furthermore, 
+both $\psi_{\bm{S}}(\bm{\Omega})$
+and $\psi_{\bm{S}}^{-1}(\bm{\Omega})$
+depend smoothly on the tuple $(\bm{S}, \bm{\Omega})$.
+\end{lemma}
+
+\begin{proof}
+It is clear from definition that $\psi_{\bm{S}}$ is linear and
+$\psi_{\bm{S}}(\bm{\Omega})$ is skew-symmetric whenever $\bm{\Omega}$ is.
+To show that $\psi_{\bm{S}}$ is invertible,
+suppose that $\bm{\Omega}$ is such that 
+
+\begin{equation*}
+  \psi_{\bm{S}}(\bm{\Omega}) = \bm{0}.
+\end{equation*}
+Apply spectral theorem to get $\bm{Q} \in O(q)$ 
+and a $q \times q$ diagonal matrix $\Lambda$ with positive entries 
+$\lambda_1(\bm{S})$, $\ldots$, $\lambda_q(\bm{S})$
+such that $\bm{S} = \bm{Q} \Lambda \bm{Q}^T$.
+Substitution yields 
+\begin{equation*}
+  \Lambda \bm{Q}^T \bm{\Omega} \bm{Q} + \bm{Q}^T \bm{\Omega} \bm{Q} \Lambda = \bm{0}.
+\end{equation*}
+Looking at each entry, we arrive at 
+\begin{equation*}
+  (\lambda_i(\bm{S}) + \lambda_j(\bm{S})) 
+(\bm{Q}^T \bm{\Omega} \bm{Q})_{ij} = 0
+\end{equation*}
+for $i,j = 1, \ldots, q$.
+Given that $\bm{S}$ is invertible, 
+the eigenvalues of $\bm{S}$ are positive.
+Thus, 
+$\bm{Q}^T \bm{\Omega} \bm{Q} = \bm{0}$
+and $\bm{\Omega} = \bm{0}$.
+We have proved that $\psi_{\bm{S}}$ is invertible.
+Given that $\psi_{\bm{S}}(\bm{\Omega})$ is a polynomial of the tuple $(\bm{S}, \bm{\Omega})$,
+it depends smoothly on the tuple.
+The inverse, which is a smooth operation, will also depend smoothly on 
+the tuple $(\bm{S}, \bm{\Omega})$.
+\end{proof}
+
+\begin{proposition}
+Given $(\bm{A}, s) \in \Theta$ and $(\bm{V}, c) \in T_{(\bm{A}, s)}\Theta$,
+orthogonal projection of $(\bm{V}, c)$ to $V_{(\bm{A}, s)}$ 
+is
+
+\begin{equation*}
+  \bracket{\bm{A} \psi_{\bm{A}^T\bm{A}}^{-1}(\bm{A}^T \bm{V} - \bm{V}^T \bm{A}), 0}
+\end{equation*}
+and the same vector projected
+to $H_{(\bm{A}, s)}$ is
+
+\begin{equation*}
+  \bracket{\bm{V} - \bm{A} \psi_{\bm{A}^T\bm{A}}^{-1}(\bm{A}^T \bm{V} - \bm{V}^T \bm{A}), c}.
+\end{equation*}
+Here $\psi$ is as in Lemma~\ref{thm:psi_S}.
+\end{proposition}
+
+\begin{proof}
+It suffices to prove the formula for verticle projection 
+as the horizontal one follows by a subtraction.
+By Proposition~\ref{thm:horizontal_vertical},
+the orthogonal projection of $(\bm{V}, c)$ to $V_{(\bm{A}, s)}$
+equals to $(\bm{A} \bm{\Omega}, 0) \in V_{(\bm{A}, s)}$ for some $q \times q$ skew-symmetric matrix $\bm{\Omega}$
+which minimizes $\|\bm{V}-	\bm{A} \bm{\Omega}\|_F^2$.
+To compute $\bm{\Omega}$, let us compute the directional derivative of the quantity 
+in the direction of a $q \times q$ skew-symmetric matrix $\bm{H}$.
+For any $t \in \mathbb{R}$:
+
+\begin{equation*}
+  \begin{split}
+  & \tab[0.4cm] \|\bm{V}-	\bm{A} (\bm{\Omega} + t\bm{H}) \|_F^2 
+  = \tr\curly{\squared{\bm{V}-	\bm{A} (\bm{\Omega} + t\bm{H})}\squared{\bm{V}-	\bm{A} (\bm{\Omega} + t\bm{H})}^T}
+  \\ & = \|\bm{V}\|_F^2 - 2 \tr(\bm{\Omega}^T\bm{A}^T\bm{V} ) - 2t \tr(\bm{H}^T\bm{A}^T\bm{V} )
+  + \tr(\bm{\Omega}^T\bm{A}^T\bm{A}\bm{\Omega} )
+  + t^2 \tr(\bm{H}^T\bm{A}^T\bm{A}\bm{H} )
+  \end{split}
+\end{equation*}
+and 
+\begin{equation*}
+  \frac{\mathrm{d}}{\mathrm{d} t} \bigg|_{t=0}   \|\bm{V}-	\bm{A} (\bm{\Omega} + t\bm{H}) \|_F^2 
+  = \tr \squared{\bm{H}^T (\bm{A}^T\bm{A}\bm{\Omega} - \bm{A}^T \bm{V})}.
+\end{equation*}
+Therefore, any solution to the equation setting all directional derivatives to $0$
+yields that $\tr \squared{\bm{H}^T (\bm{A}^T\bm{A}\bm{\Omega} - \bm{A}^T \bm{V})} = 0$
+for all skew-symmetric $\bm{H}$,
+or equivalently that $\bm{A}^T\bm{A}\bm{\Omega} - \bm{A}^T \bm{V}$ is symmetric.
+Therefore, $\Omega$ must satisfy 
+
+\begin{equation*}
+  \bm{A}^T\bm{A}\bm{\Omega} + \bm{\Omega} \bm{A}^T\bm{A} = \bm{A}^T \bm{V} - \bm{V}^T \bm{A}.
+\end{equation*}
+The proof is complete once we apply
+Lemma~\ref{thm:psi_S}.
+\end{proof}
+
+Next,
+we record a proposition about lifting curves.
 
 \begin{proposition}\label{thm:curve_lift}
 Given a smooth curve $\gamma : (a,b) \to M$, 
@@ -480,7 +592,8 @@ Finally, as pointed out in the first proof of Theorem 17.8,
 $\text{Pt}_{\gamma}$ is unique, or equivalently $c$ is unique.
 \end{proof}
 
-Here is a basic geodesic classification result.
+\subsection{Geodesics, the Exponential Map, and the Logarithmic Map}
+Here is a classification result about all geodesics in $M$.
 
 \begin{proposition}\label{thm:geodesic_classification}
 Given $[\bm{A},s] \in M$ and $\bm{v} \in T_{[\bm{A},s]}M$, 
@@ -748,9 +861,9 @@ Note the following facts:
     \abs{\text{Exp}^{-1}_{[\bm{A},s]}([\bm{B},t])} = \sqrt{\|\bm{B}\bm{Q}(\bm{A},\bm{B})-\bm{A}\|_F^2 + (t-s)^2},
   \end{equation}
   which is realized by the geodesic $\gamma: [0,1] \to M$ defined by, for all $t \in [0,1]$:
-  \begin{equation*}
+  \begin{equation}\label{eq:dist_minimizing_curve}
     \gamma(t) = \text{Exp}_{[\bm{A},s]}(t \text{Exp}^{-1}_{[\bm{A},s]}([\bm{B},t])).
-  \end{equation*}
+  \end{equation}
 \end{enumerate}
 \end{proposition}
 
@@ -903,24 +1016,8 @@ we arrive at
 \begin{equation*}
   \bm{A}^T(\bm{A}+\bm{V})\bm{\Omega} + \bm{\Omega} \bm{A}^T(\bm{A}+\bm{V}) =\bm{0}.
 \end{equation*}
-By the spectral theorem, choose $\bm{P} \in O(q)$ 
-such that $\bm{A}^T(\bm{A}+\bm{V}) = \bm{P}\bm{S} \bm{P}^T$
-where $\bm{S}$ is the $q \times q$ diagonal matrix with diagonal 
-entries $\lambda_1(\bm{A}^T(\bm{A}+\bm{V})), \ldots, \lambda_q(\bm{A}^T(\bm{A}+\bm{V}))$.
-Substitute this yields 
-
-\begin{equation*}
-  \bm{S} (\bm{P}^T\bm{\Omega}\bm{P}) + (\bm{P}^T\bm{\Omega}\bm{P}) \bm{S} =\bm{0}.
-\end{equation*}
-Looking at each entry to get 
-\begin{equation*}
-  (\lambda_i(\bm{A}^T(\bm{A}+\bm{V})) + \lambda_j(\bm{A}^T(\bm{A}+\bm{V})))
-  (\bm{P}^T\bm{\Omega}\bm{P})_{ij} = 0,
-\end{equation*}
-for all $i$ and all $j \in \{1, \ldots, q\}$.
-Given that $\bm{A}^T(\bm{A}+\bm{V})$ is positive definite,
-this forces $\bm{P}^T\bm{\Omega}\bm{P} = \bm{0}$
-and hence $\bm{\Omega} = \bm{0}$.
+Lemma~\ref{thm:psi_S} with $\bm{S} = \bm{A}^T(\bm{A}+\bm{V})$
+forces $\bm{\Omega} = \bm{0}$.
 We have proven that $\text{Exp}_{[\bm{A},s]}$
 is a diffeomorphism in $\mathcal{E}_{[\bm{A},s]}$
 and that $U_{[\bm{A},s]}$ is an open subset of $M$.
@@ -1071,6 +1168,35 @@ show a stronger result that minimizing the norm of $\bm{B}\bm{Q}-\bm{A}$
 with fixed $\bm{A}$ and $\bm{B}$ will already lead to $\bm{Q} = \bm{Q}(\bm{A},\bm{B})$.
 \end{remark}
 
+\subsection{Parallel Transport}
+In \cite{Sun_Lin_Liu_2026},
+the parallel transport maps are always used along 
+the curve minimizing Riemannian distance.
+(In their work, the underlying manifold is always assumed to be 
+complete and therefore such a parallel transport map is 
+always well-defined.
+Given that our manifolds $\Theta$ and $M$ are both not complete,
+it is not immediately clear that a parallel transport map along 
+distance minimizing curve should be well-defined.)
+We will make the same definitions
+but only for given $[\bm{A},s] \in M$ and $[\bm{B}, t] \in U_{[\bm{A},s]}$
+because it is only in this case where we have shown that 
+there exists a unique 
+distance minimizing curve $\gamma$, given in
+\eqref{eq:dist_minimizing_curve}.
+We will also compute the parallel transport vector field 
+and hence the parallel transport map.
+(Although, in the current low dimensional document, 
+the only thing we will use out of this computation 
+is that the parallel transport map depends 
+\textit{smoothly on the tuple of all its entries}.)
+(I tried to trivialize this by searching for an existing result that proves the smoothness 
+on all entries in textbooks, but no textbooks seem to have prove 
+this exact statement and I have to do it in the harder way,
+namely to compute everything out and see the smoothness directly.)
+This is summarised in the following proposition.
+
+\subsection{A Limit Result}
 We end this section with a result concerning the limit of a sequence.
 
 \begin{proposition}\label{thm:quotient_limit}
