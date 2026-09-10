@@ -492,8 +492,8 @@ and $\bm{\Omega} = \bm{0}$.
 We have proved that $\psi_{\bm{S}}$ is invertible.
 Given that $\psi_{\bm{S}}(\bm{\Omega})$ is a polynomial of the tuple $(\bm{S}, \bm{\Omega})$,
 it depends smoothly on the tuple.
-The inverse, which is a smooth operation, will also depend smoothly on 
-the tuple $(\bm{S}, \bm{\Omega})$.
+$\psi_{\bm{S}}^{-1}(\bm{\Omega})$ also depends smoothly on 
+$(\bm{S}, \bm{\Omega})$ because the inverse is a smooth operation.
 \end{proof}
 
 \begin{proposition}
@@ -822,7 +822,7 @@ we from now on treat $\mathcal{E}_{[\bm{A},s]}$
 as the domain of the exponential map.
 That is, the function $\text{Exp}_{[\bm{A},s]}: \mathcal{E}_{[\bm{A},s]} \to U_{[\bm{A},s]}$,
 where $U_{[\bm{A},s]} := \text{Exp}_{[\bm{A},s]}(\mathcal{E}_{[\bm{A},s]})$ is an 
-open subset of $M$ known as a geodesic ball,
+open subset of $M$ referred to as a geodesic ball,
 is defined by \eqref{eq:exponential_map}.
 Note the following facts:
 
@@ -860,9 +860,9 @@ Note the following facts:
   \begin{equation}\label{eq:Riemannian_distance}
     \abs{\text{Exp}^{-1}_{[\bm{A},s]}([\bm{B},t])} = \sqrt{\|\bm{B}\bm{Q}(\bm{A},\bm{B})-\bm{A}\|_F^2 + (t-s)^2},
   \end{equation}
-  which is realized by the geodesic $\gamma: [0,1] \to M$ defined by, for all $t \in [0,1]$:
+  which is realized by one unique geodesic $\gamma: [0,1] \to M$ defined by, for all $u \in [0,1]$:
   \begin{equation}\label{eq:dist_minimizing_curve}
-    \gamma(t) = \text{Exp}_{[\bm{A},s]}(t \text{Exp}^{-1}_{[\bm{A},s]}([\bm{B},t])).
+    \gamma(u) = \text{Exp}_{[\bm{A},s]}(u \text{Exp}^{-1}_{[\bm{A},s]}([\bm{B},t])).
   \end{equation}
 \end{enumerate}
 \end{proposition}
@@ -1078,7 +1078,7 @@ It suffices to find a geodesic minimizing the Riemannian distance
 among all geodesics.
 By Proposition~\ref{thm:geodesic_classification},
 all geodesics connecting $[\bm{A},s]$ to $[\bm{B},t]$
-takes the form $\gamma(t)=[\bm{A}+t\bm{V},s+tc]$,
+takes the form $\gamma(u)=[\bm{A}+u\bm{V},s+uc]$,
 where $(\bm{V},c)$ is the horizontal lift of some 
 vector $\bm{v} \in T_{[\bm{A},s]}M$.
 It is clear that $c = t-s$ and $\bm{V} = \bm{B}\bm{Q}-\bm{A}$
@@ -1195,6 +1195,55 @@ on all entries in textbooks, but no textbooks seem to have prove
 this exact statement and I have to do it in the harder way,
 namely to compute everything out and see the smoothness directly.)
 This is summarised in the following proposition.
+
+\begin{proposition}
+Given $[\bm{A},s] \in M$ and $[\bm{B}, t] \in U_{[\bm{A},s]}$,
+put $\bm{v} := \text{Exp}^{-1}_{[\bm{A},s]}([\bm{B}, t])$.
+Then, as already proved in 
+Proposition~\ref{thm:exponential_map},
+with $\bm{V} = \bm{B}Q(\bm{A}, \bm{B}) - \bm{A}$
+and $c = t - s$, $(\bm{V}, c)$ is the horizontal lift of $\bm{v}$ at $(\bm{A},s)$
+and $\gamma: [0,1] \to M$ defined by, for all $u \in [0,1]$,
+
+\begin{equation*}
+  \gamma(u) = [\bm{A} + u \bm{V}, s + uc],
+\end{equation*}
+is the 
+unique distance minimizing curve connecting $[\bm{A},s]$ to $[\bm{B}, t]$,
+in accordance with 
+\eqref{eq:dist_minimizing_curve}.
+The lift of $\gamma$ to $(\bm{A},s)$ 
+is the curve $L:[0,1] \to \Theta$ defined by, for all $u \in [0,1]$,
+
+\begin{equation*}
+  L(u) = (\bm{A} + u \bm{V}, s + uc).
+\end{equation*}
+
+Let us write $\Pi_{[\bm{B}, t]}^{[\bm{A},s]}: T_{[\bm{B}, t]}M \to T_{[\bm{A},s]}M$
+for the parallel transport map along $\gamma$.
+Given $\bm{h} \in T_{[\bm{B}, t]}M$,
+let $\bm{X}$ be the
+parallel transport vector field along $\gamma$ for $\bm{h}$.
+This means $\bm{X}(u) \in T_{\gamma(u)}M$ for $u \in [0,1]$,
+$\bm{X}(1) = \bm{h}$, $X$ is smooth, and the covariant derivative along 
+$\gamma$, denoted by $\frac{D}{du} \bm{X}(u)$, always equal to 
+the zero vector field along the curve.
+Then $\Pi_{[\bm{B}, t]}^{[\bm{A},s]}(\bm{h}) = \bm{X}(0)$
+and $\bm{X}$
+are obtained in the following way.
+Let $(\bm{Z}, \beta)$ be the lift of $\bm{h}$
+at $(\bm{A} + \bm{V}, s + c) = (\bm{B} \bm{Q}(\bm{A},\bm{B}), t)$.
+With $\bm{Y}$ solving,
+$\bm{X}(u) = \mathrm{d} \pi_{\gamma(u)}((\bm{Y}(u), \beta))$ for all $u \in [0,1]$.
+Finally, the quantity 
+$\Pi_{[\bm{B}, t]}^{[\bm{A},s]}(\bm{h})$ depends smoothly on 
+the tuple $([\bm{A},s], [\bm{B}, t], \bm{h})$.
+\end{proposition}
+
+\begin{proof}
+Let $\bm{Y}(u)$ be the horizontal lift of $\bm{X}(u)$ with $\bm{Y}(0) = (\bm{A},s)$.
+Then $\bm{Y}$ is a hozirontal vector field along $L$.
+\end{proof}
 
 \subsection{A Limit Result}
 We end this section with a result concerning the limit of a sequence.
