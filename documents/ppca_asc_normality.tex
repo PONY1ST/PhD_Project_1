@@ -496,7 +496,7 @@ $\psi_{\bm{S}}^{-1}(\bm{\Omega})$ also depends smoothly on
 $(\bm{S}, \bm{\Omega})$ because the inverse is a smooth operation.
 \end{proof}
 
-\begin{proposition}
+\begin{proposition}\label{thm:projection}
 Given $(\bm{A}, s) \in \Theta$ and $(\bm{V}, c) \in T_{(\bm{A}, s)}\Theta$,
 orthogonal projection of $(\bm{V}, c)$ to $V_{(\bm{A}, s)}$ 
 is
@@ -507,9 +507,9 @@ is
 and the same vector projected
 to $H_{(\bm{A}, s)}$ is
 
-\begin{equation*}
+\begin{equation}\label{eq:horizontal_projection}
   \bracket{\bm{V} - \bm{A} \psi_{\bm{A}^T\bm{A}}^{-1}(\bm{A}^T \bm{V} - \bm{V}^T \bm{A}), c}.
-\end{equation*}
+\end{equation}
 Here $\psi$ is as in Lemma~\ref{thm:psi_S}.
 \end{proposition}
 
@@ -551,8 +551,12 @@ The proof is complete once we apply
 Lemma~\ref{thm:psi_S}.
 \end{proof}
 
-Next,
-we record a proposition about lifting curves.
+In most textbooks, one can find the standard fact that 
+any smooth vector field in $M$ uniquely horizontally lifts 
+to a smooth vector field in $\Theta$.
+However, not all textbooks mention about horizontal lifting curves
+or vector fields along curves. We bookkeep such a proposition
+for later convenience.
 
 \begin{proposition}\label{thm:curve_lift}
 Given a smooth curve $\gamma : (a,b) \to M$, 
@@ -562,13 +566,31 @@ which we refer to as the horizontal lift of of $\gamma$ at $t_0$ and
 representative $(\bm{A},s)$,
 such that $c(t_0) = (\bm{A},s)$ and, for all $t \in (a,b)$,
 $\pi(c(t)) = \gamma(t)$, $c'(t) \in H_{c(t)}$, and $\mathrm{d} \pi_{c(t)}(c'(t)) = \gamma(t)$.
+Furthermore,
+given a smooth vector field $\bm{X}(t)$ along $\gamma$,
+define, for each $t \in (a,b)$,
+$\bm{Y}(t)$
+to be the horizontal lift of $\bm{X}(t)$ at $c(t)$.
+Then $\bm{Y}(t)$ is a smooth vector field along $c$.
 \end{proposition}
 
 \begin{proof}
-This result is immediate from Theorem 17.8 and 17.9 from \citealp{Michor_2008}.
+The fact that $\gamma$ can be uniquely hozirontally lifted to a curve $c$
+is immediate from Theorem 17.8 and 17.9 from \citealp{Michor_2008}.
+Given a smooth vector field $\bm{X}(t)$ along $\gamma$
+and any $t \in (a,b)$, we can choose a smooth local frame 
+around $\gamma(t)$ so that the coefficients of $\bm{X}(t)$ 
+under this frame is smooth.
+Given that smooth local frames in $M$ lifts horizontally 
+to smooth local frames in $\Theta$, 
+the coefficients of $\bm{Y}(t)$ is defined as in the proposition
+will be smooth under the lifted frame, meaning that 
+$\bm{Y}(t)$ is smooth around $t$.
+Since $t$ is arbitrary, we have proved that $\bm{Y}(t)$
+is a smooth vector field along $c$.
 
 Given that the notations and language are slightly different in \citealp{Michor_2008},
-we provide a bit more explanation for convenience. 
+we provide a bit more explanation for reader's convenience. 
 We apply the two theorems for the fiber bundle $(E, p, M, S)$ with $E = \Theta$, $p = \pi$, $S = O(q)$,
 and $M$ is just our $M$. 
 The map $\Phi$ mentioned in their text (called the Ehresmann connection),
@@ -1222,27 +1244,157 @@ is the curve $L:[0,1] \to \Theta$ defined by, for all $u \in [0,1]$,
 Let us write $\Pi_{[\bm{B}, t]}^{[\bm{A},s]}: T_{[\bm{B}, t]}M \to T_{[\bm{A},s]}M$
 for the parallel transport map along $\gamma$.
 Given $\bm{h} \in T_{[\bm{B}, t]}M$,
-let $\bm{X}$ be the
+let $(\bm{Z}, \beta)$ be the lift of $\bm{h}$ at $(\bm{B}\bm{Q}(\bm{A},\bm{B}), t)$
+and $\bm{X}$ be the
 parallel transport vector field along $\gamma$ for $\bm{h}$.
 This means $\bm{X}(u) \in T_{\gamma(u)}M$ for $u \in [0,1]$,
 $\bm{X}(1) = \bm{h}$, $X$ is smooth, and the covariant derivative along 
 $\gamma$, denoted by $\frac{D}{du} \bm{X}(u)$, always equal to 
 the zero vector field along the curve.
-Then $\Pi_{[\bm{B}, t]}^{[\bm{A},s]}(\bm{h}) = \bm{X}(0)$
-and $\bm{X}$
-are obtained in the following way.
-Let $(\bm{Z}, \beta)$ be the lift of $\bm{h}$
-at $(\bm{A} + \bm{V}, s + c) = (\bm{B} \bm{Q}(\bm{A},\bm{B}), t)$.
-With $\bm{Y}$ solving,
-$\bm{X}(u) = \mathrm{d} \pi_{\gamma(u)}((\bm{Y}(u), \beta))$ for all $u \in [0,1]$.
-Finally, the quantity 
+Then, for each $u \in [0,1]$,
+
+\begin{equation}\label{eq:parallel_transport_X_formula}
+  \bm{X}(u) = \mathrm{d} \pi_{L(u)}
+  \bracket{(\bm{Z}(u), \beta)}
+\end{equation}
+and 
+\begin{equation*}
+  \Pi_{[\bm{B}, t]}^{[\bm{A},s]}(\bm{h}) = \bm{X}(0),
+\end{equation*}
+where $\bm{Z}(u)$, a $p \times q$ matrix, 
+is the unique solution of the first order 
+ordinary differential equation 
+
+\begin{equation}\label{eq:parallel_transport_equation}
+  \frac{\mathrm{d}}{\mathrm{d} u} \bm{Z}(u)
+  = - \frac{\partial}{\partial w}\biggr |_{w=u} 
+  (\bm{A}+w\bm{V})\psi^{-1}_{(\bm{A}+w\bm{V})^T(\bm{A}+w\bm{V})}
+\bracket{(\bm{A}+w\bm{V})^T\bm{Z}(u) - \bm{Z}(u)^T(\bm{A}+w\bm{V})}
+\end{equation}
+subject to the initial condition $\bm{Z}(1) = \bm{Z}$.
+Here $\psi$ is as in Lemma~\ref{thm:psi_S}.
+
+Finally, as a part of the conclusion, the quantity 
 $\Pi_{[\bm{B}, t]}^{[\bm{A},s]}(\bm{h})$ depends smoothly on 
 the tuple $([\bm{A},s], [\bm{B}, t], \bm{h})$.
 \end{proposition}
 
 \begin{proof}
-Let $\bm{Y}(u)$ be the horizontal lift of $\bm{X}(u)$ with $\bm{Y}(0) = (\bm{A},s)$.
-Then $\bm{Y}$ is a hozirontal vector field along $L$.
+Let $\bm{Y}(u) = (\bm{Z}(u), \beta(u))$ be the horizontal lift of $\bm{X}(u)$,
+which is a smooth horizontal vector field along $L$.
+We prove that $\bm{Z}(u)$ will satisfy \eqref{eq:parallel_transport_equation}
+and that $\beta(u) = \beta$ for all $u$
+using the projection map computed in Proposition~\ref{thm:projection}.
+
+For each point $(\bm{A},s) \in \Theta$, let us write
+$P_{(\bm{A},s)}:T_{(\bm{A},s)}\Theta \to T_{(\bm{A},s)}\Theta$
+for the orthogonal projection onto the horizontal tangent space 
+$H_{(\bm{A},s)}\Theta$.
+Given that $\bm{Y}(u)$ is a horizontal vector field, 
+it is invariant under this projection, namely, for all $u \in [0,1]$:
+
+\begin{equation}\label{eq:Y_horizontal_projection}
+  \bm{Y}(u) = P_{L(u)}(\bm{Y}(u)).
+\end{equation}
+By O'Neill's formula (see for instance \cite{Lee_2018} equation 5.27), 
+the Levi-Civita connection 
+in $M$ evaluated at two vector fields in $M$ lifts hozirontally
+to the Levi-Civita connection 
+in $\Theta$ evaluated at the horizontally 
+lifted version of the same two vector fields
+plus a verticle term.
+Consequently, the horizontal lift of 
+$\frac{\mathrm{D}}{\mathrm{d} u} \bm{X}(u)$ 
+equals to $\frac{\mathrm{D}}{\mathrm{d} u} \bm{Y}(u)$
+plus a verticle term.
+Given that $\bm{X}(u)$ is the parallel transport vector field,
+$\frac{\mathrm{D}}{\mathrm{d} u} \bm{X}(u)$ is the zero vector field 
+and its horizontal lift must also be the zero vector field.
+Therefore, $\frac{\mathrm{D}}{\mathrm{d} u} \bm{Y}(u)$
+is a verticle vector field and 
+
+\begin{equation}\label{eq:Y_dot_vertical}
+  P_{L(u)}(\frac{\mathrm{D}}{\mathrm{d} u} \bm{Y}(u)) = \bm{0}.
+\end{equation}
+With this in mind, 
+covariant differentiating both sides of 
+\eqref{eq:Y_horizontal_projection} to get
+\begin{equation}\label{eq:covariant_euclidean}
+  \frac{\mathrm{d}}{\mathrm{d} u} (\bm{Z}(u), \bm{\beta}(u))
+  = \frac{\mathrm{D}}{\mathrm{d} u} \bm{Y}(u)
+  = \frac{\mathrm{D}}{\mathrm{d} u} P_{L(u)}(\bm{Y}(u))
+  = \frac{\mathrm{d}}{\mathrm{d} u} P_{L(u)}(\bm{Y}(u)),
+\end{equation}
+where we have used the fact that 
+the covariant derivative in Euclidean space 
+is just the ordinary derivative.  
+We proceed by expanding out 
+\eqref{eq:Y_dot_vertical} and \eqref{eq:covariant_euclidean}
+using the chain rule, taking care of 
+the dependencies of 
+$P_{L(u)}(\bm{Y}(u))$ on $u$ for both entries.
+Put 
+
+\begin{equation*}
+F(w, \bm{W}) := \bm{W} - (\bm{A}+w\bm{V})\psi^{-1}_{(\bm{A}+w\bm{V})^T(\bm{A}+w\bm{V})}
+\bracket{(\bm{A}+w\bm{V})^T\bm{W} - \bm{W}^T(\bm{A}+w\bm{V})}.
+\end{equation*}
+Then $F$ is smooth by Lemma~\ref{thm:psi_S},
+linear in the second argument,
+and, by
+\eqref{eq:horizontal_projection},
+\begin{equation*}
+P_{L(u)}(\bm{Y}(u)) = (F(u, \bm{Z}(u)), \beta(u)).
+\end{equation*}
+\eqref{eq:Y_dot_vertical} now becomes
+\begin{equation}\label{eq:F_W_derivative_0}
+  \bm{0}
+  = P_{L(u)}\bracket{\frac{\mathrm{d}}{\mathrm{d} u}\bm{Y}(u)}
+  = \bracket{F\bracket{u, \frac{\mathrm{d}}{\mathrm{d} u}\bm{Z}(u)},\
+    \frac{\mathrm{d}}{\mathrm{d} u}\beta(u)}.
+\end{equation}
+Looking at the second component, 
+we get that $\frac{\mathrm{d}}{\mathrm{d} u}\beta(u) = 0$
+and that $\beta(u)$ is constant.
+Next, the first component in \eqref{eq:covariant_euclidean}
+becomes 
+\begin{equation*}
+  \begin{split}
+  & \tab[0.4cm] \frac{\mathrm{d}}{\mathrm{d} u} \bm{Z}(u)
+  = \frac{\mathrm{d}}{\mathrm{d} u} F(u, \bm{Z}(u))
+  = \frac{\partial F}{\partial w}(u, \bm{Z}(u))
+  + F\bracket{u, \frac{\mathrm{d}}{\mathrm{d} u}\bm{Z}(u)}
+  \\ & = \frac{\partial F}{\partial w}(u, \bm{Z}(u))
+  = - \frac{\partial}{\partial w}\biggr |_{w=u} 
+  (\bm{A}+w\bm{V})\psi^{-1}_{(\bm{A}+w\bm{V})^T(\bm{A}+w\bm{V})}
+\bracket{(\bm{A}+w\bm{V})^T\bm{Z}(u) - \bm{Z}(u)^T(\bm{A}+w\bm{V})}.
+  \end{split}
+\end{equation*}
+In the second term of the second equality, 
+we have used the fact that $F$ is linear in $\bm{W}$
+so that its derivative is the map itself.
+This second term equals to zero
+by the first component of \eqref{eq:F_W_derivative_0}.
+
+We have therefore proved \eqref{eq:parallel_transport_X_formula} 
+and \eqref{eq:parallel_transport_equation}.
+Given that \eqref{eq:parallel_transport_equation} 
+is a system of first order differential equation with an 
+initial condition with all dependencies 
+being smooth,
+a standard result in the theory of ordinary 
+differential equations show that 
+$\bm{Z}(u)$ exists, is unique, and depends smoothly 
+on the tuple of everything in the equation and the initial condition.
+That is, for any $u \in [0,1]$, 
+$\bm{Z}(u)$ depends smoothly on 
+the tuple $([\bm{A},s], [\bm{B},t], \bm{Z}, \beta)$.
+Given that horizontal lifts are smooth,
+$\Pi_{[\bm{B}, t]}^{[\bm{A},s]}(\bm{h})$ depends smoothly on 
+the tuple $([\bm{A},s], [\bm{B}, t], \bm{h})$,
+where different tangent spaces are identified together 
+as the subspaces of $\mathbb{R}^{p \times q + 1}$.
+This completes the proof.
 \end{proof}
 
 \subsection{A Limit Result}
@@ -1711,23 +1863,31 @@ Therefore, $\bm{h} = \bm{0}$.
 We have proven that $G_{[\bm{W},\sigma^2]}$ is positive definite.
 \end{proof}
 
+As an immediate consequence, we have  
+local asymptotic normality.
+
 \begin{proposition}\label{thm:LAN}
-Suppose that $[\bm{W},\sigma^2] \in M$ is the true parameter
-so that each $\bm{X}_i$ has density $p(\, \cdot \,; [\bm{W},\sigma^2])$ as in \eqref{eq:p_def}.
 We have the local asymptotic normality expansion
-\begin{equation}\label{eq:LAN_expansion}
-  \sum_{i=1}^n \log \frac{p\bracket{\bm{X}_i; \text{Exp}_{[\bm{W},\sigma^2]}\bracket{\frac{\bm{h}}{\sqrt{n}}}}}{p(\bm{X}_i; [\bm{W},\sigma^2])}
-  = \sum_{i=1}^n s(\bm{X}_i;[\bm{W},\sigma^2])\bracket{\frac{\bm{h}}{\sqrt{n}}}
-  - \frac{1}{2} G_{[\bm{W},\sigma^2]}(\bm{h},\bm{h}) + o_{\mathbb{P}}(1)
-\end{equation}
-whenever $n$ large enough that
-$\frac{\bm{h}}{\sqrt{n}} \in \mathcal{E}_{[\bm{W},\sigma^2]}$.
+
+\begin{equation*}
+  \sum_{i=1}^n \log \frac{p\bracket{\bm{X}_i; 
+  \text{Exp}_{\theta_0}\bracket{\frac{\bm{h}}{\sqrt{n}}}}}{p(\bm{X}_i; \theta_0)}
+  - \sum_{i=1}^n s(\bm{X}_i;\theta_0)\bracket{\frac{\bm{h}}{\sqrt{n}}}
+  + \frac{1}{2} G_{\theta_0}(\bm{h},\bm{h}) \to 0,
+\end{equation*}
+in probability as $n \to \infty$ when 
+$(\bm{X}_1, \ldots, \bm{X}_n)$ follows $P^n_{\theta_0}$.
+That is, when $\bm{X}_i$'s are independent identically distributed
+with density $p(\, \cdot \,; [\bm{W}_0,\sigma_0^2])$,
+as in \eqref{eq:p_def}.
 In particular,
 \begin{equation}\label{eq:LAN_weak_convergence}
-  \sum_{i=1}^n \log \frac{p\bracket{\bm{X}_i; \text{Exp}_{[\bm{W},\sigma^2]}\bracket{\frac{\bm{h}}{\sqrt{n}}}}}{p(\bm{X}_i; [\bm{W},\sigma^2])}
-  \to N \bracket{-\frac{1}{2}G_{[\bm{W},\sigma^2]}(\bm{h},\bm{h}), \, G_{[\bm{W},\sigma^2]}(\bm{h},\bm{h})}
+  \sum_{i=1}^n \log \frac{p\bracket{\bm{X}_i; \text{Exp}_{\theta_0}
+  \bracket{\frac{\bm{h}}{\sqrt{n}}}}}{p(\bm{X}_i; \theta_0)}
+  \to N \bracket{-\frac{1}{2}G_{\theta_0}(\bm{h},\bm{h}), \, G_{\theta_0}(\bm{h},\bm{h})}
 \end{equation}
-in distribution as $n \to \infty$.
+in distribution as $n \to \infty$
+when $(\bm{X}_1, \ldots, \bm{X}_n)$ follows $P^n_{\theta_0}$.
 \end{proposition}
 
 \begin{proof}
@@ -1738,6 +1898,7 @@ this follows from Proposition III.1 in \cite{Sun_Lin_Liu_2026}.
 
 \section{Properties of the Maximum Likelihood Estimator of $\mathcal{P}$}\label{sec:MLE}
 
+\subsection{The Maximum Likelihood Estimator}
 In this section, we assume that 
 there is a true parameter $[\bm{W}_0, \sigma_0^2] \in M$
 for the model $\mathcal{P}$ given in \eqref{eq:quotient_model}
@@ -1822,6 +1983,7 @@ the same model parametrized by $M$
 has a unique maximum likelihood estimator 
 $\squared{\hat{\bm{W}}_n,\hat{\sigma}_n^2}$.
 
+\subsection{Consistency}
 First of all, I would like to argue that 
 this quotient manifold parameter space allows 
 us to settle consistency in an (arguably more straightforward) 
@@ -1874,6 +2036,8 @@ will converge almost surely to $\sigma_0^2$ when $j \in \{q+1,\ldots,p\}$,
  $\|\hat{\bm{\Sigma}}_n-\bm{S}_n	\| \to 0 $ almost surely as $n \to \infty$.
 The proof is complete.
 \end{proof}
+
+\subsection{Asymptotic Linearity}
 
 We now move to prove that,
 locally at the true parameter, 
@@ -2201,6 +2365,8 @@ translates to here as well.
 This completes the proof.
 \end{proof}
 
+\subsection{Local Regularity}
+
 
 
 \chapter{Draft}
@@ -2379,7 +2545,7 @@ matrix.
   \item For every $(\bm{V},c) \in T_{(\bm{A},s)}\Theta$ the orthogonal
   projection $\mathcal{H}_{(\bm{A},s)}$ onto the horizontal space is
 
-  \begin{equation}\label{eq:horizontal_projection}
+  \begin{equation}
     \mathcal{H}_{(\bm{A},s)}\bracket{(\bm{V},c)}
     = \bracket{\bm{V} - \bm{A}\,\mathcal{L}_{\bm{A}}
     \bracket{\bm{A}^T\bm{V}-\bm{V}^T\bm{A}},\ c},
