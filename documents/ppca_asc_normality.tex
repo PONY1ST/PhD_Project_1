@@ -2367,7 +2367,51 @@ This completes the proof.
 
 \subsection{Local Regularity}
 
+We now show that the maximum likelihood is locally regular.
 
+\begin{lemma}
+Suppose that $K$ is a compact convex subset of $\mathbb{R}^d \times \mathbb{R}^d$,
+$R: \mathbb{R}^d \times \mathbb{R}^d \to \mathbb{R}^d$ is a smooth function, 
+$R((\bm{u}, \bm{u})) = \bm{0}$ for every $\bm{u} \in \mathbb{R}^d$,
+and $R(\bm{0}, \bm{w}) = \bm{0}$ for every $\bm{w} \in \mathbb{R}^d$.
+Then, there exists a constant $C \in (0, \infty)$ such that, 
+for all $(\bm{u}, \bm{w})\in K$:
+
+\begin{equation*}
+  \abs{R(\bm{u}, \bm{w})} \leqslant C \abs{\bm{u}}\abs{\bm{w}-\bm{u}}.
+\end{equation*}
+\end{lemma}
+
+\begin{proof}
+By the fundamental theorem of calculus, we have
+
+\begin{equation*}
+  \begin{split}
+  & \tab[0.4cm] R(\bm{u}, \bm{w}) = 
+  \int_0^1 \frac{\partial R}{\partial \bm{w}}(\bm{u}, \bm{u} + t(\bm{w}-\bm{u}))(\bm{w}-\bm{u}) \mathrm{d} t
+  \\ & = \int_0^1 \int_0^1 \frac{\mathrm{d}}{\mathrm{d}s}
+  \squared{\frac{\partial R}{\partial \bm{w}}(s\bm{u}, \bm{u} + t(\bm{w}-\bm{u}))(\bm{w}-\bm{u})} \mathrm{d} s \mathrm{d} t
+  = \int_0^1 \int_0^1 \frac{\partial }{\partial \bm{u}} \squared{\frac{\partial R}{\partial \bm{w}}
+  (s\bm{u}, \bm{u} + t(\bm{w}-\bm{u}))(\bm{w}-\bm{u})}\bm{u}  \mathrm{d} s \mathrm{d} t,
+  \end{split}
+\end{equation*}
+where we have used the fact that $\frac{\partial R}{\partial \bm{w}} R (0, \bm{u} + t(\bm{w}-\bm{u})) \equiv 0$
+because $R (0, \bm{u} + t(\bm{w}-\bm{u})) \equiv 0$.
+With 
+
+\begin{equation*}
+  C := \max_{(\bm{u}, \bm{w}) \in K } \abs{\frac{\partial }{\partial \bm{u}} \frac{\partial R}{\partial \bm{w}}
+  (\bm{u}, \bm{w})},
+\end{equation*}
+which is finite because $K$ is compact,
+we have, for all $(\bm{u}, \bm{w})\in K$:
+
+\begin{equation*}
+  \abs{R(\bm{u}, \bm{w})} \leqslant C \int_0^1 \int_0^1 \abs{\bm{u}}\abs{\bm{w}-\bm{u}}  \mathrm{d} s \mathrm{d} t
+  = C \abs{\bm{u}}\abs{\bm{w}-\bm{u}}.
+\end{equation*}
+The proof is complete.
+\end{proof}
 
 \chapter{Draft}
 
