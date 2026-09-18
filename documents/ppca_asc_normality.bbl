@@ -1,9 +1,18 @@
-\begin{thebibliography}{10}
+\begin{thebibliography}{12}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Anderson and Amemiya(1988)]{Anderson_Amemiya_1988}
+T.~W. Anderson and Yasuo Amemiya.
+\newblock The asymptotic normal distribution of estimators in factor analysis
+  under general conditions.
+\newblock \emph{The Annals of Statistics}, 16\penalty0 (2):\penalty0 759--771,
+  June 1988.
+\newblock \doi{10.1214/aos/1176350834}.
+\newblock URL \url{https://www.jstor.org/stable/2241755}.
 
 \bibitem[Datta and Chakrabarty(2023)]{Datta_Chakrabarty_2023}
 Arghya Datta and Sayak Chakrabarty.
@@ -46,6 +55,14 @@ Peter~W. Michor.
 \newblock \emph{Topics in Differential Geometry}, volume~93 of \emph{Graduate
   Studies in Mathematics}.
 \newblock American Mathematical Society, Providence, RI, 2008.
+
+\bibitem[Passemier et~al.(2017)Passemier, Li, and Yao]{Passemier_Li_Yao_2017}
+Damien Passemier, Zhaoyuan Li, and Jianfeng Yao.
+\newblock On estimation of the noise variance in high dimensional probabilistic
+  principal component analysis.
+\newblock \emph{Journal of the Royal Statistical Society Series B: Statistical
+  Methodology}, 79\penalty0 (1):\penalty0 51--67, 2017.
+\newblock \doi{10.1111/rssb.12153}.
 
 \bibitem[Redner(1981)]{Redner_1981}
 Richard Redner.

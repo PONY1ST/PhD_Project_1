@@ -17,7 +17,7 @@
 \usepackage{datetime2} %for the dtmnow command
 
 \title{Casual Document for Probabilistic Principal Component Analysis MLE Asymptotic Normality}
-\author{Wen, Zehai}
+\author{Wen, Zehai; Datta, Arghya}
 \date{\DTMnow}
 
 %Page style, header and footer:
@@ -28,7 +28,7 @@
 \addtolength{\topmargin}{-2.5pt}
 \fancyhf{}
 \lhead{
-Wen, Zehai}
+Wen, Zehai; Datta, Arghya}
 \rhead{\today}
 
 \rfoot{}
@@ -143,7 +143,7 @@ Wen, Zehai}
 \maketitle
 
 \setcounter{tocdepth}{0}
-%\tableofcontents
+\tableofcontents
 
 \chapter{Low Dimensional Asymptotic Normality}
 
@@ -528,20 +528,22 @@ For any $t \in \mathbb{R}$:
   \begin{split}
   & \tab[0.4cm] \|\bm{V}-	\bm{A} (\bm{\Omega} + t\bm{H}) \|_F^2 
   = \tr\curly{\squared{\bm{V}-	\bm{A} (\bm{\Omega} + t\bm{H})}\squared{\bm{V}-	\bm{A} (\bm{\Omega} + t\bm{H})}^T}
-  \\ & = \|\bm{V}\|_F^2 - 2 \tr(\bm{\Omega}^T\bm{A}^T\bm{V} ) - 2t \tr(\bm{H}^T\bm{A}^T\bm{V} )
-  + \tr(\bm{\Omega}^T\bm{A}^T\bm{A}\bm{\Omega} )
-  + t^2 \tr(\bm{H}^T\bm{A}^T\bm{A}\bm{H} )
+  \\ & = 
+  \|\bm{V}\|_F^2 + \tr(\bm{A}\bm{\Omega}\bm{\Omega}^T\bm{A}^T ) + t^2 
+  \tr(\bm{A}\bm{H}\bm{H}^T\bm{A}^T )
+  - 2 \tr(\bm{V}\bm{\Omega}^T\bm{A}^T ) - 2t \tr(\bm{V}\bm{H}^T\bm{A}^T )
+-2t \tr(\bm{A}\bm{\Omega}\bm{H}^T\bm{A}^T ) 
   \end{split}
 \end{equation*}
 and 
 \begin{equation*}
   \frac{\mathrm{d}}{\mathrm{d} t} \bigg|_{t=0}   \|\bm{V}-	\bm{A} (\bm{\Omega} + t\bm{H}) \|_F^2 
-  = \tr \squared{\bm{H}^T (\bm{A}^T\bm{A}\bm{\Omega} - \bm{A}^T \bm{V})}.
+  = 2 \tr \squared{\bm{H}^T (\bm{A}^T \bm{V}-\bm{A}^T\bm{A}\bm{\Omega})}.
 \end{equation*}
 Therefore, any solution to the equation setting all directional derivatives to $0$
-yields that $\tr \squared{\bm{H}^T (\bm{A}^T\bm{A}\bm{\Omega} - \bm{A}^T \bm{V})} = 0$
+yields that $\tr \squared{\bm{H}^T (\bm{A}^T \bm{V}-\bm{A}^T\bm{A}\bm{\Omega})} = 0$
 for all skew-symmetric $\bm{H}$,
-or equivalently that $\bm{A}^T\bm{A}\bm{\Omega} - \bm{A}^T \bm{V}$ is symmetric.
+or equivalently that $\bm{A}^T \bm{V}-\bm{A}^T\bm{A}\bm{\Omega}$ is symmetric.
 Therefore, $\Omega$ must satisfy 
 
 \begin{equation*}
@@ -2489,8 +2491,7 @@ follows $P^n_{\squared{\theta_{n,\bm{h}}}}$.
 We start with technical intermediate results.
 
 \begin{lemma}\label{thm:R_u_w_bound}
-Suppose that $K$ is a compact 
-convex neighborhood of $(\bm{0}, \bm{0})$ in 
+Suppose that $K$ is a compact subset of
 $\mathbb{R}^d \times \mathbb{R}^d$,
 $R: \mathbb{R}^d \times \mathbb{R}^d \to \mathbb{R}^d$ is a smooth function, 
 $R((\bm{u}, \bm{u})) = \bm{0}$ for every $\bm{u} \in \mathbb{R}^d$,
@@ -2521,8 +2522,9 @@ because $R (0, \bm{u} + t(\bm{w}-\bm{u})) \equiv 0$.
 With 
 
 \begin{equation*}
-  C := \max_{(\bm{u}, \bm{w}) \in K } \abs{\frac{\partial }{\partial \bm{u}} \frac{\partial R}{\partial \bm{w}}
-  (\bm{u}, \bm{w})},
+  C := \max_{((\bm{u}, \bm{w}),t,s) \in K \times [0,1] \times [0,1] } 
+  \abs{\frac{\partial }{\partial \bm{u}} \frac{\partial R}{\partial \bm{w}}
+  (s\bm{u}, \bm{u}+t(\bm{w}-\bm{u}))},
 \end{equation*}
 which is finite because $K$ is compact,
 we have, for all $(\bm{u}, \bm{w})\in K$:
@@ -2554,13 +2556,35 @@ when $(\bm{X}_1, \ldots, \bm{X}_n)$ follows $P^n_{\squared{\theta_{n,\bm{h}}}}$.
 \end{lemma}
 
 \begin{proof}
-Fix a constant $r \in \bracket{0, 
-\frac{\min(\sigma_{\min}(\bm{W}_0), \sigma_0^2)}{3}}$
+Fix a small enough constant 
+$r \in \bracket{0, \frac{\min(\sigma_{\min}(\bm{W}_0), \sigma_0^2)}{3}}$
 so that the ball $B_r$ centred at $\bm{0} \in T_{[\theta_0]}M$
 with radius $r$ is compactly contained in $\mathcal{E}_{[\theta_0]}$
 and, for every $(\bm{u}, \bm{w}) \in B_r \times B_r$,
 $\text{Exp}_{[\theta_0]}(\bm{w}) \in 
 U_{\text{Exp}_{[\theta_0]}(\bm{u})}$.
+To justify that this is doable, 
+first note that,
+by triangle inequality,
+the Rimannian distance between 
+$\text{Exp}_{[\theta_0]}(\bm{u})$ and 
+$\text{Exp}_{[\theta_0]}(\bm{w})$ is bounded 
+above by $\abs{\bm{u}} + \abs{\bm{w}} < 2r$
+if $(\bm{u}, \bm{w}) \in B_r \times B_r$.
+On the other hand, 
+if $\bm{u} \in B_r$ lifts to $(\bm{V},c)$ 
+at $\theta_0$,
+then $\text{Exp}_{[\theta_0]}(\bm{u})
+= [\bm{W}_0 + \bm{V}, \sigma_0^2 + c]$
+and, by Weyl's inequality, 
+$\sigma_{\min}(\bm{W}_0 + \bm{V}) > \sigma_{\min}(\bm{W}_0) - r > 2r$.
+Thus, by Fact 5 and 6 of Proposition~\ref{thm:exponential_map},
+points in $M$ with squared Riemannian distance 
+to $\text{Exp}_{[\theta_0]}(\bm{u})$
+smaller or equal to $2r$
+will lie inside
+$U_{\text{Exp}_{[\theta_0]}(\bm{u})}$.
+
 Define $F : B_r \times B_r \to T_{[\theta_0]}M$ by setting,
 for all $(\bm{u}, \bm{w}) \in B_r \times B_r$,
 that 
@@ -2664,7 +2688,7 @@ with distribution $N_d \bracket{\bm{0}, \bm{G}}$,
 which calculates to $\bm{G}^{-1}\bm{G}\bm{h} = \bm{h}$.
 
 Next, by Le Cam's third lemma as in Example 6.7 in \cite{van_der_Vaart_1998}, \eqref{eq:joint}
-implies that $\sqrt{n}\text{Exp}_{\squared{\theta_0}}\bracket{\squared{\hat{\theta}_n}}$
+implies that $\sqrt{n}\text{Exp}^{-1}_{\squared{\theta_0}}\bracket{\squared{\hat{\theta}_n}}$
 converges to $N_d(\bm{h}, \bm{G}^{-1})$ in distribution as $n \to \infty$
 when $(\bm{X}_1, \ldots, \bm{X}_n)$ 
 follows $P^n_{\squared{\theta_{n,\bm{h}}}}$.
@@ -2677,9 +2701,95 @@ will finish the proof.
 
 \section{High Dimensional Case}
 
+\begin{enumerate}
+  \item Unless things really do not work out, 
+  we will try to stick to the \textit{proportional regime}: 
+  $p \to \infty$, $n \to \infty$, and $\frac{p}{n} \to c \in (0, \infty)$
+  because of \cite{Passemier_Li_Yao_2017}.
+  It should be the case that, for all $c \in (0, \infty)$, as long as $q$ stays fixed,
+  $\hat{\bm{W}}_n$ will have rank $q$ and the maximum likelihood estimator is well-defined.
+  \item \underline{High dimensional consistency:}
+  Given $c \in (0, \infty)$, we should be able to determine the high dimensional covariance level consistency using 
+  
+  \begin{equation*}
+\hat{\bm{\Sigma}}_n-\bm{S}_n = \sum_{j=q+1}^p \bracket{\hat{\sigma}_n^2-\lambda_j(\bm{S}_n)} \bm{v}_j\bm{v}_j^T.
+\end{equation*}
+  So that, \textit{if we are willing to assume a condition on 
+  $c$ and the true parameter $[\bm{W}_0, \sigma_0^2]$ just like in \cite{Passemier_Li_Yao_2017}},
+  then we can (quickly) work out a bias corrected maximum likelihood estimator in the high dimensional case.
+  \item \underline{High dimensional asymptotic linearity 
+  $\sqrt{n} \text{Exp}^{-1}_{[\bm{W}_0, \sigma_0^2]}\bracket{\squared{\hat{\bm{W}}_n, \hat{\sigma}_n^2}}
+  \to N_d(\bm{0}, \bm{G}^{-1})$:} entirely unclear.
+  In lower dimensions, this is easily proved by looking at the tangent space $T_{[\bm{W}_0, \sigma_0^2]}M$
+  and apply \cite{van_der_Vaart_1998}.
+  \item \underline{High dimensional covariance limiting distribution
+  $\sqrt{n} (\hat{\bm{\Sigma}}_n- \bm{\Sigma}_0) \to D(\bm{Z})$ for $D$ linear and $\bm{Z} \sim N_d(\bm{0}, \bm{G}^{-1})$:} entirely unclear
+  and may be untrue because in lower dimension($p$ fixed and $n \to \infty$) $\bm{S}_n$ is asymptotically normal 
+  but in proportional regime, for any $c$, $\bm{S}_n$ is never asymptotically normal.
+  \item \underline{High dimensional Local Asymptotic Normality(LAN):} entirely unclear.
+  \item \underline{High dimensional Local Regularity $\sqrt{n} \Gamma_{\frac{\bm{h}}{\sqrt{n}}} \bracket{\text{Exp}^{-1}_{
+    \squared{\theta_{n, \bm{h}}}}\bracket{\squared{\hat{\theta}_n}}}
+    \to N_d \bracket{\bm{0}, \bm{G}^{-1}}$ :} entirely unclear.
+    In the lower dimensional case, the local regularity is derived by using LAN $+$ asymptotic linearity.
+    Now it may require other techniques.
+\end{enumerate}
+
 \section{Next Steps in Low Dimensions}
 
-\section{Simulations}
+\begin{enumerate}
+  \item Our low dimensional result should (re)cover 
+  results of \cite{Anderson_Amemiya_1988} as special cases
+  because \cite{Anderson_Amemiya_1988} only concerns loading matrices 
+  with special structures (to remove non-identifiability).
+  (Or, even better, we extend our low dimensional result 
+  to the more general error term like in 
+  \cite{Anderson_Amemiya_1988} and cover all their results).
+  \item We have proved the asymptotic linearity and local regularity.
+  But in \cite{Sun_Lin_Liu_2026}, local regularity is really prepared 
+  for efficiency. If possible, we should prove an efficiency result
+  for the maximum likelihood estimator (which is most likely true).
+  Mathematically, this should be fun to do because such a result 
+  will use more notions in geometry such as curvature.
+  \item There are two most popular notions of limiting normal distribution in 
+   Riemannian manifold $M$.
+  First, \textit{The wrapped normality} is asymptotic linearity 
+  \begin{equation*}
+    \sqrt{n} \text{Exp}^{-1}_{[\bm{W}_0, \sigma_0^2]}
+    \bracket{\squared{\hat{\bm{W}}_n, \hat{\sigma}_n^2}}
+  \to N_d(\bm{0}, \bm{G}^{-1})
+  \end{equation*}
+  pushed to $M$ by the exponential map.
+  Second, \textit{the Riemannian normal distirbution on $M$
+  with mean $p \in M$ and variance $\sigma^2 > 0$}
+  (or more generally, metric space normal on $M$)
+  is the distribution with volume measure density proportional to 
+
+  \begin{equation*}
+    \exp \bracket{- \frac{d(x, p)}{2 \sigma^2}} \mathrm{d} \text{vol}(x),
+  \end{equation*}
+  if well defined and integrates to finite number.
+  Here $d(x,p)$ denotes the Riemannian distance between $x$ and $p$.
+
+  Both 
+  \cite{Sun_Lin_Liu_2026} and us worked on the asymptotic linearity 
+  and hence on the wrapped normality.
+  No discussions are made with 
+  whether we can justify that $\squared{\hat{\bm{W}}_n, \hat{\sigma}_n^2}$
+  is asymptotical Riemannian normal (if we can find a 
+  way to describe the procedure of multiplying $\sqrt{n}$ in front).
+  It is not clear whether proving this sense of normality is meaningful
+  and how to prove this.
+  \item (Important) Compute $\bm{G}^{-1}$ and $D(\bm{Z})$.
+  \item (Important) Suppose that a (applied) statistician sees our (low dimensional)
+  result. (He always use the estimator $(\hat{\bm{W}}_n, \hat{\sigma}_n^2)$
+  with rotation matrix equal to identity.) How does our result help the practical inference?
+  One way is to find some (maybe unsolved) hypothesis testing problems that really is about 
+  the loading matrix.
+  We should at least be able to draw some locally regular confidence sets.
+  \item Simulations (for us gaining our own understanding):
+  Go search for benchmark data sets for low/high dimensions.
+  Especially after we have computed $\bm{G}^{-1}$ and $D(\bm{Z})$.
+\end{enumerate}
 
 \bibliographystyle{plainnat}
 \def\bibname{References} % Nom obligatoire de la section des références.
