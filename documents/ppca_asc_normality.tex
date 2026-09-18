@@ -2383,20 +2383,77 @@ This completes the proof.
 \begin{theorem}
 We have that
 
-\begin{equation*}
+\begin{equation}\label{eq:covariance_fit}
   \sqrt{n}\bracket{\hat{\bm{\Sigma}}_n - \bm{\Sigma}_0}
   - \frac{1}{\sqrt{n}}\sum_{i=1}^n D_{\text{IF}(\bm{X}_i)}\bm{\Sigma}(\squared{\bm{W}_0, \sigma_0^2}) \to \bm{0}
-\end{equation*}
+\end{equation}
 in probability as $n \to \infty$ when 
 $(\bm{X}_1, \ldots, \bm{X}_n)$
 follows the true distribution $P^n_{[\bm{W}_0, \sigma_0^2]}$.
-Therefore, the fitted covariance matrix is asymptotically normal.
+
+As in Theorem~\ref{thm:asc_linearity},
+let $g_{[\bm{W}_0, \sigma_0^2]}$-orthonormal basis $\bm{e}_1, \ldots, \bm{e}_d$
+be fixed and $\bm{G}$ be the $d \times d$ matrix corresponding to $G_{[\bm{W}_0, \sigma_0^2]}$.
+Define a function $D: \mathbb{R}^d \to \mathbb{R}^{p \times p}$
+by setting, for all $\bm{z} = (\bm{z}_1, \ldots, \bm{z}_d)$:
+
+\begin{equation*}
+  D(\bm{z}) = D_{\sum_{i=1}^d \bm{z}_i \bm{e}_i}\bm{\Sigma}(\squared{\bm{W}_0, \sigma_0^2}).
+\end{equation*}
+Then, 
+
+\begin{equation*}
+  \sqrt{n}\bracket{\hat{\bm{\Sigma}}_n - \bm{\Sigma}_0} \to D(\bm{Z})
+\end{equation*}
+in distribution as $n \to \infty$ 
+when 
+$(\bm{X}_1, \ldots, \bm{X}_n)$
+follows the true distribution $P^n_{[\bm{W}_0, \sigma_0^2]}$,
+where $Z$ is a random variable following $N_d(\bm{0}, \bm{G}^{-1})$
+distribution.
 \end{theorem}
 
 \begin{proof}
 Suppose that a given tangent vector $\bm{h} \in \mathcal{E}_{[\bm{W}_0, \sigma_0^2]}$
 lifts horizontally to $(\bm{U}, b)$ at $(\bm{W}_0, \sigma_0^2)$.
-\eqref{eq:score}
+\eqref{eq:Sigma_derivative} shows that 
+
+\begin{equation*}
+  \bm{\Sigma}\bracket{\text{Exp}_{[\bm{W}_0, \sigma_0^2]}(\bm{h})}
+  = (\bm{W}_0+\bm{U})(\bm{W}_0+\bm{U})^T + (\sigma_0^2+b)\bm{I}_p
+  = \bm{\Sigma}_0 + \bm{U}\bm{U}^T + D_{\bm{h}} \bm{\Sigma}([\bm{W}_0, \sigma_0^2]).
+\end{equation*}
+For simplicity, put 
+
+\begin{equation*}
+  \bm{h}_n := \text{Exp}^{-1}_{[\bm{W}_0, \sigma_0^2]}\bracket{\squared{\hat{\bm{W}}_n,\hat{\sigma}_n^2}}.
+\end{equation*}
+If $\bm{h}_n$
+lifts horizontally to $(\bm{U}_n, b_n)$ at $(\bm{W}_0, \sigma_0^2)$,
+then 
+
+\begin{equation*}
+  \sqrt{n}\bracket{\hat{\bm{\Sigma}}_n - \bm{\Sigma}_0}
+  = \sqrt{n}\bm{U}_n\bm{U}_n^T + \sqrt{n} D_{\bm{h}_n} \bm{\Sigma}([\bm{W}_0, \sigma_0^2]).
+\end{equation*}
+Since $\abs{\bm{U}_n\bm{U}_n^T}^2 = 	\|\bm{U}_n\|_F^2 = \abs{\bm{h}_n}^2$,
+the asymptotic normality of $\sqrt{n}\bm{h}_n$ proved in 
+Theorem~\ref{thm:asc_linearity} implies 
+that $\sqrt{n}\bm{U}_n\bm{U}_n^T \to \bm{0}$ 
+in probability as $n \to \infty$ when $(\bm{X}_1, \ldots, \bm{X}_n)$
+follows the true distribution $P^n_{[\bm{W}_0, \sigma_0^2]}$.
+As of the other term,
+given that the directional derivative is a linear map with respect to 
+$\bm{h}$, it follows from \eqref{eq:asc_linearity} that 
+
+\begin{equation*}
+  \sqrt{n} \bm{h}_n
+  - \frac{1}{\sqrt{n}} \sum_{i=1}^n D_{\text{IF}(\bm{X}_i)}\bm{\Sigma}(\squared{\bm{W}_0, \sigma_0^2}) \to 0
+\end{equation*}
+in probability as $n \to \infty$ when $(\bm{X}_1, \ldots, \bm{X}_n)$
+follows the true distribution $P^n_{[\bm{W}_0, \sigma_0^2]}$.
+We have therefore proved \eqref{eq:covariance_fit}.
+The rest of the conclusions follows immediately.
 \end{proof}
 
 \subsection{Local Regularity}
@@ -2551,8 +2608,7 @@ The maximum likelihood estimator is locally regular.
 With
 any $g_{[\theta_0]}$-orthonormal basis 
 $\bm{e}_1, \ldots, \bm{e}_d$ of $T_{[\theta_0]}M$ fixed
-and the $d \times d$ matrix $\bm{G}$ defined
-by setting $\bm{G}_{i,j} = \bm{G}_{[\theta_0]}(\bm{e}_i, \bm{e}_j)$,
+and the $d \times d$ matrix $\bm{G}$ defined just as in Theorem~\ref{thm:asc_linearity},
 we have
 
 \begin{equation*}
@@ -2613,727 +2669,11 @@ will finish the proof.
 
 \chapter{Next Steps}
 
-\section{Consequences}\label{sec:consequences}
+\section{High Dimensional Case}
 
-\subsection*{What local regularity adds}
+\section{Next Steps in Low Dimensions}
 
-Proposition~\ref{thm:MLE_asymptotics} and Theorem~\ref{thm:MLE_regular}
-end in the same limit law $N\bracket{\bm{0},G^{-1}}$, and the second was
-deduced from the first in three short steps; it is therefore worth saying
-plainly, before anything is derived from it, what the second asserts that
-the first does not.
-The difference is not in the limit.
-It is in the \textit{set of laws under which the limit is asserted}:
-Proposition~\ref{thm:MLE_asymptotics} is a statement about the single
-sequence $\mathbb{P}^n_{\theta_0}$, whereas Theorem~\ref{thm:MLE_regular}
-is a statement about the whole shrinking family
-$\curly{\mathbb{P}^n_{\theta_{n,\bm{h}}} : \bm{h} \in T_{\theta_0}M}$ of
-laws that no experiment of size $n$ can tell apart from it.
-Everything in this section is a consequence of that one difference.
-
-\textbf{Why the difference is not a technicality.}
-Lemma~\ref{thm:contiguity} says that $\mathbb{P}^n_{\theta_{n,\bm{h}}}$
-and $\mathbb{P}^n_{\theta_0}$ are mutually contiguous: for any fixed
-$\bm{h}$, no sequence of tests whose level under
-$\mathbb{P}^n_{\theta_0}$ tends to zero can have power against
-$\theta_{n,\bm{h}}$ tending to one, and symmetrically with the two
-parameters exchanged.
-The qualification about the level is not decorative --- the test that
-always rejects has power $1$ --- but it is exactly the qualification
-under which a testing problem is nontrivial.
-The statistician who has observed $\bm{X}_1,\ldots,\bm{X}_n$ is therefore
-never in a position to assert that the truth is $\theta_0$ rather than
-some $\theta_{n,\bm{h}}$; the best that can ever be known is that the
-truth lies within $O\bracket{n^{-\frac{1}{2}}}$ of the estimate, which is
-exactly the resolution at which the family $\curly{\theta_{n,\bm{h}}}$
-lives.
-An asymptotic property that holds at $\theta_0$ but fails at
-$\theta_{n,\bm{h}}$ is thus \textit{empirically unverifiable}: it is
-attached to a point that the data cannot single out.
-Proposition~\ref{thm:MLE_asymptotics} is such a statement as it stands,
-and Remark~\ref{rmk:hodges} shows that it is not vacuously stable --- the
-Hodges-type estimator constructed there satisfies the exact analogue of
-Proposition~\ref{thm:MLE_asymptotics} at every point of $M$
-\textit{other than} $\theta_*$, does strictly better than it at
-$\theta_*$ itself, and is nevertheless worthless near $\theta_*$, because
-the point at which its behaviour is anomalous moves with the sample size
-in precisely the way the statistician cannot track.
-Local regularity is the repair: it upgrades a claim indexed by a point to
-a claim indexed by a neighbourhood of the resolution scale, and it is
-exactly the strength needed, no more.
-We now list what this buys.
-
-\textbf{1. There is a lower bound at all.}
-This is the largest single gain, and it is a gain of \textit{kind}, not
-of degree.
-From Proposition~\ref{thm:MLE_asymptotics} alone \textit{no} optimality
-statement about $\hat{\theta}_n$ can be extracted, at $\theta_0$ or
-anywhere else: Remark~\ref{rmk:hodges} exhibits a competitor whose limit
-law at $\theta_*$ is $\delta_{\bm{0}}$, infinitely more concentrated than
-$N\bracket{\bm{0},G^{-1}}$ for every reasonable measure of concentration,
-and the same device can be run at any finite set of points at once.
-The class of all estimator sequences carries no nontrivial asymptotic
-lower bound whatsoever.
-Once attention is restricted to the locally regular ones, the
-H\'ajek--Le~Cam convolution theorem in the manifold form of
-Theorem III.1 of \cite{Sun_Lin_Liu_2026} applies to the present model ---
-its hypotheses are Theorem~\ref{thm:DQM} and Definition~\ref{def:regular},
-both verified here --- and yields, for every locally regular $T_n$ with
-limit law $L$,
-
-\begin{equation}\label{eq:convolution}
-  L = N\bracket{\bm{0},G^{-1}} * \mu
-  \qquad \text{for some Borel probability measure } \mu
-  \text{ on } T_{\theta_0}M .
-\end{equation}
-Nothing below depends on the manifold form of the theorem being
-available.
-Lemma~\ref{thm:chart_regularity} turns Definition~\ref{def:regular} into
-ordinary Euclidean regularity read in the normal chart, where
-\eqref{eq:LAN_coordinates} exhibits a locally asymptotically normal
-sequence of experiments with nonsingular information matrix $\bm{G}$; the
-classical convolution theorem, Chapter 8 of
-\cite{van_der_Vaart_1998}, applies to that sequence and returns
-\eqref{eq:convolution} directly.
-Either way, every locally regular limit law is the law of
-$\bm{Z}+\bm{N}$ with $\bm{Z} \sim N\bracket{\bm{0},G^{-1}}$ independent
-of $\bm{N} \sim \mu$: relative to the limit of
-Theorem~\ref{thm:MLE_regular}, an independent noise term has been
-\textit{added}, never subtracted.
-Two consequences of \eqref{eq:convolution} deserve to be named
-separately, because they are the statements a practitioner actually uses;
-a third item records, for contrast and for orientation only, the
-intrinsic Cram\'er--Rao inequality that the convolution theorem replaces
-here.
-
-\begin{itemize}
-  \item \textit{Efficiency.}
-  Theorem~\ref{thm:MLE_regular} exhibits $\hat{\theta}_n$ as the case
-  $\mu = \delta_{\bm{0}}$ of \eqref{eq:convolution}, so the maximum
-  likelihood estimator is asymptotically efficient in the class of
-  locally regular estimators of $\theta_0 \in M$.
-  This is Theorem V.1(i) of \cite{Sun_Lin_Liu_2026}, whose proof consists
-  of exactly the verification carried out in
-  Theorem~\ref{thm:MLE_regular}.
-  \item \textit{A risk bound for every bowl-shaped loss.}
-  Call $\ell : T_{\theta_0}M \to [0,\infty)$ bowl-shaped if its sublevel
-  sets $\curly{\ell \leqslant c}$ are closed, convex and symmetric about
-  $\bm{0}$; equivalently, if $\ell$ is nonnegative, lower semicontinuous
-  and quasiconvex with $\ell(-\bm{v}) = \ell(\bm{v})$.
-  Anderson's lemma applied to \eqref{eq:convolution} gives
-  $\mathbb{E}\squared{\ell\bracket{\bm{Z}+\bm{N}}}
-  \geqslant \mathbb{E}\squared{\ell(\bm{Z})}$, and the portmanteau
-  theorem for nonnegative lower semicontinuous functions --- this is
-  where the sublevel sets are required to be \textit{closed} --- turns
-  the convergence
-  $\sqrt{n}\hat{\bm{u}}_n[T_n] \rightsquigarrow L$ into
-
-  \begin{equation}\label{eq:risk_bound}
-    \liminf_n \mathbb{E}_{\mathbb{P}^n_{\theta_0}}
-    \squared{\ell\bracket{\sqrt{n}\,\hat{\bm{u}}_n[T_n]}}
-    \geqslant \mathbb{E}\squared{\ell(\bm{Z})}
-    \qquad \text{for every locally regular } T_n ,
-  \end{equation}
-  and equally with $\mathbb{P}^n_{\theta_0}$ replaced by any
-  $\mathbb{P}^n_{\theta_{n,\bm{h}}}$, the limit law being the same under
-  all of them.
-  See Chapter 8 of \cite{van_der_Vaart_1998} for the Euclidean argument,
-  which Lemma~\ref{thm:chart_regularity} imports verbatim.
-  Squared error is the case $\ell = \abs{\, \cdot \,}^2$, but so is
-  $\ell = \bm{1}_{A^c}$ for a fixed closed convex symmetric $A$, that is
-  the probability of missing a fixed region, which is what a confidence
-  statement is about.
-  \item \textit{The asymptotic Cram\'er--Rao bound.}
-  The intrinsic Cram\'er--Rao inequality on a parameter manifold,
-  Lemma III.2 and Corollary III.1 of \cite{Sun_Lin_Liu_2026}, bounds
-  below the covariance of the residual of an \textit{unbiased} estimator
-  in the sense of their Definition III.3, and carries at finite $n$ two
-  extra terms built from the curvature tensor of $(M,g)$ which have no
-  Euclidean counterpart; by the linearity of the curvature operator
-  recorded there, those terms are $O\bracket{n^{-1}}$ while the main term
-  $G^{-1}$ is $O(1)$, so that the bound reduces asymptotically to the
-  curvature-free $G^{-1}$.
-  We use it nowhere.
-  Converting it into a statement about $\hat{\theta}_n$ would require an
-  unbiasedness hypothesis, which nothing here gives any reason to expect
-  of the maximum likelihood estimator at finite $n$, and the convergence
-  $\text{Cov}\bracket{\sqrt{n}\hat{\bm{u}}_n} \to \bm{G}^{-1}$, which does
-  \textit{not} follow from Proposition~\ref{thm:MLE_asymptotics}: weak
-  convergence to $N\bracket{\bm{0},\bm{G}^{-1}}$ controls second moments
-  only through the $\liminf$ inequality \eqref{eq:risk_bound}, and
-  upgrading that to convergence needs the uniform integrability of
-  $\abs{\sqrt{n}\hat{\bm{u}}_n}^2$, which is nowhere established here and
-  is not innocuous, $\hat{\bm{u}}_n$ being defined by truncation to
-  $\bm{0}$ off $\mathcal{A}_n$ in \eqref{eq:e_n_def}.
-  The comparison we do make is the one the convolution theorem supplies,
-  namely \eqref{eq:convolution} and \eqref{eq:risk_bound}, which are
-  statements about laws and need no moment hypothesis at all.
-\end{itemize}
-
-None of this is available to someone holding
-Proposition~\ref{thm:MLE_asymptotics} alone, for the simple reason that
-\eqref{eq:convolution} is false without the word \textit{regular}: the
-Hodges sequence has $L = \delta_{\bm{0}}$ at $\theta_*$, and
-$\delta_{\bm{0}}$ is not of the form $N\bracket{\bm{0},G^{-1}} * \mu$,
-such a convolution having a nonsingular Gaussian factor and hence a
-density.
-
-\textbf{2. The influence operator is pinned down by a pointwise
-identity.}
-Asymptotic linearity says that the estimator is, to first order, an
-average of a fixed function of the data; it places no constraint at all
-on \textit{which} function.
-Local regularity places exactly one constraint, and it is a constraint
-that can be checked at a single point of the model, with no asymptotics
-at all.
-Proposition~\ref{thm:regular_IF} below states it: an asymptotically
-linear sequence is locally regular \textit{if and only if} its influence
-operator $\text{IF}'$ satisfies
-
-\begin{equation}\label{eq:IF_normalization}
-  \mathbb{E}\squared{s(\bm{X};\theta_0)(\bm{z})\ \text{IF}'(\bm{X})}
-  = \bm{z}
-  \qquad \text{for every } \bm{z} \in T_{\theta_0}M ,
-\end{equation}
-that is, if and only if the cross-covariance between the influence
-operator and the score is the identity operator of $T_{\theta_0}M$.
-This is the specialization to $\psi = \text{id}$ of the calculus of
-influence functions of Lemma III.3 of \cite{Sun_Lin_Liu_2026}; the
-proposition below adds the converse, which is what makes
-\eqref{eq:IF_normalization} usable as a criterion.
-The gain is concrete.
-A statistician who has computed an influence operator for a competing
-estimator, by whatever means, may decide whether that estimator is
-locally regular by evaluating one expectation under the true law, and may
-then read off its asymptotic covariance and compare it with $G^{-1}$ ---
-and, by part 2 of that proposition, the comparison always goes the same
-way.
-Without local regularity the influence operator is merely \textit{some}
-centred square integrable function subject to no normalization, and no
-comparison between two estimators is possible at all.
-
-\textbf{3. The estimator becomes equivariant in the limit experiment.}
-The expansion \eqref{eq:LAN_coordinates} of Proposition~\ref{thm:LAN}
-says that the local experiments
-$\bracket{\mathbb{P}^n_{\theta_{n,\bm{h}}} : \bm{h} \in T_{\theta_0}M}$
-converge, in Le Cam's sense, to the Gaussian shift experiment
-$\bracket{N\bracket{\bm{h},\bm{G}^{-1}} : \bm{h} \in \mathbb{R}^d}$, in
-which one observes a single Gaussian vector whose mean is the unknown
-local parameter and whose covariance is known (\citealp{van_der_Vaart_1998},
-Chapter 9).
-Proposition~\ref{thm:MLE_asymptotics} identifies the behaviour of
-$\sqrt{n}\hat{\bm{u}}_n$ at the \textit{single} point $\bm{h} = \bm{0}$
-of that limit experiment, which is no more informative than knowing the
-value of a function at one point of its domain.
-Equation \eqref{eq:third_lemma_conclusion} identifies it at every
-$\bm{h}$ at once, and the answer, $N\bracket{\bm{h},\bm{G}^{-1}}$, is
-exactly the law of the identity estimator $\bm{y} \mapsto \bm{y}$ in the
-limit experiment: in the limit, $\sqrt{n}\hat{\bm{u}}_n$ \textit{is} the
-natural shift-equivariant estimator of the local parameter.
-Local regularity is the assertion that the map sending $\bm{h}$ to the
-law of $\sqrt{n}\hat{\bm{u}}_n$ under $\mathbb{P}^n_{\theta_{n,\bm{h}}}$
-converges to an equivariant family, and equivariance is the property that
-transfers the optimality theory of the limit experiment --- where it is a
-finite dimensional Gaussian computation --- back to the sequence.
-This is the structural reason behind item 1: \eqref{eq:convolution} is
-the image, under the convergence of experiments, of the elementary fact
-that an equivariant estimator of a Gaussian mean cannot improve on the
-observation itself.
-
-\textbf{4. The property survives smooth transformation.}
-Let $\varphi$ be a smooth map from a neighbourhood of $\theta_0$ in $M$
-into a fixed finite dimensional vector space; shrinking the radius $r$ of
-\eqref{eq:V_def} if necessary, we may assume that $\varphi$ is defined on
-all of $\mathcal{V}$.
-As in \eqref{eq:errors_def}, the random vector $\varphi(T_n)$ is to be
-read with the convention that it is set to a fixed value, say
-$\varphi(\theta_0)$, off the event $\curly{T_n \in \mathcal{V}}$; the
-convention is harmless because that event has probability tending to one
-under every $\mathbb{P}^n_{\theta_{n,\bm{h}}}$, by localizability and
-Lemma~\ref{thm:contiguity}, and two random vectors agreeing on events of
-probability tending to one have the same weak limits.
-With that convention, if $T_n$ is locally regular at $\theta_0$ with
-limit law $L$, then $\varphi(T_n)$ satisfies
-
-\begin{equation}\label{eq:delta_regular}
-  \sqrt{n}\bracket{\varphi(T_n)-\varphi\bracket{\theta_{n,\bm{h}}}}
-  \rightsquigarrow \bracket{\mathrm{d}\varphi_{\theta_0}}_{\#}L
-  \qquad \text{under } \mathbb{P}^n_{\theta_{n,\bm{h}}},
-\end{equation}
-with a limit free of $\bm{h}$.
-This is the delta method applied in the normal chart to
-\eqref{eq:chart_regularity}.
-Indeed, put $\tilde{\varphi} := \varphi \circ \text{Exp}_{\theta_0}$,
-smooth on $B_r$ and with differential $\mathrm{d}\varphi_{\theta_0}$ at
-$\bm{0}$ because
-$\mathrm{d}\bracket{\text{Exp}_{\theta_0}}_{\bm{0}} = \text{id}$; Taylor's
-theorem, with the second derivative of $\tilde{\varphi}$ bounded on the
-compact set $\overline{B_{r/2}}$, supplies a constant $c < \infty$ with
-
-\begin{equation*}
-  \abs{\tilde{\varphi}(\bm{a})-\tilde{\varphi}(\bm{b})
-  -\mathrm{d}\varphi_{\theta_0}(\bm{a}-\bm{b})}
-  \leqslant c\bracket{\abs{\bm{a}}^2+\abs{\bm{b}}^2}
-  \qquad \text{for } \bm{a},\bm{b} \in \overline{B_{r/2}} .
-\end{equation*}
-Apply this with $\bm{a} = \hat{\bm{u}}_n[T_n]$ and
-$\bm{b} = \frac{\bm{h}}{\sqrt{n}}$, both in $\overline{B_{r/2}}$ with
-probability tending to one, and multiply by $\sqrt{n}$: the left hand
-side of \eqref{eq:delta_regular} equals
-$\mathrm{d}\varphi_{\theta_0}\bracket{\sqrt{n}\hat{\bm{u}}_n[T_n]-\bm{h}}$
-up to a remainder bounded by
-$c\,n^{-\frac{1}{2}}\bracket{\abs{\sqrt{n}\hat{\bm{u}}_n[T_n]}^2
-+\abs{\bm{h}}^2}$, which is $O_{\mathbb{P}}\bracket{n^{-\frac{1}{2}}}$
-because $\sqrt{n}\hat{\bm{u}}_n[T_n] = O_{\mathbb{P}}(1)$ under
-$\mathbb{P}^n_{\theta_{n,\bm{h}}}$ by Lemmas~\ref{thm:contiguity} and
-\ref{thm:chart_regularity}.
-Part 3 of Corollary~\ref{thm:Sigma_CLT} below is the instance
-$\varphi = \bm{\Sigma}$, carried out in full and with an exact remainder,
-and Remark~\ref{rmk:what_is_added} records that part 3 is the only part
-of that corollary requiring anything from Section~\ref{sec:regularity}.
-The point is that \eqref{eq:delta_regular} has no analogue starting from
-Proposition~\ref{thm:MLE_asymptotics}: the delta method applied to a
-pointwise central limit theorem returns a pointwise central limit
-theorem, and a family of pointwise statements indexed by $\theta$ carries
-no information about how they fit together, as Remark~\ref{rmk:hodges}
-demonstrates.
-Local regularity is stable under the operations one performs on
-estimators in practice; pointwise asymptotic normality is not.
-
-\textbf{5. Confidence sets that cover what they claim to cover.}
-This is the operational payoff.
-Corollary~\ref{thm:confidence} constructs the Wald region
-$\mathcal{C}_{n,1-\alpha} \subseteq M$ and shows that its coverage tends
-to $1-\alpha$ along every sequence of local alternatives, not merely at
-$\theta_0$.
-Remark~\ref{rmk:coverage_uniform} shows what the failure looks like when
-regularity is absent: the Hodges region covers $\theta_{n,\bm{h}}$ with
-limiting probability $1$ for small $\bm{h}$ and $0$ for large $\bm{h}$,
-and $1-\alpha$ for no $\bm{h}$ whatsoever, $\bm{h} = \bm{0}$ included.
-Since the statistician does not know $\bm{h}$ and, by contiguity, cannot
-come to know it, a region whose coverage depends on $\bm{h}$ reports a
-confidence level that is not the level it achieves.
-
-The rest of the section carries this out.
-The next subsection collects the three elementary facts that the
-arguments need.
-The two subsections after it prove the characterization announced in item
-2 and answer the question raised by item 3, namely in what sense
-$\hat{\theta}_n$ is asymptotically normal \textit{on the manifold}.
-The last two contain the consequences themselves: the confidence sets of
-item 5, and the instance of item 4 at the level of the fitted covariance
-matrix.
-
-\subsection*{Three preliminaries}
-
-The first preliminary is that the covariance matrix is a
-\textit{quadratic} function of the local parameter, exactly and with no
-remainder, which is what makes every delta method argument below an
-identity rather than an approximation.
-Throughout the section we write
-$\bm{\Sigma}_{\bm{u}} := \bm{\Sigma}\bracket{\text{Exp}_{\theta_0}(\bm{u})}$
-for the covariance matrix at the point of $M$ with normal coordinate
-$\bm{u} \in B_{\rho}$.
-
-\begin{lemma}\label{thm:Sigma_u}
-Let $\mathcal{D}_0 : T_{\theta_0}M \to \text{Sym}(p)$ be the linear map
-
-\begin{equation}\label{eq:D_0_def}
-  \mathcal{D}_0(\bm{h}) := D_{\bm{h}}\bm{\Sigma}(\theta_0)
-  = \bm{U}_{\bm{h}}\bm{W}_0^T + \bm{W}_0\bm{U}_{\bm{h}}^T
-  + b_{\bm{h}}\bm{I}_p
-\end{equation}
-of \eqref{eq:Sigma_directional}.
-Then, for every $\bm{u} \in B_{\rho}$, one has the \textit{exact}
-identity
-
-\begin{equation}\label{eq:Sigma_u_quadratic}
-  \bm{\Sigma}_{\bm{u}}
-  = \bm{\Sigma}_0 + \mathcal{D}_0(\bm{u})
-  + \bm{U}_{\bm{u}}\bm{U}_{\bm{u}}^T ,
-\end{equation}
-with no remainder.
-Moreover, with $r$ the radius fixed in \eqref{eq:V_def}, there are
-constants $0 < c_1 \leqslant c_2 < \infty$, depending only on $\theta_0$
-and $r$, such that
-
-\begin{equation}\label{eq:spectral_bounds}
-  c_1\bm{I}_p \preceq \bm{\Sigma}_{\bm{u}} \preceq c_2\bm{I}_p
-  \qquad \text{for every } \bm{u} \in \overline{B_r} .
-\end{equation}
-In particular $\bm{u} \mapsto \bm{\Sigma}_{\bm{u}}^{-1}$ is smooth and
-bounded on $\overline{B_r}$.
-\end{lemma}
-
-\begin{proof}
-By \eqref{eq:exponential_map} and \eqref{eq:Sigma_Phi_def},
-
-\begin{equation*}
-  \bm{\Sigma}_{\bm{u}}
-  = \bracket{\bm{W}_0+\bm{U}_{\bm{u}}}\bracket{\bm{W}_0+\bm{U}_{\bm{u}}}^T
-  + \bracket{\sigma_0^2+b_{\bm{u}}}\bm{I}_p
-  = \bm{\Sigma}_0 + \bm{U}_{\bm{u}}\bm{W}_0^T + \bm{W}_0\bm{U}_{\bm{u}}^T
-  + b_{\bm{u}}\bm{I}_p + \bm{U}_{\bm{u}}\bm{U}_{\bm{u}}^T,
-\end{equation*}
-which is \eqref{eq:Sigma_u_quadratic}.
-For the bounds, the first summand of the middle expression is positive
-semidefinite, and $\abs{b_{\bm{u}}} \leqslant \abs{\bm{u}} \leqslant r
-< \rho \leqslant \sigma_0^2$ by \eqref{eq:lift_properties} and
-\eqref{eq:rho_def}; hence
-$\bm{\Sigma}_{\bm{u}} \succeq \bracket{\sigma_0^2-r}\bm{I}_p$ and we may
-take $c_1 := \sigma_0^2-r > 0$.
-Similarly $\|\bm{U}_{\bm{u}}\| \leqslant \|\bm{U}_{\bm{u}}\|_F \leqslant r$,
-so that $\|\bm{\Sigma}_{\bm{u}}\| \leqslant
-\bracket{\|\bm{W}_0\|+r}^2+\sigma_0^2+r =: c_2$.
-\end{proof}
-
-The second preliminary is the general notion of asymptotic linearity, of
-which \eqref{eq:asc_linearity} is the instance proved in
-Section~\ref{sec:MLE}.
-Naming it lets us record that the influence operator of a sequence is
-determined by the sequence, so that \eqref{eq:influence_function} is
-\textit{the} influence operator of $\hat{\theta}_n$ and not merely one of
-them.
-
-\begin{definition}[Asymptotic linearity]\label{def:asymptotic_linearity}
-A localizable estimator sequence $T_n$ is \textit{asymptotically linear at
-$\theta_0$ with influence operator}
-$\text{IF}' : \mathbb{R}^p \to T_{\theta_0}M$ if $\text{IF}'$ is Borel
-measurable, $\text{IF}'(\bm{X}_1)$ is centred and square integrable, and
-
-\begin{equation}\label{eq:asymptotic_linearity}
-  \sqrt{n}\,\hat{\bm{u}}_n[T_n]
-  = \frac{1}{\sqrt{n}}\sum_{i=1}^n \text{IF}'(\bm{X}_i) + o_{\mathbb{P}}(1)
-  \qquad \text{under } \mathbb{P}^n_{\theta_0},
-\end{equation}
-with $\hat{\bm{u}}_n[T_n]$ the chart error of \eqref{eq:errors_def}.
-Proposition~\ref{thm:MLE_asymptotics} says that $\hat{\theta}_n$ is
-asymptotically linear in this sense, with influence operator
-$\text{IF}$ of \eqref{eq:influence_function}.
-\end{definition}
-
-\begin{proposition}[Uniqueness of the influence operator]\label{thm:IF_unique}
-If $\text{IF}'$ and $\text{IF}''$ both satisfy
-\eqref{eq:asymptotic_linearity} for the same estimator sequence $T_n$,
-then $\text{IF}'(\bm{X}_1) = \text{IF}''(\bm{X}_1)$ almost surely.
-\end{proposition}
-
-\begin{proof}
-Subtracting the two expansions \eqref{eq:asymptotic_linearity} gives
-$n^{-\frac{1}{2}}\sum_{i=1}^n \bm{D}(\bm{X}_i) = o_{\mathbb{P}}(1)$ with
-$\bm{D} := \text{IF}'-\text{IF}''$, which is centred and square integrable
-by Definition~\ref{def:asymptotic_linearity}.
-The multivariate central limit theorem gives
-$n^{-\frac{1}{2}}\sum_{i=1}^n\bm{D}(\bm{X}_i) \rightsquigarrow
-N\bracket{\bm{0},\text{Cov}\bracket{\bm{D}(\bm{X}_1)}}$, and a sequence
-converging in distribution to a limit and also to $\bm{0}$ in probability
-forces that limit to be $\delta_{\bm{0}}$; hence
-$\text{Cov}\bracket{\bm{D}(\bm{X}_1)} = \bm{0}$ and, $\bm{D}(\bm{X}_1)$
-being centred, $\bm{D}(\bm{X}_1) = \bm{0}$ almost surely.
-\end{proof}
-
-The third preliminary is that the Fisher information operator may be
-evaluated at a nearby point, and in particular at the estimator, without
-losing smoothness or positive definiteness.
-To compare the operators at two points we read them in one and the same
-frame, transported along the radial geodesic.
-
-\begin{lemma}\label{thm:information_smooth}
-For $\bm{u} \in B_r$ let $\bm{G}(\bm{u})$ be the $d \times d$ matrix
-
-\begin{equation}\label{eq:G_transported}
-  \bm{G}(\bm{u})_{jk} := G_{\text{Exp}_{\theta_0}(\bm{u})}
-  \bracket{\Gamma_{\bm{u}}^{-1}(\bm{e}_j),\ \Gamma_{\bm{u}}^{-1}(\bm{e}_k)},
-  \qquad j,k = 1,\ldots,d,
-\end{equation}
-the matrix of the Fisher information operator at
-$\text{Exp}_{\theta_0}(\bm{u})$ in the frame obtained by transporting
-$\bm{e}_1,\ldots,\bm{e}_d$ along the radial geodesic.
-Then $\bm{u} \mapsto \bm{G}(\bm{u})$ is smooth on $B_r$, positive definite
-everywhere, and $\bm{G}(\bm{0}) = \bm{G}$.
-\end{lemma}
-
-\begin{proof}
-Write $(\bm{W}_{\bm{u}},\sigma^2_{\bm{u}})
-:= \bracket{\bm{W}_0+\bm{U}_{\bm{u}},\ \sigma_0^2+b_{\bm{u}}}$ for the
-representative of $\text{Exp}_{\theta_0}(\bm{u})$ used in
-\eqref{eq:exponential_map}, which is affine in $\bm{u}$, and let
-$\bracket{\tilde{\bm{U}}_j(\bm{u}),\ \tilde{b}_j(\bm{u})}
-:= \iota_{(\bm{W}_{\bm{u}},\sigma^2_{\bm{u}})}
-\bracket{\Gamma^{-1}_{\bm{u}}(\bm{e}_j)}$ be the horizontal lift there.
-By \eqref{eq:G_def} and \eqref{eq:Sigma_directional} applied at the point
-$\text{Exp}_{\theta_0}(\bm{u})$,
-
-\begin{equation*}
-  \bm{G}(\bm{u})_{jk} = \frac{1}{2}\tr\curly{
-  \bm{\Sigma}_{\bm{u}}^{-1}\bm{N}_j(\bm{u})
-  \bm{\Sigma}_{\bm{u}}^{-1}\bm{N}_k(\bm{u})},
-  \qquad
-  \bm{N}_j(\bm{u}) := \tilde{\bm{U}}_j(\bm{u})\bm{W}_{\bm{u}}^T
-  + \bm{W}_{\bm{u}}\tilde{\bm{U}}_j(\bm{u})^T
-  + \tilde{b}_j(\bm{u})\bm{I}_p .
-\end{equation*}
-Each ingredient is smooth in $\bm{u}$: the matrix $\bm{\Sigma}_{\bm{u}}$
-is polynomial in $\bm{u}$ by \eqref{eq:Sigma_u_quadratic} and is bounded
-below by $c_1\bm{I}_p$ by \eqref{eq:spectral_bounds}, so
-$\bm{\Sigma}_{\bm{u}}^{-1}$ is smooth; $\Gamma^{-1}_{\bm{u}}$ is smooth by
-Proposition~\ref{thm:parallel_transport} and
-Definition~\ref{def:transport}; and
-$\iota_{(\bm{W}_{\bm{u}},\sigma^2_{\bm{u}})}$ is smooth in $\bm{u}$ by
-part 3 of Lemma~\ref{thm:lyapunov_lemma}.
-That $\bm{G}(\bm{0}) = \bm{G}$ is $\Gamma_{\bm{0}} = \text{id}$, and
-positive definiteness is Theorem~\ref{thm:DQM} at the point
-$\text{Exp}_{\theta_0}(\bm{u})$, the change of frame being invertible.
-\end{proof}
-
-
-\subsection*{The fitted covariance matrix}
-
-The second consequence records what all of this says about the object the
-model is really about, namely the fitted covariance matrix
-$\hat{\bm{\Sigma}}_n$ of \eqref{eq:Sigma_hat_def}, which, unlike
-$\hat{\theta}_n$ itself, is an honest element of the fixed vector space
-$\text{Sym}(p)$.
-It is the instance $\varphi = \bm{\Sigma}$ of item 4 above, and the linear
-map $\mathcal{D}_0$ of \eqref{eq:D_0_def} plays the role of
-$\mathrm{d}\varphi_{\theta_0}$: it is the differential
-$\mathrm{d}\bm{\Sigma}_{\theta_0}$ of the map $\bm{\Sigma}$ of
-\eqref{eq:Sigma_Phi_def}, read through the exponential chart.
-
-\begin{corollary}[Covariance level central limit theorem]\label{thm:Sigma_CLT}
-Let $1 \leqslant q < p$ and $\theta_0 \in M$.
-\begin{enumerate}
-  \item Under $\mathbb{P}^n_{\theta_0}$ the fitted covariance matrix is
-  asymptotically linear in $\text{Sym}(p)$ with influence function
-  $\mathcal{D}_0 \circ \text{IF}$,
-  \begin{equation}\label{eq:Sigma_linear}
-    \sqrt{n}\bracket{\hat{\bm{\Sigma}}_n - \bm{\Sigma}_0}
-    = \frac{1}{\sqrt{n}}\sum_{i=1}^n
-    \mathcal{D}_0\bracket{\text{IF}(\bm{X}_i)} + o_{\mathbb{P}}(1),
-  \end{equation}
-  and consequently
-  \begin{equation}\label{eq:Sigma_CLT}
-    \sqrt{n}\bracket{\hat{\bm{\Sigma}}_n - \bm{\Sigma}_0}
-    \rightsquigarrow \mathcal{D}_0(\bm{Z}),
-    \qquad \bm{Z} \sim N\bracket{\bm{0},\ G^{-1}}
-    \text{ on } T_{\theta_0}M .
-  \end{equation}
-  \item The map $\mathcal{D}_0$ is injective, and, in the notation of
-  Lemma~\ref{thm:Sigma_0_spectrum}, its image is
-  \begin{equation}\label{eq:D_0_image}
-    \mathcal{D}_0\bracket{T_{\theta_0}M}
-    = \curly{\bm{J}_0
-    \begin{pmatrix} \bm{M}_{11} & \bm{M}_{21}^T \\
-    \bm{M}_{21} & \beta\bm{I}_{p-q}\end{pmatrix}\bm{J}_0^T
-    \ : \ \bm{M}_{11} \in \text{Sym}(q),\
-    \bm{M}_{21} \in \mathbb{R}^{(p-q)\times q},\ \beta \in \mathbb{R}},
-  \end{equation}
-  where $\bm{J}_0 := \squared{\bm{U}_0 \ \ \bm{U}_0^{\perp}} \in O(p)$ as
-  in \eqref{eq:J_0_def} below.
-  Hence the limit in \eqref{eq:Sigma_CLT} is a centred Gaussian law
-  carried by a $d$-dimensional subspace of $\text{Sym}(p)$, namely the
-  tangent space at $\bm{\Sigma}_0$ to the immersed submanifold
-  $\bm{\Sigma}(M)$ of Proposition~\ref{thm:horizontal_vertical}; it is
-  degenerate in $\text{Sym}(p)$ exactly when $p-q \geqslant 2$, the
-  codimension being
-  \begin{equation}\label{eq:Sigma_codim}
-    \frac{p(p+1)}{2} - d
-    = \frac{(p-q)(p-q+1)}{2} - 1
-    = \frac{(p-q+2)(p-q-1)}{2} .
-  \end{equation}
-  \item The convergence \eqref{eq:Sigma_CLT} is locally regular: for every
-  $\bm{h} \in T_{\theta_0}M$,
-  \begin{equation}\label{eq:Sigma_regular}
-    \sqrt{n}\bracket{\hat{\bm{\Sigma}}_n
-    - \bm{\Sigma}\bracket{\theta_{n,\bm{h}}}}
-    \rightsquigarrow \mathcal{D}_0(\bm{Z})
-    \qquad \text{under } \mathbb{P}^n_{\theta_{n,\bm{h}}},
-  \end{equation}
-  with the same limit law, free of $\bm{h}$.
-\end{enumerate}
-\end{corollary}
-
-\begin{proof}
-\textbf{1.}
-On $\mathcal{A}_n$ we have
-$\hat{\theta}_n = \text{Exp}_{\theta_0}(\hat{\bm{u}}_n)$, so
-\eqref{eq:Sigma_u_quadratic} at $\bm{u} = \hat{\bm{u}}_n$ is the exact
-identity
-
-\begin{equation}\label{eq:Sigma_hat_exact}
-  \hat{\bm{\Sigma}}_n - \bm{\Sigma}_0
-  = \mathcal{D}_0(\hat{\bm{u}}_n)
-  + \bm{U}_{\hat{\bm{u}}_n}\bm{U}_{\hat{\bm{u}}_n}^T
-  \qquad \text{on } \mathcal{A}_n ,
-\end{equation}
-with no remainder, because $\text{Exp}_{\theta_0}$ is affine in the
-horizontal lift.
-Since $\iota$ is a linear isometry,
-$\|\bm{U}_{\hat{\bm{u}}_n}\bm{U}_{\hat{\bm{u}}_n}^T\|_F
-\leqslant \|\bm{U}_{\hat{\bm{u}}_n}\|\,\|\bm{U}_{\hat{\bm{u}}_n}\|_F
-\leqslant \|\bm{U}_{\hat{\bm{u}}_n}\|_F^2
-\leqslant \abs{\hat{\bm{u}}_n}^2$, and
-$\abs{\hat{\bm{u}}_n} = O_{\mathbb{P}}\bracket{n^{-\frac{1}{2}}}$ by
-Proposition~\ref{thm:MLE_asymptotics}; hence
-$\sqrt{n}\,\|\bm{U}_{\hat{\bm{u}}_n}\bm{U}_{\hat{\bm{u}}_n}^T\|_F
-= O_{\mathbb{P}}\bracket{n^{-\frac{1}{2}}} = o_{\mathbb{P}}(1)$.
-Multiplying \eqref{eq:Sigma_hat_exact} by $\sqrt{n}$ therefore gives
-
-\begin{equation}\label{eq:Sigma_delta}
-  \sqrt{n}\bracket{\hat{\bm{\Sigma}}_n - \bm{\Sigma}_0}
-  = \mathcal{D}_0\bracket{\sqrt{n}\,\hat{\bm{u}}_n} + o_{\mathbb{P}}(1)
-  \qquad \text{on } \mathcal{A}_n ,
-\end{equation}
-and the restriction to $\mathcal{A}_n$ is harmless: the two sides of
-\eqref{eq:Sigma_delta} differ only on $\mathcal{A}_n^c$, whose probability
-tends to zero by Proposition~\ref{thm:error_welldefined}, so their
-difference is $o_{\mathbb{P}}(1)$ and they have the same weak limits.
-Now \eqref{eq:Sigma_linear} follows from \eqref{eq:asc_linearity} and the
-linearity of $\mathcal{D}_0$, and \eqref{eq:Sigma_CLT} from
-Proposition~\ref{thm:MLE_asymptotics}, Slutsky's lemma and the continuous
-mapping theorem applied to the linear, hence continuous, map
-$\mathcal{D}_0$.
-
-\textbf{2.}
-If $\mathcal{D}_0(\bm{h}) = \bm{0}$ then $G(\bm{h},\bm{h}) = 0$ by
-\eqref{eq:G_def}, whence $\bm{h} = \bm{0}$ by Theorem~\ref{thm:DQM}; so
-$\mathcal{D}_0$ is injective and its image has dimension $d$.
-That image is the one described in \eqref{eq:D_0_image} by
-\eqref{eq:Dh_blocks} of Lemma~\ref{thm:block_form} below, together with
-part 3 of that lemma and Lemma~\ref{thm:block_coords}: as $\bm{h}$ ranges
-over $T_{\theta_0}M$, the triple
-$\bracket{2\bm{\Psi}+b_{\bm{h}}\bm{I}_q,\ \bm{C}\bm{D}_0,\ b_{\bm{h}}}$
-ranges over all of
-$\text{Sym}(q)\times\mathbb{R}^{(p-q)\times q}\times\mathbb{R}$, the
-matrix $\bm{D}_0$ being invertible.
-The image is that of $\mathrm{d}\bm{\Sigma}_{\theta_0}$ because
-$\mathcal{D}_0(\bm{h}) = \frac{d}{dt}\big|_{t=0}
-\bm{\Sigma}\bracket{\text{Exp}_{\theta_0}(t\bm{h})}$ by
-\eqref{eq:Sigma_directional} and $t \mapsto \text{Exp}_{\theta_0}(t\bm{h})$
-has velocity $\bm{h}$ at $t=0$.
-Reading \eqref{eq:D_0_image} off, the only constraint that
-$\mathcal{D}_0(T_{\theta_0}M)$ imposes on a symmetric matrix is that its
-trailing $(p-q)\times(p-q)$ block, in the basis $\bm{J}_0$, be a multiple
-of the identity; the codimension is therefore
-$\dim \text{Sym}(p-q)-1 = \frac{(p-q)(p-q+1)}{2}-1$.
-Writing $m := p-q$, this is
-$\frac{m^2+m-2}{2} = \frac{(m+2)(m-1)}{2}$, and it vanishes if and only if
-$m = 1$, since $m+2 \geqslant 3$.
-The same number is $\frac{p(p+1)}{2}-d$: by \eqref{eq:d_def},
-
-\begin{equation*}
-  \frac{p(p+1)}{2} - d
-  = \frac{p(p+1)}{2} - pq - 1 + \frac{q(q-1)}{2}
-  = \frac{p^2 - 2pq + q^2 + p - q - 2}{2}
-  = \frac{m^2+m-2}{2} .
-\end{equation*}
-
-\textbf{3.}
-Fix $\bm{h}$ and work under $\mathbb{P}^n_{\theta_{n,\bm{h}}}$, which is
-contiguous to $\mathbb{P}^n_{\theta_0}$ by Lemma~\ref{thm:contiguity}; in
-particular $\mathbb{P}^n_{\theta_{n,\bm{h}}}(\mathcal{A}_n) \to 1$ and the
-$O_{\mathbb{P}}$ statements above persist, as in the proof of
-Corollary~\ref{thm:confidence}.
-Applying \eqref{eq:Sigma_u_quadratic} at $\bm{u} = \frac{\bm{h}}{\sqrt{n}}$
-gives the second exact identity
-
-\begin{equation*}
-  \bm{\Sigma}\bracket{\theta_{n,\bm{h}}} - \bm{\Sigma}_0
-  = \frac{1}{\sqrt{n}}\mathcal{D}_0(\bm{h})
-  + \frac{1}{n}\bm{U}_{\bm{h}}\bm{U}_{\bm{h}}^T ,
-\end{equation*}
-so subtracting it from \eqref{eq:Sigma_hat_exact} and multiplying by
-$\sqrt{n}$,
-
-\begin{equation*}
-  \sqrt{n}\bracket{\hat{\bm{\Sigma}}_n
-  - \bm{\Sigma}\bracket{\theta_{n,\bm{h}}}}
-  = \mathcal{D}_0\bracket{\sqrt{n}\hat{\bm{u}}_n - \bm{h}}
-  + \sqrt{n}\,\bm{U}_{\hat{\bm{u}}_n}\bm{U}_{\hat{\bm{u}}_n}^T
-  - \frac{1}{\sqrt{n}}\bm{U}_{\bm{h}}\bm{U}_{\bm{h}}^T
-  \qquad \text{on } \mathcal{A}_n .
-\end{equation*}
-The last term is deterministic and $O\bracket{n^{-\frac{1}{2}}}$.
-By \eqref{eq:third_lemma_conclusion},
-$\sqrt{n}\hat{\bm{u}}_n-\bm{h} \rightsquigarrow N(\bm{0},\bm{G}^{-1})$
-under $\mathbb{P}^n_{\theta_{n,\bm{h}}}$; in particular
-$\sqrt{n}\hat{\bm{u}}_n = O_{\mathbb{P}}(1)$ there, so the middle term is
-again $O_{\mathbb{P}}\bracket{n^{-\frac{1}{2}}}$ by the bound of part 1.
-The continuous mapping theorem applied to $\mathcal{D}_0$ now gives
-\eqref{eq:Sigma_regular}, the limit being the image of
-$N(\bm{0},\bm{G}^{-1})$, that is $\mathcal{D}_0(\bm{Z})$, and free of
-$\bm{h}$.
-\end{proof}
-
-\begin{remark}[What is used where]\label{rmk:what_is_added}
-Part 1 of Corollary~\ref{thm:Sigma_CLT} uses nothing from
-Section~\ref{sec:regularity} beyond the localization of
-Proposition~\ref{thm:error_welldefined}, and even there any normal
-neighbourhood of $\theta_0$ would serve in place of $\mathcal{V}$.
-Its proof invokes Proposition~\ref{thm:MLE_asymptotics}, the exact
-expansion \eqref{eq:Sigma_u_quadratic} and the continuous mapping theorem,
-and no more; neither the parallel transport of
-Proposition~\ref{thm:parallel_transport}, nor the transport comparison of
-Lemma~\ref{thm:transport_comparison}, nor the contiguity of
-Lemma~\ref{thm:contiguity}, nor the local regularity of
-Theorem~\ref{thm:MLE_regular} appears anywhere in it.
-It could have been stated at the end of Section~\ref{sec:MLE}; it is
-placed here only because part 3 belongs here, and because it is the
-covariance level reading of the whole chapter.
-
-The reason no transport is needed is the converse of the phenomenon that
-made Section~\ref{sec:regularity} necessary in the first place.
-The intrinsic error
-$\text{Exp}^{-1}_{\theta_{n,\bm{h}}}(\hat{\theta}_n)$ of
-Definition~\ref{def:regular} lives in $T_{\theta_{n,\bm{h}}}M$, a vector
-space that \textit{moves with $n$}, which is exactly why
-$\Gamma_{\bm{h}/\sqrt{n}}$ has to be inserted before any limit can be
-taken.
-The covariance level error
-$\hat{\bm{\Sigma}}_n - \bm{\Sigma}(\theta)$, by contrast, is a difference
-of two elements of the single fixed vector space $\text{Sym}(p)$, for
-every $\theta$ at once; there is nothing to transport, the delta method
-applies verbatim, and curvature is invisible because
-$\bm{\Sigma}(M) \subseteq \text{Sym}(p)$ is being viewed extrinsically.
-That the delta method is here an identity rather than an approximation is
-\eqref{eq:Sigma_u_quadratic}: the quadratic remainder is written out and
-cancelled, so \eqref{eq:Sigma_regular} is a sharper form of the general
-\eqref{eq:delta_regular}.
-
-What part 3 costs is correspondingly small: given
-\eqref{eq:third_lemma_conclusion}, which is the substance of
-Theorem~\ref{thm:MLE_regular} and does use Lemma~\ref{thm:contiguity} and
-Le Cam's third lemma, the passage to \eqref{eq:Sigma_regular} is three
-lines of exact algebra.
-One should resist reading more into part 3 than it says: it asserts that
-the \textit{maximum likelihood} fitted covariance is locally regular as an
-estimator of $\bm{\Sigma}(\theta)$, and nothing about other estimators.
-
-This is the place to close the account opened at the start of the
-section.
-Theorem~\ref{thm:MLE_regular} is a statement about \textit{other
-parameters} than $\theta_0$, and none of the geometry it rests on ---
-Lemma~\ref{thm:lyapunov_lemma},
-Proposition~\ref{thm:parallel_transport} and
-Lemmas~\ref{thm:uniform_chart} and \ref{thm:transport_comparison}, which
-are results about $(M,g)$ in their own right, independent of any
-statistics --- was needed by
-Proposition~\ref{thm:MLE_asymptotics}, which lives entirely inside the
-single vector space $T_{\theta_0}M$.
-They are what the two-base-point comparison costs, and
-Lemma~\ref{thm:contiguity} is the one probabilistic ingredient added
-alongside them.
-In the terminology of \cite{Sun_Lin_Liu_2026},
-Theorem~\ref{thm:MLE_regular} verifies their Definition III.5 for the
-probabilistic principal component analysis model.
-We have proved it through the chart reduction of
-Lemma~\ref{thm:chart_regularity} and the classical Euclidean results of
-\cite{van_der_Vaart_1998}, rather than by citing the manifold version,
-because Lemma~\ref{thm:transport_comparison} makes that reduction exact,
-and because of the localization of the curvature recorded in
-Remark~\ref{rmk:transport_scale}.
-\end{remark}
-
+\section{Simulations}
 
 \bibliographystyle{plainnat}
 \def\bibname{References} % Nom obligatoire de la section des références.
